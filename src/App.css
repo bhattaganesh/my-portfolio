@@ -279,7 +279,7 @@ img {
     font-size: var(--normal-font-size);
   }
 
-  .qualification_data {
+  .resume_data {
     gap: 0.5rem;
   }
 
@@ -363,7 +363,7 @@ img {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .qualification_sections {
+  .resume_sections {
     display: grid;
     grid-template-columns: 0.6fr;
     justify-content: center;
@@ -500,15 +500,15 @@ img {
     visibility: visible;
   }
 
-  .qualification_tabs {
+  .resume_tabs {
     justify-content: center;
   }
 
-  .qualification_button {
+  .resume_button {
     margin: 0 var(--mb-1);
   }
 
-  .qualification_sections {
+  .resume_sections {
     grid-template-columns: 0.5fr;
   }
 

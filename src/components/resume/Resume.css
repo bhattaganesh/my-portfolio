@@ -1,0 +1,72 @@
+.resume_tabs {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: var(--mb-2);
+}
+
+.resume_button {
+  font-size: var(--h3-font-size);
+  cursor: pointer;
+}
+
+.resume_button:hover {
+  color: var(--first-color);
+}
+
+.resume_icon {
+  font-size: 1.8rem;
+  margin-right: var(--mb-0-25);
+}
+
+.resume_data {
+  display: grid;
+  grid-template-columns: 1fr max-content 1fr;
+  column-gap: 1.5rem;
+}
+
+.resume_title {
+  font-size: var(--normal-font-size);
+  font-weight: var(--font-medium);
+}
+
+.resume_subtitle {
+  display: inline-block;
+  font-size: var(--small-font-size);
+  margin-bottom: var(--mb-1);
+}
+
+.resume_calender {
+  font-size: var(--smaller-font-size);
+  color: var(--text-color-light);
+  margin-bottom: 20px;
+}
+.resume_calender i {
+  margin-right: 5px;
+}
+.resume_rounder {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  background-color: var(--first-color);
+  border-radius: 50%;
+}
+
+.resume_line {
+  display: block;
+  width: 1px;
+  height: 100%;
+  background-color: var(--first-color);
+  transform: translate(6px, -7px);
+}
+
+.resume [data-content] {
+  display: none;
+}
+
+.resume_active[data-content] {
+  display: block;
+}
+
+.resume_button.resume_active {
+  color: var(--first-color);
+}

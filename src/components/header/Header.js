@@ -11,8 +11,10 @@ function Header() {
   const [scrollHeader, setScrollHeader] = useState("");
   useEffect(() => {
     window.addEventListener("scroll", () => {
-      if (this.scrollY >= 80) {
+      if (window.scrollY >= 80) {
         setScrollHeader("scroll_header");
+      } else {
+        setScrollHeader("");
       }
     });
   }, []);
