@@ -37,13 +37,6 @@ function About() {
                   project
                 </span>
               </div>
-              <div>
-                <span className="about_info-title">02+</span>
-                <span className="about_info-name">
-                  Companies <br />
-                  worked
-                </span>
-              </div>
             </div>
             <div className="about_buttons">
               <a
