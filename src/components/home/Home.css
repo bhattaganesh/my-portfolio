@@ -1,0 +1,76 @@
+.home {
+  padding: 6.5rem 0 2rem;
+}
+
+.home_container {
+  position: relative;
+  row-gap: 2rem;
+}
+
+.home_img {
+  justify-self: center;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  padding: 0;
+}
+
+.home_title {
+  font-size: var(--big-font-size);
+  line-height: 104%;
+  margin-bottom: var(--mb-0-75);
+}
+
+.home_subtitle {
+  font-size: var(--h3-font-size);
+  color: var(--text-color);
+  font-weight: var(--font-medium);
+  margin-bottom: var(--mb-0-75);
+}
+
+.home_description {
+  margin-bottom: var(--mb-2);
+}
+
+.home_social {
+  position: absolute;
+  top: 2rem;
+  right: 0.1rem;
+  display: grid;
+  justify-items: center;
+  row-gap: 3.5rem;
+}
+
+.home_social-follow {
+  font-weight: var(--font-medium);
+  font-size: var(--smaller-font-size);
+  color: var(--text-color);
+  position: relative;
+  transform: rotate(90deg);
+}
+
+.home_social_follow::after {
+  content: "";
+  position: absolute;
+  width: 1rem;
+  height: 2px;
+  background-color: var(--first-color);
+  right: -45%;
+  top: 50%;
+}
+
+.home_social-links {
+  display: inline-flex;
+  flex-direction: column;
+  row-gap: 0.25rem;
+}
+
+.home_social-icon {
+  font-size: 1.25rem;
+  color: var(--text-color);
+}
+
+.home_social-icon:hover {
+  color: var(--first-color);
+}
