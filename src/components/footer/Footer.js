@@ -3,33 +3,33 @@ import "./Footer.css";
 function Footer() {
   return (
     <>
-      <div class="footer">
+      <div className="footer">
         <h2>Ganesh Bhatta</h2>
-        <div class="footer-social">
+        <div className="footer-social">
           <a
             href="https://www.linkedin.com/in/ganesh-bhatta/"
             target="_blank"
             rel="noreferrer"
           >
-            <i class="uil uil-linkedin"></i>
+            <i className="uil uil-linkedin"></i>
           </a>
           <a
             href="https://www.facebook.com/ganesh.bhatta.gb"
             target="_blank"
             rel="noreferrer"
           >
-            <i class="uil uil-facebook"></i>
+            <i className="uil uil-facebook"></i>
           </a>
           <a
             href="https://github.com/bhattaganesh/"
             target="_blank"
             rel="noreferrer"
           >
-            <i class="uil uil-github"></i>
+            <i className="uil uil-github"></i>
           </a>
         </div>
       </div>
-      <div class="copyright">
+      <div className="copyright">
         <p>
           All Rights Reserved &#169; Ganesh Bhatt {new Date().getFullYear()}
         </p>

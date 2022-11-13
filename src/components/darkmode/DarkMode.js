@@ -16,7 +16,7 @@ function DarkMode() {
       body.classList.add(theme);
     }
   } else {
-    body.classList.add(darkTheme);
+    body.classList.add(lightTheme);
   }
 
   const switchTheme = (e) => {
@@ -45,7 +45,7 @@ function DarkMode() {
     <>
       <i
         className={`uil ${
-          theme === lightTheme ? lightIcon : darkIcon
+          theme === darkTheme ? darkIcon : lightIcon
         } change_theme`}
         id="theme-button"
         onClick={(e) => {
