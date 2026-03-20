@@ -1,0 +1,21 @@
+{
+  "name": "Ganesh Prasad Bhatt – Senior Full-Stack Developer",
+  "short_name": "Ganesh Bhatt",
+  "description": "Senior Full-Stack Software Developer with expertise in PHP, React, WordPress, and Gutenberg.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4c6ef5",
+  "icons": [
+    {
+      "src": "/icon",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-icon",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

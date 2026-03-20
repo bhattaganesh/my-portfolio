@@ -1,0 +1,365 @@
+1:I[39756,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"LoadingBoundaryProvider"]
+2:"$Sreact.fragment"
+3:I[63178,["/_next/static/chunks/0ti1b0_jr00zw.js","/_next/static/chunks/13159xoxv.qsm.js","/_next/static/chunks/187hr-pmdj8zb.js","/_next/static/chunks/101zn_si7ltyv.js"],"ThemeProvider"]
+4:I[84853,["/_next/static/chunks/0ti1b0_jr00zw.js","/_next/static/chunks/13159xoxv.qsm.js","/_next/static/chunks/187hr-pmdj8zb.js","/_next/static/chunks/101zn_si7ltyv.js"],"ScrollProgress"]
+5:I[45872,["/_next/static/chunks/0ti1b0_jr00zw.js","/_next/static/chunks/13159xoxv.qsm.js","/_next/static/chunks/187hr-pmdj8zb.js","/_next/static/chunks/101zn_si7ltyv.js"],"Header"]
+6:I[39756,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"default"]
+7:I[58298,["/_next/static/chunks/0ti1b0_jr00zw.js","/_next/static/chunks/13159xoxv.qsm.js","/_next/static/chunks/187hr-pmdj8zb.js","/_next/static/chunks/101zn_si7ltyv.js","/_next/static/chunks/0qg7ac3nwn5pq.js"],"default"]
+8:I[16868,["/_next/static/chunks/0ti1b0_jr00zw.js","/_next/static/chunks/13159xoxv.qsm.js","/_next/static/chunks/187hr-pmdj8zb.js","/_next/static/chunks/101zn_si7ltyv.js","/_next/static/chunks/0x87fb7kg-07q.js"],"default"]
+9:I[37457,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"default"]
+14:I[68027,["/_next/static/chunks/0ti1b0_jr00zw.js","/_next/static/chunks/13159xoxv.qsm.js","/_next/static/chunks/187hr-pmdj8zb.js","/_next/static/chunks/101zn_si7ltyv.js"],"default",1]
+:HL["/_next/static/chunks/0r1hja-ou3c8u.css","style"]
+:HL["/_next/static/media/70bc3e132a0a741e-s.p.1409xf.ylxg8g.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/CabinetGrotesk_Bold-s.p.02kj3bc8i7q64.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/CabinetGrotesk_Extrabold-s.p.0psa8x2z9v1dk.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/CabinetGrotesk_Medium-s.p.01epveb68p~70.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+0:{"P":null,"c":["","blog","scaling-wordpress-to-10m-users-lessons-from-brainstorm-force",""],"q":"","i":false,"f":[[["",{"children":["blog",{"children":[["slug","scaling-wordpress-to-10m-users-lessons-from-brainstorm-force","d",null],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",20],[["$","$L1",null,{"loading":[["$","div","l",{"className":"pt-24 pb-16","children":["$","div",null,{"className":"mx-auto max-w-6xl px-4 sm:px-6 lg:px-8","children":["$","div",null,{"className":"animate-pulse space-y-4","children":[["$","div",null,{"className":"h-10 bg-surface-200 dark:bg-surface-800 rounded-xl w-1/3"}],["$","div",null,{"className":"h-4 bg-surface-200 dark:bg-surface-800 rounded w-1/2"}],["$","div",null,{"className":"h-4 bg-surface-200 dark:bg-surface-800 rounded w-2/3"}],["$","div",null,{"className":"grid grid-cols-3 gap-4 mt-8","children":[["$","div","0",{"className":"aspect-video bg-surface-200 dark:bg-surface-800 rounded-xl"}],["$","div","1",{"className":"aspect-video bg-surface-200 dark:bg-surface-800 rounded-xl"}],["$","div","2",{"className":"aspect-video bg-surface-200 dark:bg-surface-800 rounded-xl"}]]}]]}]}]}],[],[]],"children":["$","$2","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/0r1hja-ou3c8u.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/0ti1b0_jr00zw.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/13159xoxv.qsm.js","async":true,"nonce":"$undefined"}],["$","script","script-2",{"src":"/_next/static/chunks/187hr-pmdj8zb.js","async":true,"nonce":"$undefined"}],["$","script","script-3",{"src":"/_next/static/chunks/101zn_si7ltyv.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"en","suppressHydrationWarning":true,"className":"inter_8a594245-module__h1XLeG__variable jetbrains_mono_37bfeb3d-module__XzirBW__variable cabinetgrotesk_d26ba881-module__r0AJ-W__variable","children":[["$","head",null,{"children":[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"WebSite\",\"name\":\"Ganesh Prasad Bhatt\",\"url\":\"https://www.ganeshbhatt.com.np\",\"description\":\"Senior Full-Stack Software Developer with 4+ years of experience building scalable web applications. Strong expertise in PHP, JavaScript, React, MySQL, and WordPress/Gutenberg ecosystem.\",\"author\":{\"@type\":\"Person\",\"name\":\"Ganesh Prasad Bhatt\"},\"potentialAction\":{\"@type\":\"SearchAction\",\"target\":\"https://www.ganeshbhatt.com.np/blog?q={search_term_string}\",\"query-input\":\"required name=search_term_string\"}}"}}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"Person\",\"name\":\"Ganesh Prasad Bhatt\",\"url\":\"https://www.ganeshbhatt.com.np\",\"email\":\"bhattaganesh05@gmail.com\",\"telephone\":\"+977-9848979669\",\"jobTitle\":\"Senior Full-Stack Software Developer\",\"worksFor\":{\"@type\":\"Organization\",\"name\":\"Brainstorm Force\"},\"sameAs\":[\"https://www.linkedin.com/in/ganesh-bhatta/\",\"https://github.com/bhattaganesh\",\"https://www.facebook.com/ganesh.bhatta.gb\"],\"address\":{\"@type\":\"PostalAddress\",\"addressLocality\":\"Kathmandu\",\"addressCountry\":\"NP\"}}"}}],["$","link",null,{"rel":"manifest","href":"/manifest.json"}]]}],"",["$","body",null,{"children":["$","$L3",null,{"attribute":"class","defaultTheme":"light","enableSystem":false,"disableTransitionOnChange":false,"children":[["$","a",null,{"href":"#main-content","className":"sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-primary-600 focus:text-white focus:font-semibold focus:shadow-lg","children":"Skip to main content"}],["$","$L4",null,{}],["$","$L5",null,{}],["$","main",null,{"id":"main-content","children":["$","$L6",null,{"parallelRouterKey":"children","error":"$7","errorStyles":[],"errorScripts":[["$","script","script-0",{"src":"/_next/static/chunks/0qg7ac3nwn5pq.js","async":true}]],"template":["$","$L8",null,{"children":["$","$L9",null,{}]}],"templateStyles":[],"templateScripts":["$La"],"notFound":"$Lb","forbidden":"$undefined","unauthorized":"$undefined"}]}],"$Lc","$Ld","$Le"]}]}]]}]]}]}],{"children":["$Lf",{"children":["$L10",{"children":["$L11",{},null,false,null]},null,false,"$@12"]},null,false,"$@12"]},null,false,null],"$L13",false]],"m":"$undefined","G":["$14",["$L15"]],"S":true,"h":null,"s":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"MBRP_DyV0H1TIA5Nrn7hr"}
+16:I[22016,["/_next/static/chunks/0ti1b0_jr00zw.js","/_next/static/chunks/13159xoxv.qsm.js","/_next/static/chunks/187hr-pmdj8zb.js","/_next/static/chunks/101zn_si7ltyv.js","/_next/static/chunks/133jbmvgt1sbg.js"],""]
+1c:I[92385,["/_next/static/chunks/0ti1b0_jr00zw.js","/_next/static/chunks/13159xoxv.qsm.js","/_next/static/chunks/187hr-pmdj8zb.js","/_next/static/chunks/101zn_si7ltyv.js"],"BackToTop"]
+1d:I[46696,["/_next/static/chunks/0ti1b0_jr00zw.js","/_next/static/chunks/13159xoxv.qsm.js","/_next/static/chunks/187hr-pmdj8zb.js","/_next/static/chunks/101zn_si7ltyv.js"],"Toaster"]
+1f:I[97367,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"OutletBoundary"]
+20:"$Sreact.suspense"
+23:I[97367,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"ViewportBoundary"]
+25:I[97367,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"MetadataBoundary"]
+a:["$","script","script-0",{"src":"/_next/static/chunks/0x87fb7kg-07q.js","async":true}]
+b:[["$","div",null,{"className":"min-h-screen flex flex-col items-center justify-center px-6 bg-white dark:bg-surface-950","children":[["$","div",null,{"aria-hidden":true,"className":"pointer-events-none absolute inset-0 overflow-hidden","children":[["$","div",null,{"className":"blob absolute -top-32 -left-32 h-96 w-96 bg-primary-100 opacity-40 dark:bg-primary-950 dark:opacity-20 animate-[var(--animate-float)]"}],["$","div",null,{"className":"blob absolute -bottom-32 -right-32 h-80 w-80 bg-primary-200 opacity-30 dark:bg-primary-900 dark:opacity-15 animate-[var(--animate-float)] [animation-delay:2s]"}]]}],["$","div",null,{"className":"relative z-10 text-center space-y-6 animate-[var(--animate-slide-up)]","children":[["$","p",null,{"className":"font-display text-[8rem] sm:text-[12rem] font-extrabold leading-none text-gradient select-none","children":"404"}],["$","h1",null,{"className":"font-display text-3xl sm:text-4xl font-bold text-surface-900 dark:text-surface-50","children":"Page Not Found"}],["$","p",null,{"className":"max-w-md mx-auto text-base sm:text-lg text-surface-500 dark:text-surface-400","children":"The page you're looking for doesn't exist or may have been moved."}],["$","$L16",null,{"href":"/","className":"inline-flex items-center gap-2 rounded-lg bg-primary-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-primary-500/25 transition-all hover:bg-primary-700 hover:-translate-y-0.5 hover:shadow-primary-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 active:translate-y-0","children":"Go Home"}]]}]]}],[]]
+c:["$","footer",null,{"className":"bg-surface-50 dark:bg-surface-950 border-t border-surface-200 dark:border-surface-800","aria-label":"Site footer","children":[["$","div",null,{"className":"mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16","children":["$","div",null,{"className":"grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3","children":[["$","div",null,{"className":"flex flex-col gap-5","children":[["$","$L16",null,{"href":"/","className":"self-start flex items-center gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-50 dark:focus-visible:ring-offset-surface-950 transition-opacity duration-200 hover:opacity-80","aria-label":"Ganesh Bhatt — home","children":[["$","svg",null,{"width":36,"height":36,"viewBox":"0 0 64 64","fill":"none","xmlns":"http://www.w3.org/2000/svg","className":"shrink-0","aria-hidden":"true","children":[["$","rect",null,{"width":"64","height":"64","rx":"16","fill":"url(#_S_1_-bg)"}],["$","rect",null,{"x":"0.5","y":"0.5","width":"63","height":"63","rx":"15.5","stroke":"white","strokeOpacity":"0.1","strokeWidth":"1","fill":"none"}],["$","rect",null,{"width":"64","height":"28","rx":"16","fill":"url(#_S_1_-shine)","opacity":"0.08"}],["$","path",null,{"d":"M50 17 A23 23 0 1 0 55 28 L35 28 L35 36 L44 36 A13 13 0 1 1 41 24Z","fill":"white"}],["$","defs",null,{"children":[["$","linearGradient",null,{"id":"_S_1_-bg","x1":"0","y1":"0","x2":"64","y2":"64","gradientUnits":"userSpaceOnUse","children":[["$","stop",null,{"offset":"0%","stopColor":"#020617"}],["$","stop",null,{"offset":"35%","stopColor":"#0f172a"}],["$","stop",null,{"offset":"70%","stopColor":"#1e3a8a"}],["$","stop",null,{"offset":"100%","stopColor":"#2563eb"}]]}],["$","linearGradient",null,{"id":"_S_1_-shine","x1":"0","y1":"0","x2":"0","y2":"28","gradientUnits":"userSpaceOnUse","children":[["$","stop",null,{"offset":"0%","stopColor":"white"}],["$","stop",null,{"offset":"100%","stopColor":"white","stopOpacity":"0"}]]}]]}]]}],["$","span",null,{"className":"font-display font-bold text-surface-900 dark:text-surface-50 leading-tight","children":["Ganesh Bhatt",["$","span",null,{"className":"block text-xs font-normal text-surface-500 dark:text-surface-400 tracking-wide","children":"Full-Stack Developer"}]]}]]}],["$","p",null,{"className":"text-sm leading-relaxed text-surface-600 dark:text-surface-400 max-w-xs","children":[" ","Full-stack developer building software that reaches millions. Currently at Brainstorm Force, core engineer on Spectra v3."]}],["$","nav",null,{"aria-label":"Social media profiles","className":"flex gap-2","children":[["$","a","LinkedIn",{"href":"https://www.linkedin.com/in/ganesh-bhatta/","target":"_blank","rel":"noopener noreferrer","aria-label":"Ganesh Bhatt on LinkedIn (opens in new tab)","className":"inline-flex items-center gap-2 min-w-[44px] min-h-[44px] p-2.5 rounded-lg text-surface-500 dark:text-surface-400 hover:text-primary-500 dark:hover:text-primary-400 hover:bg-surface-100 dark:hover:bg-surface-800 transition-all duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-surface-950","children":[["$","svg",null,{"ref":"$undefined","xmlns":"http://www.w3.org/2000/svg","width":18,"height":18,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":1.75,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-linkedin shrink-0","aria-hidden":"true","children":[["$","path","c2jq9f",{"d":"M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"}],["$","rect","mk3on5",{"width":"4","height":"12","x":"2","y":"9"}],["$","circle","bt5ra8",{"cx":"4","cy":"4","r":"2"}],"$undefined"]}],false]}],["$","a","GitHub",{"href":"https://github.com/bhattaganesh","target":"_blank","rel":"noopener noreferrer","aria-label":"Ganesh Bhatt on GitHub (opens in new tab)","className":"inline-flex items-center gap-2 min-w-[44px] min-h-[44px] p-2.5 rounded-lg text-surface-500 dark:text-surface-400 hover:text-primary-500 dark:hover:text-primary-400 hover:bg-surface-100 dark:hover:bg-surface-800 transition-all duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-surface-950","children":["$L17",false]}],"$L18"]}]]}],"$L19","$L1a"]}]}],"$L1b"]}]
+d:["$","$L1c",null,{}]
+e:["$","$L1d",null,{"richColors":true,"position":"bottom-right"}]
+f:["$","$2","c",{"children":[null,["$","$L6",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L9",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+10:["$","$2","c",{"children":[null,["$","$L6",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L9",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+11:["$","$2","c",{"children":["$L1e",[["$","script","script-0",{"src":"/_next/static/chunks/133jbmvgt1sbg.js","async":true,"nonce":"$undefined"}]],["$","$L1f",null,{"children":["$","$20",null,{"name":"Next.MetadataOutlet","children":"$@21"}]}]]}]
+22:[]
+12:"$W22"
+13:["$","$2","h",{"children":[null,["$","$L23",null,{"children":"$L24"}],["$","div",null,{"hidden":true,"children":["$","$L25",null,{"children":["$","$20",null,{"name":"Next.Metadata","children":"$L26"}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]
+15:["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/0r1hja-ou3c8u.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]
+17:["$","svg",null,{"ref":"$undefined","xmlns":"http://www.w3.org/2000/svg","width":18,"height":18,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":1.75,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-github shrink-0","aria-hidden":"true","children":[["$","path","tonef",{"d":"M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"}],["$","path","9comsn",{"d":"M9 18c-4.51 2-5-2-7-2"}],"$undefined"]}]
+18:["$","a","Facebook",{"href":"https://www.facebook.com/ganesh.bhatta.gb","target":"_blank","rel":"noopener noreferrer","aria-label":"Ganesh Bhatt on Facebook (opens in new tab)","className":"inline-flex items-center gap-2 min-w-[44px] min-h-[44px] p-2.5 rounded-lg text-surface-500 dark:text-surface-400 hover:text-primary-500 dark:hover:text-primary-400 hover:bg-surface-100 dark:hover:bg-surface-800 transition-all duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-surface-950","children":[["$","svg",null,{"ref":"$undefined","xmlns":"http://www.w3.org/2000/svg","width":18,"height":18,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":1.75,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-facebook shrink-0","aria-hidden":"true","children":[["$","path","1jg4f8",{"d":"M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"}],"$undefined"]}],false]}]
+19:["$","div",null,{"className":"flex flex-col gap-5","children":[["$","h3",null,{"className":"text-xs font-semibold uppercase tracking-widest text-surface-500 dark:text-surface-500","children":[" ","Quick Links"]}],["$","nav",null,{"aria-label":"Footer navigation","children":["$","ul",null,{"className":"flex flex-col gap-2","role":"list","children":[["$","li","/",{"children":["$","$L16",null,{"href":"/","className":"inline-flex items-center gap-1.5 text-sm text-surface-600 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-150 focus-visible:outline-none focus-visible:underline group","children":[["$","span",null,{"className":"w-1 h-1 rounded-full bg-surface-300 dark:bg-surface-600 group-hover:bg-primary-500 dark:group-hover:bg-primary-400 transition-colors duration-150 shrink-0","aria-hidden":"true"}],"Home"]}]}],["$","li","/about",{"children":["$","$L16",null,{"href":"/about","className":"inline-flex items-center gap-1.5 text-sm text-surface-600 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-150 focus-visible:outline-none focus-visible:underline group","children":[["$","span",null,{"className":"w-1 h-1 rounded-full bg-surface-300 dark:bg-surface-600 group-hover:bg-primary-500 dark:group-hover:bg-primary-400 transition-colors duration-150 shrink-0","aria-hidden":"true"}],"About"]}]}],["$","li","/projects",{"children":["$","$L16",null,{"href":"/projects","className":"inline-flex items-center gap-1.5 text-sm text-surface-600 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-150 focus-visible:outline-none focus-visible:underline group","children":[["$","span",null,{"className":"w-1 h-1 rounded-full bg-surface-300 dark:bg-surface-600 group-hover:bg-primary-500 dark:group-hover:bg-primary-400 transition-colors duration-150 shrink-0","aria-hidden":"true"}],"Projects"]}]}],["$","li","/experience",{"children":["$","$L16",null,{"href":"/experience","className":"inline-flex items-center gap-1.5 text-sm text-surface-600 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-150 focus-visible:outline-none focus-visible:underline group","children":[["$","span",null,{"className":"w-1 h-1 rounded-full bg-surface-300 dark:bg-surface-600 group-hover:bg-primary-500 dark:group-hover:bg-primary-400 transition-colors duration-150 shrink-0","aria-hidden":"true"}],"Experience"]}]}],["$","li","/blog",{"children":["$","$L16",null,{"href":"/blog","className":"inline-flex items-center gap-1.5 text-sm text-surface-600 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-150 focus-visible:outline-none focus-visible:underline group","children":[["$","span",null,{"className":"w-1 h-1 rounded-full bg-surface-300 dark:bg-surface-600 group-hover:bg-primary-500 dark:group-hover:bg-primary-400 transition-colors duration-150 shrink-0","aria-hidden":"true"}],"Blog"]}]}],["$","li","/contact",{"children":["$","$L16",null,{"href":"/contact","className":"inline-flex items-center gap-1.5 text-sm text-surface-600 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-150 focus-visible:outline-none focus-visible:underline group","children":[["$","span",null,{"className":"w-1 h-1 rounded-full bg-surface-300 dark:bg-surface-600 group-hover:bg-primary-500 dark:group-hover:bg-primary-400 transition-colors duration-150 shrink-0","aria-hidden":"true"}],"Contact"]}]}]]}]}]]}]
+1a:["$","div",null,{"className":"flex flex-col gap-5","children":[["$","h3",null,{"className":"text-xs font-semibold uppercase tracking-widest text-surface-500 dark:text-surface-500","children":[" ","Get In Touch"]}],["$","ul",null,{"className":"flex flex-col gap-3","role":"list","children":[["$","li",null,{"children":["$","a",null,{"href":"mailto:bhattaganesh05@gmail.com","className":"flex items-center gap-3 group text-sm text-surface-600 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-150 focus-visible:outline-none focus-visible:underline","children":[["$","span",null,{"className":"flex items-center justify-center w-8 h-8 rounded-lg shrink-0 bg-surface-100 dark:bg-surface-800 group-hover:bg-primary-100 dark:group-hover:bg-primary-950 transition-colors duration-150","aria-hidden":"true","children":["$","svg",null,{"ref":"$undefined","xmlns":"http://www.w3.org/2000/svg","width":14,"height":14,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-mail text-surface-500 dark:text-surface-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors","aria-hidden":"true","children":[["$","path","132q7q",{"d":"m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"}],["$","rect","izxlao",{"x":"2","y":"4","width":"20","height":"16","rx":"2"}],"$undefined"]}]}],["$","span",null,{"className":"truncate","children":"bhattaganesh05@gmail.com"}]]}]}],["$","li",null,{"children":["$","span",null,{"className":"flex items-center gap-3 text-sm text-surface-600 dark:text-surface-400","children":[["$","span",null,{"className":"flex items-center justify-center w-8 h-8 rounded-lg shrink-0 bg-surface-100 dark:bg-surface-800","aria-hidden":"true","children":["$","svg",null,{"ref":"$undefined","xmlns":"http://www.w3.org/2000/svg","width":14,"height":14,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-map-pin text-surface-500 dark:text-surface-400","aria-hidden":"true","children":[["$","path","1r0f0z",{"d":"M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"}],["$","circle","ilqhr7",{"cx":"12","cy":"10","r":"3"}],"$undefined"]}]}],["$","span",null,{"children":"Kathmandu, Nepal"}]]}]}]]}],["$","$L16",null,{"href":"/contact","className":"mt-1 self-start inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-150 focus-visible:outline-none focus-visible:underline group","children":["Send a message",["$","svg",null,{"ref":"$undefined","xmlns":"http://www.w3.org/2000/svg","width":14,"height":14,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-arrow-up-right group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-150","aria-hidden":"true","children":[["$","path","1tivn9",{"d":"M7 7h10v10"}],["$","path","1vkiza",{"d":"M7 17 17 7"}],"$undefined"]}]]}]]}]
+1b:["$","div",null,{"className":"border-t border-surface-200 dark:border-surface-800","children":["$","div",null,{"className":"mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-4","children":["$","div",null,{"className":"flex flex-col sm:flex-row items-center justify-between gap-3","children":[["$","p",null,{"className":"text-xs text-surface-500 dark:text-surface-500 text-center sm:text-left","children":[" ","© ",2026," ",["$","span",null,{"className":"text-surface-600 dark:text-surface-400 font-medium","children":"Ganesh Prasad Bhatt"}],". All rights reserved."]}],["$","div",null,{"className":"inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-50 dark:bg-green-950/50 border border-green-200 dark:border-green-800/60","role":"status","aria-label":"Employment status: available for work","children":[["$","span",null,{"className":"w-2 h-2 rounded-full bg-green-500 animate-pulse shrink-0","aria-hidden":"true"}],["$","span",null,{"className":"text-xs font-medium text-green-700 dark:text-green-400","children":"Available for work"}]]}]]}]}]}]
+24:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+2e:I[27201,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"IconMark"]
+1e:["$","div",null,{"className":"pt-24 pb-16","children":[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"headline\":\"Scaling WordPress to 10M+ Users: Lessons from Brainstorm Force\",\"datePublished\":\"2026-01-18T09:06:32\",\"dateModified\":\"2026-03-20T19:11:20\",\"author\":{\"@type\":\"Person\",\"name\":\"Ganesh Prasad Bhatt\",\"url\":\"https://www.ganeshbhatt.com.np/about\"},\"publisher\":{\"@type\":\"Person\",\"name\":\"Ganesh Prasad Bhatt\",\"url\":\"https://www.ganeshbhatt.com.np\"},\"mainEntityOfPage\":{\"@type\":\"WebPage\",\"@id\":\"https://www.ganeshbhatt.com.np/blog/scaling-wordpress-to-10m-users-lessons-from-brainstorm-force\"},\"image\":\"https://dev-ganesh-portfolio-api.pantheonsite.io/wp-content/uploads/2026/01/Scaling-WordPress-to-10M-Users-Lessons-from-Brainstorm-Force.avif\"}"}}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://www.ganeshbhatt.com.np\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Blog\",\"item\":\"https://www.ganeshbhatt.com.np/blog\"},{\"@type\":\"ListItem\",\"position\":3,\"name\":\"Scaling WordPress to 10M+ Users: Lessons from Brainstorm Force\",\"item\":\"https://www.ganeshbhatt.com.np/blog/scaling-wordpress-to-10m-users-lessons-from-brainstorm-force\"}]}"}}],["$","div",null,{"className":"mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl","children":[["$","$L16",null,{"href":"/blog","className":"inline-flex items-center gap-2 text-surface-500 hover:text-primary-600 dark:hover:text-primary-400 mb-8 transition-colors text-sm font-medium","children":[["$","svg",null,{"ref":"$undefined","xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-arrow-left w-4 h-4","aria-hidden":"true","children":[["$","path","1l729n",{"d":"m12 19-7-7 7-7"}],["$","path","x3x0zl",{"d":"M19 12H5"}],"$undefined"]}],"Back to Blog"]}],["$","div",null,{"className":"flex flex-wrap gap-2 mb-4","children":[["$","span","architecture",{"className":"inline-flex items-center gap-1 text-xs font-medium px-2.5 py-0.5 rounded-full transition-colors duration-150 bg-primary-100 text-primary-700 dark:bg-primary-950 dark:text-primary-300 border border-primary-200 dark:border-primary-900","children":"Architecture"}]]}],["$","h1",null,{"className":"text-3xl sm:text-4xl lg:text-5xl font-bold font-display text-surface-900 dark:text-surface-50 mb-6 leading-tight","children":"Scaling WordPress to 10M+ Users: Lessons from Brainstorm Force"}],["$","div",null,{"className":"flex flex-wrap items-center gap-4 text-surface-500 dark:text-surface-400 text-sm mb-8","children":[["$","$L16",null,{"href":"/about","className":"flex items-center gap-1.5 hover:text-primary-600 dark:hover:text-primary-400 transition-colors","children":[["$","svg",null,{"ref":"$undefined","xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-user w-4 h-4","aria-hidden":"true","children":[["$","path","975kel",{"d":"M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"}],["$","circle","17ys0d",{"cx":"12","cy":"7","r":"4"}],"$undefined"]}],"Ganesh Prasad Bhatt"]}],["$","span",null,{"className":"flex items-center gap-1.5","children":[["$","svg",null,{"ref":"$undefined","xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-calendar w-4 h-4","aria-hidden":"true","children":[["$","path","1cmpym",{"d":"M8 2v4"}],["$","path","4m81vk",{"d":"M16 2v4"}],"$L27","$L28","$undefined"]}],"$L29"]}],"$L2a"]}],"$L2b","$L2c",false,"$L2d"]}]]}]
+21:null
+26:[["$","title","0",{"children":"Scaling WordPress to 10M+ Users: Lessons from Brainstorm Force – Ganesh Prasad Bhatt | Ganesh Prasad Bhatt"}],["$","meta","1",{"name":"description","content":"When your code runs on millions of sites, a single unoptimized SQL query can break the web. Here is how we architect for massive scale using JIT compilation and"}],["$","link","2",{"rel":"author","href":"https://www.ganeshbhatt.com.np"}],["$","meta","3",{"name":"author","content":"Ganesh Prasad Bhatt"}],["$","meta","4",{"name":"keywords","content":"Full Stack Developer,PHP Developer,WordPress Developer,React Developer,Gutenberg Developer,Software Engineer,Nepal,Kathmandu,Brainstorm Force,WordPress Developer Nepal,Gutenberg Block Developer,Headless WordPress Developer,React Developer Kathmandu,PHP Developer Nepal,Spectra Developer,Full Stack Developer Nepal"}],["$","meta","5",{"name":"creator","content":"Ganesh Prasad Bhatt"}],["$","meta","6",{"name":"robots","content":"index, follow"}],["$","meta","7",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","8",{"rel":"canonical","href":"https://www.ganeshbhatt.com.np/blog/scaling-wordpress-to-10m-users-lessons-from-brainstorm-force/"}],["$","meta","9",{"property":"og:title","content":"Scaling WordPress to 10M+ Users: Lessons from Brainstorm Force"}],["$","meta","10",{"property":"og:description","content":"When your code runs on millions of sites, a single unoptimized SQL query can break the web. Here is how we architect for massive scale using JIT compilation and"}],["$","meta","11",{"property":"og:image","content":"https://dev-ganesh-portfolio-api.pantheonsite.io/wp-content/uploads/2026/01/Scaling-WordPress-to-10M-Users-Lessons-from-Brainstorm-Force.avif"}],["$","meta","12",{"property":"og:type","content":"article"}],["$","meta","13",{"property":"article:published_time","content":"2026-01-18T09:06:32"}],["$","meta","14",{"property":"article:modified_time","content":"2026-03-20T19:11:20"}],["$","meta","15",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","16",{"name":"twitter:title","content":"Ganesh Prasad Bhatt – Senior Full-Stack Software Developer"}],["$","meta","17",{"name":"twitter:description","content":"Senior Full-Stack Software Developer with 4+ years of experience building scalable web applications. Strong expertise in PHP, JavaScript, React, MySQL, and WordPress/Gutenberg ecosystem."}],["$","meta","18",{"name":"twitter:image","content":"https://dev-ganesh-portfolio-api.pantheonsite.io/wp-content/uploads/2026/01/Scaling-WordPress-to-10M-Users-Lessons-from-Brainstorm-Force.avif"}],["$","link","19",{"rel":"icon","href":"/icon.svg?icon.0kk~mqfg8d3e..svg","sizes":"any","type":"image/svg+xml"}],["$","link","20",{"rel":"apple-touch-icon","href":"/apple-icon?c989297e67cd05ac","alt":"$undefined","type":"image/png","sizes":"180x180"}],["$","$L2e","21",{}]]
+2f:I[85437,["/_next/static/chunks/0ti1b0_jr00zw.js","/_next/static/chunks/13159xoxv.qsm.js","/_next/static/chunks/187hr-pmdj8zb.js","/_next/static/chunks/101zn_si7ltyv.js","/_next/static/chunks/133jbmvgt1sbg.js"],"Image"]
+27:["$","rect","1hopcy",{"width":"18","height":"18","x":"3","y":"4","rx":"2"}]
+28:["$","path","8toen8",{"d":"M3 10h18"}]
+29:["$","time",null,{"dateTime":"2026-01-18T09:06:32","children":"January 18, 2026"}]
+2a:["$","span",null,{"className":"flex items-center gap-1.5","children":[["$","svg",null,{"ref":"$undefined","xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-clock w-4 h-4","aria-hidden":"true","children":[["$","circle","1mglay",{"cx":"12","cy":"12","r":"10"}],["$","path","mmk7yg",{"d":"M12 6v6l4 2"}],"$undefined"]}],9," min read"]}]
+2b:["$","div",null,{"className":"relative aspect-video w-full mb-10 rounded-2xl overflow-hidden","children":["$","$L2f",null,{"src":"https://dev-ganesh-portfolio-api.pantheonsite.io/wp-content/uploads/2026/01/Scaling-WordPress-to-10M-Users-Lessons-from-Brainstorm-Force.avif","alt":"Scaling WordPress to 10M+ Users: Lessons from Brainstorm Force","fill":true,"className":"object-cover","priority":true,"sizes":"(max-width: 768px) 100vw, 768px"}]}]
+30:T398f,
+<p>In December 2024, Brainstorm Force served content to over 10 million WordPress-powered websites through its plugin portfolio — Spectra, Astra, WP Portfolio, Starter Templates, and more. That&#8217;s not a marketing number: it&#8217;s a daily operational reality that shapes every engineering decision.</p>
+
+<p>This post covers the real architectural lessons we learned building and maintaining software at this scale — the decisions that seem obvious in hindsight but weren&#8217;t obvious at all when we were making them.</p>
+
+<h2>The Scale We&#8217;re Actually Talking About</h2>
+
+<p>When people talk about &#8220;scaling WordPress,&#8221; they usually mean handling more traffic. Our challenge was different: we&#8217;re scaling a <em>software product</em> that runs inside millions of other people&#8217;s WordPress installations. We don&#8217;t control the hosting environment, the PHP version, the database configuration, or the server resources. Our code has to work correctly in an 8MB memory limit shared hosting environment AND in a high-performance VPS with Redis and 2GB of PHP memory.</p>
+
+<p>This constraint changes everything. It means:</p>
+
+<ul>
+<li>We can&#8217;t assume Redis or any object cache is available</li>
+<li>We can&#8217;t rely on cron jobs running reliably</li>
+<li>We can&#8217;t use PHP extensions that aren&#8217;t universally available</li>
+<li>Our plugin must degrade gracefully on every possible hosting configuration</li>
+<li>Every byte of memory we use comes out of the host site&#8217;s allocation</li>
+</ul>
+
+<h2>Lesson 1: Lazy Loading Is Not Optional — It&#8217;s Survival</h2>
+
+<p>The most impactful single change we made to Spectra&#8217;s architecture was moving from a monolithic bootstrap to a lazy-loading architecture. In Spectra v2, the main plugin file registered all hooks, loaded all classes, and initialized all modules on every page load. Even if only 2 of our 30 blocks were used on a page, all 30 were loaded.</p>
+
+<pre><code class="language-php">// Spectra v2 — everything loads on every request
+class UAGB_Init {
+    public function __construct() {
+        require_once 'classes/class-uagb-loader.php';
+        require_once 'classes/class-uagb-helper.php';
+        require_once 'classes/class-uagb-admin-helper.php';
+        require_once 'classes/class-uagb-config.php';
+        // ... 47 more require statements
+        
+        add_action('init', [$this, 'init_hooks']);
+        add_action('admin_init', [$this, 'init_admin']);
+        add_action('wp_enqueue_scripts', [$this, 'enqueue_frontend']);
+        add_action('block_categories_all', [$this, 'register_categories']);
+    }
+}</code></pre>
+
+<p>In Spectra v3, we moved to a PSR-4 autoloader with context-aware lazy initialization:</p>
+
+<pre><code class="language-php">// Spectra v3 — only load what's needed
+class Plugin {
+    private static array $registered_hooks = [];
+
+    public static function boot(): void {
+        // Always needed: post type registration, asset manifest
+        add_action('init', [BlockRegistry::class, 'register_block_types'], 5);
+        
+        // Admin only — don't load on frontend requests
+        if (is_admin()) {
+            add_action('admin_menu', [AdminMenu::class, 'register']);
+            add_action('rest_api_init', [SettingsController::class, 'register_routes']);
+        }
+
+        // Frontend only — skip the admin bloat
+        if (!is_admin()) {
+            add_action('wp_enqueue_scripts', [AssetLoader::class, 'enqueue_conditional'], 20);
+        }
+
+        // Editor-only assets — only in block editor context
+        add_action('enqueue_block_editor_assets', [EditorAssets::class, 'enqueue']);
+    }
+}
+
+// PSR-4 autoloader — classes load only when instantiated
+spl_autoload_register(function(string $class): void {
+    $prefix   = 'Brainstormforce\Spectra\';
+    $base_dir = __DIR__ . '/src/';
+
+    if (!str_starts_with($class, $prefix)) return;
+
+    $relative_class = str_replace('\', '/', substr($class, strlen($prefix)));
+    $file = $base_dir . $relative_class . '.php';
+
+    if (file_exists($file)) {
+        require $file;
+    }
+});</code></pre>
+
+<p><strong>Impact:</strong> Memory usage per page request dropped 40% in benchmark testing. On shared hosting sites, this was the difference between working correctly and hitting the memory limit.</p>
+
+<h2>Lesson 2: Asset Loading Strategy Is Your #1 Performance Lever</h2>
+
+<p>WordPress plugins notoriously load CSS and JS on every page, regardless of whether the content requires them. At 1M+ installs, even a 10ms asset-loading overhead multiplies to massive real-world impact.</p>
+
+<p>Spectra&#8217;s asset loading strategy evolved through three generations:</p>
+
+<h3>Generation 1: Load Everything Globally (Wrong)</h3>
+<pre><code class="language-php">// Bad — loads all CSS/JS on every page
+function enqueue_spectra_assets() {
+    wp_enqueue_style('spectra-blocks', SPECTRA_URI . 'dist/blocks.css');
+    wp_enqueue_script('spectra-frontend', SPECTRA_URI . 'dist/frontend.js');
+}
+add_action('wp_enqueue_scripts', 'enqueue_spectra_assets');</code></pre>
+
+<h3>Generation 2: Load Per Block (Better)</h3>
+<pre><code class="language-php">// Better — only load CSS for blocks that appear on this page
+register_block_type('spectra/info-box', [
+    'style' => 'spectra-info-box', // Auto-enqueued when block renders
+    'editor_style' => 'spectra-info-box-editor',
+]);</code></pre>
+
+<h3>Generation 3: Combined Critical CSS + Deferred Rest (Best)</h3>
+<pre><code class="language-php">class AssetLoader {
+    private static ?array $blocks_on_page = null;
+
+    /**
+     * Scan the current page's post content for Spectra blocks.
+     * Uses regex rather than parsing to stay fast.
+     */
+    private static function detect_blocks_on_page(): array {
+        if (static::$blocks_on_page !== null) {
+            return static::$blocks_on_page;
+        }
+
+        static::$blocks_on_page = [];
+        $post = get_post();
+        if (!$post || empty($post->post_content)) {
+            return [];
+        }
+
+        preg_match_all(
+            '/<!-- wp:(spectra/[w-]+)/m',
+            $post->post_content,
+            $matches
+        );
+
+        static::$blocks_on_page = array_unique($matches[1] ?? []);
+        return static::$blocks_on_page;
+    }
+
+    public static function enqueue_conditional(): void {
+        $blocks = static::detect_blocks_on_page();
+        if (empty($blocks)) return;
+
+        $critical_css = [];
+        $deferred_css = [];
+
+        foreach ($blocks as $block_name) {
+            $config = BlockRegistry::get_config($block_name);
+            if ($config['is_above_fold'] ?? false) {
+                $critical_css[] = $config['css_path'];
+            } else {
+                $deferred_css[] = $config['css_path'];
+            }
+        }
+
+        // Inline critical CSS — eliminates render-blocking request
+        if (!empty($critical_css)) {
+            $combined = implode('', array_map('file_get_contents', $critical_css));
+            wp_add_inline_style('wp-block-library', $combined);
+        }
+
+        // Defer non-critical CSS
+        foreach ($deferred_css as $path) {
+            wp_enqueue_style(basename($path, '.css'), content_url($path));
+        }
+    }
+}</code></pre>
+
+<p><strong>Impact:</strong> Pages with only one or two Spectra blocks went from loading 180KB of CSS to loading only the 8-12KB specific to those blocks.</p>
+
+<h2>Lesson 3: Database Queries Kill You at Scale</h2>
+
+<p>WordPress stores everything in <code>wp_options</code>. Every <code>get_option()</code> call is potentially a database query — unless the option is autoloaded. At 10M+ sites, even small inefficiencies compound:</p>
+
+<pre><code class="language-php">// BAD — each of these can be a separate DB query
+$version       = get_option('spectra_version');
+$settings      = get_option('spectra_settings');
+$license       = get_option('spectra_license');
+$onboarding    = get_option('spectra_onboarding_complete');
+$global_config = get_option('spectra_global_config');
+
+// GOOD — consolidate into a single autoloaded option
+// Store all plugin config in one option, autoloaded
+$spectra = get_option('spectra', []);
+$version       = $spectra['version'] ?? SPECTRA_VERSION;
+$settings      = $spectra['settings'] ?? [];
+$license       = $spectra['license'] ?? '';
+// ... all from a single cache hit</code></pre>
+
+<p>Even better — use a typed settings DTO and load once per request:</p>
+
+<pre><code class="language-php">final class PluginSettings {
+    private static ?self $instance = null;
+    private readonly array $data;
+
+    private function __construct() {
+        // One DB query per request, then cached in object property
+        $this->data = (array) get_option('spectra', []);
+    }
+
+    public static function get(): static {
+        return static::$instance ??= new static();
+    }
+
+    public function setting(string $key, mixed $default = null): mixed {
+        return $this->data[$key] ?? $default;
+    }
+
+    public static function bust(): void {
+        static::$instance = null; // Force re-read after save
+    }
+}</code></pre>
+
+<h2>Lesson 4: Hook Priority Is Architecture</h2>
+
+<p>WordPress's hook system lets any plugin or theme run code at any priority on any action. When you have complex interdependencies between plugin modules, hook priorities become a first-class architectural concern:</p>
+
+<pre><code class="language-php">class HookPriorities {
+    // Explicitly document why each priority is what it is
+    
+    // Priority 5: Block type registration — must happen before WordPress's
+    // own block registration at priority 10
+    const BLOCK_REGISTRATION = 5;
+    
+    // Priority 20: Asset enqueueing — after WordPress and theme enqueuing
+    // so we can dequeue conflicts
+    const ASSET_ENQUEUE = 20;
+    
+    // Priority 100: Compatibility shims — run LAST to catch everything
+    const COMPATIBILITY_FIXES = 100;
+    
+    // Priority PHP_INT_MAX: Cleanup — absolute last on shutdown
+    const CLEANUP = PHP_INT_MAX;
+}
+
+// Now self-documenting
+add_action('init', [BlockRegistry::class, 'register'], HookPriorities::BLOCK_REGISTRATION);
+add_action('wp_enqueue_scripts', [AssetLoader::class, 'enqueue'], HookPriorities::ASSET_ENQUEUE);
+add_action('wp_footer', [CompatibilityLayer::class, 'fix_conflicts'], HookPriorities::COMPATIBILITY_FIXES);</code></pre>
+
+<h2>Lesson 5: Backward Compatibility Is a Non-Negotiable Contract</h2>
+
+<p>At 1M+ installations, a breaking change in an update reaches hundreds of thousands of live websites within 48 hours. We have a strict internal policy: minor and patch releases (1.x.x and x.x.1) must never break existing functionality. Only major releases can introduce breaking changes, and even then, we provide a migration path.</p>
+
+<p>Practically, this means:</p>
+
+<pre><code class="language-php">// NEVER rename a function that's part of the public API
+// Instead, deprecate it and alias it to the new implementation
+
+/**
+ * @deprecated 3.0.0 Use \Spectra\Helper::get_template() instead.
+ * Will be removed in 4.0.0.
+ */
+function uagb_get_template(string $name): string {
+    _deprecated_function(__FUNCTION__, '3.0.0', '\Spectra\Helper::get_template()');
+    return \Spectra\Helper::get_template($name);
+}
+
+// NEVER change an option key without a migration
+add_action('plugins_loaded', function() {
+    $old_settings = get_option('uagb_settings'); // old key
+    if ($old_settings !== false) {
+        update_option('spectra', $old_settings); // new key
+        delete_option('uagb_settings');
+    }
+});</code></pre>
+
+<h2>Lesson 6: Performance Is a Feature — Benchmark Everything</h2>
+
+<p>At scale, gut instinct about performance is unreliable. We built automated performance benchmarks into our CI pipeline:</p>
+
+<pre><code class="language-yaml"># .github/workflows/benchmark.yml
+performance-benchmark:
+  runs-on: ubuntu-latest
+  steps:
+    - name: Setup WordPress benchmark environment
+      run: wp eval-file benchmark/page-load-test.php
+      
+    - name: Measure memory footprint
+      run: |
+        php -d memory_limit=256M benchmark/memory-usage.php
+        
+    - name: Compare to main branch baseline
+      run: |
+        php benchmark/compare-results.php \
+          --baseline .benchmark-baseline.json \
+          --threshold 5  # fail if >5% regression</code></pre>
+
+<p>This caught multiple regressions before they reached production — including one where a "simple" refactor accidentally loaded 12 extra classes on every page load.</p>
+
+<h2>Lesson 7: The Update System Is Your Most Critical Path</h2>
+
+<p>WordPress plugins update automatically (for most users) through the WordPress.org update mechanism. An update that breaks sites is a P0 incident — it could break hundreds of thousands of live sites at once.</p>
+
+<p>Our pre-release checklist:</p>
+
+<ol>
+<li><strong>Automated tests pass</strong> on PHP 7.4, 8.0, 8.1, 8.2, 8.3</li>
+<li><strong>WordPress compatibility</strong> tested on WP 6.0 through 6.7</li>
+<li><strong>Conflict testing</strong> with WooCommerce, Yoast SEO, WPML, Polylang, ACF, Elementor</li>
+<li><strong>Memory profiling</strong> — must not increase above baseline on typical page loads</li>
+<li><strong>Database migration testing</strong> — all migration scripts tested on v1.0 through current</li>
+<li><strong>Staged rollout</strong> — release to 1% of auto-updating sites first, monitor 24 hours</li>
+</ol>
+
+<h2>What Still Keeps Me Up at Night</h2>
+
+<p>Honestly? The long tail of compatibility. Our code runs on PHP 7.4 through 8.3, WordPress 6.0 through 6.7, on Apache, Nginx, LiteSpeed, and managed WordPress hosts. Every host does something slightly different with cron, caching, file permissions, and PHP configuration.</p>
+
+<p>No amount of automated testing fully captures this diversity. The real QA for a 1M+ install plugin is the actual user base — which is both humbling and terrifying.</p>
+
+<p>The lesson I internalized after three years at this scale: <strong>treat user sites as sacred</strong>. Every line of code you ship runs inside someone else's business, blog, or store. They trusted you when they clicked "install." Don't break that trust.</p>
+
+<h2>Conclusion</h2>
+
+<p>Scaling WordPress plugins to 10M+ users isn't primarily a technical challenge — it's a discipline challenge. The technical patterns (lazy loading, PSR-4, consolidated options, context-aware assets) are well-understood. The hard part is consistently applying them under feature pressure, and building a team culture that treats performance and backward compatibility as first-class concerns rather than nice-to-haves.</p>
+
+<p>The software engineering fundamentals matter at scale. So does the craft of knowing when not to add complexity.</p>
+2c:["$","div",null,{"className":"prose prose-surface dark:prose-invert max-w-none prose-headings:font-display prose-a:text-primary-600 dark:prose-a:text-primary-400 prose-code:font-mono prose-code:text-sm prose-img:rounded-xl prose-pre:rounded-xl","dangerouslySetInnerHTML":{"__html":"$30"}}]
+2d:["$","div",null,{"className":"mt-12 pt-8 border-t border-surface-200 dark:border-surface-800","children":["$","$L16",null,{"href":"/blog","className":"inline-flex items-center gap-2 text-surface-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm font-medium","children":[["$","svg",null,{"ref":"$undefined","xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-arrow-left w-4 h-4","aria-hidden":"true","children":[["$","path","1l729n",{"d":"m12 19-7-7 7-7"}],["$","path","x3x0zl",{"d":"M19 12H5"}],"$undefined"]}],"Back to Blog"]}]}]

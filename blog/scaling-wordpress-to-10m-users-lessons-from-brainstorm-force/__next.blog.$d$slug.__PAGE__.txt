@@ -1,0 +1,327 @@
+1:"$Sreact.fragment"
+2:I[22016,["/_next/static/chunks/0ti1b0_jr00zw.js","/_next/static/chunks/13159xoxv.qsm.js","/_next/static/chunks/187hr-pmdj8zb.js","/_next/static/chunks/101zn_si7ltyv.js","/_next/static/chunks/133jbmvgt1sbg.js"],""]
+c:I[85437,["/_next/static/chunks/0ti1b0_jr00zw.js","/_next/static/chunks/13159xoxv.qsm.js","/_next/static/chunks/187hr-pmdj8zb.js","/_next/static/chunks/101zn_si7ltyv.js","/_next/static/chunks/133jbmvgt1sbg.js"],"Image"]
+e:I[97367,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"OutletBoundary"]
+f:"$Sreact.suspense"
+0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"pt-24 pb-16","children":[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"headline\":\"Scaling WordPress to 10M+ Users: Lessons from Brainstorm Force\",\"datePublished\":\"2026-01-18T09:06:32\",\"dateModified\":\"2026-03-20T19:11:20\",\"author\":{\"@type\":\"Person\",\"name\":\"Ganesh Prasad Bhatt\",\"url\":\"https://www.ganeshbhatt.com.np/about\"},\"publisher\":{\"@type\":\"Person\",\"name\":\"Ganesh Prasad Bhatt\",\"url\":\"https://www.ganeshbhatt.com.np\"},\"mainEntityOfPage\":{\"@type\":\"WebPage\",\"@id\":\"https://www.ganeshbhatt.com.np/blog/scaling-wordpress-to-10m-users-lessons-from-brainstorm-force\"},\"image\":\"https://dev-ganesh-portfolio-api.pantheonsite.io/wp-content/uploads/2026/01/Scaling-WordPress-to-10M-Users-Lessons-from-Brainstorm-Force.avif\"}"}}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://www.ganeshbhatt.com.np\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Blog\",\"item\":\"https://www.ganeshbhatt.com.np/blog\"},{\"@type\":\"ListItem\",\"position\":3,\"name\":\"Scaling WordPress to 10M+ Users: Lessons from Brainstorm Force\",\"item\":\"https://www.ganeshbhatt.com.np/blog/scaling-wordpress-to-10m-users-lessons-from-brainstorm-force\"}]}"}}],["$","div",null,{"className":"mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl","children":[["$","$L2",null,{"href":"/blog","className":"inline-flex items-center gap-2 text-surface-500 hover:text-primary-600 dark:hover:text-primary-400 mb-8 transition-colors text-sm font-medium","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-arrow-left w-4 h-4","aria-hidden":"true","children":[["$","path","1l729n",{"d":"m12 19-7-7 7-7"}],["$","path","x3x0zl",{"d":"M19 12H5"}],"$undefined"]}],"Back to Blog"]}],["$","div",null,{"className":"flex flex-wrap gap-2 mb-4","children":[["$","span","architecture",{"className":"inline-flex items-center gap-1 text-xs font-medium px-2.5 py-0.5 rounded-full transition-colors duration-150 bg-primary-100 text-primary-700 dark:bg-primary-950 dark:text-primary-300 border border-primary-200 dark:border-primary-900","children":"Architecture"}]]}],["$","h1",null,{"className":"text-3xl sm:text-4xl lg:text-5xl font-bold font-display text-surface-900 dark:text-surface-50 mb-6 leading-tight","children":"Scaling WordPress to 10M+ Users: Lessons from Brainstorm Force"}],["$","div",null,{"className":"flex flex-wrap items-center gap-4 text-surface-500 dark:text-surface-400 text-sm mb-8","children":[["$","$L2",null,{"href":"/about","className":"flex items-center gap-1.5 hover:text-primary-600 dark:hover:text-primary-400 transition-colors","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-user w-4 h-4","aria-hidden":"true","children":[["$","path","975kel",{"d":"M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"}],["$","circle","17ys0d",{"cx":"12","cy":"7","r":"4"}],"$undefined"]}],"Ganesh Prasad Bhatt"]}],["$","span",null,{"className":"flex items-center gap-1.5","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-calendar w-4 h-4","aria-hidden":"true","children":[["$","path","1cmpym",{"d":"M8 2v4"}],["$","path","4m81vk",{"d":"M16 2v4"}],"$L3","$L4","$undefined"]}],"$L5"]}],"$L6"]}],"$L7","$L8",false,"$L9"]}]]}],["$La"],"$Lb"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"MBRP_DyV0H1TIA5Nrn7hr"}
+3:["$","rect","1hopcy",{"width":"18","height":"18","x":"3","y":"4","rx":"2"}]
+4:["$","path","8toen8",{"d":"M3 10h18"}]
+5:["$","time",null,{"dateTime":"2026-01-18T09:06:32","children":"January 18, 2026"}]
+6:["$","span",null,{"className":"flex items-center gap-1.5","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-clock w-4 h-4","aria-hidden":"true","children":[["$","circle","1mglay",{"cx":"12","cy":"12","r":"10"}],["$","path","mmk7yg",{"d":"M12 6v6l4 2"}],"$undefined"]}],9," min read"]}]
+7:["$","div",null,{"className":"relative aspect-video w-full mb-10 rounded-2xl overflow-hidden","children":["$","$Lc",null,{"src":"https://dev-ganesh-portfolio-api.pantheonsite.io/wp-content/uploads/2026/01/Scaling-WordPress-to-10M-Users-Lessons-from-Brainstorm-Force.avif","alt":"Scaling WordPress to 10M+ Users: Lessons from Brainstorm Force","fill":true,"className":"object-cover","priority":true,"sizes":"(max-width: 768px) 100vw, 768px"}]}]
+d:T398f,
+<p>In December 2024, Brainstorm Force served content to over 10 million WordPress-powered websites through its plugin portfolio — Spectra, Astra, WP Portfolio, Starter Templates, and more. That&#8217;s not a marketing number: it&#8217;s a daily operational reality that shapes every engineering decision.</p>
+
+<p>This post covers the real architectural lessons we learned building and maintaining software at this scale — the decisions that seem obvious in hindsight but weren&#8217;t obvious at all when we were making them.</p>
+
+<h2>The Scale We&#8217;re Actually Talking About</h2>
+
+<p>When people talk about &#8220;scaling WordPress,&#8221; they usually mean handling more traffic. Our challenge was different: we&#8217;re scaling a <em>software product</em> that runs inside millions of other people&#8217;s WordPress installations. We don&#8217;t control the hosting environment, the PHP version, the database configuration, or the server resources. Our code has to work correctly in an 8MB memory limit shared hosting environment AND in a high-performance VPS with Redis and 2GB of PHP memory.</p>
+
+<p>This constraint changes everything. It means:</p>
+
+<ul>
+<li>We can&#8217;t assume Redis or any object cache is available</li>
+<li>We can&#8217;t rely on cron jobs running reliably</li>
+<li>We can&#8217;t use PHP extensions that aren&#8217;t universally available</li>
+<li>Our plugin must degrade gracefully on every possible hosting configuration</li>
+<li>Every byte of memory we use comes out of the host site&#8217;s allocation</li>
+</ul>
+
+<h2>Lesson 1: Lazy Loading Is Not Optional — It&#8217;s Survival</h2>
+
+<p>The most impactful single change we made to Spectra&#8217;s architecture was moving from a monolithic bootstrap to a lazy-loading architecture. In Spectra v2, the main plugin file registered all hooks, loaded all classes, and initialized all modules on every page load. Even if only 2 of our 30 blocks were used on a page, all 30 were loaded.</p>
+
+<pre><code class="language-php">// Spectra v2 — everything loads on every request
+class UAGB_Init {
+    public function __construct() {
+        require_once 'classes/class-uagb-loader.php';
+        require_once 'classes/class-uagb-helper.php';
+        require_once 'classes/class-uagb-admin-helper.php';
+        require_once 'classes/class-uagb-config.php';
+        // ... 47 more require statements
+        
+        add_action('init', [$this, 'init_hooks']);
+        add_action('admin_init', [$this, 'init_admin']);
+        add_action('wp_enqueue_scripts', [$this, 'enqueue_frontend']);
+        add_action('block_categories_all', [$this, 'register_categories']);
+    }
+}</code></pre>
+
+<p>In Spectra v3, we moved to a PSR-4 autoloader with context-aware lazy initialization:</p>
+
+<pre><code class="language-php">// Spectra v3 — only load what's needed
+class Plugin {
+    private static array $registered_hooks = [];
+
+    public static function boot(): void {
+        // Always needed: post type registration, asset manifest
+        add_action('init', [BlockRegistry::class, 'register_block_types'], 5);
+        
+        // Admin only — don't load on frontend requests
+        if (is_admin()) {
+            add_action('admin_menu', [AdminMenu::class, 'register']);
+            add_action('rest_api_init', [SettingsController::class, 'register_routes']);
+        }
+
+        // Frontend only — skip the admin bloat
+        if (!is_admin()) {
+            add_action('wp_enqueue_scripts', [AssetLoader::class, 'enqueue_conditional'], 20);
+        }
+
+        // Editor-only assets — only in block editor context
+        add_action('enqueue_block_editor_assets', [EditorAssets::class, 'enqueue']);
+    }
+}
+
+// PSR-4 autoloader — classes load only when instantiated
+spl_autoload_register(function(string $class): void {
+    $prefix   = 'Brainstormforce\Spectra\';
+    $base_dir = __DIR__ . '/src/';
+
+    if (!str_starts_with($class, $prefix)) return;
+
+    $relative_class = str_replace('\', '/', substr($class, strlen($prefix)));
+    $file = $base_dir . $relative_class . '.php';
+
+    if (file_exists($file)) {
+        require $file;
+    }
+});</code></pre>
+
+<p><strong>Impact:</strong> Memory usage per page request dropped 40% in benchmark testing. On shared hosting sites, this was the difference between working correctly and hitting the memory limit.</p>
+
+<h2>Lesson 2: Asset Loading Strategy Is Your #1 Performance Lever</h2>
+
+<p>WordPress plugins notoriously load CSS and JS on every page, regardless of whether the content requires them. At 1M+ installs, even a 10ms asset-loading overhead multiplies to massive real-world impact.</p>
+
+<p>Spectra&#8217;s asset loading strategy evolved through three generations:</p>
+
+<h3>Generation 1: Load Everything Globally (Wrong)</h3>
+<pre><code class="language-php">// Bad — loads all CSS/JS on every page
+function enqueue_spectra_assets() {
+    wp_enqueue_style('spectra-blocks', SPECTRA_URI . 'dist/blocks.css');
+    wp_enqueue_script('spectra-frontend', SPECTRA_URI . 'dist/frontend.js');
+}
+add_action('wp_enqueue_scripts', 'enqueue_spectra_assets');</code></pre>
+
+<h3>Generation 2: Load Per Block (Better)</h3>
+<pre><code class="language-php">// Better — only load CSS for blocks that appear on this page
+register_block_type('spectra/info-box', [
+    'style' => 'spectra-info-box', // Auto-enqueued when block renders
+    'editor_style' => 'spectra-info-box-editor',
+]);</code></pre>
+
+<h3>Generation 3: Combined Critical CSS + Deferred Rest (Best)</h3>
+<pre><code class="language-php">class AssetLoader {
+    private static ?array $blocks_on_page = null;
+
+    /**
+     * Scan the current page's post content for Spectra blocks.
+     * Uses regex rather than parsing to stay fast.
+     */
+    private static function detect_blocks_on_page(): array {
+        if (static::$blocks_on_page !== null) {
+            return static::$blocks_on_page;
+        }
+
+        static::$blocks_on_page = [];
+        $post = get_post();
+        if (!$post || empty($post->post_content)) {
+            return [];
+        }
+
+        preg_match_all(
+            '/<!-- wp:(spectra/[w-]+)/m',
+            $post->post_content,
+            $matches
+        );
+
+        static::$blocks_on_page = array_unique($matches[1] ?? []);
+        return static::$blocks_on_page;
+    }
+
+    public static function enqueue_conditional(): void {
+        $blocks = static::detect_blocks_on_page();
+        if (empty($blocks)) return;
+
+        $critical_css = [];
+        $deferred_css = [];
+
+        foreach ($blocks as $block_name) {
+            $config = BlockRegistry::get_config($block_name);
+            if ($config['is_above_fold'] ?? false) {
+                $critical_css[] = $config['css_path'];
+            } else {
+                $deferred_css[] = $config['css_path'];
+            }
+        }
+
+        // Inline critical CSS — eliminates render-blocking request
+        if (!empty($critical_css)) {
+            $combined = implode('', array_map('file_get_contents', $critical_css));
+            wp_add_inline_style('wp-block-library', $combined);
+        }
+
+        // Defer non-critical CSS
+        foreach ($deferred_css as $path) {
+            wp_enqueue_style(basename($path, '.css'), content_url($path));
+        }
+    }
+}</code></pre>
+
+<p><strong>Impact:</strong> Pages with only one or two Spectra blocks went from loading 180KB of CSS to loading only the 8-12KB specific to those blocks.</p>
+
+<h2>Lesson 3: Database Queries Kill You at Scale</h2>
+
+<p>WordPress stores everything in <code>wp_options</code>. Every <code>get_option()</code> call is potentially a database query — unless the option is autoloaded. At 10M+ sites, even small inefficiencies compound:</p>
+
+<pre><code class="language-php">// BAD — each of these can be a separate DB query
+$version       = get_option('spectra_version');
+$settings      = get_option('spectra_settings');
+$license       = get_option('spectra_license');
+$onboarding    = get_option('spectra_onboarding_complete');
+$global_config = get_option('spectra_global_config');
+
+// GOOD — consolidate into a single autoloaded option
+// Store all plugin config in one option, autoloaded
+$spectra = get_option('spectra', []);
+$version       = $spectra['version'] ?? SPECTRA_VERSION;
+$settings      = $spectra['settings'] ?? [];
+$license       = $spectra['license'] ?? '';
+// ... all from a single cache hit</code></pre>
+
+<p>Even better — use a typed settings DTO and load once per request:</p>
+
+<pre><code class="language-php">final class PluginSettings {
+    private static ?self $instance = null;
+    private readonly array $data;
+
+    private function __construct() {
+        // One DB query per request, then cached in object property
+        $this->data = (array) get_option('spectra', []);
+    }
+
+    public static function get(): static {
+        return static::$instance ??= new static();
+    }
+
+    public function setting(string $key, mixed $default = null): mixed {
+        return $this->data[$key] ?? $default;
+    }
+
+    public static function bust(): void {
+        static::$instance = null; // Force re-read after save
+    }
+}</code></pre>
+
+<h2>Lesson 4: Hook Priority Is Architecture</h2>
+
+<p>WordPress's hook system lets any plugin or theme run code at any priority on any action. When you have complex interdependencies between plugin modules, hook priorities become a first-class architectural concern:</p>
+
+<pre><code class="language-php">class HookPriorities {
+    // Explicitly document why each priority is what it is
+    
+    // Priority 5: Block type registration — must happen before WordPress's
+    // own block registration at priority 10
+    const BLOCK_REGISTRATION = 5;
+    
+    // Priority 20: Asset enqueueing — after WordPress and theme enqueuing
+    // so we can dequeue conflicts
+    const ASSET_ENQUEUE = 20;
+    
+    // Priority 100: Compatibility shims — run LAST to catch everything
+    const COMPATIBILITY_FIXES = 100;
+    
+    // Priority PHP_INT_MAX: Cleanup — absolute last on shutdown
+    const CLEANUP = PHP_INT_MAX;
+}
+
+// Now self-documenting
+add_action('init', [BlockRegistry::class, 'register'], HookPriorities::BLOCK_REGISTRATION);
+add_action('wp_enqueue_scripts', [AssetLoader::class, 'enqueue'], HookPriorities::ASSET_ENQUEUE);
+add_action('wp_footer', [CompatibilityLayer::class, 'fix_conflicts'], HookPriorities::COMPATIBILITY_FIXES);</code></pre>
+
+<h2>Lesson 5: Backward Compatibility Is a Non-Negotiable Contract</h2>
+
+<p>At 1M+ installations, a breaking change in an update reaches hundreds of thousands of live websites within 48 hours. We have a strict internal policy: minor and patch releases (1.x.x and x.x.1) must never break existing functionality. Only major releases can introduce breaking changes, and even then, we provide a migration path.</p>
+
+<p>Practically, this means:</p>
+
+<pre><code class="language-php">// NEVER rename a function that's part of the public API
+// Instead, deprecate it and alias it to the new implementation
+
+/**
+ * @deprecated 3.0.0 Use \Spectra\Helper::get_template() instead.
+ * Will be removed in 4.0.0.
+ */
+function uagb_get_template(string $name): string {
+    _deprecated_function(__FUNCTION__, '3.0.0', '\Spectra\Helper::get_template()');
+    return \Spectra\Helper::get_template($name);
+}
+
+// NEVER change an option key without a migration
+add_action('plugins_loaded', function() {
+    $old_settings = get_option('uagb_settings'); // old key
+    if ($old_settings !== false) {
+        update_option('spectra', $old_settings); // new key
+        delete_option('uagb_settings');
+    }
+});</code></pre>
+
+<h2>Lesson 6: Performance Is a Feature — Benchmark Everything</h2>
+
+<p>At scale, gut instinct about performance is unreliable. We built automated performance benchmarks into our CI pipeline:</p>
+
+<pre><code class="language-yaml"># .github/workflows/benchmark.yml
+performance-benchmark:
+  runs-on: ubuntu-latest
+  steps:
+    - name: Setup WordPress benchmark environment
+      run: wp eval-file benchmark/page-load-test.php
+      
+    - name: Measure memory footprint
+      run: |
+        php -d memory_limit=256M benchmark/memory-usage.php
+        
+    - name: Compare to main branch baseline
+      run: |
+        php benchmark/compare-results.php \
+          --baseline .benchmark-baseline.json \
+          --threshold 5  # fail if >5% regression</code></pre>
+
+<p>This caught multiple regressions before they reached production — including one where a "simple" refactor accidentally loaded 12 extra classes on every page load.</p>
+
+<h2>Lesson 7: The Update System Is Your Most Critical Path</h2>
+
+<p>WordPress plugins update automatically (for most users) through the WordPress.org update mechanism. An update that breaks sites is a P0 incident — it could break hundreds of thousands of live sites at once.</p>
+
+<p>Our pre-release checklist:</p>
+
+<ol>
+<li><strong>Automated tests pass</strong> on PHP 7.4, 8.0, 8.1, 8.2, 8.3</li>
+<li><strong>WordPress compatibility</strong> tested on WP 6.0 through 6.7</li>
+<li><strong>Conflict testing</strong> with WooCommerce, Yoast SEO, WPML, Polylang, ACF, Elementor</li>
+<li><strong>Memory profiling</strong> — must not increase above baseline on typical page loads</li>
+<li><strong>Database migration testing</strong> — all migration scripts tested on v1.0 through current</li>
+<li><strong>Staged rollout</strong> — release to 1% of auto-updating sites first, monitor 24 hours</li>
+</ol>
+
+<h2>What Still Keeps Me Up at Night</h2>
+
+<p>Honestly? The long tail of compatibility. Our code runs on PHP 7.4 through 8.3, WordPress 6.0 through 6.7, on Apache, Nginx, LiteSpeed, and managed WordPress hosts. Every host does something slightly different with cron, caching, file permissions, and PHP configuration.</p>
+
+<p>No amount of automated testing fully captures this diversity. The real QA for a 1M+ install plugin is the actual user base — which is both humbling and terrifying.</p>
+
+<p>The lesson I internalized after three years at this scale: <strong>treat user sites as sacred</strong>. Every line of code you ship runs inside someone else's business, blog, or store. They trusted you when they clicked "install." Don't break that trust.</p>
+
+<h2>Conclusion</h2>
+
+<p>Scaling WordPress plugins to 10M+ users isn't primarily a technical challenge — it's a discipline challenge. The technical patterns (lazy loading, PSR-4, consolidated options, context-aware assets) are well-understood. The hard part is consistently applying them under feature pressure, and building a team culture that treats performance and backward compatibility as first-class concerns rather than nice-to-haves.</p>
+
+<p>The software engineering fundamentals matter at scale. So does the craft of knowing when not to add complexity.</p>
+8:["$","div",null,{"className":"prose prose-surface dark:prose-invert max-w-none prose-headings:font-display prose-a:text-primary-600 dark:prose-a:text-primary-400 prose-code:font-mono prose-code:text-sm prose-img:rounded-xl prose-pre:rounded-xl","dangerouslySetInnerHTML":{"__html":"$d"}}]
+9:["$","div",null,{"className":"mt-12 pt-8 border-t border-surface-200 dark:border-surface-800","children":["$","$L2",null,{"href":"/blog","className":"inline-flex items-center gap-2 text-surface-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm font-medium","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-arrow-left w-4 h-4","aria-hidden":"true","children":[["$","path","1l729n",{"d":"m12 19-7-7 7-7"}],["$","path","x3x0zl",{"d":"M19 12H5"}],"$undefined"]}],"Back to Blog"]}]}]
+a:["$","script","script-0",{"src":"/_next/static/chunks/133jbmvgt1sbg.js","async":true}]
+b:["$","$Le",null,{"children":["$","$f",null,{"name":"Next.MetadataOutlet","children":"$@10"}]}]
+10:null

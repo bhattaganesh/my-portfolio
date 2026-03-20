@@ -1,0 +1,399 @@
+1:"$Sreact.fragment"
+2:I[22016,["/_next/static/chunks/0ti1b0_jr00zw.js","/_next/static/chunks/13159xoxv.qsm.js","/_next/static/chunks/187hr-pmdj8zb.js","/_next/static/chunks/101zn_si7ltyv.js","/_next/static/chunks/133jbmvgt1sbg.js"],""]
+a:I[85437,["/_next/static/chunks/0ti1b0_jr00zw.js","/_next/static/chunks/13159xoxv.qsm.js","/_next/static/chunks/187hr-pmdj8zb.js","/_next/static/chunks/101zn_si7ltyv.js","/_next/static/chunks/133jbmvgt1sbg.js"],"Image"]
+c:I[97367,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"OutletBoundary"]
+d:"$Sreact.suspense"
+0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"pt-24 pb-16","children":[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"headline\":\"PHP 8.x Features Every WordPress Developer Should Know\",\"datePublished\":\"2026-01-18T15:41:55\",\"dateModified\":\"2026-03-20T19:23:42\",\"author\":{\"@type\":\"Person\",\"name\":\"Ganesh Prasad Bhatt\",\"url\":\"https://www.ganeshbhatt.com.np/about\"},\"publisher\":{\"@type\":\"Person\",\"name\":\"Ganesh Prasad Bhatt\",\"url\":\"https://www.ganeshbhatt.com.np\"},\"mainEntityOfPage\":{\"@type\":\"WebPage\",\"@id\":\"https://www.ganeshbhatt.com.np/blog/php-8-x-features-every-wordpress-developer-should-know\"},\"image\":\"https://dev-ganesh-portfolio-api.pantheonsite.io/wp-content/uploads/2026/03/php-8-features.jpg\"}"}}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://www.ganeshbhatt.com.np\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Blog\",\"item\":\"https://www.ganeshbhatt.com.np/blog\"},{\"@type\":\"ListItem\",\"position\":3,\"name\":\"PHP 8.x Features Every WordPress Developer Should Know\",\"item\":\"https://www.ganeshbhatt.com.np/blog/php-8-x-features-every-wordpress-developer-should-know\"}]}"}}],["$","div",null,{"className":"mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl","children":[["$","$L2",null,{"href":"/blog","className":"inline-flex items-center gap-2 text-surface-500 hover:text-primary-600 dark:hover:text-primary-400 mb-8 transition-colors text-sm font-medium","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-arrow-left w-4 h-4","aria-hidden":"true","children":[["$","path","1l729n",{"d":"m12 19-7-7 7-7"}],["$","path","x3x0zl",{"d":"M19 12H5"}],"$undefined"]}],"Back to Blog"]}],["$","div",null,{"className":"flex flex-wrap gap-2 mb-4","children":[["$","span","uncategorized",{"className":"inline-flex items-center gap-1 text-xs font-medium px-2.5 py-0.5 rounded-full transition-colors duration-150 bg-primary-100 text-primary-700 dark:bg-primary-950 dark:text-primary-300 border border-primary-200 dark:border-primary-900","children":"Uncategorized"}]]}],["$","h1",null,{"className":"text-3xl sm:text-4xl lg:text-5xl font-bold font-display text-surface-900 dark:text-surface-50 mb-6 leading-tight","children":"PHP 8.x Features Every WordPress Developer Should Know"}],["$","div",null,{"className":"flex flex-wrap items-center gap-4 text-surface-500 dark:text-surface-400 text-sm mb-8","children":[["$","$L2",null,{"href":"/about","className":"flex items-center gap-1.5 hover:text-primary-600 dark:hover:text-primary-400 transition-colors","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-user w-4 h-4","aria-hidden":"true","children":[["$","path","975kel",{"d":"M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"}],["$","circle","17ys0d",{"cx":"12","cy":"7","r":"4"}],"$undefined"]}],"Ganesh Prasad Bhatt"]}],["$","span",null,{"className":"flex items-center gap-1.5","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-calendar w-4 h-4","aria-hidden":"true","children":[["$","path","1cmpym",{"d":"M8 2v4"}],["$","path","4m81vk",{"d":"M16 2v4"}],["$","rect","1hopcy",{"width":"18","height":"18","x":"3","y":"4","rx":"2"}],["$","path","8toen8",{"d":"M3 10h18"}],"$undefined"]}],"$L3"]}],"$L4"]}],"$L5","$L6",false,"$L7"]}]]}],["$L8"],"$L9"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"MBRP_DyV0H1TIA5Nrn7hr"}
+3:["$","time",null,{"dateTime":"2026-01-18T15:41:55","children":"January 18, 2026"}]
+4:["$","span",null,{"className":"flex items-center gap-1.5","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-clock w-4 h-4","aria-hidden":"true","children":[["$","circle","1mglay",{"cx":"12","cy":"12","r":"10"}],["$","path","mmk7yg",{"d":"M12 6v6l4 2"}],"$undefined"]}],11," min read"]}]
+5:["$","div",null,{"className":"relative aspect-video w-full mb-10 rounded-2xl overflow-hidden","children":["$","$La",null,{"src":"https://dev-ganesh-portfolio-api.pantheonsite.io/wp-content/uploads/2026/03/php-8-features.jpg","alt":"PHP 8.x Features Every WordPress Developer Should Know","fill":true,"className":"object-cover","priority":true,"sizes":"(max-width: 768px) 100vw, 768px"}]}]
+b:T4ae7,<p>PHP 8.x has been a transformative series of releases for the entire PHP ecosystem — and for WordPress developers specifically, understanding these features isn&#8217;t optional anymore. With WordPress core now requiring PHP 7.4+ and many premium plugins pushing for 8.0+, writing modern PHP is both a professional requirement and a competitive advantage.</p>
+<p>In this deep dive, we&#8217;ll go through every major PHP 8.0, 8.1, 8.2, and 8.3 feature that matters for WordPress development, with real-world examples from plugin and theme development.</p>
+<h2>PHP 8.0: The Foundation of Modern PHP</h2>
+<h3>Named Arguments</h3>
+<p>Named arguments let you pass values to function parameters by name rather than position. In WordPress development, this shines when calling functions with many optional parameters:</p>
+<pre><code class="language-php">// Old way — you need to know parameter order and pass nulls
+$posts = get_posts(array(
+    'post_type'      => 'product',
+    'posts_per_page' => 10,
+    'orderby'        => 'date',
+    'order'          => 'DESC',
+));
+
+// PHP 8.0 named arguments
+$posts = get_posts(post_type: 'product', posts_per_page: 10, orderby: 'date', order: 'DESC');
+
+// Even better for core functions with many params
+$trimmed = array_slice(array: $items, offset: 0, length: 5, preserve_keys: true);</code></pre>
+<p>Named arguments are especially powerful when you need to skip optional parameters. Instead of passing <code>null</code> placeholders, you jump straight to the parameter you need.</p>
+<h3>Match Expressions</h3>
+<p>The <code>match</code> expression is a type-safe, expression-oriented replacement for <code>switch</code> statements. It&#8217;s strict by default (no type coercion), returns a value, and throws an <code>UnhandledMatchError</code> if no arm matches.</p>
+<pre><code class="language-php">// Old switch — loose comparison, easy bugs
+function get_post_status_label($status) {
+    switch ($status) {
+        case 'publish':
+            return __('Published', 'my-plugin');
+        case 'draft':
+            return __('Draft', 'my-plugin');
+        case 'pending':
+            return __('Pending Review', 'my-plugin');
+        default:
+            return __('Unknown', 'my-plugin');
+    }
+}
+
+// PHP 8.0 match — clean, strict, returns value
+function get_post_status_label(string $status): string {
+    return match($status) {
+        'publish'  => __('Published', 'my-plugin'),
+        'draft'    => __('Draft', 'my-plugin'),
+        'pending'  => __('Pending Review', 'my-plugin'),
+        'private'  => __('Private', 'my-plugin'),
+        'future'   => __('Scheduled', 'my-plugin'),
+        default    => __('Unknown', 'my-plugin'),
+    };
+}</code></pre>
+<p>Match expressions also support multiple conditions per arm, which is perfect for grouping related values:</p>
+<pre><code class="language-php">$label_class = match(true) {
+    in_array($status, ['publish', 'future'])  => 'status-active',
+    in_array($status, ['draft', 'auto-draft']) => 'status-inactive',
+    $status === 'trash'                        => 'status-danger',
+    default                                    => 'status-unknown',
+};</code></pre>
+<h3>The Nullsafe Operator</h3>
+<p>The nullsafe operator <code>?-></code> is arguably the most practical addition in PHP 8.0 for WordPress developers. WordPress APIs often return <code>null</code> or <code>false</code>, and you frequently need to chain method calls on potentially null objects.</p>
+<pre><code class="language-php">// Before PHP 8.0 — deeply nested null checks
+$author_country = null;
+$post = get_post($post_id);
+if ($post !== null) {
+    $author = get_userdata($post->post_author);
+    if ($author !== null) {
+        $country = get_user_meta($author->ID, 'country', true);
+        if ($country) {
+            $author_country = strtoupper($country);
+        }
+    }
+}
+
+// PHP 8.0 nullsafe operator
+$post   = get_post($post_id);
+$author = $post ? get_userdata($post->post_author) : null;
+$author_country = $author
+    ? strtoupper(get_user_meta($author->ID, 'country', true) ?: 'US')
+    : null;
+
+// Even better in OOP plugins with method chains
+$price = $this->getCart()?->getItem($sku)?->getPrice()?->format();</code></pre>
+<h3>Union Types</h3>
+<p>Union types let you declare that a parameter or return value can be one of several types — critical for WordPress functions that return different types based on context.</p>
+<pre><code class="language-php">class PostRepository {
+    public function find(int|string $id): WP_Post|null {
+        if (is_string($id)) {
+            return get_page_by_path($id, OBJECT, 'post');
+        }
+        return get_post($id) ?: null;
+    }
+
+    public function save(array|WP_Post $post): int|WP_Error {
+        $data = $post instanceof WP_Post ? $post->to_array() : $post;
+        return wp_insert_post($data, true);
+    }
+}</code></pre>
+<h3>Constructor Property Promotion</h3>
+<p>This feature reduces the boilerplate of declaring properties and assigning them in <code>__construct</code>. For WordPress plugins with many service classes, this is a huge quality-of-life improvement:</p>
+<pre><code class="language-php">// Before — lots of repetition
+class EmailService {
+    private MailerInterface $mailer;
+    private LoggerInterface $logger;
+    private string $fromEmail;
+    private string $fromName;
+
+    public function __construct(
+        MailerInterface $mailer,
+        LoggerInterface $logger,
+        string $fromEmail,
+        string $fromName
+    ) {
+        $this->mailer    = $mailer;
+        $this->logger    = $logger;
+        $this->fromEmail = $fromEmail;
+        $this->fromName  = $fromName;
+    }
+}
+
+// PHP 8.0 — clean and DRY
+class EmailService {
+    public function __construct(
+        private readonly MailerInterface $mailer,
+        private readonly LoggerInterface $logger,
+        private readonly string $fromEmail,
+        private readonly string $fromName,
+    ) {}
+}</code></pre>
+<h3>Throw Expressions</h3>
+<p>You can now use <code>throw</code> as an expression, not just a statement. This enables throwing exceptions in arrow functions, ternaries, and the nullish coalescing operator:</p>
+<pre><code class="language-php">// Validate required settings concisely
+$api_key = get_option('my_plugin_api_key')
+    ?: throw new RuntimeException('API key not configured. Please check plugin settings.');
+
+// In arrow functions
+$processedItems = array_map(
+    fn($item) => $item['id'] ?? throw new InvalidArgumentException("Item missing ID"),
+    $rawItems
+);</code></pre>
+<h2>PHP 8.1: Enums, Fibers, and Readonly Properties</h2>
+<h3>Enums</h3>
+<p>Enums are one of the most requested PHP features ever — and they&#8217;re perfect for WordPress plugin development where you have fixed sets of values like post statuses, user roles, or payment states.</p>
+<pre><code class="language-php">// Basic enum for post types
+enum PostType: string {
+    case Post      = 'post';
+    case Page      = 'page';
+    case Product   = 'product';
+    case Portfolio = 'portfolio';
+
+    public function label(): string {
+        return match($this) {
+            PostType::Post      => 'Blog Post',
+            PostType::Page      => 'Page',
+            PostType::Product   => 'Product',
+            PostType::Portfolio => 'Portfolio Item',
+        };
+    }
+
+    public function supportsComments(): bool {
+        return match($this) {
+            PostType::Post, PostType::Product => true,
+            default => false,
+        };
+    }
+}
+
+// Usage
+function register_my_post_types(): void {
+    foreach (PostType::cases() as $type) {
+        register_post_type($type->value, [
+            'label'             => $type->label(),
+            'supports'          => $type->supportsComments() ? ['comments'] : [],
+            'public'            => true,
+            'show_in_rest'      => true,
+            'show_in_graphql'   => true,
+        ]);
+    }
+}
+add_action('init', 'register_my_post_types');</code></pre>
+<p>Pure (non-backed) enums are great for internal state machines in complex plugins like LMS or e-commerce:</p>
+<pre><code class="language-php">enum EnrollmentStatus {
+    case Pending;
+    case Active;
+    case Completed;
+    case Cancelled;
+    case Expired;
+
+    public function canTransitionTo(self $new): bool {
+        return match($this) {
+            self::Pending   => in_array($new, [self::Active, self::Cancelled]),
+            self::Active    => in_array($new, [self::Completed, self::Cancelled, self::Expired]),
+            self::Completed => false,
+            self::Cancelled => false,
+            self::Expired   => in_array($new, [self::Active]),
+        };
+    }
+}</code></pre>
+<h3>Readonly Properties</h3>
+<p>Readonly properties can be set only once — perfect for value objects and domain models in WordPress plugins:</p>
+<pre><code class="language-php">class Money {
+    public function __construct(
+        public readonly int $amount,
+        public readonly string $currency,
+    ) {}
+
+    public function add(Money $other): static {
+        if ($this->currency !== $other->currency) {
+            throw new CurrencyMismatchException($this->currency, $other->currency);
+        }
+        return new static($this->amount + $other->amount, $this->currency);
+    }
+
+    public function format(): string {
+        return number_format($this->amount / 100, 2) . ' ' . $this->currency;
+    }
+}
+
+// Immutable — $price->amount = 9999 would throw Error
+$price = new Money(4999, 'USD');
+echo $price->format(); // 49.99 USD</code></pre>
+<h3>Intersection Types</h3>
+<p>While union types say &#8220;this OR that&#8221;, intersection types say &#8220;this AND that&#8221; — the parameter must satisfy all types simultaneously. Perfect for repository patterns:</p>
+<pre><code class="language-php">interface Cacheable {
+    public function getCacheKey(): string;
+    public function getTtl(): int;
+}
+
+interface Serializable {
+    public function serialize(): string;
+    public static function deserialize(string $data): static;
+}
+
+// Parameter must implement BOTH interfaces
+function store_in_cache(Cacheable&Serializable $item): void {
+    wp_cache_set(
+        $item->getCacheKey(),
+        $item->serialize(),
+        group: 'my_plugin',
+        expire: $item->getTtl()
+    );
+}</code></pre>
+<h3>Fibers (PHP 8.1)</h3>
+<p>Fibers are low-level concurrency primitives — think coroutines. While not directly applicable to most WordPress plugins today, they&#8217;re the foundation for async PHP frameworks. For developers building CLI tools, background processors, or custom REST API aggregators, Fibers open new possibilities:</p>
+<pre><code class="language-php">// Process multiple API requests cooperatively
+$fiber = new Fiber(function(): void {
+    $value = Fiber::suspend('first suspension');
+    echo "Got: " . $value . PHP_EOL;
+});
+
+$result = $fiber->start();           // "first suspension"
+$fiber->resume('hello from caller'); // "Got: hello from caller"</code></pre>
+<h2>PHP 8.2: Readonly Classes and Deprecations</h2>
+<h3>Readonly Classes</h3>
+<p>PHP 8.2 extends readonly to the class level — every promoted property becomes readonly automatically. This is ideal for DTOs (Data Transfer Objects) that pass data between WordPress hooks and services:</p>
+<pre><code class="language-php">readonly class CreatePostDTO {
+    public function __construct(
+        public string $title,
+        public string $content,
+        public string $postType,
+        public string $status = 'draft',
+        public ?int   $authorId = null,
+        public array  $meta = [],
+    ) {}
+
+    public static function fromRequest(WP_REST_Request $request): static {
+        return new static(
+            title:    sanitize_text_field($request->get_param('title')),
+            content:  wp_kses_post($request->get_param('content')),
+            postType: sanitize_key($request->get_param('post_type') ?? 'post'),
+            status:   sanitize_key($request->get_param('status') ?? 'draft'),
+            authorId: (int) $request->get_param('author_id') ?: null,
+        );
+    }
+}
+
+// Usage in a REST controller
+class PostController {
+    public function create(WP_REST_Request $request): WP_REST_Response|WP_Error {
+        $dto    = CreatePostDTO::fromRequest($request);
+        $postId = $this->postService->create($dto);
+        return rest_ensure_response(['id' => $postId]);
+    }
+}</code></pre>
+<h3>Disjunctive Normal Form (DNF) Types</h3>
+<p>DNF types combine union and intersection types: <code>(A&amp;B)|null</code>. This is the most expressive type system PHP has ever had:</p>
+<pre><code class="language-php">function process(
+    (Countable&Stringable)|null $data
+): (Iterator&Countable)|array {
+    if ($data === null) return [];
+    // ...
+}</code></pre>
+<h3>Dynamic Class Constants and Enum Members</h3>
+<pre><code class="language-php">class Config {
+    const VERSION = '2.0.0';
+}
+
+$key = 'VERSION';
+echo Config::{$key}; // "2.0.0" — dynamic constant access</code></pre>
+<h2>PHP 8.3: The Latest and Greatest</h2>
+<h3>Typed Class Constants</h3>
+<p>A long-overdue feature — class constants can now have type declarations:</p>
+<pre><code class="language-php">class PluginConfig {
+    const string  VERSION     = '3.0.0';
+    const int     MAX_RETRIES = 3;
+    const float   CACHE_TTL   = 3600.0;
+    const bool    DEBUG_MODE  = false;
+    const array   SUPPORTED_POST_TYPES = ['post', 'page', 'product'];
+}
+
+interface HasVersion {
+    const string VERSION; // Typed interface constant
+}</code></pre>
+<h3>json_validate()</h3>
+<p>A new built-in function to validate JSON without needing to decode it first — great for webhook validation:</p>
+<pre><code class="language-php">// WordPress webhook handler
+function handle_stripe_webhook(WP_REST_Request $request): WP_REST_Response {
+    $body = $request->get_body();
+
+    if (!json_validate($body)) {
+        return new WP_REST_Response(['error' => 'Invalid JSON'], 400);
+    }
+
+    $event = json_decode($body, true);
+    // Process...
+    return new WP_REST_Response(['received' => true]);
+}</code></pre>
+<h3>array_find() and Related Functions (PHP 8.4 Preview)</h3>
+<p>While technically landing in 8.4, many developers preview these functions via polyfills. <code>array_find()</code> returns the first element matching a predicate — far cleaner than <code>array_filter()</code> + <code>reset()</code>:</p>
+<pre><code class="language-php">// Old way
+$first_active = reset(array_filter($items, fn($i) => $i->isActive())) ?: null;
+
+// PHP 8.4 array_find()
+$first_active = array_find($items, fn($i) => $i->isActive());</code></pre>
+<h2>WordPress Compatibility: What You Need to Know</h2>
+<h3>Minimum PHP Version Strategy</h3>
+<p>WordPress.org strongly recommends PHP 8.0+ as of 2024. Here&#8217;s a realistic compatibility matrix for plugins:</p>
+<ul>
+<li><strong>Public plugins</strong> targeting all users: PHP 7.4+ minimum, test on 8.0–8.3</li>
+<li><strong>Premium plugins</strong> with a support window: PHP 8.0+ is safe for new features</li>
+<li><strong>Internal/agency projects</strong>: PHP 8.2+ minimum, you control the server</li>
+</ul>
+<h3>PHP 8.x Breaking Changes That Bite WordPress Developers</h3>
+<p><strong>Stricter type coercion:</strong> PHP 8.0 changed <code>strpos()</code> and similar functions to throw <code>TypeError</code> instead of deprecation warnings when passed wrong types. Audit your code for:</p>
+<pre><code class="language-php">// This throws TypeError in PHP 8.0
+strpos(null, 'search');
+
+// Fix: always pass strings
+strpos((string) $value, 'search');</code></pre>
+<p><strong>match vs switch:</strong> Match throws <code>UnhandledMatchError</code> on no match — add a <code>default</code> arm or handle the error.</p>
+<p><strong>Dynamic properties deprecated (8.2):</strong> Creating properties on objects that don&#8217;t declare them triggers deprecation warnings. Add <code>#[AllowDynamicProperties]</code> to legacy code or declare all properties explicitly.</p>
+<pre><code class="language-php">// Deprecated in PHP 8.2
+class MyPlugin {
+    public function init() {
+        $this->my_prop = 'value'; // Deprecation warning if not declared
+    }
+}
+
+// Fix: declare the property
+class MyPlugin {
+    private string $my_prop = '';
+
+    public function init() {
+        $this->my_prop = 'value'; // Fine
+    }
+}</code></pre>
+<h2>Performance Improvements Worth Knowing</h2>
+<p>PHP 8.0&#8217;s JIT (Just-In-Time) compiler gets a lot of marketing attention, but for typical WordPress workloads (I/O-bound, lots of string processing), the JIT doesn&#8217;t help much. The real PHP 8.x performance wins come from:</p>
+<ul>
+<li><strong>Improved opcache:</strong> Persistent JIT compilation across requests</li>
+<li><strong>Faster string functions:</strong> Internal improvements to <code>str_contains()</code>, <code>str_starts_with()</code>, <code>str_ends_with()</code></li>
+<li><strong>Fibers for async patterns:</strong> Non-blocking I/O in CLI tools</li>
+<li><strong>Readonly properties:</strong> Slightly faster access due to immutability guarantees</li>
+</ul>
+<p>Benchmarks from real WordPress hosting show PHP 8.2 is approximately 15–20% faster than PHP 7.4 for WordPress-style workloads — primarily from internal engine improvements, not JIT.</p>
+<h2>Practical Migration Checklist</h2>
+<p>Ready to modernize your WordPress plugin? Here&#8217;s a systematic approach:</p>
+<ol>
+<li><strong>Static analysis first:</strong> Run PHPStan at level 5+ on your codebase. Fix all errors.</li>
+<li><strong>PHP 8.0 compatibility:</strong> Run <code>composer require --dev szepeviktor/phpstan-wordpress</code> for WordPress-aware rules.</li>
+<li><strong>Replace string functions:</strong> Use <code>str_contains()</code>, <code>str_starts_with()</code>, <code>str_ends_with()</code> instead of <code>strpos()</code> for readability.</li>
+<li><strong>Add type declarations:</strong> Start with return types on all public methods, then add parameter types.</li>
+<li><strong>Introduce constructor promotion:</strong> Refactor service classes one by one.</li>
+<li><strong>Replace switch with match:</strong> Focus on value-returning switches first.</li>
+<li><strong>Extract enums:</strong> Look for string/int constants that represent fixed sets.</li>
+<li><strong>Test on all PHP versions:</strong> Use GitHub Actions matrix testing with PHP 7.4, 8.0, 8.1, 8.2, 8.3.</li>
+</ol>
+<h2>Conclusion</h2>
+<p>PHP 8.x is not just incremental improvements — it&#8217;s a fundamentally better language with a modern type system, cleaner syntax, and meaningful performance gains. For WordPress developers, adopting these features means more maintainable plugins, better IDE support, fewer runtime bugs, and code that&#8217;s genuinely enjoyable to write.</p>
+<p>The investment in learning PHP 8.x pays back immediately: fewer null reference errors with the nullsafe operator, self-documenting code with enums, and type-safe APIs with readonly classes. Start with the features that require zero migration cost — <code>match</code>, named arguments, and <code>str_contains()</code> — and work your way up to enums and readonly classes as you refactor.</p>
+<p>The WordPress ecosystem is moving forward. Your code should too.</p>
+6:["$","div",null,{"className":"prose prose-surface dark:prose-invert max-w-none prose-headings:font-display prose-a:text-primary-600 dark:prose-a:text-primary-400 prose-code:font-mono prose-code:text-sm prose-img:rounded-xl prose-pre:rounded-xl","dangerouslySetInnerHTML":{"__html":"$b"}}]
+7:["$","div",null,{"className":"mt-12 pt-8 border-t border-surface-200 dark:border-surface-800","children":["$","$L2",null,{"href":"/blog","className":"inline-flex items-center gap-2 text-surface-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm font-medium","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-arrow-left w-4 h-4","aria-hidden":"true","children":[["$","path","1l729n",{"d":"m12 19-7-7 7-7"}],["$","path","x3x0zl",{"d":"M19 12H5"}],"$undefined"]}],"Back to Blog"]}]}]
+8:["$","script","script-0",{"src":"/_next/static/chunks/133jbmvgt1sbg.js","async":true}]
+9:["$","$Lc",null,{"children":["$","$d",null,{"name":"Next.MetadataOutlet","children":"$@e"}]}]
+e:null

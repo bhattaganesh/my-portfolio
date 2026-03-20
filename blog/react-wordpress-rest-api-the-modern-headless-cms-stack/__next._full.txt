@@ -1,0 +1,466 @@
+1:I[39756,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"LoadingBoundaryProvider"]
+2:"$Sreact.fragment"
+3:I[63178,["/_next/static/chunks/0ti1b0_jr00zw.js","/_next/static/chunks/13159xoxv.qsm.js","/_next/static/chunks/187hr-pmdj8zb.js","/_next/static/chunks/101zn_si7ltyv.js"],"ThemeProvider"]
+4:I[84853,["/_next/static/chunks/0ti1b0_jr00zw.js","/_next/static/chunks/13159xoxv.qsm.js","/_next/static/chunks/187hr-pmdj8zb.js","/_next/static/chunks/101zn_si7ltyv.js"],"ScrollProgress"]
+5:I[45872,["/_next/static/chunks/0ti1b0_jr00zw.js","/_next/static/chunks/13159xoxv.qsm.js","/_next/static/chunks/187hr-pmdj8zb.js","/_next/static/chunks/101zn_si7ltyv.js"],"Header"]
+6:I[39756,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"default"]
+7:I[58298,["/_next/static/chunks/0ti1b0_jr00zw.js","/_next/static/chunks/13159xoxv.qsm.js","/_next/static/chunks/187hr-pmdj8zb.js","/_next/static/chunks/101zn_si7ltyv.js","/_next/static/chunks/0qg7ac3nwn5pq.js"],"default"]
+8:I[16868,["/_next/static/chunks/0ti1b0_jr00zw.js","/_next/static/chunks/13159xoxv.qsm.js","/_next/static/chunks/187hr-pmdj8zb.js","/_next/static/chunks/101zn_si7ltyv.js","/_next/static/chunks/0x87fb7kg-07q.js"],"default"]
+9:I[37457,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"default"]
+14:I[68027,["/_next/static/chunks/0ti1b0_jr00zw.js","/_next/static/chunks/13159xoxv.qsm.js","/_next/static/chunks/187hr-pmdj8zb.js","/_next/static/chunks/101zn_si7ltyv.js"],"default",1]
+:HL["/_next/static/chunks/0r1hja-ou3c8u.css","style"]
+:HL["/_next/static/media/70bc3e132a0a741e-s.p.1409xf.ylxg8g.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/CabinetGrotesk_Bold-s.p.02kj3bc8i7q64.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/CabinetGrotesk_Extrabold-s.p.0psa8x2z9v1dk.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/CabinetGrotesk_Medium-s.p.01epveb68p~70.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+0:{"P":null,"c":["","blog","react-wordpress-rest-api-the-modern-headless-cms-stack",""],"q":"","i":false,"f":[[["",{"children":["blog",{"children":[["slug","react-wordpress-rest-api-the-modern-headless-cms-stack","d",null],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",20],[["$","$L1",null,{"loading":[["$","div","l",{"className":"pt-24 pb-16","children":["$","div",null,{"className":"mx-auto max-w-6xl px-4 sm:px-6 lg:px-8","children":["$","div",null,{"className":"animate-pulse space-y-4","children":[["$","div",null,{"className":"h-10 bg-surface-200 dark:bg-surface-800 rounded-xl w-1/3"}],["$","div",null,{"className":"h-4 bg-surface-200 dark:bg-surface-800 rounded w-1/2"}],["$","div",null,{"className":"h-4 bg-surface-200 dark:bg-surface-800 rounded w-2/3"}],["$","div",null,{"className":"grid grid-cols-3 gap-4 mt-8","children":[["$","div","0",{"className":"aspect-video bg-surface-200 dark:bg-surface-800 rounded-xl"}],["$","div","1",{"className":"aspect-video bg-surface-200 dark:bg-surface-800 rounded-xl"}],["$","div","2",{"className":"aspect-video bg-surface-200 dark:bg-surface-800 rounded-xl"}]]}]]}]}]}],[],[]],"children":["$","$2","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/0r1hja-ou3c8u.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/0ti1b0_jr00zw.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/13159xoxv.qsm.js","async":true,"nonce":"$undefined"}],["$","script","script-2",{"src":"/_next/static/chunks/187hr-pmdj8zb.js","async":true,"nonce":"$undefined"}],["$","script","script-3",{"src":"/_next/static/chunks/101zn_si7ltyv.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"en","suppressHydrationWarning":true,"className":"inter_8a594245-module__h1XLeG__variable jetbrains_mono_37bfeb3d-module__XzirBW__variable cabinetgrotesk_d26ba881-module__r0AJ-W__variable","children":[["$","head",null,{"children":[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"WebSite\",\"name\":\"Ganesh Prasad Bhatt\",\"url\":\"https://www.ganeshbhatt.com.np\",\"description\":\"Senior Full-Stack Software Developer with 4+ years of experience building scalable web applications. Strong expertise in PHP, JavaScript, React, MySQL, and WordPress/Gutenberg ecosystem.\",\"author\":{\"@type\":\"Person\",\"name\":\"Ganesh Prasad Bhatt\"},\"potentialAction\":{\"@type\":\"SearchAction\",\"target\":\"https://www.ganeshbhatt.com.np/blog?q={search_term_string}\",\"query-input\":\"required name=search_term_string\"}}"}}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"Person\",\"name\":\"Ganesh Prasad Bhatt\",\"url\":\"https://www.ganeshbhatt.com.np\",\"email\":\"bhattaganesh05@gmail.com\",\"telephone\":\"+977-9848979669\",\"jobTitle\":\"Senior Full-Stack Software Developer\",\"worksFor\":{\"@type\":\"Organization\",\"name\":\"Brainstorm Force\"},\"sameAs\":[\"https://www.linkedin.com/in/ganesh-bhatta/\",\"https://github.com/bhattaganesh\",\"https://www.facebook.com/ganesh.bhatta.gb\"],\"address\":{\"@type\":\"PostalAddress\",\"addressLocality\":\"Kathmandu\",\"addressCountry\":\"NP\"}}"}}],["$","link",null,{"rel":"manifest","href":"/manifest.json"}]]}],"",["$","body",null,{"children":["$","$L3",null,{"attribute":"class","defaultTheme":"light","enableSystem":false,"disableTransitionOnChange":false,"children":[["$","a",null,{"href":"#main-content","className":"sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-primary-600 focus:text-white focus:font-semibold focus:shadow-lg","children":"Skip to main content"}],["$","$L4",null,{}],["$","$L5",null,{}],["$","main",null,{"id":"main-content","children":["$","$L6",null,{"parallelRouterKey":"children","error":"$7","errorStyles":[],"errorScripts":[["$","script","script-0",{"src":"/_next/static/chunks/0qg7ac3nwn5pq.js","async":true}]],"template":["$","$L8",null,{"children":["$","$L9",null,{}]}],"templateStyles":[],"templateScripts":["$La"],"notFound":"$Lb","forbidden":"$undefined","unauthorized":"$undefined"}]}],"$Lc","$Ld","$Le"]}]}]]}]]}]}],{"children":["$Lf",{"children":["$L10",{"children":["$L11",{},null,false,null]},null,false,"$@12"]},null,false,"$@12"]},null,false,null],"$L13",false]],"m":"$undefined","G":["$14",["$L15"]],"S":true,"h":null,"s":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"MBRP_DyV0H1TIA5Nrn7hr"}
+16:I[22016,["/_next/static/chunks/0ti1b0_jr00zw.js","/_next/static/chunks/13159xoxv.qsm.js","/_next/static/chunks/187hr-pmdj8zb.js","/_next/static/chunks/101zn_si7ltyv.js","/_next/static/chunks/133jbmvgt1sbg.js"],""]
+1c:I[92385,["/_next/static/chunks/0ti1b0_jr00zw.js","/_next/static/chunks/13159xoxv.qsm.js","/_next/static/chunks/187hr-pmdj8zb.js","/_next/static/chunks/101zn_si7ltyv.js"],"BackToTop"]
+1d:I[46696,["/_next/static/chunks/0ti1b0_jr00zw.js","/_next/static/chunks/13159xoxv.qsm.js","/_next/static/chunks/187hr-pmdj8zb.js","/_next/static/chunks/101zn_si7ltyv.js"],"Toaster"]
+1f:I[97367,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"OutletBoundary"]
+20:"$Sreact.suspense"
+23:I[97367,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"ViewportBoundary"]
+25:I[97367,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"MetadataBoundary"]
+a:["$","script","script-0",{"src":"/_next/static/chunks/0x87fb7kg-07q.js","async":true}]
+b:[["$","div",null,{"className":"min-h-screen flex flex-col items-center justify-center px-6 bg-white dark:bg-surface-950","children":[["$","div",null,{"aria-hidden":true,"className":"pointer-events-none absolute inset-0 overflow-hidden","children":[["$","div",null,{"className":"blob absolute -top-32 -left-32 h-96 w-96 bg-primary-100 opacity-40 dark:bg-primary-950 dark:opacity-20 animate-[var(--animate-float)]"}],["$","div",null,{"className":"blob absolute -bottom-32 -right-32 h-80 w-80 bg-primary-200 opacity-30 dark:bg-primary-900 dark:opacity-15 animate-[var(--animate-float)] [animation-delay:2s]"}]]}],["$","div",null,{"className":"relative z-10 text-center space-y-6 animate-[var(--animate-slide-up)]","children":[["$","p",null,{"className":"font-display text-[8rem] sm:text-[12rem] font-extrabold leading-none text-gradient select-none","children":"404"}],["$","h1",null,{"className":"font-display text-3xl sm:text-4xl font-bold text-surface-900 dark:text-surface-50","children":"Page Not Found"}],["$","p",null,{"className":"max-w-md mx-auto text-base sm:text-lg text-surface-500 dark:text-surface-400","children":"The page you're looking for doesn't exist or may have been moved."}],["$","$L16",null,{"href":"/","className":"inline-flex items-center gap-2 rounded-lg bg-primary-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-primary-500/25 transition-all hover:bg-primary-700 hover:-translate-y-0.5 hover:shadow-primary-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 active:translate-y-0","children":"Go Home"}]]}]]}],[]]
+c:["$","footer",null,{"className":"bg-surface-50 dark:bg-surface-950 border-t border-surface-200 dark:border-surface-800","aria-label":"Site footer","children":[["$","div",null,{"className":"mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16","children":["$","div",null,{"className":"grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3","children":[["$","div",null,{"className":"flex flex-col gap-5","children":[["$","$L16",null,{"href":"/","className":"self-start flex items-center gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-50 dark:focus-visible:ring-offset-surface-950 transition-opacity duration-200 hover:opacity-80","aria-label":"Ganesh Bhatt — home","children":[["$","svg",null,{"width":36,"height":36,"viewBox":"0 0 64 64","fill":"none","xmlns":"http://www.w3.org/2000/svg","className":"shrink-0","aria-hidden":"true","children":[["$","rect",null,{"width":"64","height":"64","rx":"16","fill":"url(#_S_1_-bg)"}],["$","rect",null,{"x":"0.5","y":"0.5","width":"63","height":"63","rx":"15.5","stroke":"white","strokeOpacity":"0.1","strokeWidth":"1","fill":"none"}],["$","rect",null,{"width":"64","height":"28","rx":"16","fill":"url(#_S_1_-shine)","opacity":"0.08"}],["$","path",null,{"d":"M50 17 A23 23 0 1 0 55 28 L35 28 L35 36 L44 36 A13 13 0 1 1 41 24Z","fill":"white"}],["$","defs",null,{"children":[["$","linearGradient",null,{"id":"_S_1_-bg","x1":"0","y1":"0","x2":"64","y2":"64","gradientUnits":"userSpaceOnUse","children":[["$","stop",null,{"offset":"0%","stopColor":"#020617"}],["$","stop",null,{"offset":"35%","stopColor":"#0f172a"}],["$","stop",null,{"offset":"70%","stopColor":"#1e3a8a"}],["$","stop",null,{"offset":"100%","stopColor":"#2563eb"}]]}],["$","linearGradient",null,{"id":"_S_1_-shine","x1":"0","y1":"0","x2":"0","y2":"28","gradientUnits":"userSpaceOnUse","children":[["$","stop",null,{"offset":"0%","stopColor":"white"}],["$","stop",null,{"offset":"100%","stopColor":"white","stopOpacity":"0"}]]}]]}]]}],["$","span",null,{"className":"font-display font-bold text-surface-900 dark:text-surface-50 leading-tight","children":["Ganesh Bhatt",["$","span",null,{"className":"block text-xs font-normal text-surface-500 dark:text-surface-400 tracking-wide","children":"Full-Stack Developer"}]]}]]}],["$","p",null,{"className":"text-sm leading-relaxed text-surface-600 dark:text-surface-400 max-w-xs","children":[" ","Full-stack developer building software that reaches millions. Currently at Brainstorm Force, core engineer on Spectra v3."]}],["$","nav",null,{"aria-label":"Social media profiles","className":"flex gap-2","children":[["$","a","LinkedIn",{"href":"https://www.linkedin.com/in/ganesh-bhatta/","target":"_blank","rel":"noopener noreferrer","aria-label":"Ganesh Bhatt on LinkedIn (opens in new tab)","className":"inline-flex items-center gap-2 min-w-[44px] min-h-[44px] p-2.5 rounded-lg text-surface-500 dark:text-surface-400 hover:text-primary-500 dark:hover:text-primary-400 hover:bg-surface-100 dark:hover:bg-surface-800 transition-all duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-surface-950","children":[["$","svg",null,{"ref":"$undefined","xmlns":"http://www.w3.org/2000/svg","width":18,"height":18,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":1.75,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-linkedin shrink-0","aria-hidden":"true","children":[["$","path","c2jq9f",{"d":"M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"}],["$","rect","mk3on5",{"width":"4","height":"12","x":"2","y":"9"}],["$","circle","bt5ra8",{"cx":"4","cy":"4","r":"2"}],"$undefined"]}],false]}],["$","a","GitHub",{"href":"https://github.com/bhattaganesh","target":"_blank","rel":"noopener noreferrer","aria-label":"Ganesh Bhatt on GitHub (opens in new tab)","className":"inline-flex items-center gap-2 min-w-[44px] min-h-[44px] p-2.5 rounded-lg text-surface-500 dark:text-surface-400 hover:text-primary-500 dark:hover:text-primary-400 hover:bg-surface-100 dark:hover:bg-surface-800 transition-all duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-surface-950","children":["$L17",false]}],"$L18"]}]]}],"$L19","$L1a"]}]}],"$L1b"]}]
+d:["$","$L1c",null,{}]
+e:["$","$L1d",null,{"richColors":true,"position":"bottom-right"}]
+f:["$","$2","c",{"children":[null,["$","$L6",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L9",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+10:["$","$2","c",{"children":[null,["$","$L6",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L9",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+11:["$","$2","c",{"children":["$L1e",[["$","script","script-0",{"src":"/_next/static/chunks/133jbmvgt1sbg.js","async":true,"nonce":"$undefined"}]],["$","$L1f",null,{"children":["$","$20",null,{"name":"Next.MetadataOutlet","children":"$@21"}]}]]}]
+22:[]
+12:"$W22"
+13:["$","$2","h",{"children":[null,["$","$L23",null,{"children":"$L24"}],["$","div",null,{"hidden":true,"children":["$","$L25",null,{"children":["$","$20",null,{"name":"Next.Metadata","children":"$L26"}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]
+15:["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/0r1hja-ou3c8u.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]
+17:["$","svg",null,{"ref":"$undefined","xmlns":"http://www.w3.org/2000/svg","width":18,"height":18,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":1.75,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-github shrink-0","aria-hidden":"true","children":[["$","path","tonef",{"d":"M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"}],["$","path","9comsn",{"d":"M9 18c-4.51 2-5-2-7-2"}],"$undefined"]}]
+18:["$","a","Facebook",{"href":"https://www.facebook.com/ganesh.bhatta.gb","target":"_blank","rel":"noopener noreferrer","aria-label":"Ganesh Bhatt on Facebook (opens in new tab)","className":"inline-flex items-center gap-2 min-w-[44px] min-h-[44px] p-2.5 rounded-lg text-surface-500 dark:text-surface-400 hover:text-primary-500 dark:hover:text-primary-400 hover:bg-surface-100 dark:hover:bg-surface-800 transition-all duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-surface-950","children":[["$","svg",null,{"ref":"$undefined","xmlns":"http://www.w3.org/2000/svg","width":18,"height":18,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":1.75,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-facebook shrink-0","aria-hidden":"true","children":[["$","path","1jg4f8",{"d":"M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"}],"$undefined"]}],false]}]
+19:["$","div",null,{"className":"flex flex-col gap-5","children":[["$","h3",null,{"className":"text-xs font-semibold uppercase tracking-widest text-surface-500 dark:text-surface-500","children":[" ","Quick Links"]}],["$","nav",null,{"aria-label":"Footer navigation","children":["$","ul",null,{"className":"flex flex-col gap-2","role":"list","children":[["$","li","/",{"children":["$","$L16",null,{"href":"/","className":"inline-flex items-center gap-1.5 text-sm text-surface-600 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-150 focus-visible:outline-none focus-visible:underline group","children":[["$","span",null,{"className":"w-1 h-1 rounded-full bg-surface-300 dark:bg-surface-600 group-hover:bg-primary-500 dark:group-hover:bg-primary-400 transition-colors duration-150 shrink-0","aria-hidden":"true"}],"Home"]}]}],["$","li","/about",{"children":["$","$L16",null,{"href":"/about","className":"inline-flex items-center gap-1.5 text-sm text-surface-600 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-150 focus-visible:outline-none focus-visible:underline group","children":[["$","span",null,{"className":"w-1 h-1 rounded-full bg-surface-300 dark:bg-surface-600 group-hover:bg-primary-500 dark:group-hover:bg-primary-400 transition-colors duration-150 shrink-0","aria-hidden":"true"}],"About"]}]}],["$","li","/projects",{"children":["$","$L16",null,{"href":"/projects","className":"inline-flex items-center gap-1.5 text-sm text-surface-600 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-150 focus-visible:outline-none focus-visible:underline group","children":[["$","span",null,{"className":"w-1 h-1 rounded-full bg-surface-300 dark:bg-surface-600 group-hover:bg-primary-500 dark:group-hover:bg-primary-400 transition-colors duration-150 shrink-0","aria-hidden":"true"}],"Projects"]}]}],["$","li","/experience",{"children":["$","$L16",null,{"href":"/experience","className":"inline-flex items-center gap-1.5 text-sm text-surface-600 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-150 focus-visible:outline-none focus-visible:underline group","children":[["$","span",null,{"className":"w-1 h-1 rounded-full bg-surface-300 dark:bg-surface-600 group-hover:bg-primary-500 dark:group-hover:bg-primary-400 transition-colors duration-150 shrink-0","aria-hidden":"true"}],"Experience"]}]}],["$","li","/blog",{"children":["$","$L16",null,{"href":"/blog","className":"inline-flex items-center gap-1.5 text-sm text-surface-600 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-150 focus-visible:outline-none focus-visible:underline group","children":[["$","span",null,{"className":"w-1 h-1 rounded-full bg-surface-300 dark:bg-surface-600 group-hover:bg-primary-500 dark:group-hover:bg-primary-400 transition-colors duration-150 shrink-0","aria-hidden":"true"}],"Blog"]}]}],["$","li","/contact",{"children":["$","$L16",null,{"href":"/contact","className":"inline-flex items-center gap-1.5 text-sm text-surface-600 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-150 focus-visible:outline-none focus-visible:underline group","children":[["$","span",null,{"className":"w-1 h-1 rounded-full bg-surface-300 dark:bg-surface-600 group-hover:bg-primary-500 dark:group-hover:bg-primary-400 transition-colors duration-150 shrink-0","aria-hidden":"true"}],"Contact"]}]}]]}]}]]}]
+1a:["$","div",null,{"className":"flex flex-col gap-5","children":[["$","h3",null,{"className":"text-xs font-semibold uppercase tracking-widest text-surface-500 dark:text-surface-500","children":[" ","Get In Touch"]}],["$","ul",null,{"className":"flex flex-col gap-3","role":"list","children":[["$","li",null,{"children":["$","a",null,{"href":"mailto:bhattaganesh05@gmail.com","className":"flex items-center gap-3 group text-sm text-surface-600 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-150 focus-visible:outline-none focus-visible:underline","children":[["$","span",null,{"className":"flex items-center justify-center w-8 h-8 rounded-lg shrink-0 bg-surface-100 dark:bg-surface-800 group-hover:bg-primary-100 dark:group-hover:bg-primary-950 transition-colors duration-150","aria-hidden":"true","children":["$","svg",null,{"ref":"$undefined","xmlns":"http://www.w3.org/2000/svg","width":14,"height":14,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-mail text-surface-500 dark:text-surface-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors","aria-hidden":"true","children":[["$","path","132q7q",{"d":"m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"}],["$","rect","izxlao",{"x":"2","y":"4","width":"20","height":"16","rx":"2"}],"$undefined"]}]}],["$","span",null,{"className":"truncate","children":"bhattaganesh05@gmail.com"}]]}]}],["$","li",null,{"children":["$","span",null,{"className":"flex items-center gap-3 text-sm text-surface-600 dark:text-surface-400","children":[["$","span",null,{"className":"flex items-center justify-center w-8 h-8 rounded-lg shrink-0 bg-surface-100 dark:bg-surface-800","aria-hidden":"true","children":["$","svg",null,{"ref":"$undefined","xmlns":"http://www.w3.org/2000/svg","width":14,"height":14,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-map-pin text-surface-500 dark:text-surface-400","aria-hidden":"true","children":[["$","path","1r0f0z",{"d":"M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"}],["$","circle","ilqhr7",{"cx":"12","cy":"10","r":"3"}],"$undefined"]}]}],["$","span",null,{"children":"Kathmandu, Nepal"}]]}]}]]}],["$","$L16",null,{"href":"/contact","className":"mt-1 self-start inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-150 focus-visible:outline-none focus-visible:underline group","children":["Send a message",["$","svg",null,{"ref":"$undefined","xmlns":"http://www.w3.org/2000/svg","width":14,"height":14,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-arrow-up-right group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-150","aria-hidden":"true","children":[["$","path","1tivn9",{"d":"M7 7h10v10"}],["$","path","1vkiza",{"d":"M7 17 17 7"}],"$undefined"]}]]}]]}]
+1b:["$","div",null,{"className":"border-t border-surface-200 dark:border-surface-800","children":["$","div",null,{"className":"mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-4","children":["$","div",null,{"className":"flex flex-col sm:flex-row items-center justify-between gap-3","children":[["$","p",null,{"className":"text-xs text-surface-500 dark:text-surface-500 text-center sm:text-left","children":[" ","© ",2026," ",["$","span",null,{"className":"text-surface-600 dark:text-surface-400 font-medium","children":"Ganesh Prasad Bhatt"}],". All rights reserved."]}],["$","div",null,{"className":"inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-50 dark:bg-green-950/50 border border-green-200 dark:border-green-800/60","role":"status","aria-label":"Employment status: available for work","children":[["$","span",null,{"className":"w-2 h-2 rounded-full bg-green-500 animate-pulse shrink-0","aria-hidden":"true"}],["$","span",null,{"className":"text-xs font-medium text-green-700 dark:text-green-400","children":"Available for work"}]]}]]}]}]}]
+24:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+1e:["$","div",null,{"className":"pt-24 pb-16","children":[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"headline\":\"React + WordPress REST API: The Modern Headless CMS Stack\",\"datePublished\":\"2026-01-18T15:41:30\",\"dateModified\":\"2026-03-20T19:23:44\",\"author\":{\"@type\":\"Person\",\"name\":\"Ganesh Prasad Bhatt\",\"url\":\"https://www.ganeshbhatt.com.np/about\"},\"publisher\":{\"@type\":\"Person\",\"name\":\"Ganesh Prasad Bhatt\",\"url\":\"https://www.ganeshbhatt.com.np\"},\"mainEntityOfPage\":{\"@type\":\"WebPage\",\"@id\":\"https://www.ganeshbhatt.com.np/blog/react-wordpress-rest-api-the-modern-headless-cms-stack\"},\"image\":\"https://dev-ganesh-portfolio-api.pantheonsite.io/wp-content/uploads/2026/03/react-wordpress-headless.jpg\"}"}}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://www.ganeshbhatt.com.np\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Blog\",\"item\":\"https://www.ganeshbhatt.com.np/blog\"},{\"@type\":\"ListItem\",\"position\":3,\"name\":\"React + WordPress REST API: The Modern Headless CMS Stack\",\"item\":\"https://www.ganeshbhatt.com.np/blog/react-wordpress-rest-api-the-modern-headless-cms-stack\"}]}"}}],["$","div",null,{"className":"mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl","children":[["$","$L16",null,{"href":"/blog","className":"inline-flex items-center gap-2 text-surface-500 hover:text-primary-600 dark:hover:text-primary-400 mb-8 transition-colors text-sm font-medium","children":[["$","svg",null,{"ref":"$undefined","xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-arrow-left w-4 h-4","aria-hidden":"true","children":[["$","path","1l729n",{"d":"m12 19-7-7 7-7"}],["$","path","x3x0zl",{"d":"M19 12H5"}],"$undefined"]}],"Back to Blog"]}],["$","div",null,{"className":"flex flex-wrap gap-2 mb-4","children":[["$","span","uncategorized",{"className":"inline-flex items-center gap-1 text-xs font-medium px-2.5 py-0.5 rounded-full transition-colors duration-150 bg-primary-100 text-primary-700 dark:bg-primary-950 dark:text-primary-300 border border-primary-200 dark:border-primary-900","children":"Uncategorized"}]]}],["$","h1",null,{"className":"text-3xl sm:text-4xl lg:text-5xl font-bold font-display text-surface-900 dark:text-surface-50 mb-6 leading-tight","children":"React + WordPress REST API: The Modern Headless CMS Stack"}],["$","div",null,{"className":"flex flex-wrap items-center gap-4 text-surface-500 dark:text-surface-400 text-sm mb-8","children":[["$","$L16",null,{"href":"/about","className":"flex items-center gap-1.5 hover:text-primary-600 dark:hover:text-primary-400 transition-colors","children":[["$","svg",null,{"ref":"$undefined","xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-user w-4 h-4","aria-hidden":"true","children":[["$","path","975kel",{"d":"M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"}],["$","circle","17ys0d",{"cx":"12","cy":"7","r":"4"}],"$undefined"]}],"Ganesh Prasad Bhatt"]}],["$","span",null,{"className":"flex items-center gap-1.5","children":[["$","svg",null,{"ref":"$undefined","xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-calendar w-4 h-4","aria-hidden":"true","children":[["$","path","1cmpym",{"d":"M8 2v4"}],["$","path","4m81vk",{"d":"M16 2v4"}],["$","rect","1hopcy",{"width":"18","height":"18","x":"3","y":"4","rx":"2"}],["$","path","8toen8",{"d":"M3 10h18"}],"$undefined"]}],"$L27"]}],"$L28"]}],"$L29","$L2a",false,"$L2b"]}]]}]
+2c:I[85437,["/_next/static/chunks/0ti1b0_jr00zw.js","/_next/static/chunks/13159xoxv.qsm.js","/_next/static/chunks/187hr-pmdj8zb.js","/_next/static/chunks/101zn_si7ltyv.js","/_next/static/chunks/133jbmvgt1sbg.js"],"Image"]
+27:["$","time",null,{"dateTime":"2026-01-18T15:41:30","children":"January 18, 2026"}]
+28:["$","span",null,{"className":"flex items-center gap-1.5","children":[["$","svg",null,{"ref":"$undefined","xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-clock w-4 h-4","aria-hidden":"true","children":[["$","circle","1mglay",{"cx":"12","cy":"12","r":"10"}],["$","path","mmk7yg",{"d":"M12 6v6l4 2"}],"$undefined"]}],9," min read"]}]
+29:["$","div",null,{"className":"relative aspect-video w-full mb-10 rounded-2xl overflow-hidden","children":["$","$L2c",null,{"src":"https://dev-ganesh-portfolio-api.pantheonsite.io/wp-content/uploads/2026/03/react-wordpress-headless.jpg","alt":"React + WordPress REST API: The Modern Headless CMS Stack","fill":true,"className":"object-cover","priority":true,"sizes":"(max-width: 768px) 100vw, 768px"}]}]
+2d:T4150,<p>The traditional WordPress theme architecture — PHP templates rendering HTML on the server, jQuery animations in the front-end — served the web well for two decades. But in 2025, the expectations for web experiences have fundamentally changed. Users expect app-like interactivity, instant page transitions, and real-time updates. This is where the headless WordPress + React stack shines.</p>
+<p>In this guide, we&#8217;ll build a production-grade headless WordPress application using Next.js 15, the WordPress REST API, and React 19. You&#8217;ll learn authentication, data fetching patterns, ISR caching, and the trade-offs you need to understand before choosing headless.</p>
+<h2>What Is Headless WordPress?</h2>
+<p>In a headless setup, WordPress serves exclusively as a content management system (CMS) and API backend. The frontend is a completely separate application — typically built with React, Next.js, Nuxt, Astro, or any other framework. WordPress exposes its data through:</p>
+<ul>
+<li><strong>REST API</strong> — Built into WordPress core since 4.7. Available at <code>/wp-json/wp/v2/</code></li>
+<li><strong>WPGraphQL</strong> — A popular plugin that exposes a GraphQL endpoint at <code>/graphql</code></li>
+</ul>
+<p>The benefits of going headless are significant:</p>
+<ul>
+<li>Full control over the frontend tech stack and performance</li>
+<li>Better SEO through Next.js SSG/ISR</li>
+<li>Superior developer experience (TypeScript, hot reload, modern tooling)</li>
+<li>Multi-channel publishing (web, mobile, smart TV) from a single CMS</li>
+<li>Separation of concerns — content editors stay in the familiar WP admin</li>
+</ul>
+<h2>Setting Up WordPress as a Headless CMS</h2>
+<h3>Configure CORS</h3>
+<p>Your Next.js frontend will make requests from a different domain (e.g., <code>mysite.com</code>) to your WordPress API (e.g., <code>api.mysite.com</code>). You need to configure CORS in WordPress to allow this:</p>
+<pre><code class="language-php">// In your theme's functions.php or a mu-plugin
+add_action('rest_api_init', function() {
+    remove_filter('rest_pre_serve_request', 'rest_send_cors_headers');
+
+    add_filter('rest_pre_serve_request', function($served) {
+        $allowed_origins = [
+            'https://mysite.com',
+            'https://www.mysite.com',
+            'http://localhost:3000', // Development
+        ];
+
+        $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+
+        if (in_array($origin, $allowed_origins, true)) {
+            header('Access-Control-Allow-Origin: ' . $origin);
+            header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+            header('Access-Control-Allow-Credentials: true');
+            header('Access-Control-Allow-Headers: Content-Type, X-WP-Nonce, Authorization');
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            status_header(200);
+            exit();
+        }
+
+        return $served;
+    });
+}, 15);</code></pre>
+<h3>Custom REST Endpoints</h3>
+<p>The built-in REST API is powerful but sometimes you need custom endpoints for specific use cases — like returning aggregated data, triggering custom logic, or exposing data from custom tables:</p>
+<pre><code class="language-php">add_action('rest_api_init', function() {
+    register_rest_route('myapp/v1', '/featured-content', [
+        'methods'             => WP_REST_Server::READABLE,
+        'callback'            => 'get_featured_content',
+        'permission_callback' => '__return_true',
+        'schema'              => [
+            '$schema'    => 'http://json-schema.org/draft-04/schema#',
+            'title'      => 'featured-content',
+            'type'       => 'object',
+            'properties' => [
+                'posts'    => ['type' => 'array'],
+                'projects' => ['type' => 'array'],
+            ],
+        ],
+    ]);
+});
+
+function get_featured_content(WP_REST_Request $request): WP_REST_Response {
+    $posts = get_posts([
+        'post_type'      => 'post',
+        'posts_per_page' => 3,
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+    ]);
+
+    $response = [
+        'posts'    => array_map('format_post_for_api', $posts),
+        'projects' => get_featured_projects(),
+    ];
+
+    return new WP_REST_Response($response, 200, [
+        'Cache-Control' => 'public, max-age=3600',
+    ]);
+}</code></pre>
+<h2>Building the Next.js Frontend</h2>
+<h3>Project Setup</h3>
+<pre><code class="language-bash">npx create-next-app@latest my-portfolio \
+  --typescript \
+  --tailwind \
+  --app \
+  --src-dir
+
+cd my-portfolio
+npm install graphql-request graphql</code></pre>
+<h3>WordPress API Client</h3>
+<p>Create a typed API client that wraps all WordPress REST API calls. This centralizes your data fetching logic and makes it easy to swap from REST to GraphQL later:</p>
+<pre><code class="language-typescript">// src/lib/wordpress.ts
+const WP_API_BASE = process.env.WORDPRESS_API_URL || 'https://api.mysite.com/wp-json/wp/v2';
+
+interface WPPost {
+  id: number;
+  slug: string;
+  title: { rendered: string };
+  content: { rendered: string };
+  excerpt: { rendered: string };
+  date: string;
+  modified: string;
+  featured_media: number;
+  _embedded?: {
+    'wp:featuredmedia'?: Array<{
+      source_url: string;
+      alt_text: string;
+      media_details: { width: number; height: number };
+    }>;
+  };
+  categories: number[];
+  tags: number[];
+}
+
+async function wpFetch<T>(path: string, options?: RequestInit): Promise<T> {
+  const url = `${WP_API_BASE}${path}`;
+  const res = await fetch(url, {
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      ...options?.headers,
+    },
+    next: { revalidate: 3600 },
+  });
+
+  if (!res.ok) {
+    throw new Error(`WordPress API error: ${res.status} ${res.statusText} for ${url}`);
+  }
+
+  return res.json();
+}
+
+export async function getPosts(params?: {
+  perPage?: number;
+  page?: number;
+  category?: number;
+  search?: string;
+}) {
+  const searchParams = new URLSearchParams({
+    per_page: String(params?.perPage ?? 10),
+    page: String(params?.page ?? 1),
+    _embed: 'wp:featuredmedia,author',
+    ...(params?.category && { categories: String(params.category) }),
+    ...(params?.search && { search: params.search }),
+  });
+
+  const posts = await wpFetch<WPPost[]>(`/posts?${searchParams}`);
+  return posts.map(transformPost);
+}
+
+export async function getPostBySlug(slug: string) {
+  const posts = await wpFetch<WPPost[]>(
+    `/posts?slug=${slug}&_embed=wp:featuredmedia,author`
+  );
+  return posts[0] ? transformPost(posts[0]) : null;
+}
+
+function transformPost(post: WPPost) {
+  return {
+    id: post.id,
+    slug: post.slug,
+    title: post.title.rendered,
+    content: post.content.rendered,
+    excerpt: post.excerpt.rendered.replace(/<[^>]+>/g, ''),
+    date: post.date,
+    modified: post.modified,
+    featuredImage: post._embedded?.['wp:featuredmedia']?.[0] ?? null,
+  };
+}</code></pre>
+<h3>Blog Listing Page with ISR</h3>
+<pre><code class="language-typescript">// src/app/blog/page.tsx
+import { getPosts } from '@/lib/wordpress';
+import { PostCard } from '@/components/blog/post-card';
+import type { Metadata } from 'next';
+
+export const revalidate = 3600; // Revalidate every hour
+
+export const metadata: Metadata = {
+  title: 'Blog – My Portfolio',
+  description: 'Articles on WordPress development, React, and modern web engineering.',
+};
+
+interface BlogPageProps {
+  searchParams: Promise<{ page?: string }>;
+}
+
+export default async function BlogPage({ searchParams }: BlogPageProps) {
+  const { page: pageParam } = await searchParams;
+  const page = parseInt(pageParam ?? '1', 10);
+
+  const posts = await getPosts({ perPage: 9, page });
+
+  return (
+    &lt;main className="container mx-auto px-4 py-16"&gt;
+      &lt;h1 className="text-4xl font-bold mb-12"&gt;Blog&lt;/h1&gt;
+      &lt;div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"&gt;
+        {posts.map((post) => (
+          &lt;PostCard key={post.id} post={post} /&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/main&gt;
+  );
+}</code></pre>
+<h3>Dynamic Blog Post Page</h3>
+<pre><code class="language-typescript">// src/app/blog/[slug]/page.tsx
+import { getPostBySlug, getAllPostSlugs } from '@/lib/wordpress';
+import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
+
+export const revalidate = 86400; // Revalidate every 24 hours
+
+interface PostPageProps {
+  params: Promise&lt;{ slug: string }&gt;;
+}
+
+export async function generateStaticParams() {
+  const slugs = await getAllPostSlugs();
+  return slugs.map((slug) => ({ slug }));
+}
+
+export async function generateMetadata({ params }: PostPageProps): Promise&lt;Metadata&gt; {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
+  if (!post) return {};
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      images: post.featuredImage ? [post.featuredImage.source_url] : [],
+    },
+  };
+}
+
+export default async function PostPage({ params }: PostPageProps) {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
+  if (!post) notFound();
+
+  return (
+    &lt;article className="container mx-auto px-4 py-16 max-w-3xl"&gt;
+      &lt;h1 className="text-4xl font-bold mb-6"&gt;{post.title}&lt;/h1&gt;
+      &lt;div
+        className="prose prose-lg max-w-none"
+        dangerouslySetInnerHTML={{ __html: post.content }}
+      /&gt;
+    &lt;/article&gt;
+  );
+}</code></pre>
+<h2>Authentication for Private Content</h2>
+<p>If your WordPress site has membership content, user profiles, or private posts, you need authentication. WordPress supports two main approaches for headless setups:</p>
+<h3>Application Passwords (WordPress 5.6+)</h3>
+<p>Application passwords are 24-character tokens generated per user in the WordPress admin. They&#8217;re ideal for server-to-server API calls (e.g., your Next.js server fetching private data):</p>
+<pre><code class="language-typescript">// Server-side only — never expose in client code
+const WP_AUTH = Buffer.from(
+  `${process.env.WP_USERNAME}:${process.env.WP_APP_PASSWORD}`
+).toString('base64');
+
+const privatePost = await fetch(`${WP_API_BASE}/posts/123?status=private`, {
+  headers: {
+    Authorization: `Basic ${WP_AUTH}`,
+  },
+  cache: 'no-store', // Private content should never be cached
+});</code></pre>
+<h3>JWT Authentication</h3>
+<p>For user-facing authentication (e.g., members logging into your site), use the JWT Authentication for WP REST API plugin. This gives you a proper stateless auth flow:</p>
+<pre><code class="language-typescript">// Login and get JWT token
+async function loginUser(username: string, password: string) {
+  const res = await fetch(`${WP_API_BASE.replace('/wp/v2', '')}/jwt-auth/v1/token`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, password }),
+  });
+
+  if (!res.ok) throw new Error('Login failed');
+  const { token } = await res.json();
+
+  // Store securely — httpOnly cookie via Next.js Server Action
+  return token;
+}
+
+// Authenticated request
+async function getPrivateContent(token: string) {
+  return wpFetch('/posts?status=private', {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}</code></pre>
+<h2>On-Demand Revalidation Webhook</h2>
+<p>ISR with a fixed revalidation interval means new content appears within an hour. For a better editorial experience, implement on-demand revalidation: when a post is published in WordPress, it immediately triggers a cache purge on your Next.js frontend.</p>
+<h3>WordPress Side — The Webhook</h3>
+<pre><code class="language-php">// In functions.php or a mu-plugin
+add_action('save_post', function(int $post_id, WP_Post $post) {
+    if ($post->post_status !== 'publish') return;
+    if (wp_is_post_revision($post_id)) return;
+
+    $frontend_url  = get_option('headless_frontend_url', 'https://mysite.com');
+    $secret        = get_option('revalidation_secret');
+    $post_type_map = [
+        'post'      => '/blog',
+        'portfolio' => '/projects',
+    ];
+
+    $base_path = $post_type_map[$post->post_type] ?? null;
+    if (!$base_path) return;
+
+    $paths = [$base_path, "$base_path/{$post->post_name}"];
+
+    wp_remote_post("$frontend_url/api/revalidate", [
+        'headers' => [
+            'Content-Type'   => 'application/json',
+            'x-revalidate-secret' => $secret,
+        ],
+        'body'    => wp_json_encode(['paths' => $paths]),
+        'timeout' => 10,
+    ]);
+}, 10, 2);</code></pre>
+<h3>Next.js Side — The Revalidation Endpoint</h3>
+<pre><code class="language-typescript">// src/app/api/revalidate/route.ts
+import { revalidatePath } from 'next/cache';
+import { NextRequest, NextResponse } from 'next/server';
+
+export async function POST(request: NextRequest) {
+  const secret = request.headers.get('x-revalidate-secret');
+
+  if (secret !== process.env.REVALIDATION_SECRET) {
+    return NextResponse.json({ error: 'Invalid secret' }, { status: 401 });
+  }
+
+  const body = await request.json();
+  const paths: string[] = body.paths ?? [];
+
+  for (const path of paths) {
+    revalidatePath(path);
+  }
+
+  return NextResponse.json({ revalidated: true, paths });
+}</code></pre>
+<h2>Advanced: React Query for Client-Side Data</h2>
+<p>For interactive features — search, filters, infinite scroll — you need client-side data fetching. React Query (TanStack Query) is the best solution for this:</p>
+<pre><code class="language-typescript">'use client';
+
+import { useInfiniteQuery } from '@tanstack/react-query';
+
+interface Post {
+  id: number;
+  slug: string;
+  title: string;
+  excerpt: string;
+}
+
+async function fetchPosts({ pageParam = 1 }: { pageParam: number }) {
+  const res = await fetch(`/api/posts?page=${pageParam}&per_page=9`);
+  if (!res.ok) throw new Error('Failed to fetch posts');
+  const posts: Post[] = await res.json();
+  const totalPages = parseInt(res.headers.get('X-WP-TotalPages') ?? '1', 10);
+  return { posts, nextPage: pageParam < totalPages ? pageParam + 1 : undefined };
+}
+
+export function InfinitePostList() {
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery({
+    queryKey: ['posts'],
+    queryFn: fetchPosts,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => lastPage.nextPage,
+  });
+
+  if (status === 'pending') return &lt;PostsSkeleton /&gt;;
+  if (status === 'error') return &lt;ErrorState /&gt;;
+
+  const allPosts = data.pages.flatMap((page) => page.posts);
+
+  return (
+    &lt;div&gt;
+      &lt;div className="grid grid-cols-1 md:grid-cols-3 gap-6"&gt;
+        {allPosts.map((post) => (
+          &lt;PostCard key={post.id} post={post} /&gt;
+        ))}
+      &lt;/div&gt;
+      {hasNextPage &amp;&amp; (
+        &lt;button
+          onClick={() => fetchNextPage()}
+          disabled={isFetchingNextPage}
+          className="mt-8 px-6 py-3 bg-primary-600 text-white rounded-lg"
+        &gt;
+          {isFetchingNextPage ? 'Loading...' : 'Load More Posts'}
+        &lt;/button&gt;
+      )}
+    &lt;/div&gt;
+  );
+}</code></pre>
+<h2>When NOT to Go Headless</h2>
+<p>Headless WordPress is powerful but it&#8217;s not always the right choice. Consider carefully:</p>
+<ul>
+<li><strong>Page Builder sites:</strong> Elementor, Divi, Beaver Builder — these are deeply coupled to WordPress rendering. Going headless loses all of that.</li>
+<li><strong>WooCommerce:</strong> Headless WooCommerce is possible but complex. Most e-commerce sites are better served by a traditional or block-theme approach.</li>
+<li><strong>Small content sites:</strong> If you have 5 pages and rarely update content, headless adds unnecessary complexity.</li>
+<li><strong>Team without React experience:</strong> Headless requires frontend expertise that your team may not have.</li>
+</ul>
+<p>The sweet spot for headless WordPress is: content-heavy sites, portfolios, blogs, marketing sites, and apps where performance and developer experience are top priorities.</p>
+<h2>Conclusion</h2>
+<p>The WordPress REST API + React/Next.js stack gives you the best of both worlds: WordPress&#8217;s unmatched content management experience for editors, and a modern, performant frontend for users. With ISR, on-demand revalidation, and React Query for interactive features, you can build sites that score 100/100 on Lighthouse while still giving content teams the WordPress experience they love.</p>
+<p>The architectural patterns in this guide — typed API clients, transform functions, on-demand revalidation, JWT auth — are production-tested across dozens of projects. Start with a simple blog setup, get comfortable with the data flow, then layer in complexity as your requirements grow.</p>
+2a:["$","div",null,{"className":"prose prose-surface dark:prose-invert max-w-none prose-headings:font-display prose-a:text-primary-600 dark:prose-a:text-primary-400 prose-code:font-mono prose-code:text-sm prose-img:rounded-xl prose-pre:rounded-xl","dangerouslySetInnerHTML":{"__html":"$2d"}}]
+2b:["$","div",null,{"className":"mt-12 pt-8 border-t border-surface-200 dark:border-surface-800","children":["$","$L16",null,{"href":"/blog","className":"inline-flex items-center gap-2 text-surface-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm font-medium","children":[["$","svg",null,{"ref":"$undefined","xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-arrow-left w-4 h-4","aria-hidden":"true","children":[["$","path","1l729n",{"d":"m12 19-7-7 7-7"}],["$","path","x3x0zl",{"d":"M19 12H5"}],"$undefined"]}],"Back to Blog"]}]}]
+2e:I[27201,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"IconMark"]
+21:null
+26:[["$","title","0",{"children":"React + WordPress REST API: The Modern Headless CMS Stack – Ganesh Prasad Bhatt | Ganesh Prasad Bhatt"}],["$","meta","1",{"name":"description","content":"The traditional WordPress theme architecture — PHP templates rendering HTML on the server, jQuery animations in the front-end — served the web well for two deca"}],["$","link","2",{"rel":"author","href":"https://www.ganeshbhatt.com.np"}],["$","meta","3",{"name":"author","content":"Ganesh Prasad Bhatt"}],["$","meta","4",{"name":"keywords","content":"Full Stack Developer,PHP Developer,WordPress Developer,React Developer,Gutenberg Developer,Software Engineer,Nepal,Kathmandu,Brainstorm Force,WordPress Developer Nepal,Gutenberg Block Developer,Headless WordPress Developer,React Developer Kathmandu,PHP Developer Nepal,Spectra Developer,Full Stack Developer Nepal"}],["$","meta","5",{"name":"creator","content":"Ganesh Prasad Bhatt"}],["$","meta","6",{"name":"robots","content":"index, follow"}],["$","meta","7",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","8",{"rel":"canonical","href":"https://www.ganeshbhatt.com.np/blog/react-wordpress-rest-api-the-modern-headless-cms-stack/"}],["$","meta","9",{"property":"og:title","content":"React + WordPress REST API: The Modern Headless CMS Stack"}],["$","meta","10",{"property":"og:description","content":"The traditional WordPress theme architecture — PHP templates rendering HTML on the server, jQuery animations in the front-end — served the web well for two deca"}],["$","meta","11",{"property":"og:image","content":"https://dev-ganesh-portfolio-api.pantheonsite.io/wp-content/uploads/2026/03/react-wordpress-headless.jpg"}],["$","meta","12",{"property":"og:type","content":"article"}],["$","meta","13",{"property":"article:published_time","content":"2026-01-18T15:41:30"}],["$","meta","14",{"property":"article:modified_time","content":"2026-03-20T19:23:44"}],["$","meta","15",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","16",{"name":"twitter:title","content":"Ganesh Prasad Bhatt – Senior Full-Stack Software Developer"}],["$","meta","17",{"name":"twitter:description","content":"Senior Full-Stack Software Developer with 4+ years of experience building scalable web applications. Strong expertise in PHP, JavaScript, React, MySQL, and WordPress/Gutenberg ecosystem."}],["$","meta","18",{"name":"twitter:image","content":"https://dev-ganesh-portfolio-api.pantheonsite.io/wp-content/uploads/2026/03/react-wordpress-headless.jpg"}],["$","link","19",{"rel":"icon","href":"/icon.svg?icon.0kk~mqfg8d3e..svg","sizes":"any","type":"image/svg+xml"}],["$","link","20",{"rel":"apple-touch-icon","href":"/apple-icon?c989297e67cd05ac","alt":"$undefined","type":"image/png","sizes":"180x180"}],["$","$L2e","21",{}]]
