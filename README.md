@@ -118,16 +118,65 @@ src/
 └── lib/              # Utilities, types, constants, WordPress client
 ```
 
-## Deployment
+## CI/CD Pipeline
 
-The site is deployed to **GitHub Pages** via GitHub Actions.
+The project has a fully automated CI/CD pipeline via GitHub Actions.
 
-- **Auto-deploy:** Every push to `main` triggers a build and deploy
-- **Daily rebuild:** Cron job at 6 AM UTC picks up new WordPress content
-- **Manual rebuild:** Trigger from GitHub Actions UI anytime
-- **Custom domain:** `www.ganeshbhatt.com.np` (CNAME managed in deploy workflow)
+### What happens on every push to `main`
 
-To set up: Go to repo Settings → Pages → Source → select "GitHub Actions".
+1. **Lint** — runs `eslint` to catch code issues
+2. **Type Check** — runs `tsc --noEmit` to catch TypeScript errors
+3. **Build** — generates the static site into `out/`
+4. **Deploy** — uploads to GitHub Pages (live in ~1 minute)
+
+### Development Workflow
+
+```bash
+# 1. Make your changes
+# 2. Stage and commit
+git add <files>
+git commit -m "feat: add new section"
+
+# 3. Push to main — auto-deploys
+git push origin main
+```
+
+That's it. Your changes will be live at https://www.ganeshbhatt.com.np within a few minutes.
+
+### Creating a Release
+
+When you want to tag a version (e.g., after a major update):
+
+```bash
+# 1. Bump version in package.json (follow semver)
+#    - Patch (1.0.1): bug fixes, small tweaks
+#    - Minor (1.1.0): new features, new pages
+#    - Major (2.0.0): breaking redesign, new stack
+
+# 2. Commit with "release:" prefix — this triggers auto-release
+git add package.json
+git commit -m "release: v1.1.0"
+git push origin main
+```
+
+GitHub Actions will automatically:
+- Build and deploy the site
+- Create a git tag (`v1.1.0`)
+- Create a GitHub Release with an auto-generated changelog
+
+### New Blog Posts from WordPress
+
+- **Blog list page** — always fresh (fetches client-side on every page load)
+- **Blog detail pages** — require a rebuild to generate new `/blog/[slug]` pages
+- **Daily auto-rebuild** — runs at 6 AM UTC via cron, picks up new posts automatically
+- **Manual rebuild** — go to Actions tab → "Deploy to GitHub Pages" → "Run workflow"
+
+### Deployment Config
+
+- **Platform:** GitHub Pages
+- **Source:** GitHub Actions (Settings → Pages → Source)
+- **Custom domain:** `www.ganeshbhatt.com.np` (CNAME added during build)
+- **HTTPS:** Enforced
 
 ## License
 
