@@ -1,26 +1,255 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Class-based dark mode — works with next-themes which sets class="dark" on <html> */
+@variant dark (&:is(.dark *));
+
+@theme {
+  /* Blue primary palette */
+  --color-primary-50: #eef2ff;
+  --color-primary-100: #dbe4ff;
+  --color-primary-200: #bac8ff;
+  --color-primary-300: #91a7ff;
+  --color-primary-400: #748ffc;
+  --color-primary-500: #4c6ef5;
+  --color-primary-600: #3b5bdb;
+  --color-primary-700: #364fc7;
+  --color-primary-800: #2b3f9e;
+  --color-primary-900: #1e2f7a;
+  --color-primary-950: #141f56;
+
+  /* Warm stone surface */
+  --color-surface-50: #fafaf9;
+  --color-surface-100: #f5f5f4;
+  --color-surface-200: #e7e5e4;
+  --color-surface-300: #d6d3d1;
+  --color-surface-400: #a8a29e;
+  --color-surface-500: #78716c;
+  --color-surface-600: #57534e;
+  --color-surface-700: #44403c;
+  --color-surface-800: #292524;
+  --color-surface-900: #1c1917;
+  --color-surface-950: #0c0a09;
+
+  /* Semantic text colors */
+  --color-text-primary: var(--color-surface-900);
+  --color-text-secondary: var(--color-surface-600);
+  --color-text-tertiary: var(--color-surface-500);
+  --color-text-accent: var(--color-primary-600);
+
+  /* Font families — CSS variables injected by next/font at runtime */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-cabinet), var(--font-inter), ui-sans-serif, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, 'Cascadia Code', monospace;
+
+  /* Fluid type scale (Major Third 1.25 → Perfect Fourth 1.333) */
+  --text-hero: clamp(3rem, 2.5rem + 2.5vw, 5rem);
+  --text-h1: clamp(2.25rem, 1.75rem + 2vw, 3.75rem);
+  --text-h2: clamp(1.75rem, 1.5rem + 1.25vw, 2.5rem);
+  --text-h3: clamp(1.375rem, 1.25rem + 0.5vw, 1.75rem);
+  --text-body-lg: clamp(1.0625rem, 1rem + 0.25vw, 1.25rem);
+  --text-body: 1rem;
+  --text-sm: 0.875rem;
+  --text-xs: 0.75rem;
+
+  /* Letter-spacing tokens — size-aware tracking */
+  --tracking-display: -0.04em;
+  --tracking-heading: -0.025em;
+  --tracking-subheading: -0.015em;
+  --tracking-body: 0em;
+  --tracking-caps: 0.1em;
+  --tracking-nav: 0.02em;
+
+  /* Line-height tokens — tighter for display, relaxed for body */
+  --leading-hero: 1.05;
+  --leading-h1: 1.1;
+  --leading-h2: 1.15;
+  --leading-h3: 1.2;
+  --leading-body: 1.6;
+  --leading-sm: 1.5;
+
+  /* Animations */
+  --animate-fade-in: fadeIn 0.5s ease-out;
+  --animate-slide-up: slideUp 0.6s ease-out;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-gradient-shift: gradientShift 8s ease infinite;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes pageIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  --animate-page-in: pageIn 0.2s ease-out;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Suppress theme-transition flicker on media elements */
+  img,
+  video,
+  canvas,
+  svg {
+    transition: none;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-white text-surface-900 dark:bg-surface-950 dark:text-surface-50;
+    font-family: var(--font-sans);
+    line-height: var(--leading-body);
+  }
+
+  /* Differentiated heading line-heights for better typographic rhythm */
+  h1 {
+    font-family: var(--font-display);
+    line-height: var(--leading-h1);
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    line-height: var(--leading-h2);
+  }
+
+  h3 {
+    font-family: var(--font-display);
+    line-height: var(--leading-h3);
+  }
+
+  h4, h5, h6 {
+    font-family: var(--font-display);
+    line-height: var(--leading-h3);
+  }
+
+  code, pre, kbd {
+    font-family: var(--font-mono);
+  }
+
+  ::selection {
+    @apply bg-primary-200 text-primary-900;
+  }
+
+  .dark ::selection {
+    @apply bg-primary-700 text-primary-50;
+  }
+
+  /* Dark mode semantic text color overrides */
+  .dark {
+    --color-text-primary: var(--color-surface-50);
+    --color-text-secondary: var(--color-surface-400);
+    --color-text-tertiary: var(--color-surface-500);
+    --color-text-accent: var(--color-primary-400);
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary-500;
+  }
+
+  /* Styled scrollbar — WebKit */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-surface-100 dark:bg-surface-900;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-surface-400 dark:bg-surface-600 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary-500;
+  }
+
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  /* Fluid type scale utilities */
+  .text-fluid-hero { font-size: var(--text-hero); }
+  .text-fluid-h1   { font-size: var(--text-h1); }
+  .text-fluid-h2   { font-size: var(--text-h2); }
+  .text-fluid-h3   { font-size: var(--text-h3); }
+  .text-fluid-body-lg { font-size: var(--text-body-lg); }
+
+  /* Text gradient — enhanced with dark mode variant */
+  .text-gradient {
+    background: linear-gradient(135deg, var(--color-primary-600), var(--color-primary-400), var(--color-primary-300));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .dark .text-gradient {
+    background: linear-gradient(135deg, var(--color-primary-400), var(--color-primary-300), #c3dafe);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-grid-pattern {
+    background-image:
+      linear-gradient(rgba(76, 110, 245, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(76, 110, 245, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  .blob {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+
+  .gradient-hero {
+    background: linear-gradient(135deg, #4c6ef5 0%, #748ffc 25%, #3b5bdb 50%, #91a7ff 75%, #4c6ef5 100%);
+    background-size: 300% 300%;
+    animation: var(--animate-gradient-shift);
+  }
 }

@@ -39,3 +39,19 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Env
+.env.local
+.env.*.local
+
+# OpenNext
+.open-next/
+
+# Wrangler
+.wrangler/
+
+# OS
+Thumbs.db
+
+# Claude Code (local settings are machine-specific, not shared)
+.claude/settings.local.json

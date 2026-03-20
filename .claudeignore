@@ -1,0 +1,25 @@
+# Dependencies — large, not useful for Claude to read
+node_modules/
+
+# Build output — generated files, not source code
+.next/
+.open-next/
+out/
+build/
+
+# Cloudflare worker artifacts
+.wrangler/
+
+# Lock file — too large, not useful context
+package-lock.json
+
+# Environment secrets — Claude should never read these
+.env
+.env.*
+
+# Binary assets — Claude cannot meaningfully read these
+public/images/
+public/resume/
+
+# Git internals
+.git/
