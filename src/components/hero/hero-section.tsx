@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import Link from 'next/link';
 import { ArrowRight, MapPin } from 'lucide-react';
@@ -9,6 +9,10 @@ import { SocialLinks } from '@/components/shared/social-links';
 import { Container } from '@/components/ui/container';
 import { useFirstVisit } from '@/hooks/use-first-visit';
 import { GreetingClock } from './greeting-clock';
+
+const Hero3dScene = lazy(() =>
+  import('./hero-3d-scene').then((m) => ({ default: m.Hero3dScene })),
+);
 
 export function HeroSection() {
   const prefersReducedMotion = useReducedMotion();
@@ -169,13 +173,24 @@ export function HeroSection() {
             </motion.div>
           </div>
 
-          {/* ── RIGHT: Animated Greeting Clock ── */}
+          {/* ── RIGHT: Greeting Clock + 3D Floating Geometry ── */}
           <motion.div
             className="relative w-full max-w-lg mx-auto lg:mx-0"
             initial={false}
             animate={mounted ? visibleScale : hiddenScale}
             transition={shouldAnimate ? { delay: 0.3, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] } : { duration: 0 }}
           >
+            {/* 3D scene — floats behind the clock card */}
+            {!prefersReducedMotion && mounted && (
+              <div
+                className="absolute -inset-8 pointer-events-none opacity-60 dark:opacity-40"
+                aria-hidden="true"
+              >
+                <Suspense fallback={null}>
+                  <Hero3dScene />
+                </Suspense>
+              </div>
+            )}
             <div className="relative w-full h-full rounded-2xl overflow-hidden ring-1 ring-surface-200/50 dark:ring-surface-800/50">
               <GreetingClock />
             </div>

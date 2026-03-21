@@ -5,6 +5,7 @@ import { Container } from '@/components/ui/container';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { Badge } from '@/components/ui/badge';
 import { ScrollReveal } from '@/components/shared/scroll-reveal';
+import { Breadcrumbs } from '@/components/shared/breadcrumbs';
 import { SkillsGrid } from '@/components/sections/skills-grid';
 import { CtaSection } from '@/components/sections/cta-section';
 import { Download, MapPin, Mail } from 'lucide-react';
@@ -35,6 +36,7 @@ export default function AboutPage() {
       {/* ── Page Hero ───────────────────────────────────────────── */}
       <section className="pt-24 pb-16">
         <Container>
+          <Breadcrumbs items={[{ label: 'About' }]} className="mb-6" />
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left: text */}
             <ScrollReveal direction="up" delay={0}>

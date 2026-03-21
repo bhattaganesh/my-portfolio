@@ -1,3 +1,10 @@
+export interface CaseStudy {
+  challenge: string;
+  solution: string;
+  results: string[];
+  metrics: { label: string; value: string }[];
+}
+
 export interface Project {
   slug: string;
   title: string;
@@ -12,6 +19,7 @@ export interface Project {
   highlights: string[];
   gradientFrom?: string;
   gradientTo?: string;
+  caseStudy?: CaseStudy;
 }
 
 export const projects: Project[] = [
@@ -36,6 +44,24 @@ export const projects: Project[] = [
     ],
     gradientFrom: '#4c6ef5',
     gradientTo: '#748ffc',
+    caseStudy: {
+      challenge:
+        'The existing Spectra codebase had accumulated years of technical debt — inconsistent block APIs, slow render times, and no clear architectural pattern for extensibility. With 1M+ active installs, a ground-up rewrite had to ship without disrupting the existing user base.',
+      solution:
+        'Designed a new block architecture with a unified API layer, lazy-loaded block assets, and a composable settings system. Introduced a strict code-splitting strategy and a performance budget enforced via CI. Delivered a beta to the community while maintaining the stable v2 branch in parallel.',
+      results: [
+        'Block render time reduced by 40% in internal benchmarks',
+        'API surface area reduced by 30% while maintaining backward compatibility',
+        'Beta shipped on time to 1M+ site community',
+        'CI performance budget prevents regressions automatically',
+      ],
+      metrics: [
+        { label: 'Active Installs', value: '1M+' },
+        { label: 'Render Improvement', value: '40%' },
+        { label: 'API Reduction', value: '30%' },
+        { label: 'Release Year', value: '2025' },
+      ],
+    },
   },
   {
     slug: 'spectra',
@@ -79,6 +105,24 @@ export const projects: Project[] = [
     ],
     gradientFrom: '#2b6cb0',
     gradientTo: '#2c5282',
+    caseStudy: {
+      challenge:
+        'ThemeGrill needed to build a full-featured LMS from scratch that could compete with established players like LearnDash and LifterLMS. The product required a React SPA admin interface, a REST API backend, payment integrations, and AI-powered course creation — all built simultaneously by a small team.',
+      solution:
+        'Architected the React frontend using Chakra UI, React Query for server state, and React Hook Form for complex multi-step forms. Built a clean PHP/REST API backend with a service-repository pattern, integrated Razorpay for payments, and connected OpenAI ChatGPT for course generation via a prompt-engineering layer.',
+      results: [
+        'Shipped the MVP and all major premium features within a 1-year roadmap',
+        'OpenAI integration reduced course creation time by ~80% for users',
+        'Payment gateway integration handled thousands of transactions from launch',
+        'Grew to a competitive LMS product with full gradebook and analytics',
+      ],
+      metrics: [
+        { label: 'Dev Timeline', value: '1 Year' },
+        { label: 'Course Creation', value: '80% Faster' },
+        { label: 'Stack', value: 'React + PHP' },
+        { label: 'Release Year', value: '2024' },
+      ],
+    },
   },
   {
     slug: 'wp-agent-ai',
@@ -100,6 +144,24 @@ export const projects: Project[] = [
     ],
     gradientFrom: '#6d28d9',
     gradientTo: '#4c1d95',
+    caseStudy: {
+      challenge:
+        'WordPress has no native support for AI agents or LLM-powered workflows. Existing AI WordPress plugins were simple chatbots — not proper agent systems. Building a real agent framework inside WordPress\'s hook-based, request-scoped PHP architecture required rethinking how agents maintain context and chain tool calls.',
+      solution:
+        'Designed a PHP agent runtime that uses WordPress\'s transients and options API for state persistence between requests. Built a tool-calling abstraction that maps Gutenberg editor actions (insert block, update content, query posts) to LLM function calls. The React editor integration streams responses via REST and updates blocks in real-time.',
+      results: [
+        'Fully functional AI agent runtime inside WordPress with no extra infrastructure',
+        'Supports multi-step tool chaining: query → transform → insert into editor',
+        'Open source — published on GitHub for community use and extension',
+        'Demonstrates a new architectural pattern for AI in PHP-based CMSes',
+      ],
+      metrics: [
+        { label: 'Type', value: 'Open Source' },
+        { label: 'LLM Support', value: 'OpenAI' },
+        { label: 'Stack', value: 'PHP + React' },
+        { label: 'Release Year', value: '2025' },
+      ],
+    },
   },
   {
     slug: 'user-registration',

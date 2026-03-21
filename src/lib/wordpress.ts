@@ -108,3 +108,34 @@ export async function getLatestPosts(count: number = 3): Promise<BlogPost[]> {
   return posts;
 }
 
+const GET_POSTS_BY_CATEGORY = `
+  query GetPostsByCategory($categorySlug: String!, $first: Int!) {
+    posts(first: $first, where: { status: PUBLISH, categoryName: $categorySlug }) {
+      nodes {
+        id slug title excerpt content date modified
+        featuredImage { node { sourceUrl altText mediaDetails { width height } } }
+        categories { nodes { id name slug } }
+      }
+    }
+  }
+`;
+
+export async function getRelatedPosts(
+  currentSlug: string,
+  categorySlug: string,
+  count: number = 3,
+): Promise<BlogPost[]> {
+  try {
+    const client = getClient();
+    const data = await client.request<{ posts: { nodes: BlogPost[] } }>(
+      GET_POSTS_BY_CATEGORY,
+      { categorySlug, first: count + 1 },
+    );
+    return data.posts.nodes
+      .filter((p) => p.slug !== currentSlug)
+      .slice(0, count);
+  } catch {
+    return [];
+  }
+}
+

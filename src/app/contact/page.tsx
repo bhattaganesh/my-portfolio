@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Container } from '@/components/ui/container';
 import { ContactForm } from '@/components/contact/contact-form';
 import { SocialLinks } from '@/components/shared/social-links';
+import { Breadcrumbs } from '@/components/shared/breadcrumbs';
 import { Mail, MapPin, Clock, Sparkles } from 'lucide-react';
 import { SITE_CONFIG } from '@/lib/constants';
 
@@ -42,7 +43,10 @@ export default function ContactPage() {
     <div className="pt-24 pb-16">
       {/* ── Hero ── */}
       <section className="pb-12">
-        <Container className="text-center max-w-2xl">
+        <Container>
+          <Breadcrumbs items={[{ label: 'Contact' }]} className="mb-6" />
+        </Container>
+        <Container className="max-w-2xl text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-50 dark:bg-primary-500/10 border border-primary-200 dark:border-primary-500/20 text-primary-600 dark:text-primary-400 text-sm font-medium mb-6">
             <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
             Available for work

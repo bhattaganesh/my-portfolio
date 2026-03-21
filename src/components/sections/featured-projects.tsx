@@ -178,9 +178,9 @@ function ProjectCard({ project, index }: ProjectCardProps) {
 }
 
 export function FeaturedProjects({ projects }: Props) {
-  const items = (projects && projects.length > 0 ? projects : defaultProjects).filter(
-    (p) => p.isFeatured,
-  );
+  const items = (projects && projects.length > 0 ? projects : defaultProjects)
+    .filter((p) => p.isFeatured)
+    .slice(0, 3);
 
   return (
     <section

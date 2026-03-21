@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { GraphQLClient } from 'graphql-request';
 import { BookOpen, Loader2, RefreshCw } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -8,6 +8,7 @@ import { WORDPRESS_GRAPHQL_ENDPOINT, GET_POSTS } from '@/lib/wordpress';
 import type { BlogPost, PageInfo } from '@/lib/types';
 import { PostCard } from '@/components/blog/post-card';
 import { ScrollReveal } from '@/components/shared/scroll-reveal';
+import { BlogSearch } from '@/components/blog/blog-search';
 
 const POSTS_PER_PAGE = 9;
 const ALL_CATEGORY = 'all';
@@ -35,6 +36,9 @@ export function BlogPostList() {
   const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState(false);
   const [activeCategory, setActiveCategory] = useState(ALL_CATEGORY);
+  const [searchQuery, setSearchQuery] = useState('');
+  const searchDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [debouncedSearch, setDebouncedSearch] = useState('');
 
   const loadInitial = useCallback(async () => {
     setLoading(true);
@@ -53,6 +57,12 @@ export function BlogPostList() {
   useEffect(() => {
     loadInitial();
   }, [loadInitial]);
+
+  function handleSearchChange(value: string) {
+    setSearchQuery(value);
+    if (searchDebounceRef.current) clearTimeout(searchDebounceRef.current);
+    searchDebounceRef.current = setTimeout(() => setDebouncedSearch(value), 300);
+  }
 
   async function handleLoadMore() {
     if (!pageInfo.endCursor || loadingMore) return;
@@ -84,13 +94,24 @@ export function BlogPostList() {
       .map(([slug, name]) => ({ slug, name }));
   }, [posts]);
 
-  // Filter posts by active category
+  // Filter posts by active category and search query
   const filteredPosts = useMemo(() => {
-    if (activeCategory === ALL_CATEGORY) return posts;
-    return posts.filter((post) =>
-      post.categories.nodes.some((cat) => cat.slug === activeCategory),
-    );
-  }, [posts, activeCategory]);
+    let result = posts;
+    if (activeCategory !== ALL_CATEGORY) {
+      result = result.filter((post) =>
+        post.categories.nodes.some((cat) => cat.slug === activeCategory),
+      );
+    }
+    if (debouncedSearch.trim()) {
+      const q = debouncedSearch.toLowerCase();
+      result = result.filter(
+        (post) =>
+          post.title.toLowerCase().includes(q) ||
+          post.excerpt?.toLowerCase().includes(q),
+      );
+    }
+    return result;
+  }, [posts, activeCategory, debouncedSearch]);
 
   if (loading) {
     return (
@@ -154,40 +175,48 @@ export function BlogPostList() {
 
   return (
     <>
-      {/* Category filter pills */}
-      {categories.length > 1 && (
-        <nav className="flex flex-wrap gap-2 mb-8" aria-label="Filter by category">
-          <button
-            type="button"
-            onClick={() => setActiveCategory(ALL_CATEGORY)}
-            className={cn(
-              'px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-150',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2',
-              activeCategory === ALL_CATEGORY
-                ? 'bg-primary-600 text-white shadow-sm'
-                : 'bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-400 hover:bg-surface-200 dark:hover:bg-surface-700',
-            )}
-          >
-            All
-          </button>
-          {categories.map(({ slug, name }) => (
+      {/* Search + Category filter row */}
+      <div className="flex flex-col sm:flex-row gap-3 mb-8">
+        <BlogSearch
+          value={searchQuery}
+          onChange={handleSearchChange}
+          className="sm:w-64"
+        />
+
+        {categories.length > 1 && (
+          <nav className="flex flex-wrap gap-2" aria-label="Filter by category">
             <button
-              key={slug}
               type="button"
-              onClick={() => setActiveCategory(slug)}
+              onClick={() => setActiveCategory(ALL_CATEGORY)}
               className={cn(
                 'px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-150',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2',
-                activeCategory === slug
+                activeCategory === ALL_CATEGORY
                   ? 'bg-primary-600 text-white shadow-sm'
                   : 'bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-400 hover:bg-surface-200 dark:hover:bg-surface-700',
               )}
             >
-              {name}
+              All
             </button>
-          ))}
-        </nav>
-      )}
+            {categories.map(({ slug, name }) => (
+              <button
+                key={slug}
+                type="button"
+                onClick={() => setActiveCategory(slug)}
+                className={cn(
+                  'px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-150',
+                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2',
+                  activeCategory === slug
+                    ? 'bg-primary-600 text-white shadow-sm'
+                    : 'bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-400 hover:bg-surface-200 dark:hover:bg-surface-700',
+                )}
+              >
+                {name}
+              </button>
+            ))}
+          </nav>
+        )}
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
         {filteredPosts.map((post, idx) => (
@@ -198,22 +227,25 @@ export function BlogPostList() {
       </div>
 
       {/* Empty state for filtered results */}
-      {filteredPosts.length === 0 && activeCategory !== ALL_CATEGORY && (
+      {filteredPosts.length === 0 && (
         <div className="flex flex-col items-center justify-center gap-3 py-16">
           <p className="text-sm font-medium text-surface-500 dark:text-surface-400">
-            No posts in this category yet.
+            {debouncedSearch ? `No posts match "${debouncedSearch}"` : 'No posts in this category yet.'}
           </p>
           <button
             type="button"
-            onClick={() => setActiveCategory(ALL_CATEGORY)}
+            onClick={() => {
+              setActiveCategory(ALL_CATEGORY);
+              handleSearchChange('');
+            }}
             className="text-sm font-semibold text-primary-500 hover:text-primary-400 transition-colors"
           >
-            View all posts
+            Clear filters
           </button>
         </div>
       )}
 
-      {pageInfo.hasNextPage && (
+      {pageInfo.hasNextPage && !debouncedSearch && (
         <nav className="flex items-center justify-center py-8" aria-label="Load more posts">
           <button
             type="button"
