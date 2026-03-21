@@ -8,6 +8,7 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { ScrollProgress } from '@/components/shared/scroll-progress';
 import { BackToTop } from '@/components/shared/back-to-top';
+import { PageBackground } from '@/components/shared/page-background';
 import './globals.css';
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
@@ -36,6 +37,29 @@ export const metadata: Metadata = {
     'PHP Developer Nepal',
     'Spectra Developer',
     'Full Stack Developer Nepal',
+    'Nepali Developer',
+    'Gutenberg Expert',
+    'WordPress Expert',
+    'React JS Expert',
+    'LMS Expert',
+    'LMS Developer',
+    'Page Builder Expert',
+    'Gutenberg Page Builder Expert',
+    'AI Developer',
+    'WordPress AI Expert',
+    'Contact Form Expert',
+    'ThemeGrill Developer',
+    'Kathmandu Developer',
+    'Hire Nepali Developer',
+    'Software Engineer Nepal',
+    'WordPress Plugin Developer',
+    'Ganesh Bhatt',
+    'Ganesh Prasad Bhatt',
+    'Masteriyo Developer',
+    'Everest Forms Developer',
+    'WordPress Forms Developer',
+    'Page Builder Developer',
+    'WordPress Consultant Nepal',
   ],
   authors: [{ name: SITE_CONFIG.name, url: SITE_CONFIG.url }],
   creator: SITE_CONFIG.name,
@@ -95,8 +119,49 @@ const personSchema = {
   url: SITE_CONFIG.url,
   email: SITE_CONFIG.email,
   telephone: SITE_CONFIG.phone,
-  jobTitle: SITE_CONFIG.title,
-  worksFor: { '@type': 'Organization', name: 'Brainstorm Force' },
+  jobTitle: 'Senior Full-Stack Software Developer',
+  description:
+    'Senior Full-Stack Developer from Nepal specializing in WordPress, Gutenberg, React, PHP, and LMS development. Core engineer on Spectra Blocks at Brainstorm Force.',
+  image: `${SITE_CONFIG.url}/images/ganesh.webp`,
+  worksFor: {
+    '@type': 'Organization',
+    name: 'Brainstorm Force',
+    url: 'https://developer.brainstormforce.com',
+  },
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: 'Tribhuvan University',
+    address: { '@type': 'PostalAddress', addressCountry: 'NP' },
+  },
+  nationality: { '@type': 'Country', name: 'Nepal' },
+  knowsAbout: [
+    'WordPress',
+    'Gutenberg',
+    'Gutenberg Blocks',
+    'Page Builder Development',
+    'React',
+    'PHP',
+    'TypeScript',
+    'JavaScript',
+    'MySQL',
+    'REST API',
+    'GraphQL',
+    'Next.js',
+    'Laravel',
+    'LMS Development',
+    'AI Agents',
+    'WordPress Plugin Development',
+    'Contact Form Development',
+    'Full-Stack Development',
+    'Software Engineering',
+  ],
+  hasOccupation: {
+    '@type': 'Occupation',
+    name: 'Full-Stack Software Developer',
+    occupationalCategory: '15-1252.00',
+    skills:
+      'WordPress, Gutenberg, React, PHP, TypeScript, MySQL, REST API, Next.js, Laravel, LMS, AI',
+  },
   sameAs: [
     SITE_CONFIG.socials.linkedin,
     SITE_CONFIG.socials.github,
@@ -105,8 +170,59 @@ const personSchema = {
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Kathmandu',
+    addressRegion: 'Bagmati',
     addressCountry: 'NP',
   },
+};
+
+const professionalServiceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: `${SITE_CONFIG.name} — Full-Stack Developer`,
+  url: SITE_CONFIG.url,
+  description:
+    'Senior full-stack software developer specializing in WordPress, Gutenberg blocks, React, PHP, LMS development, AI integration, and contact form solutions.',
+  telephone: SITE_CONFIG.phone,
+  email: SITE_CONFIG.email,
+  priceRange: '$$',
+  areaServed: [
+    { '@type': 'Country', name: 'Nepal' },
+    { '@type': 'Place', name: 'Worldwide' },
+  ],
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Kathmandu',
+    addressRegion: 'Bagmati',
+    addressCountry: 'NP',
+  },
+  founder: {
+    '@type': 'Person',
+    name: SITE_CONFIG.name,
+    url: SITE_CONFIG.url,
+  },
+  serviceType: [
+    'WordPress Development',
+    'Gutenberg Block Development',
+    'React Development',
+    'PHP Development',
+    'LMS Development',
+    'AI Integration',
+    'Contact Form Development',
+    'Full-Stack Web Development',
+    'Page Builder Development',
+  ],
+  knowsAbout: [
+    'WordPress Expert',
+    'Gutenberg Expert',
+    'React JS Expert',
+    'PHP Expert',
+    'LMS Expert',
+    'Page Builder Expert',
+    'AI Developer',
+    'Contact Form Expert',
+    'Nepali Developer',
+    'Full Stack Developer',
+  ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -124,6 +240,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceSchema) }}
         />
         <link rel="manifest" href="/manifest.json" />
       </head>
@@ -152,9 +272,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           >
             Skip to main content
           </a>
+          <PageBackground />
           <ScrollProgress />
           <Header />
-          <main id="main-content">{children}</main>
+          <main id="main-content" className="relative z-[1]">{children}</main>
           <Footer />
           <BackToTop />
           <Toaster richColors position="bottom-right" />

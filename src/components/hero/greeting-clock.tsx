@@ -1,6 +1,6 @@
 'use client';
 
-import { useSyncExternalStore } from 'react';
+import { useState, useEffect, useSyncExternalStore } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { MapPin, Sun, Moon, Sunrise, Sunset } from 'lucide-react';
 import { SITE_CONFIG } from '@/lib/constants';
@@ -96,6 +96,10 @@ const STATS = [
 let clockListeners: Array<() => void> = [];
 let clockSnapshot = new Date();
 
+// Fixed epoch used for both server and client initial render to avoid hydration mismatch.
+// Content is hidden (opacity 0) until mounted, so the placeholder value is never visible.
+const HYDRATION_DATE = new Date(0);
+
 if (typeof window !== 'undefined') {
   setInterval(() => {
     clockSnapshot = new Date();
@@ -115,35 +119,32 @@ function getClockSnapshot() {
 }
 
 function getServerSnapshot() {
-  return new Date();
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function subscribeMounted(_cb: () => void) {
-  return () => {};
-}
-function getMountedSnapshot() {
-  return true;
-}
-function getMountedServerSnapshot() {
-  return false;
+  return HYDRATION_DATE;
 }
 
 export function GreetingClock() {
   const prefersReducedMotion = useReducedMotion();
   const now = useSyncExternalStore(subscribeClock, getClockSnapshot, getServerSnapshot);
-  const mounted = useSyncExternalStore(subscribeMounted, getMountedSnapshot, getMountedServerSnapshot);
+  const [mounted, setMounted] = useState(false);
 
-  const hour = now.getHours();
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Use a stable placeholder until mounted to avoid hydration mismatch.
+  // Content is hidden (opacity 0) until mounted anyway, so the placeholder is never visible.
+  const displayTime = mounted ? now : HYDRATION_DATE;
+
+  const hour = displayTime.getHours();
   const timeOfDay = getTimeOfDay(hour);
   const greetingText = getGreetingText(timeOfDay);
 
   const pad = (n: number) => n.toString().padStart(2, '0');
   const hours = pad(hour);
-  const minutes = pad(now.getMinutes());
-  const seconds = pad(now.getSeconds());
+  const minutes = pad(displayTime.getMinutes());
+  const seconds = pad(displayTime.getSeconds());
 
-  const dateStr = now.toLocaleDateString('en-US', {
+  const dateStr = displayTime.toLocaleDateString('en-US', {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
@@ -152,8 +153,7 @@ export function GreetingClock() {
 
   const ampm = hour >= 12 ? 'PM' : 'AM';
 
-  // Render the same layout for both SSR and client — just hide content until mounted
-  // This prevents layout shift / flickering on first load
+  const shouldAnimate = mounted && !prefersReducedMotion;
   const contentOpacity = mounted ? 1 : 0;
 
   return (
@@ -165,12 +165,12 @@ export function GreetingClock() {
       <div className="flex-1 flex flex-col items-center justify-center gap-3 py-10 px-6">
         {/* Icon */}
         <motion.div
-          initial={prefersReducedMotion ? undefined : { opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.3, type: 'spring', stiffness: 200, damping: 15 }}
+          initial={false}
+          animate={mounted ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
+          transition={shouldAnimate ? { delay: 0.3, type: 'spring', stiffness: 200, damping: 15 } : { duration: 0 }}
         >
           <motion.div
-            animate={prefersReducedMotion ? undefined : { rotate: timeOfDay === 'night' ? [0, -5, 5, 0] : [0, 10, -10, 0] }}
+            animate={shouldAnimate ? { rotate: timeOfDay === 'night' ? [0, -5, 5, 0] : [0, 10, -10, 0] } : undefined}
             transition={{ repeat: Infinity, duration: 6, ease: 'easeInOut' }}
           >
             <TimeIcon timeOfDay={timeOfDay} />
@@ -179,9 +179,9 @@ export function GreetingClock() {
 
         {/* Greeting text */}
         <motion.div
-          initial={prefersReducedMotion ? undefined : { opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
+          initial={false}
+          animate={mounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+          transition={shouldAnimate ? { delay: 0.4, duration: 0.5 } : { duration: 0 }}
         >
           <AnimatePresence mode="wait">
             <motion.p
@@ -199,9 +199,9 @@ export function GreetingClock() {
 
         {/* Live clock */}
         <motion.div
-          initial={prefersReducedMotion ? undefined : { opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.5, duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+          initial={false}
+          animate={mounted ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+          transition={shouldAnimate ? { delay: 0.5, duration: 0.6, ease: [0.25, 0.1, 0.25, 1] } : { duration: 0 }}
         >
           <ClockDisplay hours={hours} minutes={minutes} seconds={seconds} />
           <p className="text-center text-base font-mono uppercase tracking-[0.25em] text-surface-600 dark:text-surface-300 mt-2 font-medium">
@@ -212,9 +212,9 @@ export function GreetingClock() {
         {/* Date & Location */}
         <motion.div
           className="flex flex-col items-center gap-1 mt-1"
-          initial={prefersReducedMotion ? undefined : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.7, duration: 0.5 }}
+          initial={false}
+          animate={mounted ? { opacity: 1 } : { opacity: 0 }}
+          transition={shouldAnimate ? { delay: 0.7, duration: 0.5 } : { duration: 0 }}
         >
           <p className="text-sm text-surface-600 dark:text-surface-400 font-medium">
             {dateStr}
@@ -229,9 +229,9 @@ export function GreetingClock() {
       {/* Stats row */}
       <motion.div
         className="grid grid-cols-3 border-t border-surface-200/60 dark:border-surface-800/60"
-        initial={prefersReducedMotion ? undefined : { opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.9, duration: 0.5 }}
+        initial={false}
+        animate={mounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+        transition={shouldAnimate ? { delay: 0.9, duration: 0.5 } : { duration: 0 }}
       >
         {STATS.map((stat, i) => (
           <div

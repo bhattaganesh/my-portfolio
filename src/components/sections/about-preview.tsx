@@ -39,7 +39,7 @@ const STATS = [
 export function AboutPreview() {
   return (
     <section
-      className="py-20 lg:py-28 bg-white dark:bg-surface-950"
+      className="py-20 lg:py-28"
       aria-label="About me"
     >
       <Container>
@@ -112,7 +112,7 @@ export function AboutPreview() {
                 At{' '}
                 <strong className="text-surface-700 dark:text-surface-300 font-semibold">Brainstorm Force</strong>
                 {' '}I was a core engineer on{' '}
-                <strong className="text-surface-700 dark:text-surface-300 font-semibold">Spectra v3</strong>
+                <strong className="text-surface-700 dark:text-surface-300 font-semibold">Spectra Blocks</strong>
                 {' '}— architected key systems and built major features for this ground-up rewrite of the most-used Gutenberg blocks plugin, now in beta and rolling out to 1M+ sites.
                 Before that, three years at{' '}
                 <strong className="text-surface-700 dark:text-surface-300 font-semibold">ThemeGrill</strong>

@@ -8,9 +8,10 @@ import { ScrollReveal } from '@/components/shared/scroll-reveal';
 import { SITE_CONFIG } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: 'Projects – Ganesh Prasad Bhatt',
+  title:
+    'Projects by Ganesh Prasad Bhatt — WordPress Plugins, Gutenberg Page Builders, React Apps & LMS',
   description:
-    'WordPress plugins, React apps, and open source contributions by Ganesh Prasad Bhatt.',
+    'Explore projects by Ganesh Prasad Bhatt — Spectra Blocks (Gutenberg page builder, 1M+ sites), Masteriyo LMS, WP Agent AI, Everest Forms, and more. WordPress development, React apps, and open source contributions.',
   alternates: {
     canonical: `${SITE_CONFIG.url}/projects`,
   },

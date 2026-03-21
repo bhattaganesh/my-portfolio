@@ -13,9 +13,10 @@ import { services } from '@/data/services';
 import * as LucideIcons from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'About – Ganesh Prasad Bhatt',
+  title:
+    'About Ganesh Prasad Bhatt — Senior WordPress Developer, Gutenberg Expert & React Developer from Nepal',
   description:
-    'Senior Full-Stack Developer with 4+ years of experience building production-grade WordPress plugins and React applications.',
+    'Learn about Ganesh Prasad Bhatt — senior full-stack software developer from Kathmandu, Nepal. 4+ years building WordPress plugins, Gutenberg blocks, React apps, and LMS platforms at Brainstorm Force and ThemeGrill. PHP developer, page builder expert, AI developer.',
   alternates: {
     canonical: `${SITE_CONFIG.url}/about`,
   },
@@ -30,7 +31,7 @@ const stats = [
 
 export default function AboutPage() {
   return (
-    <div className="bg-white dark:bg-surface-950">
+    <div className="relative">
       {/* ── Page Hero ───────────────────────────────────────────── */}
       <section className="pt-24 pb-16">
         <Container>
@@ -78,6 +79,15 @@ export default function AboutPage() {
             <ScrollReveal direction="up" delay={0.1}>
               <div className="flex justify-center lg:justify-end">
                 <div className="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
+                  {/* Decorative glow behind photo */}
+                  <div
+                    className="absolute -inset-6 rounded-3xl opacity-25 dark:opacity-35"
+                    aria-hidden="true"
+                    style={{
+                      background: 'linear-gradient(135deg, #4c6ef5, #748ffc, #3b5bdb)',
+                      filter: 'blur(30px)',
+                    }}
+                  />
                   {/* Decorative ring */}
                   <div className="absolute inset-0 rounded-2xl ring-4 ring-primary-200 dark:ring-primary-900 ring-offset-4 ring-offset-white dark:ring-offset-surface-950" />
                   <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl shadow-surface-900/20 dark:shadow-black/40">
@@ -98,7 +108,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Extended Bio ────────────────────────────────────────── */}
-      <section className="py-16 bg-surface-50 dark:bg-surface-900">
+      <section className="py-16 bg-surface-50/80 dark:bg-surface-900/80 backdrop-blur-sm">
         <Container className="max-w-3xl">
           <ScrollReveal direction="up" delay={0}>
             <SectionHeading
@@ -146,7 +156,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Stats Row ───────────────────────────────────────────── */}
-      <section className="py-16 bg-white dark:bg-surface-950">
+      <section className="py-16">
         <Container>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {stats.map((stat, i) => (
@@ -166,7 +176,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Services ────────────────────────────────────────────── */}
-      <section className="py-16 bg-surface-50 dark:bg-surface-900">
+      <section className="py-16 bg-surface-50/80 dark:bg-surface-900/80 backdrop-blur-sm">
         <Container>
           <ScrollReveal direction="up" delay={0}>
             <SectionHeading
@@ -216,7 +226,7 @@ export default function AboutPage() {
       <SkillsGrid />
 
       {/* ── Resume CTA ──────────────────────────────────────────── */}
-      <section className="py-16 bg-surface-50 dark:bg-surface-900">
+      <section className="py-16 bg-surface-50/80 dark:bg-surface-900/80 backdrop-blur-sm">
         <Container className="max-w-xl text-center">
           <ScrollReveal direction="up" delay={0}>
             <h2 className="text-2xl font-bold font-display text-surface-900 dark:text-surface-100 mb-3">

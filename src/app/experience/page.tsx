@@ -7,9 +7,10 @@ import { ExperienceClient } from './client';
 import { SITE_CONFIG } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: 'Experience – Ganesh Prasad Bhatt',
+  title:
+    'Experience — Brainstorm Force Developer, ThemeGrill Developer | Ganesh Prasad Bhatt',
   description:
-    'Career journey and educational background of Ganesh Prasad Bhatt — Senior Full-Stack Developer.',
+    'Professional experience of Ganesh Prasad Bhatt — Software Developer at Brainstorm Force (Spectra, Gutenberg page builder), PHP Developer at ThemeGrill (Masteriyo LMS, Everest Forms). Nepali full-stack developer and software engineer.',
   alternates: {
     canonical: `${SITE_CONFIG.url}/experience`,
   },
@@ -17,8 +18,17 @@ export const metadata: Metadata = {
 
 export default function ExperiencePage() {
   return (
-    <div className="pt-24 pb-16">
-      <Container>
+    <div className="relative pt-24 pb-16 overflow-hidden">
+      {/* Ambient glow — top-left */}
+      <div
+        className="absolute top-0 left-0 w-[600px] h-[500px] pointer-events-none"
+        aria-hidden="true"
+        style={{
+          background:
+            'radial-gradient(circle at 20% 10%, rgba(76,110,245,0.10) 0%, transparent 60%)',
+        }}
+      />
+      <Container className="relative z-10">
         <ScrollReveal direction="up" delay={0}>
           <SectionHeading
             as="h1"

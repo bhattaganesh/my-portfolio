@@ -14,6 +14,11 @@ export function HeroSection() {
   const prefersReducedMotion = useReducedMotion();
   const isFirstVisit = useFirstVisit();
   const [showWelcome, setShowWelcome] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!isFirstVisit) return;
@@ -22,37 +27,26 @@ export function HeroSection() {
     return () => clearTimeout(timer);
   }, [isFirstVisit]);
 
-  const initial = (y: number) =>
-    prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y };
+  // Animate-driven entrance: hidden state on server + first client render,
+  // visible state after mount. `initial={false}` ensures Motion renders at
+  // the current `animate` value without applying separate initial styles,
+  // which eliminates hydration mismatches (server can't detect reduced motion).
+  const hidden = { opacity: 0, y: 20 };
+  const hiddenScale = { opacity: 0, scale: 0.9 };
+  const visible = { opacity: 1, y: 0 };
+  const visibleScale = { opacity: 1, scale: 1 };
+  const visibleFade = { opacity: 1 };
 
-  const fastWithDelay = (delay: number) => ({
-    delay: prefersReducedMotion ? 0 : delay,
-    duration: prefersReducedMotion ? 0.01 : 0.5,
-  });
+  const shouldAnimate = mounted && !prefersReducedMotion;
+
+  const entrance = (delay: number, duration = 0.5) =>
+    shouldAnimate ? { delay, duration } : { duration: 0 };
 
   return (
     <section
-      className="relative min-h-screen flex items-center overflow-hidden bg-surface-50 dark:bg-surface-950"
+      className="relative min-h-screen flex items-center overflow-hidden"
       aria-label="Hero"
     >
-      {/* Layered background: grid pattern + radial glow */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-10 dark:opacity-30" aria-hidden="true" />
-      <div
-        className="absolute inset-0 pointer-events-none"
-        aria-hidden="true"
-        style={{
-          background:
-            'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(76,110,245,0.10) 0%, transparent 70%)',
-        }}
-      />
-      <div
-        className="absolute inset-0 pointer-events-none dark:block hidden"
-        aria-hidden="true"
-        style={{
-          background:
-            'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(76,110,245,0.22) 0%, transparent 70%)',
-        }}
-      />
 
       <Container className="relative z-10 py-24 lg:py-32">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -78,9 +72,9 @@ export function HeroSection() {
 
             {/* Availability badge */}
             <motion.div
-              initial={initial(20)}
-              animate={{ opacity: 1, y: 0 }}
-              transition={fastWithDelay(0.1)}
+              initial={false}
+              animate={mounted ? visible : hidden}
+              transition={entrance(0.1)}
             >
               <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/10 border border-green-500/20 text-green-700 dark:text-green-400 text-sm font-mono font-medium">
                 <span className="w-2 h-2 rounded-full bg-green-500 dark:bg-green-400 animate-pulse" aria-hidden="true" />
@@ -91,9 +85,9 @@ export function HeroSection() {
             {/* Name — clean, bold, gradient */}
             <motion.h1
               className="text-fluid-hero font-medium text-surface-900 dark:text-white leading-[var(--leading-hero)] tracking-[var(--tracking-display)] font-display"
-              initial={initial(30)}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: prefersReducedMotion ? 0 : 0.2, duration: prefersReducedMotion ? 0.01 : 0.6 }}
+              initial={false}
+              animate={mounted ? visible : { opacity: 0, y: 30 }}
+              transition={entrance(0.2, 0.6)}
             >
               Hello, I&apos;m{' '}
               <span className="font-extrabold text-gradient">Ganesh Bhatt</span>
@@ -101,9 +95,9 @@ export function HeroSection() {
 
             {/* Subtitle */}
             <motion.div
-              initial={initial(20)}
-              animate={{ opacity: 1, y: 0 }}
-              transition={fastWithDelay(0.4)}
+              initial={false}
+              animate={mounted ? visible : hidden}
+              transition={entrance(0.4)}
             >
               <p className="font-mono text-sm uppercase tracking-[var(--tracking-caps)] text-primary-600 dark:text-primary-300 font-medium">
                 Full-Stack Developer
@@ -113,12 +107,12 @@ export function HeroSection() {
             {/* Bio tagline */}
             <motion.p
               className="text-fluid-body-lg text-surface-600 dark:text-surface-400 leading-relaxed max-w-lg"
-              initial={initial(20)}
-              animate={{ opacity: 1, y: 0 }}
-              transition={fastWithDelay(0.5)}
+              initial={false}
+              animate={mounted ? visible : hidden}
+              transition={entrance(0.5)}
             >
               Core engineer on{' '}
-              <span className="text-surface-800 dark:text-surface-200 font-medium">Spectra v3</span> — built the architecture and key features
+              <span className="text-surface-800 dark:text-surface-200 font-medium">Spectra Blocks</span> — built the architecture and key features
               for the Gutenberg blocks plugin powering{' '}
               <span className="text-surface-800 dark:text-surface-200 font-medium">1M+ WordPress sites</span>.
               Building at{' '}
@@ -128,9 +122,9 @@ export function HeroSection() {
             {/* Location */}
             <motion.div
               className="flex items-center gap-1.5 text-surface-500 text-sm"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={fastWithDelay(0.6)}
+              initial={false}
+              animate={mounted ? visibleFade : { opacity: 0 }}
+              transition={entrance(0.6)}
             >
               <MapPin className="w-4 h-4 shrink-0" aria-hidden="true" />
               <span>{SITE_CONFIG.location}</span>
@@ -139,9 +133,9 @@ export function HeroSection() {
             {/* CTA Buttons */}
             <motion.div
               className="flex flex-wrap gap-3 pt-2"
-              initial={initial(20)}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: prefersReducedMotion ? 0 : 0.7, duration: prefersReducedMotion ? 0.01 : 0.5 }}
+              initial={false}
+              animate={mounted ? visible : hidden}
+              transition={entrance(0.7)}
             >
               <Link
                 href="/projects"
@@ -164,9 +158,9 @@ export function HeroSection() {
 
             {/* Social links */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: prefersReducedMotion ? 0 : 0.85, duration: prefersReducedMotion ? 0.01 : 0.5 }}
+              initial={false}
+              animate={mounted ? visibleFade : { opacity: 0 }}
+              transition={entrance(0.85)}
             >
               <SocialLinks
                 className="text-surface-500"
@@ -178,9 +172,9 @@ export function HeroSection() {
           {/* ── RIGHT: Animated Greeting Clock ── */}
           <motion.div
             className="relative w-full max-w-lg mx-auto lg:mx-0"
-            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: prefersReducedMotion ? 0 : 0.3, duration: prefersReducedMotion ? 0.01 : 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+            initial={false}
+            animate={mounted ? visibleScale : hiddenScale}
+            transition={shouldAnimate ? { delay: 0.3, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] } : { duration: 0 }}
           >
             <div className="relative w-full h-full rounded-2xl overflow-hidden ring-1 ring-surface-200/50 dark:ring-surface-800/50">
               <GreetingClock />

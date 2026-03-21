@@ -1,9 +1,9 @@
 export const SITE_CONFIG = {
   name: 'Ganesh Prasad Bhatt',
   shortName: 'Ganesh',
-  title: 'Senior Full-Stack Software Developer',
+  title: 'Senior Full-Stack Software Developer | WordPress, Gutenberg & React Expert',
   description:
-    'Senior Full-Stack Software Developer with 4+ years of experience building scalable web applications. Strong expertise in PHP, JavaScript, React, MySQL, and WordPress/Gutenberg ecosystem.',
+    'Ganesh Prasad Bhatt — Senior Full-Stack Developer from Kathmandu, Nepal. Expert in WordPress, Gutenberg blocks, React, PHP, and LMS development. Core engineer on Spectra Blocks at Brainstorm Force, powering 1M+ WordPress sites.',
   url: 'https://www.ganeshbhatt.com.np',
   email: 'bhattaganesh05@gmail.com',
   phone: '+977-9848979669',

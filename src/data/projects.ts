@@ -17,11 +17,11 @@ export interface Project {
 export const projects: Project[] = [
   {
     slug: 'spectra-v3',
-    title: 'Spectra v3 — Next-Gen Page Builder',
+    title: 'Spectra Blocks — Next-Gen Page Builder',
     excerpt:
-      'Core engineer on Spectra v3 — architected key systems and built major features for this ground-up rewrite of the WordPress page builder used by 1M+ sites. Beta released in 2025.',
+      'Core engineer on Spectra Blocks — architected key systems and built major features for this ground-up rewrite of the WordPress page builder used by 1M+ sites. Beta released in 2025.',
     description:
-      'Spectra v3 is a complete architectural rewrite of Brainstorm Force\'s flagship WordPress page builder plugin. As a core contributor, I designed key architectural components and built many of the major features. The rewrite targets performance, extensibility, and a modern developer experience. Beta released to the community in 2025, it introduces a redesigned block system, improved Gutenberg integration, and significant performance improvements over v2.',
+      'Spectra Blocks is a complete architectural rewrite of Brainstorm Force\'s flagship WordPress page builder plugin. As a core contributor, I designed key architectural components and built many of the major features. The rewrite targets performance, extensibility, and a modern developer experience. Beta released to the community in 2025, it introduces a redesigned block system, improved Gutenberg integration, and significant performance improvements over the previous version.',
     techStack: ['PHP', 'JavaScript', 'React', 'WordPress', 'Gutenberg', 'REST API', 'Webpack'],
     projectUrl: 'https://wpspectra.com',
     githubUrl: 'https://github.com/brainstormforce/spectra',

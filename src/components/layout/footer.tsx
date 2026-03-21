@@ -48,7 +48,7 @@ export function Footer() {
             {/* Tagline */}
             <p className="text-sm leading-relaxed text-surface-600 dark:text-surface-400 max-w-xs"> {/* [UX-FIX] surface-500 on surface-50 = borderline WCAG AA */}
               Full-stack developer building software that reaches millions.
-              Currently at Brainstorm Force, core engineer on Spectra v3.
+              Currently at Brainstorm Force, core engineer on Spectra Blocks.
             </p>
 
             {/* Social links */}

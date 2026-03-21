@@ -19,7 +19,7 @@ export const experience: ExperienceItem[] = [
     startDate: 'Jan 2025',
     endDate: 'Present',
     description: [
-      'Core engineer on Spectra v3 — designed key architectural components and built many of the major features for this ground-up rewrite of the 1M+ install WordPress page builder (beta released)',
+      'Core engineer on Spectra Blocks — designed key architectural components and built many of the major features for this ground-up rewrite of the 1M+ install WordPress page builder (beta released)',
       'Building full-stack features for Spectra (PHP, JavaScript, React, Gutenberg) serving over 1 million active WordPress sites',
       'Built wp-agent-ai — an open source AI agent framework that integrates LLM capabilities directly into WordPress and the Gutenberg editor',
       'Improving system performance, plugin architecture, and security practices across products',

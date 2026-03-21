@@ -9,9 +9,10 @@ import { getLatestPosts } from '@/lib/wordpress';
 import { projects as fallbackProjects } from '@/data/projects';
 
 export const metadata: Metadata = {
-  title: 'Ganesh Prasad Bhatt – Senior Full-Stack Developer',
+  title:
+    'Ganesh Prasad Bhatt — WordPress & React Developer Nepal | Gutenberg Expert | Full-Stack Software Engineer',
   description:
-    'Senior Full-Stack Developer from Nepal specializing in PHP, React, WordPress, and Gutenberg. Building at Brainstorm Force.',
+    'Ganesh Prasad Bhatt is a senior full-stack developer from Nepal — WordPress expert, Gutenberg page builder specialist, React JS expert, PHP developer, LMS expert, and AI developer. Core engineer on Spectra Blocks at Brainstorm Force, powering 1M+ WordPress sites.',
 };
 
 export default async function HomePage() {

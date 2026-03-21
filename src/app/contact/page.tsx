@@ -6,9 +6,10 @@ import { Mail, MapPin, Clock, Sparkles } from 'lucide-react';
 import { SITE_CONFIG } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: 'Contact – Ganesh Prasad Bhatt',
+  title:
+    'Contact Ganesh Prasad Bhatt — Hire a WordPress Developer, Gutenberg Expert & React Developer',
   description:
-    'Get in touch with Ganesh Prasad Bhatt for full-time roles, freelance projects, or collaboration.',
+    'Get in touch with Ganesh Prasad Bhatt for WordPress development, Gutenberg expertise, React projects, LMS consulting, or full-stack engineering. Nepali developer based in Kathmandu, Nepal. Open to remote work worldwide.',
   alternates: {
     canonical: `${SITE_CONFIG.url}/contact`,
   },

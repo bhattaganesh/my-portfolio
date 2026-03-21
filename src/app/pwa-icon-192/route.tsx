@@ -1,28 +1,25 @@
 import { ImageResponse } from 'next/og';
 
 export const dynamic = 'force-static';
-export const size = { width: 180, height: 180 };
-export const contentType = 'image/png';
 
 /**
- * Apple touch icon — uses the same SVG "G" path as icon.svg and LogoMark
- * component for consistent branding across all icon surfaces.
+ * 192x192 PWA icon — same SVG "G" path as icon.svg and LogoMark component.
  */
-export default function AppleIcon() {
+export async function GET() {
   return new ImageResponse(
     (
       <div
         style={{
-          width: 180,
-          height: 180,
+          width: 192,
+          height: 192,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
         }}
       >
         <svg
-          width="180"
-          height="180"
+          width="192"
+          height="192"
           viewBox="0 0 64 64"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -79,6 +76,6 @@ export default function AppleIcon() {
         </svg>
       </div>
     ),
-    { ...size },
+    { width: 192, height: 192 },
   );
 }
