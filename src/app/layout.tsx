@@ -9,6 +9,7 @@ import { Footer } from '@/components/layout/footer';
 import { ScrollProgress } from '@/components/shared/scroll-progress';
 import { BackToTop } from '@/components/shared/back-to-top';
 import { PageBackground } from '@/components/shared/page-background';
+import { CustomCursor } from '@/components/shared/custom-cursor';
 import './globals.css';
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
@@ -92,6 +93,9 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: SITE_CONFIG.url,
+    types: {
+      'application/rss+xml': `${SITE_CONFIG.url}/feed.xml`,
+    },
   },
 };
 
@@ -246,6 +250,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceSchema) }}
         />
         <link rel="manifest" href="/manifest.json" />
+        <link rel="alternate" type="application/rss+xml" title={`${SITE_CONFIG.name} Blog`} href="/feed.xml" />
       </head>
       {GA_ID && (
         <>
@@ -274,6 +279,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </a>
           <PageBackground />
           <ScrollProgress />
+          <CustomCursor />
           <Header />
           <main id="main-content" className="relative z-[1]">{children}</main>
           <Footer />

@@ -3,11 +3,15 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, Calendar, Clock, User } from 'lucide-react';
-import { getPostBySlug, getAllPostSlugs } from '@/lib/wordpress';
+import { getPostBySlug, getAllPostSlugs, getRelatedPosts } from '@/lib/wordpress';
 import { Container } from '@/components/ui/container';
 import { Badge } from '@/components/ui/badge';
-import { formatDate, readingTime, stripHtml } from '@/lib/utils';
+import { formatDate, readingTime, stripHtml, extractHeadings, addHeadingIds } from '@/lib/utils';
 import { SITE_CONFIG } from '@/lib/constants';
+import { Breadcrumbs } from '@/components/shared/breadcrumbs';
+import { ShareButtons } from '@/components/shared/share-buttons';
+import { TableOfContents } from '@/components/blog/table-of-contents';
+import { RelatedPosts } from '@/components/blog/related-posts';
 
 export async function generateStaticParams() {
   const slugs = await getAllPostSlugs();
@@ -50,6 +54,15 @@ export default async function BlogPostPage(
   if (!post) notFound();
 
   const readTime = readingTime(stripHtml(post.content || ''));
+  const headings = extractHeadings(post.content || '');
+  const contentWithIds = addHeadingIds(post.content || '');
+  const postUrl = `${SITE_CONFIG.url}/blog/${slug}`;
+
+  // Fetch related posts from first category
+  const primaryCategory = post.categories.nodes[0];
+  const relatedPosts = primaryCategory
+    ? await getRelatedPosts(slug, primaryCategory.slug, 3)
+    : [];
 
   const articleSchema = {
     '@context': 'https://schema.org',
@@ -69,7 +82,7 @@ export default async function BlogPostPage(
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `${SITE_CONFIG.url}/blog/${slug}`,
+      '@id': postUrl,
     },
     ...(post.featuredImage && {
       image: post.featuredImage.node.sourceUrl,
@@ -96,7 +109,7 @@ export default async function BlogPostPage(
         '@type': 'ListItem',
         position: 3,
         name: post.title,
-        item: `${SITE_CONFIG.url}/blog/${slug}`,
+        item: postUrl,
       },
     ],
   };
@@ -111,94 +124,15 @@ export default async function BlogPostPage(
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <Container className="max-w-3xl">
-        {/* Back link */}
-        <Link
-          href="/blog"
-          className="inline-flex items-center gap-2 text-surface-500 hover:text-primary-600 dark:hover:text-primary-400 mb-8 transition-colors text-sm font-medium"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Blog
-        </Link>
-
-        {/* Category badges */}
-        {post.categories.nodes.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-4">
-            {post.categories.nodes.map((cat) => (
-              <Badge key={cat.slug}>{cat.name}</Badge>
-            ))}
-          </div>
-        )}
-
-        {/* Title */}
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-display text-surface-900 dark:text-surface-50 mb-6 leading-tight">
-          {post.title}
-        </h1>
-
-        {/* Meta row */}
-        <div className="flex flex-wrap items-center gap-4 text-surface-500 dark:text-surface-400 text-sm mb-8">
-          <Link
-            href="/about"
-            className="flex items-center gap-1.5 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-          >
-            <User className="w-4 h-4" />
-            {SITE_CONFIG.name}
-          </Link>
-          <span className="flex items-center gap-1.5">
-            <Calendar className="w-4 h-4" />
-            <time dateTime={post.date}>{formatDate(post.date)}</time>
-          </span>
-          <span className="flex items-center gap-1.5">
-            <Clock className="w-4 h-4" />
-            {readTime} min read
-          </span>
-        </div>
-
-        {/* Featured image */}
-        {post.featuredImage && (
-          <div className="relative aspect-video w-full mb-10 rounded-2xl overflow-hidden">
-            <Image
-              src={post.featuredImage.node.sourceUrl}
-              alt={post.featuredImage.node.altText || post.title}
-              fill
-              className="object-cover"
-              priority
-              sizes="(max-width: 768px) 100vw, 768px"
-            />
-          </div>
-        )}
-
-        {/* Post content */}
-        <div
-          className={[
-            'prose prose-surface dark:prose-invert max-w-none',
-            'prose-headings:font-display',
-            'prose-a:text-primary-600 dark:prose-a:text-primary-400',
-            'prose-code:font-mono prose-code:text-sm',
-            'prose-img:rounded-xl',
-            'prose-pre:rounded-xl',
-          ].join(' ')}
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        />
-
-        {/* Tags (if present) */}
-        {post.tags && post.tags.nodes.length > 0 && (
-          <div className="mt-10 pt-8 border-t border-surface-200 dark:border-surface-800">
-            <p className="text-xs font-medium text-surface-400 uppercase tracking-widest mb-3">
-              Tags
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {post.tags.nodes.map((tag) => (
-                <Badge key={tag.slug} variant="secondary">
-                  {tag.name}
-                </Badge>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Footer nav */}
-        <div className="mt-12 pt-8 border-t border-surface-200 dark:border-surface-800">
+      <Container className="max-w-5xl">
+        {/* Breadcrumbs + back link */}
+        <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
+          <Breadcrumbs
+            items={[
+              { label: 'Blog', href: '/blog' },
+              { label: post.title },
+            ]}
+          />
           <Link
             href="/blog"
             className="inline-flex items-center gap-2 text-surface-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm font-medium"
@@ -206,6 +140,113 @@ export default async function BlogPostPage(
             <ArrowLeft className="w-4 h-4" />
             Back to Blog
           </Link>
+        </div>
+
+        {/* 2-column layout: main content + TOC sidebar */}
+        <div className="grid lg:grid-cols-[1fr_240px] gap-10 lg:gap-14">
+          {/* ── Main content ── */}
+          <div>
+            {/* Category badges */}
+            {post.categories.nodes.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-4">
+                {post.categories.nodes.map((cat) => (
+                  <Badge key={cat.slug}>{cat.name}</Badge>
+                ))}
+              </div>
+            )}
+
+            {/* Title */}
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-display text-surface-900 dark:text-surface-50 mb-6 leading-tight">
+              {post.title}
+            </h1>
+
+            {/* Meta row */}
+            <div className="flex flex-wrap items-center gap-4 text-surface-500 dark:text-surface-400 text-sm mb-4">
+              <Link
+                href="/about"
+                className="flex items-center gap-1.5 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+              >
+                <User className="w-4 h-4" />
+                {SITE_CONFIG.name}
+              </Link>
+              <span className="flex items-center gap-1.5">
+                <Calendar className="w-4 h-4" />
+                <time dateTime={post.date}>{formatDate(post.date)}</time>
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Clock className="w-4 h-4" />
+                {readTime} min read
+              </span>
+            </div>
+
+            {/* Share buttons (top) */}
+            <ShareButtons url={postUrl} title={post.title} className="mb-8" />
+
+            {/* Featured image */}
+            {post.featuredImage && (
+              <div className="relative aspect-video w-full mb-10 rounded-2xl overflow-hidden">
+                <Image
+                  src={post.featuredImage.node.sourceUrl}
+                  alt={post.featuredImage.node.altText || post.title}
+                  fill
+                  className="object-cover"
+                  priority
+                  sizes="(max-width: 768px) 100vw, 768px"
+                />
+              </div>
+            )}
+
+            {/* Post content */}
+            <div
+              className={[
+                'prose prose-surface dark:prose-invert max-w-none',
+                'prose-headings:font-display',
+                'prose-a:text-primary-600 dark:prose-a:text-primary-400',
+                'prose-code:font-mono prose-code:text-sm',
+                'prose-img:rounded-xl',
+                'prose-pre:rounded-xl',
+              ].join(' ')}
+              dangerouslySetInnerHTML={{ __html: contentWithIds }}
+            />
+
+            {/* Tags */}
+            {post.tags && post.tags.nodes.length > 0 && (
+              <div className="mt-10 pt-8 border-t border-surface-200 dark:border-surface-800">
+                <p className="text-xs font-medium text-surface-400 uppercase tracking-widest mb-3">
+                  Tags
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {post.tags.nodes.map((tag) => (
+                    <Badge key={tag.slug} variant="secondary">
+                      {tag.name}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Share buttons (bottom) */}
+            <div className="mt-10 pt-8 border-t border-surface-200 dark:border-surface-800 flex items-center justify-between flex-wrap gap-4">
+              <ShareButtons url={postUrl} title={post.title} />
+              <Link
+                href="/blog"
+                className="inline-flex items-center gap-2 text-surface-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm font-medium"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Back to Blog
+              </Link>
+            </div>
+
+            {/* Related posts */}
+            <RelatedPosts posts={relatedPosts} />
+          </div>
+
+          {/* ── TOC Sidebar ── */}
+          {headings.length > 0 && (
+            <aside className="hidden lg:block">
+              <TableOfContents headings={headings} />
+            </aside>
+          )}
         </div>
       </Container>
     </div>

@@ -3,6 +3,8 @@ import { HeroSection } from '@/components/hero/hero-section';
 import { AboutPreview } from '@/components/sections/about-preview';
 import { FeaturedProjects } from '@/components/sections/featured-projects';
 import { SkillsGrid } from '@/components/sections/skills-grid';
+import { GithubStats } from '@/components/sections/github-stats';
+import { CurrentlySection } from '@/components/sections/currently-section';
 import { LatestPosts } from '@/components/sections/latest-posts';
 import { CtaSection } from '@/components/sections/cta-section';
 import { getLatestPosts } from '@/lib/wordpress';
@@ -24,6 +26,8 @@ export default async function HomePage() {
       <AboutPreview />
       <FeaturedProjects projects={fallbackProjects} />
       <SkillsGrid />
+      <GithubStats />
+      <CurrentlySection />
       <LatestPosts posts={latestPosts} />
       <CtaSection />
     </>

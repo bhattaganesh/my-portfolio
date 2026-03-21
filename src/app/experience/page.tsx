@@ -4,6 +4,7 @@ import { SectionHeading } from '@/components/ui/section-heading';
 import { ScrollReveal } from '@/components/shared/scroll-reveal';
 import { experience } from '@/data/experience';
 import { ExperienceClient } from './client';
+import { Breadcrumbs } from '@/components/shared/breadcrumbs';
 import { SITE_CONFIG } from '@/lib/constants';
 
 export const metadata: Metadata = {
@@ -29,6 +30,7 @@ export default function ExperiencePage() {
         }}
       />
       <Container className="relative z-10">
+        <Breadcrumbs items={[{ label: 'Experience' }]} className="mb-6" />
         <ScrollReveal direction="up" delay={0}>
           <SectionHeading
             as="h1"

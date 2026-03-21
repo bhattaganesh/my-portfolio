@@ -3,7 +3,7 @@ import * as LucideIcons from 'lucide-react';
 import { Container } from '@/components/ui/container';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { ScrollReveal } from '@/components/shared/scroll-reveal';
-import { skillCategories, type SkillCategory } from '@/data/skills';
+import { skillCategories, type SkillCategory, type SkillLevel } from '@/data/skills';
 import { cn } from '@/lib/utils';
 
 // [UX-FIX] Replaced indigo/violet (not in design system) with primary palette shades for consistency
@@ -13,6 +13,12 @@ const CARD_ACCENTS = [
   { border: 'hover:border-primary-600/40', icon: 'bg-primary-600/10 text-primary-700' },
   { border: 'hover:border-primary-700/40', icon: 'bg-primary-700/10 text-primary-800' },
 ] as const;
+
+const LEVEL_DOTS: Record<SkillLevel, { count: number; color: string; label: string }> = {
+  expert:       { count: 3, color: 'bg-primary-500', label: 'Expert' },
+  advanced:     { count: 2, color: 'bg-primary-400', label: 'Advanced' },
+  intermediate: { count: 1, color: 'bg-primary-300', label: 'Intermediate' },
+};
 
 interface SkillCardProps {
   category: SkillCategory;
@@ -55,25 +61,42 @@ function SkillCard({ category, accentIndex }: SkillCardProps) {
         </h3>
       </div>
 
-      {/* Skill pills — clean, no level labels */}
+      {/* Skill pills with proficiency dots */}
       <div className="flex flex-wrap gap-2" role="list" aria-label={`${category.category} technologies`}>
-        {category.skills.map((skill) => (
-          <span
-            key={skill}
-            role="listitem"
-            className={cn(
-              'inline-flex items-center px-3 py-1.5 rounded-lg',
-              'bg-surface-100 dark:bg-surface-800',
-              'text-surface-700 dark:text-surface-300',
-              'text-sm font-medium',
-              'border border-surface-200/80 dark:border-surface-700/80',
-              'transition-colors duration-150',
-              'hover:bg-surface-200 dark:hover:bg-surface-700',
-            )}
-          >
-            {skill}
-          </span>
-        ))}
+        {category.skills.map((skill) => {
+          const dots = LEVEL_DOTS[skill.level];
+          return (
+            <span
+              key={skill.name}
+              role="listitem"
+              title={`${skill.name} — ${dots.label}`}
+              className={cn(
+                'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg',
+                'bg-surface-100 dark:bg-surface-800',
+                'text-surface-700 dark:text-surface-300',
+                'text-sm font-medium',
+                'border border-surface-200/80 dark:border-surface-700/80',
+                'transition-colors duration-150',
+                'hover:bg-surface-200 dark:hover:bg-surface-700',
+                'cursor-default',
+              )}
+            >
+              {skill.name}
+              <span className="flex items-center gap-0.5" aria-label={dots.label}>
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <span
+                    key={i}
+                    className={cn(
+                      'w-1 h-1 rounded-full',
+                      i < dots.count ? dots.color : 'bg-surface-300 dark:bg-surface-600',
+                    )}
+                    aria-hidden="true"
+                  />
+                ))}
+              </span>
+            </span>
+          );
+        })}
       </div>
     </div>
   );
@@ -91,8 +114,8 @@ export function SkillsGrid() {
           <ScrollReveal direction="up" delay={0}>
             <SectionHeading
               eyebrow="Tech Stack"
-              title="Tools I ship with"
-              subtitle="Technologies I use daily to build fast, maintainable production software."
+              title="What I build with"
+              subtitle="Languages, frameworks, and tools I use daily in production."
               as="h2"
             />
           </ScrollReveal>
