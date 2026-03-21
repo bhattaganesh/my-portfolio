@@ -89,7 +89,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || '',
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || 'cja3_7GdgWI9jy5C_mFgSHlmvK9BqlIQgPUXCo-ftGE',
   },
   alternates: {
     canonical: SITE_CONFIG.url,
