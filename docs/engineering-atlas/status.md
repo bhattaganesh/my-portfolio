@@ -6,7 +6,7 @@ Approved plan: `implementation-plan.md` (rev 2). Evidence: `evidence.md`.
 | Phase | Status | Notes |
 |---|---|---|
 | 0 Baseline | **verified** | Local checks + live 5-width sweep recorded in `evidence.md` |
-| 1 Design compositions (Step B) | pending | Rev 3 (Workspace) spec awaiting review; compositions start after approval |
+| 1 Design compositions (Step B) | **active, awaiting design review** | Prototype published (private Artifact); see evidence.md Step B |
 | 2 Foundation | pending | Blocked on design review |
 | 3 Case studies | pending | |
 | 4 Ship It | pending | |
@@ -34,4 +34,4 @@ Approved plan: `implementation-plan.md` (rev 2). Evidence: `evidence.md`.
 7. Rollback reality: the old site cannot be rebuilt while the CMS is frozen (see `evidence.md`).
 
 ## Next action
-Await review of rev 3 (`design.md` + plan). On approval: Step B compositions for Atlas + Workspace, then stop for design review.
+Await Ganesh's design review of the prototype (questions in its section 7). Then P2 foundation. No push/merge/deploy.
