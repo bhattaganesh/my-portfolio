@@ -82,3 +82,39 @@ Sweep: 8 routes × widths 360/390/768/1024/1440, `waitUntil: networkidle` + 800 
   - Run 3 (O): 0 errors. Hero text inside the hero. 0 contrast fails across 15 token pairs. scrollWidth 375 at a 390 viewport.
 - The workspace frames include `Alt+Shift+W` only as a label. Shortcut behaviour is untested (prototype).
 - Saved review screenshots: `design/review-*.png`.
+
+## Step B revision 2 (2026-10-07)
+- The rendered-text contrast audit is built into the prototype page and walks every text element in every frame. Result (O): 400 checked, 0 below threshold, 0 skipped.
+- Proof that the audit works (O): recreating the reported pale-on-cream tile title gave **1.16:1**, flagged as a fail. Restoring it gave 0 fails.
+- Published as v2 of https://claude.ai/artifact/34r6pViw5Y2jH13RAXYTBw.
+
+## Workspace slice (commit 5a1dbc2)
+Commands run in `C:\Users\bhatt\dev\my-portfolio`:
+
+| Check | Result |
+|---|---|
+| `npx vitest run` (Node 24.18.0) | O: 26 passed (wm invariants over 200 seeded random sequences × 60 actions, plus targeted cases; terminal parsing, completion, history, hostile input) |
+| Same suite on Node 22.13.0 (nvm binary on PATH) | O: 26 passed |
+| Mutation check: removed the y-clamp in `clampRect` | O: 3 tests failed; restored → 12/12 |
+| `npm run type-check` | O: clean |
+| `npm run lint` | O: 0 errors, 23 warnings (baseline also 23; none new) |
+| `npx playwright test` (Chromium 1440×900 + Pixel 7 touch, against `next dev`) | O: 14/14 passed on 3 consecutive runs |
+| `npm run build` | O: exit 1, `Page "/blog/[slug]" is missing "generateStaticParams()"` (pre-existing frozen-CMS failure). Compile and TypeScript stages passed. Log: `baseline/build-slice.log` |
+
+Defects found by the run and fixed before the final runs:
+- Mobile "Back to portfolio" was 40 px tall (now 44).
+- The dark active window showed grey controls (selector order).
+- A base `button` reset outranked component button styles (now `:where()`).
+- The `help` output was one command per line (now an inline row).
+
+Flakes found and root-caused:
+- Bounding boxes measured mid open-animation (`scale(0.97)`) gave 42.7 vs 48 and 409.6 vs 412. Fixed by waiting for animations in the test helpers. The window logic itself was unchanged.
+
+Environment observation:
+- `/` in `next dev` takes ~29 s of application code, because the home page waits on the frozen CMS during server rendering (`GET / 200 in 29.6s`). Pre-existing; fixed by P5.
+
+Not verified yet:
+- Production static export of `/workspace/`, blocked by the CMS build failure above.
+- The home-page budget check ran against dev chunks, not hashed production chunks.
+- Firefox and WebKit, and real iOS/Android devices.
+- The independent `/code-review` pass (planned for P6).

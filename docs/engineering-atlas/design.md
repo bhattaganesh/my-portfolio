@@ -161,3 +161,24 @@ Cleanup: views own their listeners and effects, and closing unmounts them. Audio
 ## 9. No-JS behaviour
 - `/workspace/` server-renders the wallpaper and the launcher as plain `<a>` links to the matching Atlas pages, with a note that the interactive desktop needs JavaScript.
 - The Atlas portfolio itself stays fully readable without JS.
+
+## 10. Revision: macOS-inspired Workspace (2026-10-07, supersedes §3 for the Workspace only)
+- **Visual:**
+  - A translucent menu bar (32 px desktop / 48 px phones) with Ganesh branding and "Back to portfolio".
+  - A translucent dock with labelled icons and open/minimized dots.
+  - Rounded windows (12 px) with soft layered shadows.
+  - Red/yellow/green controls (close/minimize/maximize). Each is a 24×24 hit area with a 13 px dot. The dots turn grey on background windows, and the glyphs appear on hover or keyboard focus.
+  - Projects uses a Finder-style sidebar (Flagship / More work) and a detail pane. Terminal uses a dark window with a zsh-style prompt.
+  - The wallpaper is original "Himalayan dawn" artwork: layered ridgelines and faint survey contours, rendered on the server only.
+  - No Apple marks, fonts or icons are used.
+- **Kept:** the Atlas portfolio, shared `src/content`, Ship It, accessibility rules and mobile panels.
+- **Implementation deviations from §2/§4, recorded honestly:**
+  - The window manager lives in one file (`src/workspace/wm.ts`) instead of three.
+  - The terminal lives in `src/workspace/terminal.ts`.
+  - The Alt+Space window-menu shortcut is dropped (it opens the browser's own window menu on Windows). The visible "•••" Window options button is the keyboard path.
+  - The window switcher (Alt+Shift+W) is deferred until more apps exist. In the slice, the dock is the switcher.
+  - Windows render in a stable DOM order with z-index stacking, because moving the focused DOM node would blur it.
+  - Terminal is not lazy-loaded inside the route (the whole `/workspace/` route is already split from `/`). Lazy loading plus a chunk-failure retry arrive with Arcade.
+  - Mobile Back-button history sync is deferred.
+  - Workspace CSS is a route-scoped file (`src/components/workspace/workspace.css`), not part of `globals.css`, so none of it ships with `/`.
+- **The route group `(site)`** holds the existing pages and their chrome. `/workspace/` renders without the site header, footer or custom cursor. The 404 page reuses the same `SiteChrome`. URLs are unchanged.

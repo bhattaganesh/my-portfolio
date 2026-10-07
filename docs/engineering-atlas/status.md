@@ -6,8 +6,9 @@ Approved plan: `implementation-plan.md` (rev 2). Evidence: `evidence.md`.
 | Phase | Status | Notes |
 |---|---|---|
 | 0 Baseline | **verified** | Local checks + live 5-width sweep recorded in `evidence.md` |
-| 1 Design compositions (Step B) | **active, awaiting design review** | Prototype published (private Artifact); see evidence.md Step B |
+| 1 Design compositions (Step B) | **verified, awaiting final design review** | Prototype v2 published; macOS-inspired Workspace direction applied to the functional slice |
 | 2 Foundation | pending | Blocked on design review |
+| W-slice Workspace (Projects + Terminal) | **active, awaiting review** | Commit 5a1dbc2; 26 unit + 14 E2E passing in dev; production export blocked by the CMS (P5) |
 | 3 Case studies | pending | |
 | 4 Ship It | pending | |
 | 5 Content/contact/migration | pending | |
@@ -34,4 +35,4 @@ Approved plan: `implementation-plan.md` (rev 2). Evidence: `evidence.md`.
 7. Rollback reality: the old site cannot be rebuilt while the CMS is frozen (see `evidence.md`).
 
 ## Next action
-Await Ganesh's design review of the prototype (questions in its section 7). Then P2 foundation. No push/merge/deploy.
+Ganesh reviews the slice screenshots and prototype v2. Then P2 foundation, P5 CMS removal (unblocks the production export), and the remaining apps. No push/merge/deploy.
