@@ -109,7 +109,7 @@ export function Workspace({ resumeHref, wallpaper }: WorkspaceProps) {
       <main id="main-content" ref={deskRef} className="gw-desk" aria-label="Workspace desktop">
         <h1 className="sr-only">Ganesh Workspace</h1>
 
-        <nav className="gw-launcher" aria-label="Apps">
+        <nav className="gw-launcher" aria-label="Apps" inert={state.layout === 'panels' && state.focused !== null}>
           <p className="gw-launcher-title">Pick an app</p>
           <p className="gw-launcher-sub">Everything here is also on the main portfolio.</p>
           <ul>

@@ -136,7 +136,7 @@ export function WindowFrame({
       data-keyboard={mode ?? undefined}
       aria-labelledby={`gw-title-${app}`}
       hidden={minimized}
-      inert={minimized}
+      inert={minimized || (panel && !active)}
       style={style}
       onPointerDownCapture={onActivate}
       onFocusCapture={(e) => {

@@ -31,6 +31,49 @@ test('touch: launcher → full-screen panel → back, with focus returning to th
   await expect(launcher.getByRole('button', { name: /Terminal/ })).toBeFocused();
 });
 
+test('a full-screen panel keeps keyboard focus off the covered launcher and covered panels', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/workspace/');
+  const launcher = page.getByRole('navigation', { name: 'Apps' });
+
+  const sweep = async (visibleTitle: string) => {
+    const leaks: string[] = [];
+    for (let i = 0; i < 40; i++) {
+      await page.keyboard.press('Tab');
+      const where = await page.evaluate((title) => {
+        const el = document.activeElement;
+        if (!el || el === document.body) return null;
+        if (el.closest('.gw-launcher')) return `launcher: ${el.textContent?.trim().slice(0, 30)}`;
+        const section = el.closest('section.gw-window');
+        const label = section?.querySelector('h2')?.textContent;
+        return section && label !== title ? `covered ${label}: ${el.textContent?.trim().slice(0, 30)}` : null;
+      }, visibleTitle);
+      if (where) leaks.push(where);
+    }
+    return leaks;
+  };
+
+  await launcher.getByRole('button', { name: /Projects/ }).tap();
+  await expect(windowRegion(page, 'Projects')).toHaveAttribute('data-mode', 'panel');
+  expect(await sweep('Projects')).toEqual([]);
+  await expect(launcher).toHaveAttribute('inert', '');
+
+  await windowRegion(page, 'Projects').getByRole('button', { name: 'Apps', exact: true }).tap();
+  await expect(launcher.getByRole('button', { name: /Projects/ })).toBeFocused();
+  await expect(launcher).not.toHaveAttribute('inert');
+
+  await launcher.getByRole('button', { name: /Terminal/ }).tap();
+  await page.locator('#gw-term-field').fill('projects spectra');
+  await page.locator('#gw-term-field').press('Enter');
+  await expect(windowRegion(page, 'Projects').getByRole('heading', { name: 'Spectra', level: 3 })).toBeVisible();
+  expect(await sweep('Projects')).toEqual([]);
+
+  await windowRegion(page, 'Projects').getByRole('button', { name: 'Close', exact: true }).tap();
+  await expect(page.locator('#gw-term-field')).toBeFocused();
+  await windowRegion(page, 'Terminal').getByRole('button', { name: 'Close', exact: true }).tap();
+  await expect(launcher.getByRole('button', { name: /Terminal/ })).toBeFocused();
+});
+
 test('touch targets in the launcher and panels are at least 44px', async ({ page }) => {
   await page.goto('/workspace/');
   const small: string[] = [];
