@@ -157,3 +157,51 @@ Rounds 1 (catalogue: query / cache / workers, with the bottleneck deciding the w
 
 ## Verification rule
 Every phase records exact commands and real output in `status.md` and `evidence.md`, with each item labeled observed vs assumed. A phase is marked verified only when its gate checks were executed.
+
+---
+
+# Rev 3 — adds Ganesh Workspace (proposed, awaiting review)
+
+The full spec is in `design.md` §1–9. Rev 2 decisions and corrections all stand: archived notes as structured safe content, the payment-round distinction, keeping graphql-request with `wordpress.ts`, genuine image fallback, the observed rollback, no AGENTS.md, and a contact page with no form. **New dependencies: none.** Drag uses Pointer Events, minimized windows use `inert`/`hidden`, audio uses WebAudio, validation uses zod (already present).
+
+## Revised order
+1. **Step B — compositions (design gate).**
+   - Atlas frames: desktop hero light and dark, Spectra chapter, mobile home, Ship It storyboard.
+   - **Workspace frames:** desktop and dock, launcher open, Projects window, multi-window state, mobile app view.
+   - Published as one private Artifact. **Stop for review.**
+2. **P2 foundation + shared content.**
+   - `src/content/` schemas and data, `src/components/views/*`, Atlas shell and routes.
+   - Header and hero get the **Enter my workspace** link, initially pointing to a `/workspace/` page that is the server-rendered no-JS launcher (a real, useful page from day one).
+3. **P3 case studies + diagram** (unchanged).
+4. **P4 Ship It engine + UI** (unchanged, §1 payment table). The UI component is written to mount inside any container (no page-level assumptions), so Arcade can reuse it.
+5. **P5 notes archive, contact, migration** (unchanged).
+6. **W2 window manager**
+   - `src/workspace/wm/{types,geometry,reducer}.ts`; `reducer.test.ts` covers invariants 1–6 over seeded random action sequences (no new dep: a small seeded LCG in the test) plus targeted cases (minimize focus hand-off, close focus hand-off, maximize/restore rect, viewport shrink and grow).
+   - `src/components/workspace/{desktop,wallpaper,dock,launcher,window,window-switcher,mobile-panels,live-status}.tsx`, `src/workspace/registry.ts`, `src/workspace/prefs.ts` (+ `prefs.test.ts`: valid, corrupt JSON, wrong version, throwing storage, reset).
+7. **W3 shared-content apps.** Projects, Journey, Notes, Résumé, and Contact mount the P2 views. ResumePanel reads its availability from a build-time check. Per-window error boundary and loading state.
+8. **W4 Terminal + Arcade.**
+   - `src/workspace/terminal/{commands,parse,complete,history}.ts` + `terminal.test.ts` (design §6 list); `components/workspace/apps/terminal.tsx`.
+   - Arcade = lazy `ShipIt`. Minimized keeps the run, closed discards it.
+9. **P6/W5 integration, verification, polish** (rev 2 P6 plus the workspace checks below).
+10. **P7 handoff** (unchanged).
+
+## Workspace verification (Playwright on served `out/`, Chromium desktop + Pixel 7 emulation; Firefox/WebKit if they install)
+
+| Spec | Asserts |
+|---|---|
+| `e2e/workspace-windows.spec.ts` | Opens 3 apps and switches with dock, switcher, and `Alt+Shift+W`. Minimize, restore, maximize, restore, close. Correct z-order and `focused` styling. Minimized window not focusable (Tab sweep never lands inside it). Focus lands where design §4 says after every action. |
+| `e2e/workspace-keyboard.spec.ts` | Full keyboard-only session: launcher → open Projects → Window menu Move/Size with arrows → switch → close. Focus is visible on every stop (screenshot sampled). |
+| `e2e/workspace-geometry.spec.ts` | Drag a window past each edge, so it clamps. Resize the viewport 1440→800→1440 and 1440→390→1440: every title bar is reachable and the layout switches to panels and back. |
+| `e2e/workspace-mobile.spec.ts` | 390px: tap a tile → full-screen panel → Back to apps (focus returns to the tile) → Switch. Browser Back closes the panel. No element under 44px among controls. |
+| `e2e/workspace-terminal.spec.ts` | Typed and chip-clicked commands, history ↑↓, Tab completion, unknown command hint, `<script>` shown as text, `exit` closes the window. |
+| `e2e/workspace-arcade.spec.ts` | Complete all 3 rounds, replay. Minimize mid-round → restore keeps the round. Close → reopen starts fresh. Leave route and return. |
+| `e2e/workspace-resilience.spec.ts` | Storage throws (init script overrides `localStorage`) → still usable. Corrupt `gw.prefs` → defaults. Reduced motion emulated → no transitions. 200% zoom at 1280. Blocked Terminal chunk → error state → Retry works after unblock. |
+| `e2e/budget.spec.ts` | `/` cold load and full scroll: no request for workspace or ship-it chunks (names from `.next` build manifest). Zero `pageerror` and console errors on every route, `/workspace/` included. |
+| axe | `/workspace/` with 0, 1, and 3 windows open, plus the mobile panel state. |
+
+Plus the rev 2 checks for Atlas, Lighthouse mobile on `/` and `/workspace/`, and the independent `/code-review`.
+
+## Risks / decisions to confirm
+- `Alt+Shift+W` may collide with a browser or OS shortcut on some platforms. The tests check that it isn't swallowed in Chromium, Firefox, and WebKit. The visible Switch button is always the guaranteed path.
+- iOS Safari does not render inline PDF `<object>` reliably. The links are the primary path there.
+- One window per app (a single instance) is deliberate and keeps state and focus rules simple.
