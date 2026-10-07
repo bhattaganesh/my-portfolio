@@ -1,0 +1,115 @@
+/* Ship It: takes its colours from whichever host it sits in (Atlas page tokens or a Workspace window). */
+.si {
+  --si-ink: var(--gw-ink, var(--ink));
+  --si-muted: var(--gw-muted, var(--muted));
+  --si-accent: var(--gw-accent-strong, var(--cobalt));
+  --si-on-accent: var(--on-cobalt, #fff);
+  --si-card: var(--gw-card, var(--tint));
+  --si-line: var(--gw-hairline, var(--rule));
+  --si-good: #1f7a3a;
+  --si-mid: #8a5a00;
+  --si-bad: #b3261e;
+  color: var(--si-ink);
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  max-width: 760px;
+  font-size: 15px;
+  line-height: 1.55;
+}
+:root.dark .si,
+.gw[data-theme='dark'] .si {
+  --si-good: #7bd88f;
+  --si-mid: #f2c46d;
+  --si-bad: #ff9a91;
+}
+:root.dark .gw[data-theme='light'] .si {
+  --si-good: #1f7a3a;
+  --si-mid: #8a5a00;
+  --si-bad: #b3261e;
+}
+.gw .si { --si-on-accent: #fff; padding: 20px 24px 28px; overflow-y: auto; max-width: none; }
+.si p { margin: 0; }
+.si form,
+.si-stack { display: grid; gap: 14px; }
+.si-eyebrow {
+  font: 500 12px/1.4 var(--font-jetbrains), ui-monospace, monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--si-muted);
+}
+.si-title {
+  margin: 0;
+  font: 800 clamp(24px, 3vw, 32px)/1.1 var(--font-cabinet), var(--font-inter), sans-serif;
+  letter-spacing: -0.02em;
+}
+.si-title:focus-visible { outline: 2px solid var(--si-accent); outline-offset: 4px; border-radius: 4px; }
+.si-twist-tag { color: var(--si-muted); font-weight: 600; }
+.si-rules { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+.si-progress { display: grid; gap: 6px; }
+.si-progress ol { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+.si-progress li {
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--si-line);
+  font-size: 12px;
+  color: var(--si-muted);
+}
+.si-progress li[aria-current] { border-color: var(--si-accent); color: var(--si-ink); font-weight: 600; }
+.si-progress li[data-done]::before { content: '✓ '; }
+.si-callout { padding: 10px 14px; border-radius: 10px; background: var(--si-card); border-left: 3px solid var(--si-accent); }
+.si-metric { margin: 0; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+.si-metric dt { color: var(--si-muted); font-size: 13px; }
+.si-metric dd { margin: 0; font: 600 16px/1.4 var(--font-jetbrains), ui-monospace, monospace; }
+.si-options { margin: 0; padding: 0; border: 0; display: grid; gap: 8px; min-width: 0; }
+.si-options legend { padding: 0; margin-bottom: 8px; font-weight: 700; }
+.si-option {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: start;
+  min-height: 44px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1.5px solid var(--si-line);
+  cursor: pointer;
+}
+.si-option:hover { border-color: var(--si-muted); }
+.si-option[data-selected] { border-color: var(--si-accent); background: var(--si-card); }
+.si-option:has(input:focus-visible) { outline: 2px solid var(--si-accent); outline-offset: 2px; }
+.si-option input { width: 18px; height: 18px; margin: 3px 0 0; accent-color: var(--si-accent); }
+.si-option > span { display: grid; gap: 2px; }
+.si-detail { color: var(--si-muted); font-size: 14px; }
+.si-tech { font: 12px/1.5 var(--font-jetbrains), ui-monospace, monospace; color: var(--si-accent); }
+.si-toggle { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; width: fit-content; }
+.si-toggle input { width: 16px; height: 16px; accent-color: var(--si-accent); }
+.si-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.si-btn {
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1.5px solid var(--si-ink);
+  background: none;
+  color: var(--si-ink);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.si-btn:hover { background: var(--si-card); }
+.si-primary { background: var(--si-accent); border-color: var(--si-accent); color: var(--si-on-accent); }
+.si-primary:hover { background: var(--si-accent); filter: brightness(1.08); }
+.si-btn:focus-visible { outline: 2px solid var(--si-accent); outline-offset: 3px; }
+.si-hint { color: var(--si-bad); font-weight: 600; min-height: 1.5em; }
+.si-badge { display: inline-flex; width: fit-content; gap: 6px; padding: 2px 10px; border-radius: 999px; font-weight: 700; font-size: 13px; border: 1.5px solid currentColor; }
+.si-viable { color: var(--si-good); }
+.si-partial { color: var(--si-mid); }
+.si-none { color: var(--si-muted); }
+.si-worsened { color: var(--si-bad); }
+.si-details summary { cursor: pointer; font-weight: 600; min-height: 32px; display: list-item; }
+.si-details p { margin-top: 6px; }
+.si-score { font-size: 18px; font-weight: 600; }
+.si-debrief { margin: 0; padding: 0; list-style: none; display: grid; gap: 16px; }
+.si-debrief > li { padding-top: 12px; border-top: 1px solid var(--si-line); display: grid; gap: 6px; }
+.si-debrief :is(h3, h4) { margin: 0; font-size: 17px; }
+.si-debrief ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+.si-lesson { color: var(--si-muted); }

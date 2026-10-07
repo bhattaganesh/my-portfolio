@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...work.map((item) => ({ url: url(`/work/${item.slug}/`), priority: item.flagship ? 0.8 : 0.6 })),
     { url: url('/journey/'), priority: 0.7 },
     { url: url('/contact/'), priority: 0.7 },
+    { url: url('/lab/ship-it/'), priority: 0.4 },
     { url: url('/workspace/'), priority: 0.4 },
     ...publishedNotes().map((note) => ({ url: url(`/notes/${note.slug}/`), lastModified: note.publishedAt, priority: 0.6 })),
   ];

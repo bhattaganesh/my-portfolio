@@ -51,6 +51,17 @@ const SettingsIcon = (
   </svg>
 );
 
+const ArcadeIcon = (
+  <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+    <rect width="48" height="48" rx="11" fill="#C2531F" />
+    <path d="M11 0h26a11 11 0 0 1 11 11v9H0v-9A11 11 0 0 1 11 0z" fill="#F08A5D" opacity="0.5" />
+    <path d="M24 9c5 4 7 9 7 15l-3 6h-8l-3-6c0-6 2-11 7-15z" fill="#FFF4EA" />
+    <circle cx="24" cy="20" r="3" fill="#C2531F" />
+    <path d="M17 26l-4 6h5zM31 26l4 6h-5z" fill="#FFD3A1" />
+    <path d="M21 32h6l-3 7z" fill="#FFD3A1" />
+  </svg>
+);
+
 export const APPS: readonly AppDef[] = [
   {
     id: 'projects',
@@ -65,6 +76,13 @@ export const APPS: readonly AppDef[] = [
     description: 'Explore by typing portfolio commands',
     spec: { size: { w: 680, h: 420 }, min: { w: 380, h: 260 } },
     icon: TerminalIcon,
+  },
+  {
+    id: 'arcade',
+    title: 'Ship It',
+    description: 'A three-round engineering game',
+    spec: { size: { w: 760, h: 620 }, min: { w: 400, h: 360 } },
+    icon: ArcadeIcon,
   },
   {
     id: 'about',

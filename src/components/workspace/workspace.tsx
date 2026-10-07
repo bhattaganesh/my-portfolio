@@ -2,6 +2,7 @@
 
 import { useEffect, useReducer, useRef, useState } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { PANEL_BREAKPOINT, initialState, reduce, type AppId, type WmAction, type WmState } from '@/workspace/wm';
 import { DEFAULT_PREFS, WALLPAPERS, clearPrefs, loadPrefs, savePrefs, type Prefs, type PrefsStorage } from '@/workspace/prefs';
 import type { SearchResult } from '@/workspace/search';
@@ -26,6 +27,11 @@ const SERVER_AREA = { w: 1440, h: 760 };
 const LAYOUT_SAVE_DELAY = 400;
 const WALLPAPER_NAMES: Record<Prefs['wallpaper'], string> = { dawn: 'Himalayan dawn', dusk: 'Himalayan dusk', night: 'Himalayan night' };
 const APP_IDS_OPEN = APPS.map((a) => a.id);
+
+/** Optional apps are fetched only when opened, so the desktop itself stays light. */
+const ShipIt = dynamic(() => import('@/components/ship-it/ship-it').then((m) => m.ShipIt), {
+  loading: () => <p className="gw-loading" role="status">Loading Ship It…</p>,
+});
 
 type Overlay = 'mission' | 'spotlight' | null;
 type OpenMenu = { kind: 'workspace' | 'desktop'; at: { x: number; y: number } } | { kind: 'app'; app: AppId; at: { x: number; y: number }; above: boolean } | null;
@@ -380,6 +386,8 @@ export function Workspace({ resumeHref, wallpaper }: WorkspaceProps) {
         return <TerminalApp ctx={{ resumeHref, apps: APP_IDS_OPEN }} onEffect={onTerminalEffect} queued={terminalQueue} onQueuedRun={() => setTerminalQueue(null)} />;
       case 'about':
         return <AboutApp resumeHref={resumeHref} />;
+      case 'arcade':
+        return <ShipIt headingLevel={3} note="Minimizing this window keeps your progress; closing it ends the run." />;
       case 'settings':
         return <SettingsApp prefs={prefs} storageAvailable={storageAvailable} onChange={changePrefs} onReset={resetEverything} />;
       default:

@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from './fixtures';
 
-const PAGES = ['/', '/work/', '/work/spectra/', '/work/masteriyo/', '/work/wp-agent-ai/', '/work/everest-forms/', '/work/user-registration/', '/journey/', '/contact/'];
+const PAGES = ['/', '/work/', '/work/spectra/', '/work/masteriyo/', '/work/wp-agent-ai/', '/work/everest-forms/', '/work/user-registration/', '/journey/', '/contact/', '/lab/ship-it/'];
 const LEGACY: Record<string, string> = {
   '/about/': '/journey/',
   '/experience/': '/journey/',

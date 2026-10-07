@@ -27,6 +27,11 @@ export function SiteFooter() {
                 Workspace
               </Link>
             </li>
+            <li>
+              <Link href="/lab/ship-it/" prefetch={false} className="inline-flex min-h-11 items-center hover:text-cobalt">
+                Ship It, a game
+              </Link>
+            </li>
           </ul>
         </nav>
         <ul className="grid content-start gap-1">
