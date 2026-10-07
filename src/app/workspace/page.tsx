@@ -1,31 +1,13 @@
-import fs from 'node:fs';
-import path from 'node:path';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Wallpaper } from '@/components/workspace/wallpaper';
 import { Workspace } from '@/components/workspace/workspace';
+import { findResume } from '@/lib/resume';
 
 export const metadata: Metadata = {
   title: 'Workspace',
   description: 'An optional desktop-style way to explore Ganesh Bhatt’s projects, plus a portfolio terminal.',
 };
-
-/**
- * Finds a published résumé PDF at build time.
- *
- * @returns The public path of the first PDF in public/resume, or null when none is published.
- * @throws When the folder exists but cannot be read, so a broken build is not mistaken for "no résumé".
- */
-function findResume(): string | null {
-  const dir = path.join(process.cwd(), 'public', 'resume');
-  try {
-    const pdf = fs.readdirSync(dir).find((file) => file.toLowerCase().endsWith('.pdf'));
-    return pdf ? `/resume/${pdf}` : null;
-  } catch (error) {
-    if ((error as NodeJS.ErrnoException).code === 'ENOENT') return null;
-    throw error;
-  }
-}
 
 export default function WorkspacePage() {
   return (

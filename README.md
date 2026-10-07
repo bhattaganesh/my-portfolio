@@ -1,182 +1,87 @@
 # Ganesh Prasad Bhatt — Portfolio
 
-Personal portfolio website for **Ganesh Prasad Bhatt**, a Senior Full-Stack Software Developer based in Kathmandu, Nepal.
+Personal portfolio for **Ganesh Prasad Bhatt**, a senior full-stack engineer in Kathmandu, Nepal. It has two parts that share one content source:
 
-**Live:** [ganeshbhatt.com.np](https://www.ganeshbhatt.com.np)
+- **Engineering Atlas** (`/`, `/work/`, `/journey/`, `/contact/`): the main portfolio. It is fully readable without JavaScript.
+- **Ganesh Workspace** (`/workspace/`): an optional desktop-style way to explore the same content. Its code is loaded only on that route.
 
-## Tech Stack
+**Live:** [ganeshbhatt.com.np](https://www.ganeshbhatt.com.np) (built from `main` only).
 
-- **Framework:** [Next.js 16](https://nextjs.org/) (App Router, React 19, Turbopack, static export)
-- **Styling:** [Tailwind CSS 4](https://tailwindcss.com/) (CSS-based config, no `tailwind.config.js`), [Tailwind Typography](https://github.com/tailwindlabs/tailwindcss-typography)
-- **3D:** [React Three Fiber](https://r3f.docs.pmnd.rs/), [Three.js](https://threejs.org/), [@react-three/drei](https://github.com/pmndrs/drei), [@react-three/postprocessing](https://github.com/pmndrs/react-postprocessing)
-- **Animations:** [Motion](https://motion.dev/) (Framer Motion v12+), [GSAP](https://gsap.com/)
-- **CMS:** Headless WordPress via GraphQL ([graphql-request](https://github.com/jasonkuhrt/graphql-request))
-- **Email:** [EmailJS](https://www.emailjs.com/) (client-side contact form)
-- **Validation:** [Zod](https://zod.dev/)
-- **Icons:** [Lucide React](https://lucide.dev/)
-- **Notifications:** [Sonner](https://sonner.emilkowal.dev/) (toast notifications)
-- **Theming:** [next-themes](https://github.com/pacocoursey/next-themes) (light/dark, class strategy)
-- **Utilities:** clsx, tailwind-merge
-- **Deployment:** [GitHub Pages](https://pages.github.com/) via GitHub Actions
+## Stack
 
-## Getting Started
-
-### Prerequisites
-
-- Node.js 20+
-- npm
-
-### Setup
-
-```bash
-# Install dependencies
-npm install
-
-# Copy environment variables
-cp .env.example .env.local
-
-# Start dev server (Turbopack)
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000).
-
-### Environment Variables
-
-Copy `.env.example` to `.env.local` and fill in the values.
-
-| Variable | Description | Required |
-| --- | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Site URL (default: `http://localhost:3000`) | Yes |
-| `WORDPRESS_GRAPHQL_URL` | WordPress GraphQL endpoint (Pantheon-hosted) | Yes |
-| `NEXT_PUBLIC_EMAILJS_SERVICE_ID` | [EmailJS](https://www.emailjs.com/) service ID | Yes (prod) |
-| `NEXT_PUBLIC_EMAILJS_TEMPLATE_ID` | EmailJS email template ID | Yes (prod) |
-| `NEXT_PUBLIC_EMAILJS_PUBLIC_KEY` | EmailJS public key | Yes (prod) |
-| `NEXT_PUBLIC_GA_ID` | Google Analytics 4 measurement ID | No |
-| `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | Google Search Console verification token | No |
-
-### Scripts
-
-| Command | Description |
+| | Version |
 | --- | --- |
-| `npm run dev` | Start dev server with Turbopack |
-| `npm run build` | Production build (outputs to `out/`) |
-| `npm run lint` | Run ESLint |
-| `npm run type-check` | TypeScript type checking |
-| `npm run serve` | Serve static build locally |
+| Node.js | 22.x (CI uses `22`; see `.nvmrc`). Node 23 also works locally. |
+| npm | 10+ |
+| Next.js | 16.2.0, App Router, static export (`output: 'export'`) |
+| React | 19.2.4 |
+| TypeScript | 5.9, strict |
+| Tailwind CSS | 4 (CSS-based config, no `tailwind.config.js`) |
+| Tests | Vitest 4 (unit), Playwright 1.63 + axe-core (E2E) |
 
-## External Services & APIs
+There is no CMS, database, API route or contact form. All content lives in `src/content/`, and the build never contacts an external service.
 
-### Headless WordPress (CMS)
-
-Blog posts are fetched from a headless WordPress instance hosted on **Pantheon** via its GraphQL endpoint. The GraphQL client is configured in `src/lib/wordpress.ts` using `graphql-request`.
-
-- **Blog detail pages** are statically generated at build time via `generateStaticParams`
-- **Blog list page** fetches posts client-side from WordPress GraphQL on every page load (always fresh)
-- **Home page** latest posts section is built at build time
-- **WordPress media** is served from the Pantheon CDN (`/wp-content/uploads/`)
-- **Gravatar** is used for author avatars (`secure.gravatar.com`)
-
-New blog posts require a site rebuild for their detail pages. The GitHub Actions workflow auto-rebuilds daily at 6 AM UTC and can be triggered manually.
-
-### EmailJS (Contact Form)
-
-The contact form sends emails client-side via [EmailJS](https://www.emailjs.com/) (200 free emails/month). No server-side API routes needed.
-
-### Google Analytics & Search Console
-
-- **GA4** — loaded conditionally via Google Tag Manager when `NEXT_PUBLIC_GA_ID` is set
-- **Search Console** — site verification meta tag when `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` is set
-
-### Fonts
-
-- **Inter** and **JetBrains Mono** — loaded via `next/font/google`
-- **Cabinet Grotesk** — loaded from [Fontshare](https://www.fontshare.com/) CDN
-
-## Project Structure
-
-```
-src/
-├── app/              # Next.js App Router pages & metadata
-│   ├── about/
-│   ├── blog/[slug]/
-│   ├── contact/
-│   ├── experience/
-│   └── projects/[slug]/
-├── components/
-│   ├── blog/         # Blog post cards, client-side list
-│   ├── contact/      # Contact form (EmailJS)
-│   ├── experience/   # Timeline
-│   ├── hero/         # 3D hero section (Three.js)
-│   ├── layout/       # Header, footer, logo, theme toggle
-│   ├── projects/     # Project cards
-│   ├── sections/     # Homepage sections
-│   ├── shared/       # Reusable components
-│   └── ui/           # Base UI primitives
-├── data/             # Static data (projects, skills, experience)
-├── hooks/            # Custom React hooks
-└── lib/              # Utilities, types, constants, WordPress client
-```
-
-## CI/CD Pipeline
-
-The project has a fully automated CI/CD pipeline via GitHub Actions.
-
-### What happens on every push to `main`
-
-1. **Lint** — runs `eslint` to catch code issues
-2. **Type Check** — runs `tsc --noEmit` to catch TypeScript errors
-3. **Build** — generates the static site into `out/`
-4. **Deploy** — uploads to GitHub Pages (live in ~1 minute)
-
-### Development Workflow
+## Set up on a new machine
 
 ```bash
-# 1. Make your changes
-# 2. Stage and commit
-git add <files>
-git commit -m "feat: add new section"
-
-# 3. Push to main — auto-deploys
-git push origin main
+git clone https://github.com/bhattaganesh/my-portfolio.git
+cd my-portfolio
+git switch feature/engineering-atlas   # current work branch
+nvm use                                 # or install Node 22
+npm ci
+npx playwright install                  # browsers for E2E (once per machine)
 ```
 
-That's it. Your changes will be live at https://www.ganeshbhatt.com.np within a few minutes.
+No environment variables are required. Optional ones are listed in `.env.example` (names only):
 
-### Creating a Release
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_GA_ID` | Google Analytics 4 ID; analytics loads only when it is set |
+| `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | Overrides the built-in Search Console token |
 
-When you want to tag a version (e.g., after a major update):
+## Commands
 
-```bash
-# 1. Bump version in package.json (follow semver)
-#    - Patch (1.0.1): bug fixes, small tweaks
-#    - Minor (1.1.0): new features, new pages
-#    - Major (2.0.0): breaking redesign, new stack
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Dev server (Turbopack) on http://localhost:3000 |
+| `npm run lint` | ESLint |
+| `npm run type-check` | `tsc --noEmit` |
+| `npm test` | Vitest unit tests |
+| `npm run build` | Static export to `out/`, then `scripts/fix-segment-names.mjs` (a fix for Windows-only export paths) |
+| `node scripts/serve-out.mjs 4310` | Serves `out/` the way GitHub Pages does (trailing-slash redirects, 404 page) |
+| `npm run test:e2e` | Playwright against a dev server on :3100 |
+| `E2E_BASE_URL=http://localhost:4310 npm run test:e2e` | Playwright against the served production export (the release check) |
 
-# 2. Commit with "release:" prefix — this triggers auto-release
-git add package.json
-git commit -m "release: v1.1.0"
-git push origin main
+E2E projects: Chromium, Firefox and WebKit at 1440×900, plus an emulated Pixel 7 and iPhone 14. Emulation is not a substitute for testing on real devices.
+
+## Layout
+
+```
+src/app/                 routes, metadata, OG images, legacy-URL redirect pages
+src/content/             typed, verified content: work, profile, archived notes (zod)
+src/components/atlas/    portfolio shell and views
+src/components/workspace/ Workspace desktop, windows and apps (route-scoped CSS)
+src/workspace/           pure, unit-tested logic: window manager, terminal, search, preferences
+scripts/                 export server, segment-name fix, notes archive tooling
+e2e/                     Playwright suites
+docs/engineering-atlas/  plan, design, evidence and status (read status.md first)
 ```
 
-GitHub Actions will automatically:
-- Build and deploy the site
-- Create a git tag (`v1.1.0`)
-- Create a GitHub Release with an auto-generated changelog
+## Content rules
 
-### New Blog Posts from WordPress
+- Do not invent facts. Every claim comes from `src/content/`, and its source is recorded in `docs/engineering-atlas/evidence.md`.
+- Nothing describes an employer as current until `current: true` is confirmed in `src/content/profile.ts`.
+- **Résumé:** drop a PDF into `public/resume/`, and the site links to it at build time. While no PDF is there, the site offers the résumé by email.
+- Archived notes stay unpublished until each one is approved (`published` flag).
 
-- **Blog list page** — always fresh (fetches client-side on every page load)
-- **Blog detail pages** — require a rebuild to generate new `/blog/[slug]` pages
-- **Daily auto-rebuild** — runs at 6 AM UTC via cron, picks up new posts automatically
-- **Manual rebuild** — go to Actions tab → "Deploy to GitHub Pages" → "Run workflow"
+## Deployment
 
-### Deployment Config
+GitHub Actions (`.github/workflows/deploy.yml`):
 
-- **Platform:** GitHub Pages
-- **Source:** GitHub Actions (Settings → Pages → Source)
-- **Custom domain:** `www.ganeshbhatt.com.np` (CNAME added during build)
-- **HTTPS:** Enforced
+- On pull requests: lint, type-check, unit tests and build.
+- On push to `main`, the daily schedule, or a manual run: the same checks, then deploy to GitHub Pages with a CNAME for `www.ganeshbhatt.com.np`.
+
+Feature branches never deploy. A commit message starting with `release:` on `main` creates a tagged GitHub release (`release.yml`).
 
 ## License
 

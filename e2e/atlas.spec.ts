@@ -153,7 +153,7 @@ test.describe('without JavaScript', () => {
   test('the portfolio is fully readable and navigable', async ({ page }) => {
     await page.goto('/');
     await expect(page.getByRole('heading', { level: 1 })).toContainText('I build the systems behind');
-    await expect(page.getByRole('link', { name: 'Spectra' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Spectra' }).first()).toBeVisible();
     await expect(page.getByText('bhattaganesh05@gmail.com').first()).toBeVisible();
     const footer = page.getByRole('navigation', { name: 'Footer' });
     for (const label of ['Work', 'Journey', 'Contact']) await expect(footer.getByRole('link', { name: label, exact: true })).toBeVisible();
@@ -165,5 +165,22 @@ test.describe('without JavaScript', () => {
     // getByText skips <noscript> subtrees even when they render, so target the overlay itself.
     await expect(page.locator('.gw-noscript')).toBeVisible();
     await expect(page.locator('.gw-noscript')).toContainText('The interactive workspace needs JavaScript');
+  });
+
+  test('the 60-second overview puts work, experience, résumé and contact one link from the top', async ({ page }) => {
+    await page.goto('/');
+    await page.getByRole('link', { name: '60-second overview ↓' }).click();
+    await expect(page).toHaveURL(/#overview$/);
+    const overview = page.getByRole('region', { name: 'The 60-second overview' });
+    await expect(overview).toBeInViewport();
+    for (const title of ['Spectra', 'Masteriyo LMS', 'WP Agent AI']) {
+      await expect(overview.getByRole('link', { name: title, exact: true })).toHaveAttribute('href', /^\/work\/[a-z-]+\/$/);
+    }
+    for (const org of ['Brainstorm Force', 'ThemeGrill', 'Zenlab']) await expect(overview).toContainText(org);
+    const resume = overview.getByRole('link', { name: /^Résumé/ });
+    await expect(resume).toHaveAttribute('href', /^(\/resume\/.+\.pdf|mailto:bhattaganesh05@gmail\.com\?subject=)/);
+    await expect(overview.getByRole('link', { name: 'bhattaganesh05@gmail.com' })).toHaveAttribute('href', 'mailto:bhattaganesh05@gmail.com');
+    await expect(overview.getByRole('link', { name: /LinkedIn/ })).toHaveAttribute('href', 'https://www.linkedin.com/in/ganesh-bhatta/');
+    await expect(overview.getByRole('link', { name: /GitHub/ })).toHaveAttribute('href', 'https://github.com/bhattaganesh');
   });
 });

@@ -3,9 +3,11 @@ import Link from 'next/link';
 import { ContourPlate } from '@/components/atlas/contour-plate';
 import { CopyEmail } from '@/components/atlas/copy-email';
 import { WorkList } from '@/components/atlas/work-list';
-import { education, profile, roleDates, roles } from '@/content/profile';
+import { Overview } from '@/components/atlas/overview';
+import { profile } from '@/content/profile';
 import { work } from '@/content/work';
 import { SITE_CONFIG } from '@/lib/constants';
+import { findResume } from '@/lib/resume';
 
 export const metadata: Metadata = {
   title: { absolute: `${SITE_CONFIG.name} – ${SITE_CONFIG.title}` },
@@ -38,6 +40,9 @@ export default function HomePage() {
             <a href={`mailto:${profile.email}`} className="inline-flex min-h-13 items-center justify-center rounded-full border-[1.5px] border-ink px-6 font-semibold">
               Email me
             </a>
+            <a href="#overview" className="inline-flex min-h-13 items-center justify-center px-2 font-semibold text-cobalt underline-offset-4 hover:underline">
+              60-second overview ↓
+            </a>
           </div>
           <aside aria-labelledby="workspace-invite" className="mt-9 grid max-w-[620px] gap-x-4 gap-y-1.5 rounded-2xl border border-rule bg-tint p-5 sm:grid-cols-[1fr_auto] sm:items-center">
             <h2 id="workspace-invite" className="m-0 text-xl font-bold">
@@ -58,7 +63,9 @@ export default function HomePage() {
         <ContourPlate />
       </section>
 
-      <section aria-labelledby="selected-work" className={`${SECTION} pb-20`}>
+      <Overview resumeHref={findResume()} />
+
+      <section aria-labelledby="selected-work" className={`${SECTION} pt-16 pb-20 md:pt-20`}>
         <div className="flex items-baseline justify-between border-b-[1.5px] border-ink pb-3.5">
           <h2 id="selected-work" className="m-0 text-3xl font-bold md:text-[34px]">
             Selected work
@@ -68,33 +75,6 @@ export default function HomePage() {
           </Link>
         </div>
         <WorkList items={work.filter((w) => w.flagship)} />
-      </section>
-
-      <section aria-labelledby="journey" className={`${SECTION} grid gap-8 pb-20 md:grid-cols-[1fr_2fr]`}>
-        <div>
-          <h2 id="journey" className="m-0 text-3xl font-bold md:text-[34px]">
-            Journey
-          </h2>
-          <Link href="/journey/" className="mt-3 inline-flex min-h-11 items-center font-semibold text-cobalt">
-            The full journey →
-          </Link>
-        </div>
-        <ol className="m-0 grid list-none gap-0 p-0">
-          {roles.map((r) => (
-            <li key={`${r.organization}-${r.start}`} className="grid gap-1 border-b border-rule py-4 md:grid-cols-[220px_1fr]">
-              <span className="font-mono text-sm text-muted">{roleDates(r)}</span>
-              <span>
-                <strong className="font-semibold">{r.title}</strong>, {r.organization}
-              </span>
-            </li>
-          ))}
-          <li className="grid gap-1 py-4 md:grid-cols-[220px_1fr]">
-            <span className="font-mono text-sm text-muted">{education.years}</span>
-            <span>
-              <strong className="font-semibold">{education.title}</strong>, {education.organization}
-            </span>
-          </li>
-        </ol>
       </section>
 
       <section aria-labelledby="contact" className="border-t border-rule bg-tint">

@@ -246,3 +246,39 @@ Plus the rev 2 checks for Atlas, Lighthouse mobile on `/` and `/workspace/`, and
 - **No review metadata in public UI**: evidence status, pending-input markers and rejected claims live only in `docs/engineering-atlas/evidence.md`. Public UI keeps only required honesty labels ("Illustrative diagram", "Simulation · made-up numbers").
 - **Contrast is verified on rendered components**, not just tokens. P6 runs axe on every route and workspace state, plus the rendered-text audit used in the prototype.
 - **Workspace slice first** (before the other apps): `/workspace/` with the window manager, Projects (shared data) and Terminal. Verified for keyboard, touch, focus recovery, viewport resizing and reduced motion before expanding.
+
+## Rev 4: reconciled with the 2026-10-07 continuation brief
+
+What already exists stays as is: Atlas routes, shared `src/content`, the CMS-free build, the WM reducer, Projects, Terminal, mobile panels, and the 94-test E2E matrix. Each stage below is closed (verified, evidence recorded, committed, pushed) before the next one starts. **No new dependencies.**
+
+### F. Finish the foundation
+- **F1 Mobile covered-launcher focus.** Already fixed (46aaa0a) and covered by `workspace.mobile.spec.ts` › "a full-screen panel keeps keyboard focus off…". *Accept:* that test passes on both mobile engines against the production export.
+- **F2 Complete P5 (WordPress removed).** Delete the Pantheon `remotePatterns`, the WordPress and EmailJS variables (`.env.example`, `deploy.yml`) and the stale README. The PR CI job adds `npm test` and `npm run build`. *Accept:* `grep -ri "pantheon\|WORDPRESS_\|EMAILJS"` over source, config and CI returns nothing. A build passes with no network access to any CMS.
+- **F3 Recruiter fast path.** A "60-second overview" band on `/`, directly under the hero, holds the three flagship projects (one line each, with links), verified experience, résumé status, and contact (email, LinkedIn, GitHub). It is reachable from a hero link and from the skip link. The résumé shows only when `public/resume/*.pdf` exists. Otherwise it reads "Résumé on request" as a `mailto:`. *Accept:* an E2E test finds every item without JS or scrolling past the band, and the content scan still finds no current-employment wording.
+- **F4 Portability.** The README states the runtime versions, setup/run/test/build commands and environment variable names (no values). `status.md` gets a handoff.
+
+### D. Personal desktop (Priority 2)
+- **D1 Mission Control** replaces the deferred window switcher. It is opened from a menu-bar button or `Ctrl+Alt+↑`, and shows one card per open app (normal and minimized) as a `listbox`. Arrow keys plus Enter switch, Esc returns focus.
+- **D2 Spotlight** is opened from a menu-bar button or `Ctrl+K`. It searches apps, projects and terminal commands. The pure `src/workspace/search.ts` has unit tests. Combobox pattern: arrow keys, Enter, Esc.
+- **D3 Context menus.** The desktop and dock items get `role="menu"` menus. The keyboard alternatives are `Shift+F10` or the Menu key on a focused dock item, and the menu-bar "Workspace" menu offers the same desktop actions. Every item does something real.
+- **D4 Preferences** (`src/workspace/prefs.ts`, zod, versioned key `gw.prefs.v2`) hold theme (system/light/dark), wallpaper (variants of the original Himalayan artwork), motion (system/reduced), sound (off by default), and window layout (rects plus open apps). Settings has a single reset. Corrupt or unavailable storage falls back to the defaults.
+- **D5 Sound:** short WebAudio ticks, off by default, and the AudioContext is created only after the user turns sound on.
+- **D6 Phone Back navigation:** opening a panel pushes `#app`, and browser Back returns to the launcher with focus on that tile.
+
+### Stage A apps
+1. **Projects:** case-study decisions and the request-flow diagram rendered from `caseStudy` (an SVG diagram plus its ordered-text equivalent), and "Open full case study". There are no screenshots because none are permitted yet, so none are shown.
+2. **Terminal:** add `open <app>` and `search <text>`. History, completion and chips stay as they are.
+3. **About Ganesh:** profile, verified roles and education, résumé (only if published), and contact.
+4. **Settings:** appearance, wallpaper, motion, sound, and reset.
+
+### Stage B
+5. **Arcade / Ship It:** the progressive engine (rev 3.2) in `src/lab/ship-it/` with exact-outcome tests. The UI is lazy-loaded in the Workspace and also served at `/lab/ship-it/`. It is never required to reach portfolio content.
+6. **Browser:** internal destinations only (`ganesh://` pages for case studies, the notes index, demos, and GitHub/LinkedIn *portfolio previews*, which are labelled as such). Tabs, an address bar, bookmarks, and back/forward history come from a pure, unit-tested `browser.ts`. Address-bar input is parsed with `URL`: a known internal route renders internally, a valid `https:` URL becomes an explicit "Open in a new tab" choice, and anything else is "not found". No iframes, no HTML rendering.
+
+### Stage C (scope is decided after B)
+7. **Journey** overlaps About. The proposal is to consolidate it into About as a timeline section unless it adds distinct verified milestones.
+8. **Notes** is blocked on content: no archived post is approved for publication. Until one is, it ships no app (no empty shell).
+9. **Architecture Lab:** one bounded cache and queue simulation, deterministic and unit-tested, labelled "Simulation · made-up numbers".
+
+### Verification per stage
+Lint, type-check, vitest, build, then Playwright on the served `out/` (Chromium, Firefox and WebKit on desktop; emulated Pixel 7 and iPhone 14), axe, console errors, overflow, 200% zoom and reduced motion. An independent review runs before each push. The home bundle check asserts that `/` requests no workspace chunk.
