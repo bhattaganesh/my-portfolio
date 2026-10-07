@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { findWork, work } from '@/content/work';
+import { findWork, work, type WorkLink } from '@/content/work';
 import { SITE_CONFIG } from '@/lib/constants';
 
 export const dynamicParams = false;
@@ -61,6 +61,12 @@ export default async function WorkPage(props: PageProps<'/work/[slug]'>) {
         <aside className="hidden border-t-[1.5px] border-ink pt-3 font-mono text-[13px] leading-loose text-muted md:block">
           <p className="m-0">On this page</p>
           <p className="m-0">What I owned</p>
+          {item.caseStudy && (
+            <>
+              <p className="m-0">Key decisions</p>
+              <p className="m-0">How a request flows</p>
+            </>
+          )}
           <p className="m-0">Links</p>
         </aside>
         <div>
@@ -70,6 +76,44 @@ export default async function WorkPage(props: PageProps<'/work/[slug]'>) {
             </h2>
             <p className="m-0 text-lg">{item.owned}</p>
           </section>
+
+          {item.caseStudy && (
+            <>
+              <section aria-labelledby="decisions" className="mt-10">
+                <h2 id="decisions" className="mb-4 text-2xl font-bold">
+                  Key decisions
+                </h2>
+                <ul className="m-0 grid list-none gap-6 p-0">
+                  {item.caseStudy.decisions.map((d) => (
+                    <li key={d.title} className="border-t border-rule pt-4">
+                      <h3 className="m-0 text-lg font-bold">{d.title}</h3>
+                      <p className="mt-1.5 mb-1.5">{d.detail}</p>
+                      <SourceLink link={d.source} />
+                    </li>
+                  ))}
+                </ul>
+              </section>
+
+              <section aria-labelledby="flow" className="mt-10">
+                <h2 id="flow" className="mb-1 text-2xl font-bold">
+                  How a request flows
+                </h2>
+                <p className="mt-0 mb-4 text-muted">Traced from the source code; each step links to the file that does it.</p>
+                <ol className="m-0 grid list-none gap-4 p-0">
+                  {item.caseStudy.flow.map((stage, i) => (
+                    <li key={stage.title} className="grid grid-cols-[2.5rem_1fr] gap-x-3">
+                      <span aria-hidden="true" className="font-mono text-orange">{String(i + 1).padStart(2, '0')}</span>
+                      <div>
+                        <h3 className="m-0 text-base font-bold">{stage.title}</h3>
+                        <p className="mt-1 mb-1">{stage.detail}</p>
+                        <SourceLink link={stage.source} />
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            </>
+          )}
 
           <section aria-labelledby="links" className="mt-10">
             <h2 id="links" className="mb-3 text-2xl font-bold">
@@ -98,5 +142,20 @@ export default async function WorkPage(props: PageProps<'/work/[slug]'>) {
         </div>
       </div>
     </article>
+  );
+}
+
+/**
+ * Renders the public source that backs a case-study point, opening in a new tab.
+ *
+ * @param props.link The source file or page to link to.
+ */
+function SourceLink({ link }: { link: WorkLink }) {
+  return (
+    <a href={link.href} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center font-mono text-[13px] text-cobalt underline underline-offset-4">
+      Source: {link.label}
+      <span className="sr-only"> (opens in a new tab)</span>
+      <span aria-hidden="true">&nbsp;↗</span>
+    </a>
   );
 }

@@ -11,7 +11,7 @@ Working checkouts: office laptop `C:\Users\bhatt\dev\my-portfolio`; home laptop 
 | W-slice Workspace (Projects + Terminal) | **verified** | Phone-panel focus leak fixed with a regression test (46aaa0a) |
 | 2 Foundation | **verified on Windows export** | No-JS reading fixed by deleting `loading.tsx`; old files and deps removed. Full E2E matrix 91/91 |
 | 5 Notes archive / CMS removal / migration | **active** | 6 posts archived as validated blocks (340dcda), unpublished. Build no longer contacts WordPress. Legacy URLs → noindex meta-refresh pages |
-| 3 Case studies | **active** | Spectra facts changed publicly (Legacy/Blocks split); Ganesh supplied his Spectra scope. WP Agent AI evidence gathered from its code |
+| 3 Case studies | **active** | WP Agent AI done: 4 decisions + 5-step request flow, each linked to pinned source. Spectra waits on the Loop Builder name; Masteriyo stays self-reported |
 | 4 Ship It | pending | |
 | 6 Integration/review | pending | Independent `/code-review` not yet run |
 | 7 Handoff | pending | |
@@ -46,6 +46,6 @@ Working checkouts: office laptop `C:\Users\bhatt\dev\my-portfolio`; home laptop 
 
 ## Next actions (in order)
 1. Linux `out/` diff (office laptop).
-2. P3: flagship case studies (Spectra with Ganesh's scope, WP Agent AI from code, Masteriyo self-reported).
+2. P3: Spectra (with Ganesh's scope, after the Loop Builder confirmation) and Masteriyo (self-reported). The interactive aria-pressed diagram (plan §P3) is not built: the server-rendered ordered flow is its text equivalent.
 3. Workspace staged apps: Journey, Notes, Résumé, Contact, then Arcade with Ship It (P4).
 4. Independent `/code-review`, then fix and re-run.

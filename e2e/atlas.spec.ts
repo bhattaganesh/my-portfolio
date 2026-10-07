@@ -24,6 +24,22 @@ test('primary navigation marks the current page and reaches every section', asyn
   await expect(nav.getByRole('link', { name: 'Work' })).toHaveAttribute('aria-current', 'page');
 });
 
+test('a flagship case study shows its decisions and request flow, each backed by a pinned source file', async ({ page }) => {
+  await page.goto('/work/wp-agent-ai/');
+  const decisions = page.getByRole('region', { name: 'Key decisions' });
+  const flow = page.getByRole('region', { name: 'How a request flows' });
+  await expect(decisions.getByRole('listitem')).toHaveCount(4);
+  await expect(flow.getByRole('list')).toHaveJSProperty('tagName', 'OL');
+  await expect(flow.getByRole('listitem')).toHaveCount(5);
+  const sources = page.getByRole('link', { name: /^Source: / });
+  await expect(sources).toHaveCount(9);
+  for (const href of await sources.evaluateAll((as) => as.map((a) => a.getAttribute('href')))) {
+    expect(href).toMatch(/^https:\/\/github\.com\/bhattaganesh\/wp-agent-ai\/blob\/[0-9a-f]{40}\//);
+  }
+  await page.goto('/work/everest-forms/');
+  await expect(page.getByRole('heading', { name: 'Key decisions' })).toHaveCount(0);
+});
+
 test('theme follows the system first, and a chosen theme persists across reloads', async ({ page }) => {
   await page.emulateMedia({ colorScheme: 'dark' });
   await page.goto('/');
@@ -143,6 +159,8 @@ test.describe('without JavaScript', () => {
     for (const label of ['Work', 'Journey', 'Contact']) await expect(footer.getByRole('link', { name: label, exact: true })).toBeVisible();
     await page.goto('/work/spectra/');
     await expect(page.getByRole('heading', { name: 'What I owned' })).toBeVisible();
+    await page.goto('/work/wp-agent-ai/');
+    await expect(page.getByRole('heading', { name: 'How a request flows' })).toBeVisible();
     await page.goto('/workspace/');
     // getByText skips <noscript> subtrees even when they render, so target the overlay itself.
     await expect(page.locator('.gw-noscript')).toBeVisible();

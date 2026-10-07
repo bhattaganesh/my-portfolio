@@ -155,3 +155,21 @@ Toolchain: Windows 11, Node 23.6.0, npm 11.4.2 (office laptop used Node 24.18.0;
 | E2E run 3 (post-deletion export, test fixes) | O: **91 passed, 0 failed** (1.7 min). Mobile projects are emulated |
 
 Not verified: Linux `out/` diff (no WSL or Docker on this laptop).
+
+## P3 WP Agent AI case study (2026-10-07)
+Every decision and flow step is read from `bhattaganesh/wp-agent-ai` at `dff0e3c3e5…` (links pinned to that SHA):
+- `ContentStreamHandler.php` accumulates OpenRouter's token stream and sends `: heartbeat` comments. After the stream ends it calls `BlockJsonSanitizer::sanitize()` (line 237) and emits one `block` event per block, `usleep(300000)` apart. **Correction:** ARCHITECTURE.md's "real-time block-by-block preview" describes the reveal, not token streaming.
+- Nonce (`check_ajax_referer`), `current_user_can('edit_posts')`, then `RateLimiter::check_and_increment()` (line 99), all before the cURL call.
+- `BlockJsonSanitizer`: `ALLOWED_BLOCKS` filtered by `wp_agent_ai_allowed_blocks`; `strip_wrappers`, `repair_truncated_json`, `extract_complete_blocks`.
+- `Encryption`: `sodium_crypto_secretbox`, key = sha256(AUTH_KEY . AUTH_SALT), with a hardcoded fallback when those constants are undefined (noted, not claimed on the page).
+- Client: `ContentStreamApi.js` POSTs `wp_agent_ai_stream_content` and reads `response.body.getReader()`; `GenerateButton.js` calls `replaceInnerBlocks`; `utils.js` calls `createBlock`.
+- Also exist: `ai-page` block, `plugins/ai-sidebar`, `hooks/useVoiceInput.js`, `admin/settings`.
+- **Docs drift**: ARCHITECTURE.md lists `PagePromptBuilder.php` and `ContentBlockBuilder.php`; the tree has `PageComposer.php`, `RateLimiter.php` and `UsageTracker.php` instead. The page cites code only.
+- Page corrections: the year 2025 → 2026 (repo created 2026-02-28); "OpenAI API" → OpenRouter; "agent framework" → Gutenberg plugin (the repo's own description).
+
+Checks: lint and type-check clean; 32 unit pass. New E2E: 4 decisions, an `<ol>` of 5 stages, 9 source links all matching `github.com/bhattaganesh/wp-agent-ai/blob/<40-hex>/`, and no case-study sections on non-flagship pages; the no-JS test checks the flow heading. Full matrix: 93 passed, 1 failed (Firefox crashed while setting up a page: GFX compositor plus a protocol error). Re-run in Firefox (axe, case study, no-JS × 2): 6/6 pass. Screenshots at 1280 and 390: no overflow (0 px).
+
+## Spectra Blocks package (wordpress.org, stable 1.0.11, downloaded 2026-10-07)
+- Block titles include **Countdown** (with Days/Hours/Minutes/Seconds children), Popup Builder, Slider, Tabs, Modal, Counter, Spectra AI.
+- Responsive system: `ResponsiveControls` / `ResponsiveConditions` / `ResponsiveAttributeCSS` (hundreds of references).
+- Nothing named "load builder". There is a **Loop Builder** (`spectra-pro/loop-builder`, a Spectra Pro block listed in onboarding) plus a Post Query Builder. Waiting for Ganesh to confirm this is the block he meant.

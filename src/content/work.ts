@@ -7,6 +7,20 @@ export interface WorkLink {
   href: string;
 }
 
+/** One decision or flow stage in a case study, always tied to a public source that shows it. */
+export interface CaseStudyPoint {
+  title: string;
+  detail: string;
+  source: WorkLink;
+}
+
+/** Evidence-backed depth for a flagship project; omitted where no public source exists. */
+export interface CaseStudy {
+  decisions: CaseStudyPoint[];
+  /** Ordered path of one request through the system, traced from the code. */
+  flow: CaseStudyPoint[];
+}
+
 export interface WorkItem {
   slug: string;
   title: string;
@@ -18,7 +32,13 @@ export interface WorkItem {
   owned: string;
   links: WorkLink[];
   flagship: boolean;
+  caseStudy?: CaseStudy;
 }
+
+const WP_AGENT_AI_SRC = 'https://github.com/bhattaganesh/wp-agent-ai/blob/dff0e3c3e57ff4d95b81940b5913f7529cd0fc09';
+
+/** A source link to a file in WP Agent AI at the commit the case study was traced from. */
+const agentSource = (file: string): WorkLink => ({ label: file.split('/').pop() ?? file, href: `${WP_AGENT_AI_SRC}/${file}` });
 
 export const work: readonly WorkItem[] = [
   {
@@ -54,14 +74,70 @@ export const work: readonly WorkItem[] = [
   {
     slug: 'wp-agent-ai',
     title: 'WP Agent AI',
-    summary: 'An open-source framework that brings LLM-powered agents into WordPress and the Gutenberg editor.',
+    summary: 'An open-source Gutenberg plugin that turns a prompt into validated, editable blocks, with an AI sidebar and voice input.',
     role: 'Author',
     organization: 'Personal, open source',
-    year: '2025',
-    stack: ['PHP', 'React', 'Gutenberg', 'OpenAI API'],
-    owned: 'Built it: an open-source AI agent framework that integrates LLM capabilities into WordPress and the Gutenberg editor.',
+    year: '2026',
+    stack: ['PHP 8.1', 'React', 'Gutenberg', 'OpenRouter', 'Server-Sent Events'],
+    owned:
+      'All of it, as sole author: the PHP backend (REST and streaming endpoints, encryption, rate limiting), the two blocks, the editor sidebar and the settings app.',
     links: [{ label: 'Source on GitHub', href: 'https://github.com/bhattaganesh/wp-agent-ai' }],
     flagship: true,
+    caseStudy: {
+      decisions: [
+        {
+          title: 'Validate the whole answer before anything reaches the editor',
+          detail:
+            'The server reads the model’s token stream but does not forward it. It sends heartbeat comments to keep proxies from closing the connection, sanitizes the complete response, then sends the validated blocks one at a time, 300 ms apart. The editor never shows a half-parsed block, at the cost of true token-by-token streaming.',
+          source: agentSource('includes/Ajax/ContentStreamHandler.php'),
+        },
+        {
+          title: 'Treat model output as untrusted input',
+          detail:
+            'Generated JSON goes through an allowlist of block types and attribute keys (extensible with the wp_agent_ai_allowed_blocks filter). Wrapper text is stripped and truncated JSON is repaired or cut back to its complete blocks.',
+          source: agentSource('includes/Services/BlockJsonSanitizer.php'),
+        },
+        {
+          title: 'Encrypt the API key at rest',
+          detail:
+            'The OpenRouter key is stored encrypted with libsodium’s secretbox, using a key derived from the site’s AUTH_KEY and AUTH_SALT, and is decrypted only on the server when a request is made.',
+          source: agentSource('includes/Services/Encryption.php'),
+        },
+        {
+          title: 'Guard every generation request',
+          detail:
+            'Streaming endpoints check a nonce and the edit_posts capability, and a per-user, transient-based rate limiter rejects bursts before any paid API call.',
+          source: agentSource('includes/Services/RateLimiter.php'),
+        },
+      ],
+      flow: [
+        {
+          title: 'Prompt',
+          detail: 'The block or sidebar posts the prompt, content type, tone and length to admin-ajax and reads the response as a stream.',
+          source: agentSource('src/helpers/api/ContentStreamApi.js'),
+        },
+        {
+          title: 'Guard',
+          detail: 'The handler checks the nonce, the capability and the rate limit, then opens an event stream.',
+          source: agentSource('includes/Ajax/ContentStreamHandler.php'),
+        },
+        {
+          title: 'Generate',
+          detail: 'The request goes to OpenRouter with streaming on; tokens are accumulated server-side.',
+          source: agentSource('includes/Services/OpenRouterClient.php'),
+        },
+        {
+          title: 'Validate',
+          detail: 'The full answer is parsed and reduced to allowed blocks and attributes.',
+          source: agentSource('includes/Services/BlockJsonSanitizer.php'),
+        },
+        {
+          title: 'Insert',
+          detail: 'Each block event becomes a real Gutenberg block (createBlock) and is placed as inner blocks the user can edit.',
+          source: agentSource('src/blocks/ai-content/components/GenerateButton.js'),
+        },
+      ],
+    },
   },
   {
     slug: 'everest-forms',
