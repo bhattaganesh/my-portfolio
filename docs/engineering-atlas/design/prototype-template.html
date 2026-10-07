@@ -10,15 +10,13 @@
 :root{
   --b-bg:#EEEBE4; --b-surface:#F8F6F1; --b-ink:#1A1C20; --b-muted:#5B5F66; --b-line:rgba(26,28,32,.14); --b-accent:#2343D6;
   --display:"Cabinet Grotesk","Arial Narrow",Arial,sans-serif; --body:Inter,"Segoe UI",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
-  /* Atlas tokens (light) */
-  --paper:#F6F3EC; --ink:#16181C; --muted:#55595F; --cobalt:#2343D6; --orange:#A9461A; --rule:rgba(22,24,28,.14); --tint:#ECE7DC; --on-cobalt:#FFFFFF;
-  /* Workspace tokens */
-  --wall:#1B2230; --wall-line:rgba(142,162,255,.16); --wall-ink:#E6E9F0; --sheet:#F3EFE6; --sheet-ink:#16181C; --sheet-muted:#55595F; --bar:#E6E0D3; --bar-active:#2343D6; --dock:rgba(16,20,28,.78);
-  --ok:#2E7D4F; --warn:#9A5B00; --bad:#B3261E;
+  --paper:#F6F3EC; --ink:#16181C; --muted:#55595F; --cobalt:#2343D6; --orange:#A9461A; --rule:rgba(22,24,28,.14); --contour:rgba(22,24,28,.10); --contour-index:rgba(22,24,28,.22); --tint:#ECE7DC; --on-cobalt:#FFFFFF;
+  --wall:#1B2230; --wall-line:rgba(142,162,255,.10); --wall-index:rgba(142,162,255,.2); --wall-ink:#E6E9F0; --sheet:#F3EFE6; --sheet-ink:#16181C; --sheet-muted:#55595F; --bar:#E6E0D3; --bar-active:#2343D6; --dock:rgba(16,20,28,.78);
+  --ok:#2E7D4F; --warn:#8A5200; --bad:#B3261E; --sim:#7A3FA0;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--b-bg:#121417;--b-surface:#1A1D21;--b-ink:#ECE8DF;--b-muted:#A3A29C;--b-line:rgba(236,232,223,.14);--b-accent:#8EA2FF;color-scheme:dark}}
 :root[data-theme="dark"]{--b-bg:#121417;--b-surface:#1A1D21;--b-ink:#ECE8DF;--b-muted:#A3A29C;--b-line:rgba(236,232,223,.14);--b-accent:#8EA2FF;color-scheme:dark}
-.atlas.is-dark{--paper:#15171A;--ink:#ECE8DF;--muted:#A9A49A;--cobalt:#8EA2FF;--orange:#F08A5D;--rule:rgba(236,232,223,.16);--tint:#1F2226;--on-cobalt:#0E1330}
+.atlas.is-dark{--paper:#15171A;--ink:#ECE8DF;--muted:#A9A49A;--cobalt:#8EA2FF;--orange:#F08A5D;--rule:rgba(236,232,223,.16);--contour:rgba(236,232,223,.09);--contour-index:rgba(236,232,223,.2);--tint:#1F2226;--on-cobalt:#0E1330}
 
 *{box-sizing:border-box}
 body{background:var(--b-bg);color:var(--b-ink);font:15px/1.6 var(--body);padding-inline:clamp(16px,4vw,56px);padding-block:40px 80px}
@@ -26,10 +24,7 @@ body{background:var(--b-bg);color:var(--b-ink);font:15px/1.6 var(--body);padding
 .board-head{display:grid;gap:18px;max-width:880px}
 .board-head h1{font:800 clamp(2.2rem,5vw,3.6rem)/1 var(--display);margin:0;letter-spacing:-.01em;text-wrap:balance}
 .board-head p{margin:0;color:var(--b-muted);max-width:68ch}
-.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font:500 12px/1 var(--mono)}
-.chip{display:inline-flex;align-items:center;gap:6px;padding:5px 8px;border-radius:999px;border:1px solid currentColor;font:500 11px/1.3 var(--mono);letter-spacing:.02em}
-.chip.v{color:var(--ok)} .chip.p{color:var(--b-accent)} .chip.i{color:#8A4FB0} .chip.n{color:var(--warn)}
-.atlas.is-dark .chip.v,.ws .chip.v{color:#6FCB93}
+.b-eyebrow{font:500 13px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--b-muted)}
 .sec{display:grid;gap:18px}
 .sec-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px;border-top:1px solid var(--b-line);padding-top:18px}
 .sec-head h2{font:700 1.5rem/1.2 var(--display);margin:0}
@@ -38,12 +33,15 @@ body{background:var(--b-bg);color:var(--b-ink);font:15px/1.6 var(--body);padding
 .row{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start}
 .row>figure{flex:1 1 300px;min-width:0;max-width:100%}
 figure{margin:0;display:grid;gap:10px}
-figcaption{font:12px/1.5 var(--mono);color:var(--b-muted)}
+figcaption{font:12px/1.55 var(--mono);color:var(--b-muted)}
+.review{display:grid;gap:4px;margin:4px 0 0;padding:10px 12px;border-left:2px solid var(--b-accent);background:var(--b-surface);font:12px/1.55 var(--mono);color:var(--b-muted)}
+.review b{color:var(--b-ink);font-weight:500}
 .vp{width:100%;overflow:hidden;border-radius:10px;box-shadow:0 0 0 1px var(--b-line),0 18px 40px -24px rgba(0,0,0,.35);background:var(--b-surface)}
 .vp>.frame{transform-origin:0 0}
-.no-js .vp{overflow-x:auto}
+.shot{width:100%;height:auto;border-radius:10px;box-shadow:0 0 0 1px var(--b-line)}
+.changes{margin:0;padding-left:20px;display:grid;gap:6px;max-width:80ch}
 
-/* ---------- Atlas frames ---------- */
+/* ---------- Atlas ---------- */
 .atlas{background:var(--paper);color:var(--ink);font:17px/1.65 var(--body);position:relative;overflow:hidden}
 .atlas a{color:inherit}
 .a-head{display:flex;align-items:center;gap:32px;padding:26px 64px;border-bottom:1px solid var(--rule)}
@@ -56,25 +54,30 @@ figcaption{font:12px/1.5 var(--mono);color:var(--b-muted)}
 .btn{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 24px;border-radius:999px;font:600 16px/1 var(--body);text-decoration:none;border:1.5px solid var(--ink);background:none;color:var(--ink);white-space:nowrap}
 .btn.primary{background:var(--cobalt);border-color:var(--cobalt);color:var(--on-cobalt)}
 .btn.sm{height:40px;padding:0 16px;font-size:14px}
-.btn.ws-entry{border-style:dashed}
 .focus-demo{outline:3px solid var(--cobalt);outline-offset:3px}
 .eyebrow{font:500 13px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-.hero{display:grid;grid-template-columns:7fr 5fr;gap:56px;align-items:start;padding:88px 64px 72px;position:relative}
+.hero{display:grid;grid-template-columns:7fr 5fr;gap:56px;align-items:start;padding:80px 64px 72px}
 .hero h1{font:800 104px/.94 var(--display);letter-spacing:-.025em;margin:22px 0 28px;text-wrap:balance}
 .hero h1 em{font-style:normal;color:var(--cobalt)}
-.hero .lede{font-size:20px;max-width:34ch;color:var(--ink);margin:0 0 36px}
+.hero .lede{font-size:20px;max-width:36ch;margin:0 0 32px}
 .hero .lede span{color:var(--muted)}
 .actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
-.ws-note{font:13px/1.5 var(--mono);color:var(--muted);margin:18px 0 0;max-width:52ch}
+.invite{margin-top:36px;display:grid;grid-template-columns:auto 1fr auto;gap:6px 18px;align-items:center;max-width:620px;padding:18px 20px;border:1px solid var(--rule);border-radius:14px;background:var(--tint)}
+.invite .ico{grid-row:1/3;width:44px;height:44px;border-radius:10px;background:var(--ink);color:var(--paper);display:grid;place-items:center}
+.invite .ico svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.6}
+.invite b{font:700 20px/1.1 var(--display)}
+.invite p{margin:0;font-size:15px;color:var(--muted);grid-column:2}
+.invite .btn{grid-row:1/3;grid-column:3}
 .plate{position:relative;aspect-ratio:4/5;border:1px solid var(--rule);background:var(--tint)}
-.plate svg.contours{position:absolute;inset:0;width:100%;height:100%}
+.plate svg.contours{position:absolute;inset:0;width:100%;height:100%;-webkit-mask-image:linear-gradient(90deg,#000 0 38%,transparent 66%);mask-image:linear-gradient(90deg,#000 0 38%,transparent 66%)}
 .plate .portrait{position:absolute;right:7%;bottom:0;width:48%;height:auto;aspect-ratio:2/3;object-fit:cover;object-position:50% 12%;border-radius:999px 999px 0 0;background:var(--paper);box-shadow:0 0 0 1px var(--rule)}
 .atlas.is-dark .plate .portrait{filter:brightness(.92)}
 .route{position:absolute;inset:0;pointer-events:none;font:500 12px/1.3 var(--mono);color:var(--ink)}
 .route span{position:absolute;display:grid;grid-template-columns:auto 1fr;column-gap:8px;align-items:center;max-width:44%}
-.route span::before{grid-row:1/3;content:"";width:9px;height:9px;border-radius:50%;border:2px solid var(--orange);background:var(--paper)}
+.route span::before{grid-row:1/3;content:"";width:9px;height:9px;border-radius:50%;border:2px solid var(--orange);background:var(--tint)}
 .route small{grid-column:2;color:var(--muted);font-size:11px;line-height:1.35}
-.plate .fig{position:absolute;left:14px;top:12px;font:11px/1 var(--mono);color:var(--muted)}
+.route i{position:absolute;left:calc(7% + 5px);top:30%;bottom:20%;border-left:1.5px dashed var(--orange);opacity:.55}
+.plate .fig{position:absolute;left:14px;bottom:12px;font:11px/1 var(--mono);color:var(--muted)}
 .work{padding:0 64px 88px}
 .work-head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1.5px solid var(--ink);padding-bottom:14px}
 .work-head h2{font:700 34px/1 var(--display);margin:0}
@@ -84,15 +87,15 @@ figcaption{font:12px/1.5 var(--mono);color:var(--b-muted)}
 .wrow p{margin:0;color:var(--muted)}
 .wrow .m{font:13px/1.5 var(--mono);color:var(--muted)}
 .arrow{font:400 22px/1 var(--mono);color:var(--cobalt)}
-
-/* mobile atlas */
 .m .a-head{padding:16px 20px;gap:12px}
-.m .menu-btn{margin-left:auto;height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--rule);background:none;color:var(--ink);font:600 14px/1 var(--body);display:inline-flex;gap:8px;align-items:center}
+.m .menu-btn{margin-left:auto;height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--rule);background:none;color:var(--ink);font:600 14px/1 var(--body)}
 .m .hero{grid-template-columns:1fr;gap:28px;padding:32px 20px 36px}
 .m .hero h1{font-size:50px;margin:14px 0 18px}
 .m .hero .lede{font-size:17px;margin-bottom:24px}
 .m .actions{flex-direction:column;align-items:stretch}
-.m .btn{justify-content:center;height:52px}
+.m .btn{justify-content:center}
+.m .invite{grid-template-columns:auto 1fr;margin-top:24px;padding:16px}
+.m .invite .btn{grid-row:auto;grid-column:1/3;margin-top:8px}
 .m .plate{aspect-ratio:16/10}
 .m .plate .portrait{width:34%;right:6%}
 .m .work{padding:0 20px 36px}
@@ -106,231 +109,243 @@ figcaption{font:12px/1.5 var(--mono);color:var(--b-muted)}
 .contact-band h2{font:700 30px/1.05 var(--display);margin:0}
 .mail{font:500 15px/1.4 var(--mono);padding:14px 16px;border:1px solid var(--rule);background:var(--paper);display:flex;justify-content:space-between;align-items:center;gap:12px}
 .mail button{height:36px;border-radius:999px;border:1px solid var(--rule);background:none;color:var(--ink);font:600 13px/1 var(--body);padding:0 12px}
+.small-note{font:13px/1.5 var(--mono);color:var(--muted);margin:0}
 
-/* project chapter */
+/* chapter */
 .crumb{font:13px/1 var(--mono);color:var(--muted);padding:28px 64px 0}
 .ch-title{padding:28px 64px 36px;display:grid;grid-template-columns:auto 1fr;gap:12px 40px;align-items:end}
 .ch-title .n{font:500 16px/1 var(--mono);color:var(--orange);grid-row:1/3;align-self:start;padding-top:20px}
 .ch-title h1{font:800 120px/.9 var(--display);margin:0;letter-spacing:-.03em}
 .ch-title p{margin:0;font-size:22px;max-width:46ch}
-.facts{display:grid;grid-template-columns:repeat(5,1fr);border-block:1px solid var(--rule);margin:0 64px}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);border-block:1px solid var(--rule);margin:0 64px 48px}
 .facts div{padding:16px 18px 18px 0;display:grid;gap:4px}
 .facts dt{font:12px/1 var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .facts dd{margin:0;font-size:15px}
-.spread{margin:40px 0;height:420px;background:repeating-linear-gradient(135deg,var(--tint) 0 14px,transparent 14px 28px);border-block:1px solid var(--rule);display:grid;place-items:center;text-align:center}
-.spread div{background:var(--paper);border:1px dashed var(--muted);padding:20px 28px;font:13px/1.6 var(--mono);color:var(--muted)}
 .ch-body{display:grid;grid-template-columns:220px minmax(0,680px) 1fr;gap:56px;padding:0 64px 80px}
 .toc{font:13px/2.1 var(--mono);color:var(--muted);border-top:1.5px solid var(--ink);padding-top:12px}
 .toc b{color:var(--ink);font-weight:500}
-.prose h2{font:700 30px/1.1 var(--display);margin:0 0 14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.prose h2{font:700 30px/1.1 var(--display);margin:0 0 14px}
 .prose p{margin:0 0 20px}
+.label{font:500 12px/1 var(--mono);color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
 .owned{border-left:3px solid var(--orange);padding:4px 0 4px 20px;margin:28px 0}
 .owned h3{font:500 13px/1 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--orange);margin:0 0 10px}
 .diagram{border:1px solid var(--rule);padding:22px;margin:8px 0 28px;display:grid;gap:18px;background:var(--paper)}
 .stages{display:flex;gap:8px;flex-wrap:wrap;list-style:none;margin:0;padding:0}
-.stages button{height:44px;padding:0 14px;border-radius:8px;border:1px solid var(--rule);background:none;color:var(--ink);font:500 13px/1 var(--mono);display:flex;gap:8px;align-items:center}
+.stages button{height:44px;padding:0 14px;border-radius:8px;border:1px solid var(--rule);background:none;color:var(--ink);font:500 13px/1 var(--mono)}
 .stages button[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .stage-panel{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;font-size:14px}
 .stage-panel dt{font:12px/1 var(--mono);color:var(--muted);margin-bottom:6px}
 .stage-panel dd{margin:0}
 .evidence{font-size:14px;color:var(--muted);border-top:1px solid var(--rule);padding-top:16px}
 .evidence ol{margin:8px 0 0;padding-left:20px;display:grid;gap:8px}
-.evidence s{color:var(--muted)}
 .side-note{font:13px/1.6 var(--mono);color:var(--muted);border-top:1px solid var(--rule);padding-top:12px;align-self:start}
 
 /* ---------- Workspace ---------- */
 .ws{background:var(--wall);color:var(--wall-ink);font:14px/1.5 var(--body);position:relative;overflow:hidden}
 .ws svg.contours{position:absolute;inset:0;width:100%;height:100%}
-.ws-top{position:absolute;inset:0 0 auto;height:44px;display:flex;align-items:center;gap:10px;padding:0 14px;background:rgba(10,13,20,.55);border-bottom:1px solid rgba(255,255,255,.08);font:500 13px/1 var(--mono);z-index:5}
+.ws-top{position:absolute;inset:0 0 auto;height:44px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#121822;border-bottom:1px solid rgba(255,255,255,.08);font:500 13px/1 var(--mono);z-index:5}
 .ws-top .name{margin-right:auto;display:flex;gap:10px;align-items:center}
-.ws-top button{height:32px;padding:0 12px;border-radius:6px;border:1px solid rgba(255,255,255,.18);background:none;color:var(--wall-ink);font:500 12px/1 var(--mono);display:inline-flex;gap:8px;align-items:center}
+.ws-top button{height:32px;padding:0 12px;border-radius:6px;border:1px solid rgba(255,255,255,.18);background:none;color:var(--wall-ink);font:500 12px/1 var(--mono)}
 .ws-top .back{background:var(--sheet);color:var(--sheet-ink);border-color:var(--sheet)}
 .icons{position:absolute;left:22px;top:66px;display:grid;gap:8px;z-index:1}
 .dicon{width:92px;display:grid;justify-items:center;gap:6px;padding:8px 4px;border-radius:8px;font:500 12px/1.2 var(--mono);color:var(--wall-ink);text-align:center}
-.dicon .g{width:48px;height:48px;border-radius:12px;background:rgba(243,239,230,.1);border:1px solid rgba(243,239,230,.22);display:grid;place-items:center}
+.dicon .g{width:48px;height:48px;border-radius:12px;background:#2A3242;border:1px solid rgba(243,239,230,.22);display:grid;place-items:center}
 .dicon svg,.dock svg,.tile svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-.win{position:absolute;background:var(--sheet);color:var(--sheet-ink);border-radius:10px;overflow:hidden;box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 24px 60px -20px rgba(0,0,0,.7);display:flex;flex-direction:column;border:1px solid rgba(0,0,0,.25)}
-.win.bg{filter:saturate(.8);box-shadow:0 12px 30px -16px rgba(0,0,0,.6)}
-.tbar{height:44px;flex:none;display:flex;align-items:center;gap:6px;padding:0 6px 0 14px;background:var(--bar);border-bottom:1px solid rgba(22,24,28,.14);font:500 13px/1 var(--mono)}
+.win{position:absolute;background:var(--sheet);color:var(--sheet-ink);border-radius:10px;overflow:hidden;box-shadow:0 24px 60px -20px rgba(0,0,0,.7);display:flex;flex-direction:column;border:1px solid rgba(0,0,0,.25)}
+.tbar{height:44px;flex:none;display:flex;align-items:center;gap:6px;padding:0 6px 0 14px;background:var(--bar);color:var(--sheet-ink);border-bottom:1px solid rgba(22,24,28,.14)}
 .win.active .tbar{background:var(--bar-active);color:#fff}
-.tbar h2{all:unset;margin-right:auto;font:500 13px/1 var(--mono);display:flex;gap:8px;align-items:center}
-.tbar button{width:36px;height:36px;border-radius:6px;border:none;background:none;color:inherit;display:grid;place-items:center;font:500 15px/1 var(--mono)}
-.win.active .tbar button:hover{background:rgba(255,255,255,.14)}
+.tbar h2{all:unset;margin-right:auto;font:500 13px/1 var(--mono)}
+.tbar button{width:36px;height:36px;border-radius:6px;border:none;background:none;color:inherit;font:500 15px/1 var(--mono)}
 .wbody{flex:1;min-height:0;overflow:hidden;padding:20px 24px}
-.dock{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:flex;gap:4px;padding:8px;border-radius:16px;background:var(--dock);border:1px solid rgba(255,255,255,.12);z-index:5}
+.dock{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:flex;gap:4px;padding:8px;border-radius:16px;background:#10141C;border:1px solid rgba(255,255,255,.12);z-index:5}
 .dock button{width:68px;height:62px;border-radius:10px;border:none;background:none;color:var(--wall-ink);display:grid;justify-items:center;align-content:center;gap:4px;font:500 10.5px/1 var(--mono);position:relative}
-.dock button[aria-pressed=true]{background:rgba(255,255,255,.08)}
+.dock button[aria-pressed=true]{background:#1F2531}
 .dock .dot{position:absolute;bottom:3px;width:5px;height:5px;border-radius:50%;background:var(--wall-ink)}
 .dock .dot.min{background:none;border:1.5px solid var(--wall-ink)}
 .dock .dot.act{background:#8EA2FF;width:16px;border-radius:3px}
 .term{background:#14171D;color:#D9DEE8;font:13px/1.65 var(--mono);height:100%;padding:16px 18px;overflow:hidden}
 .term .pr{color:#8EA2FF}
-.term .dim{color:#8B93A3}
+.term .dim{color:#9AA2B2}
 .term .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 .term .chips span{border:1px solid #3A4152;border-radius:6px;padding:3px 8px;font-size:12px}
 .pw h3{font:800 40px/1 var(--display);margin:0 0 6px}
 .pw .sub{color:var(--sheet-muted);margin:0 0 14px}
 .pw .meta{display:flex;gap:16px;flex-wrap:wrap;font:12px/1.4 var(--mono);color:var(--sheet-muted);border-block:1px solid rgba(22,24,28,.14);padding:8px 0;margin-bottom:14px}
-.pw .shot{height:150px;background:repeating-linear-gradient(135deg,#E6E0D3 0 10px,transparent 10px 20px);border:1px dashed #8B8F96;display:grid;place-items:center;font:12px/1.4 var(--mono);color:var(--sheet-muted);margin-bottom:14px;text-align:center}
 .pw .tabs{display:flex;gap:6px;margin-bottom:12px}
 .pw .tabs span{font:500 12px/1 var(--mono);padding:8px 10px;border-radius:6px;border:1px solid rgba(22,24,28,.18)}
 .pw .tabs span.on{background:var(--sheet-ink);color:var(--sheet)}
+.pw ol{margin:0;padding-left:20px;display:grid;gap:6px;font-size:14px}
 .wsl{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.tile{display:grid;gap:6px;align-content:start;padding:14px;border-radius:10px;border:1px solid rgba(22,24,28,.14);background:#FBF9F4;min-height:112px}
-.tile b{font:700 18px/1.1 var(--display)}
+.tile{display:grid;gap:6px;align-content:start;padding:14px;border-radius:10px;border:1px solid rgba(22,24,28,.14);background:#FBF9F4;color:var(--sheet-ink);min-height:112px}
+.tile b{font:700 18px/1.1 var(--display);color:var(--sheet-ink)}
 .tile small{color:var(--sheet-muted);font-size:12.5px;line-height:1.4}
 .tile .g{width:36px;height:36px;border-radius:9px;background:var(--sheet-ink);color:var(--sheet);display:grid;place-items:center}
 .tile .g svg{width:20px;height:20px}
-
-/* mobile workspace */
-.mws .ws-top{height:52px}
+.mws .ws-top{height:56px}
+.mws .ws-top .back{height:44px}
+.mintro{position:absolute;inset:72px 16px auto;display:grid;gap:4px}
+.mintro b{font:800 30px/1.05 var(--display)}
+.mintro p{margin:0;color:#C9CED9;font-size:14px}
+.mgrid{position:absolute;inset:170px 16px auto;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.mgrid .tile{min-height:118px}
 .mws .ptop{position:absolute;inset:0 0 auto;height:56px;display:flex;align-items:center;gap:8px;padding:0 8px;background:var(--bar-active);color:#fff;z-index:5;font:500 14px/1 var(--mono)}
 .mws .ptop button{height:44px;padding:0 12px;border-radius:8px;border:1px solid rgba(255,255,255,.35);background:none;color:#fff;font:500 13px/1 var(--mono)}
 .mws .ptop h2{all:unset;margin:0 auto;font:500 15px/1 var(--mono)}
-.mgrid{position:absolute;inset:72px 16px auto;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.mgrid .tile{min-height:120px}
 
 /* ---------- Ship It ---------- */
-.si{background:var(--paper);color:var(--ink);font:16px/1.55 var(--body);display:flex;flex-direction:column;position:relative}
+.si{background:var(--paper);color:var(--ink);font:16px/1.55 var(--body);display:flex;flex-direction:column}
 .si-top{display:flex;align-items:center;gap:8px;padding:14px 16px;border-bottom:1px solid var(--rule);font:500 13px/1 var(--mono)}
 .si-top .t{margin-right:auto}
 .si-top button{height:40px;padding:0 12px;border-radius:999px;border:1px solid var(--rule);background:none;color:var(--ink);font:500 12px/1 var(--mono)}
-.badge-ill{font:500 11px/1.3 var(--mono);color:#8A4FB0;border:1px solid currentColor;border-radius:6px;padding:6px 8px;display:inline-block}
+.sim{font:500 12px/1.4 var(--mono);color:var(--sim);border:1px solid currentColor;border-radius:6px;padding:6px 8px;justify-self:start}
 .si-body{padding:20px 16px 24px;display:grid;gap:16px;align-content:start}
-.si h3{font:800 32px/1 var(--display);margin:0}
-.si h4{font:700 22px/1.15 var(--display);margin:0}
+.si h3{font:800 34px/1 var(--display);margin:0}
+.si h4{font:700 24px/1.15 var(--display);margin:0}
 .si p{margin:0}
-.path svg{width:100%;height:auto;display:block}
+.steps{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.steps li{display:grid;grid-template-columns:32px 1fr;gap:10px;align-items:center;font-size:15px}
+.steps span{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--ink);display:grid;place-items:center;font:500 13px/1 var(--mono)}
+.facts-row{display:flex;flex-wrap:wrap;gap:6px 14px;font:13px/1.4 var(--mono);color:var(--muted)}
 .opts{display:grid;gap:8px;margin:0;padding:0;list-style:none}
-.opt{min-height:52px;border:1.5px solid var(--rule);border-radius:10px;padding:10px 14px;display:flex;gap:12px;align-items:center;font-size:15px;background:var(--paper)}
-.opt .r{width:20px;height:20px;border-radius:50%;border:2px solid var(--muted);flex:none}
+.opt{min-height:56px;border:1.5px solid var(--rule);border-radius:12px;padding:12px 14px;display:grid;grid-template-columns:22px 1fr;gap:2px 12px;align-items:center;background:var(--paper)}
+.opt .r{grid-row:1/3;width:20px;height:20px;border-radius:50%;border:2px solid var(--muted)}
+.opt b{font-weight:600;font-size:15.5px}
+.opt small{font:12px/1.4 var(--mono);color:var(--muted)}
 .opt.sel{border-color:var(--cobalt);box-shadow:inset 0 0 0 1px var(--cobalt)}
 .opt.sel .r{border:6px solid var(--cobalt)}
-.outcome{display:flex;gap:10px;align-items:center;font:600 15px/1 var(--mono);padding:12px 14px;border-radius:10px}
-.outcome.partial{background:color-mix(in srgb,#C27C0E 16%,var(--paper));color:var(--warn)}
-.outcome.viable{background:color-mix(in srgb,var(--ok) 16%,var(--paper));color:var(--ok)}
-.props{display:grid;gap:8px;margin:0}
-.props div{display:grid;grid-template-columns:1fr auto;gap:12px;border-bottom:1px solid var(--rule);padding-bottom:8px;font-size:14px}
-.props dt{color:var(--muted)}
-.props dd{margin:0;font:600 13px/1.4 var(--mono);text-align:right}
-.props .y{color:var(--ok)} .props .no{color:var(--bad)}
+.outcome{font:600 17px/1.35 var(--body);padding:14px;border-radius:12px;display:grid;gap:4px}
+.outcome small{font:500 12px/1 var(--mono);text-transform:uppercase;letter-spacing:.06em}
+.outcome.partial{background:#F3E6CF;color:#5E3A00}
+.outcome.viable{background:#DCEEDF;color:#1D5233}
 .nums{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .nums div{border:1px solid var(--rule);border-radius:8px;padding:10px 12px;font:12px/1.4 var(--mono);color:var(--muted)}
 .nums b{display:block;font:700 22px/1.2 var(--display);color:var(--ink);font-variant-numeric:tabular-nums}
+details.eng{border:1px solid var(--rule);border-radius:10px;padding:10px 14px;font-size:14px}
+details.eng summary{font:500 13px/1.4 var(--mono);color:var(--ink);min-height:28px;display:flex;align-items:center}
+details.eng dl{margin:10px 0 0;display:grid;gap:8px}
+details.eng dl div{display:grid;grid-template-columns:1fr auto;gap:10px;border-bottom:1px solid var(--rule);padding-bottom:6px}
+details.eng dt{color:var(--muted)} details.eng dd{margin:0;font:500 13px/1.4 var(--mono);text-align:right}
+.y{color:var(--ok)} .no{color:var(--bad)}
+.twist{border:1.5px dashed var(--orange);border-radius:12px;padding:14px;display:grid;gap:6px;font-size:15px}
+.twist b{font:700 18px/1.2 var(--display)}
 .related{font-size:14px;border-top:1px solid var(--rule);padding-top:12px}
 .related a{color:var(--cobalt);font-weight:600}
 .si-foot{margin-top:auto;padding:12px 16px 16px;display:flex;gap:10px;border-top:1px solid var(--rule)}
-.si-foot .btn{flex:1;justify-content:center;height:48px}
-.si .btn[aria-disabled=true]{opacity:.45}
+.si-foot .btn{flex:1;justify-content:center;height:48px;padding:0 12px}
 .recap{display:grid;gap:10px;margin:0;padding:0;list-style:none}
 .recap li{border:1px solid var(--rule);border-radius:10px;padding:12px 14px;display:grid;gap:4px;font-size:14px}
 .recap b{font:500 12px/1 var(--mono);color:var(--muted)}
-.ann{font:12px/1.5 var(--mono);color:var(--b-muted);margin:0}
 
-/* contrast + questions */
-table.contrast{border-collapse:collapse;width:100%;font:13px/1.4 var(--mono);font-variant-numeric:tabular-nums}
+/* audits */
+table.audit{border-collapse:collapse;width:100%;font:13px/1.4 var(--mono);font-variant-numeric:tabular-nums}
 .tablewrap{overflow-x:auto}
-table.contrast th,table.contrast td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--b-line);white-space:nowrap}
-table.contrast .sw{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin-right:6px;box-shadow:0 0 0 1px var(--b-line)}
+table.audit th,table.audit td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--b-line)}
 .pass{color:var(--ok)} .fail{color:var(--bad)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .pass{color:#6FCB93}:root:not([data-theme="light"]) .fail{color:#FF8A80}}
 :root[data-theme="dark"] .pass{color:#6FCB93} :root[data-theme="dark"] .fail{color:#FF8A80}
 .qs{display:grid;gap:10px;padding-left:22px;margin:0;max-width:80ch}
-@media (prefers-reduced-motion:no-preference){.vp>.frame{transition:none}}
 </style>
 
 <main class="board">
   <header class="board-head">
-    <span class="eyebrow" style="color:var(--b-muted)">Design review · Step B · 7 Oct 2026</span>
+    <span class="b-eyebrow">Design review · Step B, revision 2 · 7 Oct 2026</span>
     <h1>Engineering Atlas &amp; Ganesh Workspace</h1>
-    <p>Static compositions for review before implementation. Each frame is drawn at its real design width (1440 or 390&nbsp;px) and scaled to fit this page. The controls inside the frames are inert pictures of the planned UI. Every claim carries a label showing where it comes from.</p>
-    <div class="legend" role="list">
-      <span class="chip v" role="listitem">● verified: repo data or a public source checked this session</span>
-      <span class="chip p" role="listitem">● proposed copy: needs Ganesh's approval</span>
-      <span class="chip i" role="listitem">● illustrative: simulation or placeholder, not real data</span>
-      <span class="chip n" role="listitem">● pending input from Ganesh</span>
-    </div>
+    <p>Static compositions at their real design widths (1440 and 390&nbsp;px), scaled to fit. Controls inside the frames are inert. The frames show only what a visitor would see. Evidence status, pending inputs and removed claims sit in the blue review notes under each frame and never inside it.</p>
+    <ol class="changes">
+      <li>Mobile launcher tiles now use dark text on cream. Section 6 audits contrast on the rendered text, not just the colour tokens.</li>
+      <li>The contour artwork is now one quiet terrain pattern with an index line every fourth contour, and it fades out behind the portrait.</li>
+      <li>The workspace invitation says what's inside: projects in windows, a portfolio terminal and a short engineering game.</li>
+      <li>Ship It now starts plainly: four everyday-language choices per round, the engineering terms tucked into a detail panel, and an optional harder twist.</li>
+      <li>No current-employment claims: no "now", no "currently". Brainstorm Force is described as joined in 2025.</li>
+      <li>Status chips, pending badges and struck claims are removed from the frames and kept in these review notes.</li>
+    </ol>
   </header>
 
-  <!-- 1. Desktop hero light + dark -->
+  <section class="sec" aria-labelledby="s0">
+    <div class="sec-head"><h2 id="s0">0 · Functional Workspace slice: macOS-inspired</h2><span class="meta">real screenshots from the running app (next dev) · commit 5a1dbc2</span></div>
+    <p class="sec-note">These are working screens, not mockups. You can open Projects and Terminal, move, resize, minimize, maximize and close windows by mouse, touch or keyboard, and run commands. 26 unit tests and 14 browser tests pass. This macOS-inspired direction replaces the cream and cobalt Workspace frames in section 4.</p>
+    <div class="row">
+      <figure><img class="shot" src="__SLICE_P__" alt="Workspace with the Projects window focused over Terminal" width="1440" height="900"><figcaption>Projects focused: Finder-style sidebar, red/yellow/green controls, translucent menu bar and dock.</figcaption></figure>
+      <figure><img class="shot" src="__SLICE_T__" alt="Workspace with the Terminal window focused showing help and journey output" width="1440" height="900"><figcaption>Terminal focused: help and journey. Brainstorm Force shows as "joined Jan 2025", with no current-employment claim.</figcaption></figure>
+    </div>
+    <div class="row">
+      <figure style="max-width:390px"><img class="shot" src="__SLICE_ML__" alt="Mobile launcher with Projects and Terminal tiles" width="390" height="844"><figcaption>Phone: launcher with 44 px targets.</figcaption></figure>
+      <figure style="max-width:390px"><img class="shot" src="__SLICE_MP__" alt="Mobile full-screen Projects panel showing Spectra" width="390" height="844"><figcaption>Phone: full-screen panel with ‹ Apps and Close.</figcaption></figure>
+    </div>
+  </section>
+
   <section class="sec" aria-labelledby="s1">
     <div class="sec-head"><h2 id="s1">1 · Atlas home, desktop</h2><span class="meta">1440 px · light, then dark</span></div>
-    <p class="sec-note">An asymmetric hero opens the page. Role, specialism, selected work and contact are all visible without interacting. The plate on the right maps the real career route over contour lines. The workspace entry is dashed to mark it as optional, a side door rather than the front door.</p>
     <figure>
-      <div class="vp"><div class="frame" data-w="1440" inert>__ATLAS_HOME_DESKTOP__</div></div>
-      <figcaption>Résumé button is hidden until the PDF exists (pending). "Email me" stands in, so there is no dead link. Headline <span class="chip p">proposed copy</span>. Role line from <code>experience.ts</code> <span class="chip v">verified</span>.</figcaption>
+      <div class="vp"><div class="frame" data-w="1440" data-name="Hero light" inert>__ATLAS_HOME_DESKTOP__</div></div>
+      <div class="review"><b>Review notes</b>
+        <span>Headline: proposed copy, needs your approval. Role, employers, years and products come from <code>experience.ts</code> / <code>projects.ts</code>.</span>
+        <span>Employment: "joined Brainstorm Force in 2025" makes no claim about now. It switches to current wording only after you confirm.</span>
+        <span>Résumé: no PDF exists, so there is no résumé button. "Email me" stands in until you supply it.</span>
+        <span>Name: "Ganesh Bhatt" vs "Ganesh Bhatta" is still open (question 1).</span>
+      </div>
     </figure>
     <figure>
-      <div class="vp"><div class="frame" data-w="1440" data-dark inert>__ATLAS_HOME_DESKTOP__</div></div>
-      <figcaption>Dark: charcoal ground, warm white type, lightened cobalt. The portrait sits in an arched frame instead of a multiply blend. The focus ring is shown on "Explore selected work".</figcaption>
+      <div class="vp"><div class="frame" data-w="1440" data-dark data-name="Hero dark" inert>__ATLAS_HOME_DESKTOP__</div></div>
+      <figcaption>Dark theme. The focus ring is shown on "Explore selected work".</figcaption>
     </figure>
   </section>
 
-  <!-- 2. Mobile -->
   <section class="sec" aria-labelledby="s2">
     <div class="sec-head"><h2 id="s2">2 · Atlas home, mobile</h2><span class="meta">390 px · light and dark</span></div>
-    <p class="sec-note">Single column with full-width 52&nbsp;px actions. The menu is a disclosure button. The email address is selectable text with a copy button, because a mailto link alone can silently do nothing.</p>
     <div class="row">
-      <figure><div class="vp"><div class="frame" data-w="390" inert>__ATLAS_HOME_MOBILE__</div></div><figcaption>Light · 390 px</figcaption></figure>
-      <figure><div class="vp"><div class="frame" data-w="390" data-dark inert>__ATLAS_HOME_MOBILE__</div></div><figcaption>Dark · 390 px</figcaption></figure>
+      <figure><div class="vp"><div class="frame" data-w="390" data-name="Mobile light" inert>__ATLAS_HOME_MOBILE__</div></div><figcaption>Light · the workspace invitation sits under the main actions, with its benefit stated.</figcaption></figure>
+      <figure><div class="vp"><div class="frame" data-w="390" data-dark data-name="Mobile dark" inert>__ATLAS_HOME_MOBILE__</div></div><figcaption>Dark · 390 px</figcaption></figure>
     </div>
   </section>
 
-  <!-- 3. Project chapter -->
   <section class="sec" aria-labelledby="s3">
     <div class="sec-head"><h2 id="s3">3 · Project chapter: Spectra</h2><span class="meta">1440 px · /work/spectra/</span></div>
-    <p class="sec-note">The chapter layout: a numbered chapter mark, a facts row, a full-bleed screenshot spread, a narrow reading column and a stage-by-stage diagram. Where the evidence is thin, the frame shows a gap honestly instead of filling it.</p>
     <figure>
-      <div class="vp"><div class="frame" data-w="1440" inert>__CHAPTER__</div></div>
-      <figcaption>The 40% / 30% metrics are struck from the evidence list (no measurement method). The broken GitHub link is replaced by the wordpress.org listing. The screenshot needs your permission.</figcaption>
+      <div class="vp"><div class="frame" data-w="1440" data-name="Chapter" inert>__CHAPTER__</div></div>
+      <div class="review"><b>Review notes</b>
+        <span>No screenshot spread: no permitted product screenshot exists yet, so the public chapter leads with the diagram instead. A spread is added under the facts row once you supply images.</span>
+        <span>Removed from public copy: the "−40% render time / −30% API surface" claims (no method, baseline or date) and the GitHub link (github.com/brainstormforce/spectra returns 404).</span>
+        <span>Kept: the 1M+ figure, presented as product reach (wordpress.org listing). It must be re-checked against wordpress.org at build time.</span>
+        <span>Team size is omitted (unknown). "What I owned" is your self-reported summary from <code>experience.ts</code>. The specific components are pending (question 6).</span>
+        <span>The diagram is publicly labelled "illustrative" until you confirm the stages.</span>
+      </div>
     </figure>
   </section>
 
-  <!-- 4. Workspace -->
   <section class="sec" aria-labelledby="s4">
-    <div class="sec-head"><h2 id="s4">4 · Ganesh Workspace</h2><span class="meta">/workspace/ · 1440 × 900 and 390 px</span></div>
-    <p class="sec-note">A drafting table at night: slate wallpaper, faint contours, paper windows. The windows reuse the same content views as the Atlas pages. The focused window has a cobalt title bar. In the dock, Projects is focused, Terminal is open in the background and Journey is minimized (hollow dot).</p>
+    <div class="sec-head"><h2 id="s4">4 · Ganesh Workspace</h2><span class="meta">superseded by the macOS-inspired direction in section 0</span></div>
     <figure>
-      <div class="vp"><div class="frame" data-w="1440" inert>__WS_MULTI__</div></div>
-      <figcaption>Multiple windows. Title-bar buttons are 36&nbsp;px (44&nbsp;px hit area in the build). ☰ is the window menu with keyboard Move and Size. "Switch window" is the visible equivalent of Alt+Shift+W.</figcaption>
-    </figure>
-    <figure>
-      <div class="vp"><div class="frame" data-w="1440" inert>__WS_LAUNCHER__</div></div>
-      <figcaption>The launcher open: every app has a one-line purpose and an honest status. Résumé says "not published yet" because no PDF exists.</figcaption>
+      <div class="vp"><div class="frame" data-w="1440" data-name="Workspace multi" inert>__WS_MULTI__</div></div>
+      <figcaption>Projects is focused (cobalt title bar). Terminal is open behind it, and Journey is minimized (hollow dot in the dock). ☰ is the window menu, with keyboard Move and Size.</figcaption>
     </figure>
     <div class="row">
-      <figure><div class="vp"><div class="frame" data-w="390" inert>__WS_M_HOME__</div></div><figcaption>Mobile home: the launcher grid, with Back to portfolio always in the top bar.</figcaption></figure>
-      <figure><div class="vp"><div class="frame" data-w="390" inert>__WS_M_PANEL__</div></div><figcaption>Mobile app view: full-screen panel with "← Apps" and "Switch". No dragging, no tiny controls.</figcaption></figure>
+      <figure><div class="vp"><div class="frame" data-w="390" data-name="Mobile launcher" inert>__WS_M_HOME__</div></div><figcaption>Refined mobile launcher: dark titles on cream tiles, a one-line purpose per app, and the way back to the portfolio always in the top bar.</figcaption></figure>
+      <figure><div class="vp"><div class="frame" data-w="390" data-name="Mobile panel" inert>__WS_M_PANEL__</div></div><figcaption>An app as a full-screen panel: "← Apps" returns to the launcher, "Switch" lists open apps. No dragging.</figcaption></figure>
     </div>
   </section>
 
-  <!-- 5. Ship It -->
   <section class="sec" aria-labelledby="s5">
-    <div class="sec-head"><h2 id="s5">5 · Ship It storyboard</h2><span class="meta">390 px · round 2 of 3 (payment webhook, variant B)</span></div>
-    <p class="sec-note">Turn based: choose, then confirm. Confirm stays disabled until an option is selected, so a double tap cannot submit twice. There are no timers. Every number is labelled illustrative. Frames 3 and 4 show the key lesson. A durable queue makes processing reliable but still processes duplicates. Only idempotency at the processing boundary removes them.</p>
+    <div class="sec-head"><h2 id="s5">5 · Ship It: plain first, deeper on request</h2><span class="meta">390 px · round 2 of 3</span></div>
+    <p class="sec-note">Round 2 starts with the simpler version, where the payment company keeps retrying for days. Four plain choices: two work, one half-works, one makes it worse. "In engineering terms" holds the precise vocabulary. The optional harder twist (the company gives up after an hour) adds a fifth choice and changes which answers still work. The trade-offs stay accurate. A waiting line (durable queue) makes delivery reliable but still processes the duplicate. Only remembering handled payments (idempotency at the processing boundary) stops double charges.</p>
     <div class="row" id="storyboard"></div>
-    <figure>
-      <div class="vp"><div class="frame" data-w="1440" inert id="si-desktop"></div></div>
-      <figcaption>The same choose step at 1440: request path on the left, options on the right. The same component also runs in the Workspace Arcade window.</figcaption>
-    </figure>
   </section>
 
-  <!-- 6. Contrast -->
   <section class="sec" aria-labelledby="s6">
-    <div class="sec-head"><h2 id="s6">6 · Colour contrast</h2><span class="meta">computed live in this page from the token values (WCAG 2.x formula)</span></div>
-    <div class="tablewrap"><table class="contrast" id="contrast"><thead><tr><th>Pair</th><th>Foreground</th><th>Background</th><th>Ratio</th><th>Use</th><th>Result</th></tr></thead><tbody></tbody></table></div>
+    <div class="sec-head"><h2 id="s6">6 · Rendered text contrast audit</h2><span class="meta">computed live from every text element inside the frames above</span></div>
+    <p class="sec-note">For each element with its own text, this reads the computed text colour and the first opaque background behind it, blending any translucent layers. It then applies the WCAG 2.x ratio: 4.5:1 for normal text, 3:1 for large text (24&nbsp;px+, or 18.7&nbsp;px+ bold). SVG text and text over images are listed as not checked.</p>
+    <div id="audit-summary"></div>
+    <div class="tablewrap"><table class="audit" id="audit"><thead><tr><th>Frame</th><th>Text</th><th>Size</th><th>Ratio</th><th>Needs</th><th>Result</th></tr></thead><tbody></tbody></table></div>
   </section>
 
-  <!-- 7. Questions -->
   <section class="sec" aria-labelledby="s7">
-    <div class="sec-head"><h2 id="s7">7 · Questions for this review</h2></div>
+    <div class="sec-head"><h2 id="s7">7 · Open questions</h2></div>
     <ol class="qs">
-      <li><b>Name form.</b> The current site and domain say "Ganesh Prasad Bhatt" / "Ganesh Bhatt". The brief and LinkedIn URL say "Ganesh Bhatta". Which should the site use? The frames use "Ganesh Bhatt" until you decide.</li>
-      <li><b>Headline.</b> Keep "I build the systems behind better software." or write your own?</li>
-      <li><b>Workspace entry.</b> Is the dashed "Enter my workspace" in the header and hero prominent enough, or too loud?</li>
-      <li><b>Portrait.</b> The formal suit portrait is the only photo in the repo. Keep it, or supply a less formal one?</li>
-      <li><b>Workspace mood.</b> Dark slate desktop with light paper windows. Approve, or prefer windows that follow the dark theme?</li>
-      <li><b>Spectra chapter.</b> Which architecture stages did you personally own? The diagram stays labelled illustrative until you confirm.</li>
+      <li><b>Name form:</b> "Ganesh Bhatt" (site, domain) or "Ganesh Bhatta" (brief, LinkedIn URL)?</li>
+      <li><b>Headline:</b> keep "I build the systems behind better software."?</li>
+      <li><b>Employment:</b> are you currently at Brainstorm Force? Until you confirm, every view avoids present-tense employment.</li>
+      <li><b>Portrait:</b> keep the formal photo, or supply another?</li>
+      <li><b>Spectra:</b> which architecture stages did you personally own?</li>
     </ol>
   </section>
 </main>
@@ -341,34 +356,39 @@ table.contrast .sw{display:inline-block;width:14px;height:14px;border-radius:3px
     <span class="a-logo"><b>G</b>ganesh bhatt</span>
     <nav class="a-nav" aria-label="Main"><a href="#" aria-current="page">Work</a><a href="#">Journey</a><a href="#">Lab</a><a href="#">Notes</a><a href="#">Contact</a></nav>
     <button class="icon-btn" aria-label="Switch to dark theme"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
-    <a class="btn sm ws-entry" href="#">▣ Enter my workspace</a>
+    <a class="btn sm" href="#">Enter my workspace</a>
   </header>
   <section class="hero">
     <div>
       <span class="eyebrow">Senior full-stack engineer · Kathmandu, Nepal · remote</span>
       <h1>I build the systems behind <em>better software.</em></h1>
-      <p class="lede">Software Developer at Brainstorm Force, working on Spectra. <span>Before that, three years at ThemeGrill building Masteriyo LMS, Everest Forms and User Registration. WordPress, Gutenberg, React, PHP.</span></p>
+      <p class="lede">I work across WordPress, Gutenberg, React and PHP. <span>I joined Brainstorm Force in 2025 to work on Spectra, after three years at ThemeGrill building Masteriyo LMS, Everest Forms and User Registration.</span></p>
       <div class="actions">
         <a class="btn primary focus-demo" href="#">Explore selected work →</a>
         <a class="btn" href="#">Email me</a>
       </div>
-      <p class="ws-note">Prefer to poke around? <u>Enter my workspace</u>, an optional desktop with the same content plus the Ship It puzzle.</p>
+      <div class="invite">
+        <span class="ico">__ICO_WS__</span>
+        <b>Prefer to explore?</b>
+        <p>Open my workspace to browse projects in windows, try a portfolio terminal, and play Ship It, a three-minute engineering game.</p>
+        <a class="btn sm" href="#">Enter my workspace →</a>
+      </div>
     </div>
     <div class="plate">
-      <svg class="contours" data-seed="7" viewBox="0 0 500 625" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+      <svg class="contours" data-peaks="0.2,0.3" viewBox="0 0 500 625" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
       <img class="portrait" src="__PORTRAIT__" alt="Ganesh Bhatt" width="560" height="840">
-      <span class="fig">fig. 1 · career route over contour lines</span>
-      <div class="route" aria-hidden="true">
-        <span style="left:7%;top:78%">2016 <small>B.Sc. CSIT, Tribhuvan University</small></span>
-        <span style="left:7%;top:61%">2021 <small>Zenlab · Laravel intern</small></span>
-        <span style="left:7%;top:44%">2021 <small>ThemeGrill · PHP Developer</small></span>
-        <span style="left:7%;top:27%">2025 <small>Brainstorm Force · Software Developer</small></span>
+      <div class="route" aria-hidden="true"><i></i>
+        <span style="left:7%;top:22%">2025 <small>Brainstorm Force</small></span>
+        <span style="left:7%;top:40%">2021 <small>ThemeGrill</small></span>
+        <span style="left:7%;top:58%">2021 <small>Zenlab · intern</small></span>
+        <span style="left:7%;top:76%">2016 <small>B.Sc. CSIT</small></span>
       </div>
+      <span class="fig">Career route, 2016 → 2025</span>
     </div>
   </section>
   <section class="work">
     <div class="work-head"><h2>Selected work</h2><span class="eyebrow">3 of 5 · all on /work/</span></div>
-    <div class="wrow"><span class="n">01</span><h3>Spectra</h3><p>Rewriting a Gutenberg page builder used on 1M+ sites without breaking the sites already on it.</p><span class="m">Brainstorm Force<br>2025 – now</span><span class="arrow">→</span></div>
+    <div class="wrow"><span class="n">01</span><h3>Spectra</h3><p>Rewriting a Gutenberg page builder used on 1M+ sites without breaking the sites already on it.</p><span class="m">Brainstorm Force<br>2025</span><span class="arrow">→</span></div>
     <div class="wrow"><span class="n">02</span><h3>Masteriyo LMS</h3><p>A React single-page admin and REST backend for a WordPress learning platform, with payments and AI course drafting.</p><span class="m">ThemeGrill<br>2021 – 2025</span><span class="arrow">→</span></div>
     <div class="wrow"><span class="n">03</span><h3>WP Agent AI</h3><p>An open-source runtime that maps editor actions to LLM tool calls inside WordPress.</p><span class="m">Personal · open source<br>2025</span><span class="arrow">→</span></div>
   </section>
@@ -377,30 +397,29 @@ table.contrast .sw{display:inline-block;width:14px;height:14px;border-radius:3px
 
 <template id="tpl-atlas-home-mobile">
 <div class="atlas m" style="width:390px">
-  <header class="a-head">
-    <span class="a-logo"><b>G</b>ganesh bhatt</span>
-    <button class="menu-btn" aria-expanded="false">Menu ☰</button>
-  </header>
+  <header class="a-head"><span class="a-logo"><b>G</b>ganesh bhatt</span><button class="menu-btn" aria-expanded="false">Menu</button></header>
   <section class="hero">
     <div>
       <span class="eyebrow">Senior full-stack engineer · Nepal · remote</span>
       <h1>I build the systems behind <em>better software.</em></h1>
-      <p class="lede">Software Developer at Brainstorm Force, working on Spectra. <span>WordPress, Gutenberg, React, PHP.</span></p>
-      <div class="actions">
-        <a class="btn primary" href="#">Explore selected work →</a>
-        <a class="btn" href="#">Email me</a>
-        <a class="btn ws-entry" href="#">▣ Enter my workspace</a>
+      <p class="lede">I work across WordPress, Gutenberg, React and PHP. <span>Joined Brainstorm Force in 2025 to work on Spectra.</span></p>
+      <div class="actions"><a class="btn primary" href="#">Explore selected work →</a><a class="btn" href="#">Email me</a></div>
+      <div class="invite">
+        <span class="ico">__ICO_WS__</span>
+        <b>Prefer to explore?</b>
+        <p>Projects in windows, a portfolio terminal and a three-minute engineering game.</p>
+        <a class="btn sm" href="#">Enter my workspace →</a>
       </div>
     </div>
     <div class="plate">
-      <svg class="contours" data-seed="11" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+      <svg class="contours" data-peaks="0.22,0.4" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
       <img class="portrait" src="__PORTRAIT__" alt="Ganesh Bhatt" width="560" height="840">
-      <span class="fig">fig. 1 · 2016 → 2025</span>
+      <span class="fig">2016 → 2025</span>
     </div>
   </section>
   <section class="work">
     <div class="work-head"><h2>Selected work</h2></div>
-    <div class="wrow"><span class="n">01</span><h3>Spectra</h3><span class="arrow">→</span><p>Rewriting a page builder used on 1M+ sites.</p><span class="m2">Brainstorm Force · 2025 – now</span></div>
+    <div class="wrow"><span class="n">01</span><h3>Spectra</h3><span class="arrow">→</span><p>Rewriting a page builder used on 1M+ sites.</p><span class="m2">Brainstorm Force · 2025</span></div>
     <div class="wrow"><span class="n">02</span><h3>Masteriyo LMS</h3><span class="arrow">→</span><p>React admin + REST backend for a WordPress LMS.</p><span class="m2">ThemeGrill · 2021 – 2025</span></div>
     <div class="wrow"><span class="n">03</span><h3>WP Agent AI</h3><span class="arrow">→</span><p>Editor actions as LLM tool calls, open source.</p><span class="m2">Personal · 2025</span></div>
   </section>
@@ -408,7 +427,7 @@ table.contrast .sw{display:inline-block;width:14px;height:14px;border-radius:3px
     <span class="eyebrow">Contact</span>
     <h2>Hiring for a senior full-stack role?</h2>
     <div class="mail"><span>bhattaganesh05@gmail.com</span><button>Copy</button></div>
-    <p class="ws-note" style="margin:0">Also on LinkedIn and GitHub.</p>
+    <p class="small-note">Also on LinkedIn and GitHub.</p>
   </section>
 </div>
 </template>
@@ -418,33 +437,25 @@ table.contrast .sw{display:inline-block;width:14px;height:14px;border-radius:3px
   <header class="a-head">
     <span class="a-logo"><b>G</b>ganesh bhatt</span>
     <nav class="a-nav" aria-label="Main"><a href="#" aria-current="page">Work</a><a href="#">Journey</a><a href="#">Lab</a><a href="#">Notes</a><a href="#">Contact</a></nav>
-    <a class="btn sm ws-entry" href="#">▣ Enter my workspace</a>
+    <a class="btn sm" href="#">Enter my workspace</a>
   </header>
   <div class="crumb">Work / Spectra</div>
-  <div class="ch-title">
-    <span class="n">01</span>
-    <h1>Spectra</h1>
-    <p>Rewriting a Gutenberg page builder that already runs on 1M+ sites, without breaking the sites that depend on it.</p>
-  </div>
+  <div class="ch-title"><span class="n">01</span><h1>Spectra</h1><p>Rewriting a Gutenberg page builder that already runs on 1M+ sites, without breaking the sites that depend on it.</p></div>
   <dl class="facts">
     <div><dt>Role</dt><dd>Software Developer</dd></div>
     <div><dt>Company</dt><dd>Brainstorm Force</dd></div>
-    <div><dt>Dates</dt><dd>Jan 2025 – <span class="chip n">confirm current</span></dd></div>
-    <div><dt>Team</dt><dd><span class="chip n">team size pending</span></dd></div>
+    <div><dt>Joined</dt><dd>January 2025</dd></div>
     <div><dt>Stack</dt><dd>PHP · React · Gutenberg · REST</dd></div>
   </dl>
-  <div class="spread"><div>Product screenshot<br>pending permission from Ganesh<br><span class="chip i">placeholder</span></div></div>
   <div class="ch-body">
-    <nav class="toc" aria-label="In this chapter"><b>Problem</b><br>What I owned<br>How it works<br>Decisions<br>Evidence<br>Limits</nav>
+    <nav class="toc" aria-label="In this chapter"><b>Problem</b><br>What I owned<br>How it works<br>Evidence</nav>
     <article class="prose">
-      <h2>Problem <span class="chip v">self-reported, from projects.ts</span></h2>
+      <h2>Problem</h2>
       <p>The existing codebase had years of inconsistent block APIs and no clear pattern for extension. A rewrite had to ship to a very large installed base without disrupting it, while the stable version kept receiving releases in parallel.</p>
-      <div class="owned">
-        <h3>What I owned</h3>
-        <p style="margin:0">Designed key architectural components and built many of the major features for the rewrite (beta released 2025). <span class="chip n">specific components pending</span></p>
-      </div>
-      <h2>How it works <span class="chip i">illustrative until confirmed</span></h2>
+      <div class="owned"><h3>What I owned</h3><p style="margin:0">Designed key architectural components and built many of the major features for the rewrite, released as a beta in 2025.</p></div>
+      <h2>How it works</h2>
       <div class="diagram">
+        <span class="label">Illustrative diagram · simplified, not production code</span>
         <ol class="stages">
           <li><button aria-pressed="false">1 · Editor input</button></li>
           <li><button aria-pressed="true">2 · Block attributes</button></li>
@@ -452,8 +463,8 @@ table.contrast .sw{display:inline-block;width:14px;height:14px;border-radius:3px
           <li><button aria-pressed="false">4 · Asset loading</button></li>
           <li><button aria-pressed="false">5 · Front-end render</button></li>
         </ol>
-        <svg viewBox="0 0 640 70" width="100%" aria-hidden="true" style="font:12px var(--mono)">
-          <g fill="none" stroke-width="2"><path d="M20 35H620" stroke="var(--rule)"/><path d="M148 35H268" stroke="var(--cobalt)" stroke-width="3"/></g>
+        <svg viewBox="0 0 640 70" width="100%" aria-hidden="true">
+          <path d="M20 35H620" stroke="var(--rule)" stroke-width="2" fill="none"/><path d="M148 35H268" stroke="var(--cobalt)" stroke-width="3" fill="none"/>
           <g fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"><circle cx="30" cy="35" r="10"/><circle cx="160" cy="35" r="12" fill="var(--cobalt)" stroke="var(--cobalt)"/><circle cx="290" cy="35" r="10"/><circle cx="420" cy="35" r="10"/><circle cx="560" cy="35" r="10"/></g>
         </svg>
         <dl class="stage-panel">
@@ -462,36 +473,25 @@ table.contrast .sw{display:inline-block;width:14px;height:14px;border-radius:3px
           <div><dt>Failure behaviour</dt><dd>Unknown or invalid attributes fall back to defaults instead of breaking the editor.</dd></div>
         </dl>
       </div>
-      <p>The same stages appear underneath as an ordered text list, readable without JavaScript.</p>
-      <div class="evidence">
-        <b style="color:var(--ink)">Evidence</b>
-        <ol>
-          <li>Product reach: 1M+ active installs, wordpress.org plugin listing <span class="chip n">re-check figure and date at build</span></li>
-          <li>Beta released 2025 <span class="chip v">self-reported</span></li>
-          <li><s>Block render time −40%, API surface −30%</s>, removed: no method, baseline or date</li>
-          <li><s>github.com/brainstormforce/spectra</s>, removed: returns 404</li>
-        </ol>
-      </div>
+      <p>The same five stages are listed below the diagram as plain text, readable without JavaScript.</p>
+      <div class="evidence"><b style="color:var(--ink)">Evidence</b><ol><li>Spectra on wordpress.org: 1M+ active installations (product reach, not a personal metric)</li><li>Beta of the rewrite released in 2025</li></ol></div>
     </article>
-    <aside class="side-note">Related<br>→ Ship It, round 3: slow editor<br>→ Journey: Brainstorm Force<br><br>Next chapter<br>02 · Masteriyo LMS →</aside>
+    <aside class="side-note">Related<br>→ Ship It, round 3: a slow editor<br>→ Journey: Brainstorm Force<br><br>Next chapter<br>02 · Masteriyo LMS →</aside>
   </div>
 </div>
 </template>
 
 <template id="tpl-ws-multi">
 <div class="ws" style="width:1440px;height:900px">
-  <svg class="contours ws-c" data-seed="3" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+  <svg class="contours" data-peaks="0.25,0.35;0.78,0.7" data-ws viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
   <div class="ws-top"><span class="name">▣ Ganesh Workspace</span><button>⇄ Switch window</button><button>♪ Sound: off</button><button class="back">← Back to portfolio</button></div>
   <div class="icons">__ICONS__</div>
-  <section class="win bg" style="left:210px;top:92px;width:640px;height:420px" aria-labelledby="t1">
+  <section class="win" style="left:210px;top:92px;width:640px;height:420px" aria-labelledby="t1">
     <div class="tbar"><h2 id="t1">›_ Terminal</h2><button aria-label="Window menu">☰</button><button aria-label="Minimize Terminal">–</button><button aria-label="Maximize Terminal">□</button><button aria-label="Close Terminal">×</button></div>
     <div class="term"><div><span class="pr">ganesh@workspace:~$</span> help</div>
       <div class="dim">Commands: about · projects · journey · skills · notes · resume · contact · clear · exit</div>
-      <div><span class="pr">ganesh@workspace:~$</span> projects</div>
-      <div>spectra · masteriyo · wp-agent-ai · everest-forms · user-registration</div>
-      <div class="dim">Open one: projects spectra</div>
       <div><span class="pr">ganesh@workspace:~$</span> sudo rm -rf /</div>
-      <div>“sudo” isn't a command here. This terminal only knows portfolio commands. Try <u>help</u>.</div>
+      <div>"sudo" isn't a command here. This terminal only knows portfolio commands. Try <u>help</u>.</div>
       <div><span class="pr">ganesh@workspace:~$</span> projects spectra</div>
       <div class="dim">Opening Projects → Spectra…</div>
       <div class="chips"><span>help</span><span>projects</span><span>journey</span><span>resume</span><span>contact</span></div>
@@ -503,57 +503,40 @@ table.contrast .sw{display:inline-block;width:14px;height:14px;border-radius:3px
       <div class="tabs"><span>← All projects</span><span class="on">Overview</span><span>How it works</span><span>Evidence</span></div>
       <h3>Spectra</h3>
       <p class="sub">Rewriting a Gutenberg page builder used on 1M+ sites without breaking the sites already on it.</p>
-      <div class="meta"><span>Software Developer</span><span>Brainstorm Force</span><span>2025 –</span><span>PHP · React · Gutenberg</span></div>
-      <div class="shot">Product screenshot pending permission<br><span class="chip i" style="color:#6E3F8F">placeholder</span></div>
-      <p style="margin:0 0 8px"><b>What I owned:</b> key architectural components and many major features of the rewrite.</p>
-      <p style="margin:0;color:var(--sheet-muted);font:12px/1.5 var(--mono)">Same view as /work/spectra/ · Open full page ↗</p>
+      <div class="meta"><span>Software Developer</span><span>Brainstorm Force</span><span>Joined 2025</span><span>PHP · React · Gutenberg</span></div>
+      <p style="margin:0 0 14px"><b>What I owned:</b> key architectural components and many major features of the rewrite.</p>
+      <p style="margin:0 0 8px;font:500 12px/1 var(--mono);color:var(--sheet-muted)">HOW IT WORKS · ILLUSTRATIVE</p>
+      <ol><li>Editor input</li><li>Block attributes</li><li>Style generation</li><li>Asset loading</li><li>Front-end render</li></ol>
+      <p style="margin:14px 0 0;color:var(--sheet-muted);font:12px/1.5 var(--mono)">Same view as /work/spectra/ · Open full page ↗</p>
     </div>
   </section>
   <nav class="dock" aria-label="Apps">__DOCK__</nav>
 </div>
 </template>
 
-<template id="tpl-ws-launcher">
-<div class="ws" style="width:1440px;height:820px">
-  <svg class="contours ws-c" data-seed="5" viewBox="0 0 1440 820" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
-  <div class="ws-top"><span class="name">▣ Ganesh Workspace</span><button>⇄ Switch window</button><button>♪ Sound: off</button><button class="back">← Back to portfolio</button></div>
-  <section class="win active" style="left:330px;top:84px;width:780px;height:610px" aria-labelledby="t3">
-    <div class="tbar"><h2 id="t3">⌘ Apps</h2><button aria-label="Close launcher">×</button></div>
-    <div class="wbody" style="display:grid;gap:14px;align-content:start">
-      <div style="display:flex;gap:10px;align-items:center;border:1.5px solid var(--bar-active);border-radius:8px;padding:10px 12px;font:14px var(--mono);color:var(--sheet-muted)">⌕ Find an app</div>
-      <div class="wsl">__TILES__</div>
-      <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(22,24,28,.14);padding-top:12px;font:12px/1 var(--mono);color:var(--sheet-muted)"><span>Sound: off · saved on this device only</span><span><u>Reset preferences</u></span></div>
-    </div>
-  </section>
-  <nav class="dock" aria-label="Apps">__DOCK0__</nav>
-</div>
-</template>
-
 <template id="tpl-ws-m-home">
-<div class="ws mws" style="width:390px;height:780px">
-  <svg class="contours ws-c" data-seed="9" viewBox="0 0 390 780" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
-  <div class="ws-top"><span class="name">▣ Workspace</span><button class="back" style="height:40px">← Portfolio</button></div>
-  <div class="mgrid">__TILES_M__</div>
+<div class="ws mws" style="width:390px;height:820px">
+  <svg class="contours" data-peaks="0.7,0.2" data-ws viewBox="0 0 390 820" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+  <div class="ws-top"><span class="name">▣ Workspace</span><button class="back">← Portfolio</button></div>
+  <div class="mintro"><b>Pick an app</b><p>Everything here is also on the main portfolio.</p></div>
+  <div class="mgrid">__TILES__</div>
 </div>
 </template>
 
 <template id="tpl-ws-m-panel">
-<div class="ws mws" style="width:390px;height:780px;background:var(--sheet)">
+<div class="ws mws" style="width:390px;height:820px;background:var(--sheet)">
   <div class="ptop"><button>← Apps</button><h2>Projects</h2><button>⇄ Switch</button></div>
-  <div class="pw" style="position:absolute;inset:56px 0 0;padding:18px 18px;color:var(--sheet-ink)">
-    <div class="tabs" style="flex-wrap:wrap"><span>← All</span><span class="on">Overview</span><span>How it works</span><span>Evidence</span></div>
+  <div class="pw" style="position:absolute;inset:56px 0 0;padding:18px;color:var(--sheet-ink)">
+    <div class="tabs" style="flex-wrap:wrap"><span>← All</span><span class="on">Overview</span><span>How it works</span></div>
     <h3>Spectra</h3>
     <p class="sub">Rewriting a Gutenberg page builder used on 1M+ sites without breaking the sites already on it.</p>
-    <div class="meta"><span>Software Developer</span><span>Brainstorm Force</span><span>2025 –</span></div>
-    <div class="shot">Screenshot pending permission</div>
+    <div class="meta"><span>Software Developer</span><span>Brainstorm Force</span><span>Joined 2025</span></div>
     <p style="margin:0"><b>What I owned:</b> key architectural components and many major features of the rewrite.</p>
   </div>
 </div>
 </template>
 
 <script>
-document.documentElement.classList.remove('no-js');
-const P='__PORTRAIT__';
 const ICON={
   projects:'<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg>',
   journey:'<svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h4a4 4 0 0 0 4-4V8"/></svg>',
@@ -561,117 +544,82 @@ const ICON={
   terminal:'<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3M12 15h5"/></svg>',
   notes:'<svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>',
   resume:'<svg viewBox="0 0 24 24"><path d="M6 3h12v18H6z"/><circle cx="12" cy="9" r="2.5"/><path d="M8.5 16a3.5 3.5 0 0 1 7 0"/></svg>',
-  contact:'<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>'
+  contact:'<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>',
+  ws:'<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M3 8h18M8 21h8M12 17v4"/></svg>'
 };
 const APPS=[
- ['projects','Projects','Case studies, ownership, decisions, evidence'],
- ['journey','Journey','Career timeline: 2016 → now'],
- ['arcade','Arcade','Ship It: a 3-round architecture puzzle'],
- ['terminal','Terminal','Portfolio commands, no real shell'],
- ['notes','Notes','Approved technical articles · 0 published yet'],
- ['resume','Résumé','Not published yet · contact instead'],
+ ['projects','Projects','Case studies and how they work'],
+ ['journey','Journey','Career timeline since 2016'],
+ ['arcade','Arcade','Ship It, a 3-minute engineering game'],
+ ['terminal','Terminal','Explore by typing commands'],
+ ['notes','Notes','Technical articles, none published yet'],
+ ['resume','Résumé','Not published yet, so contact me instead'],
  ['contact','Contact','Email, LinkedIn, GitHub']
 ];
-const tpl=id=>document.getElementById(id).innerHTML.replaceAll('__PORTRAIT__',P);
+const tpl=id=>document.getElementById(id).innerHTML.replaceAll('__ICO_WS__',ICON.ws);
 const icons=APPS.map(([k,n])=>`<div class="dicon"><span class="g">${ICON[k]}</span>${n}</div>`).join('');
-const dock=(state)=>APPS.map(([k,n])=>{const s=state[k];return `<button aria-pressed="${!!s}" aria-label="${n}${s?', '+s:''}">${ICON[k]}${n}${s?`<span class="dot ${s==='minimized'?'min':s==='focused'?'act':''}"></span>`:''}</button>`}).join('');
+const dock=st=>APPS.map(([k,n])=>{const s=st[k];return `<button aria-pressed="${!!s}" aria-label="${n}${s?', '+s:''}">${ICON[k]}${n}${s?`<span class="dot ${s==='minimized'?'min':s==='focused'?'act':''}"></span>`:''}</button>`}).join('');
 const tiles=APPS.map(([k,n,d])=>`<div class="tile"><span class="g">${ICON[k]}</span><b>${n}</b><small>${d}</small></div>`).join('');
-const fill={
- __ATLAS_HOME_DESKTOP__:tpl('tpl-atlas-home-desktop'),
- __ATLAS_HOME_MOBILE__:tpl('tpl-atlas-home-mobile'),
- __CHAPTER__:tpl('tpl-chapter'),
+const fill={__ATLAS_HOME_DESKTOP__:tpl('tpl-atlas-home-desktop'),__ATLAS_HOME_MOBILE__:tpl('tpl-atlas-home-mobile'),__CHAPTER__:tpl('tpl-chapter'),
  __WS_MULTI__:tpl('tpl-ws-multi').replace('__ICONS__',icons).replace('__DOCK__',dock({projects:'focused',terminal:'open',journey:'minimized'})),
- __WS_LAUNCHER__:tpl('tpl-ws-launcher').replace('__TILES__',tiles).replace('__DOCK0__',dock({})),
- __WS_M_HOME__:tpl('tpl-ws-m-home').replace('__TILES_M__',tiles),
- __WS_M_PANEL__:tpl('tpl-ws-m-panel')
-};
-document.querySelectorAll('.frame').forEach(f=>{const k=f.textContent.trim(); if(fill[k]) f.innerHTML=fill[k]; if(f.hasAttribute('data-dark')) f.firstElementChild.classList.add('is-dark');});
+ __WS_M_HOME__:tpl('tpl-ws-m-home').replace('__TILES__',tiles),__WS_M_PANEL__:tpl('tpl-ws-m-panel')};
+document.querySelectorAll('.frame').forEach(f=>{const k=f.textContent.trim();if(fill[k])f.innerHTML=fill[k];if(f.hasAttribute('data-dark'))f.firstElementChild.classList.add('is-dark')});
 
-/* Ship It storyboard, driven by the same outcome table as the plan (round 2, variant B). */
-const OPTS=[
- ['retry','Retry harder and add workers'],
- ['client','Block double clicks on the pay button'],
- ['queue','Durable queue only'],
- ['idem','Idempotent processing boundary'],
- ['queue-idem','Queue + idempotent consumer'],
- ['idem-recon','Idempotent boundary + scheduled reconciliation']
-];
-const pathSvg=(hl)=>`<div class="path"><svg viewBox="0 0 360 150" role="img" aria-label="Request path: provider, webhook handler, ${hl.queue?'durable queue, ':''}processor, database">
- <g font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink)">
- ${[['Provider',8,20],['Webhook',128,20],['Processor',248,20]].map(([t,x,y])=>`<rect x="${x}" y="${y}" width="104" height="36" rx="6" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><text x="${x+52}" y="${y+22}" text-anchor="middle">${t}</text>`).join('')}
- <path d="M112 38h16M232 38h16" stroke="var(--ink)" stroke-width="1.4"/>
- <path d="M60 56v24q0 6 6 6h54" fill="none" stroke="var(--orange)" stroke-width="1.6" stroke-dasharray="4 3"/><text x="66" y="104" fill="var(--orange)">retries ×3 / 1 h</text>
- ${hl.queue?'<rect x="128" y="100" width="104" height="34" rx="6" fill="var(--paper)" stroke="var(--cobalt)" stroke-width="2"/><text x="180" y="121" text-anchor="middle" fill="var(--cobalt)">Durable queue</text>':''}
- <rect x="248" y="100" width="104" height="34" rx="6" fill="var(--tint)" stroke="${hl.idem?'var(--cobalt)':'var(--ink)'}" stroke-width="${hl.idem?2:1.2}"/><text x="300" y="115" text-anchor="middle">Ledger +</text><text x="300" y="128" text-anchor="middle">enrolments</text>
- <path d="M300 56v44" stroke="var(--ink)" stroke-width="1.4"/>
- ${hl.idem?'<text x="300" y="80" text-anchor="middle" fill="var(--cobalt)" font-weight="500">unique(event_id)</text>':''}
- </g></svg></div>`;
-const siTop=(r)=>`<div class="si-top"><span class="t">Ship It · round ${r}/3</span><button>Help</button><button>Text view</button><button>Exit</button></div>`;
+/* Ship It storyboard: round 2, plain first pass (provider retries for days), then the optional twist. */
+const BASE=[['Answer faster with more servers','more workers, blind retries'],['Put payment messages in a waiting line','durable queue'],['Remember which payments were already handled','idempotency key at the processing boundary'],['Both: a waiting line and remembering handled payments','queue + idempotent consumer']];
+const opts=(list,sel)=>`<ul class="opts" role="radiogroup" aria-label="Choose a fix">${list.map(([t,s],i)=>`<li class="opt ${i===sel?'sel':''}" role="radio" aria-checked="${i===sel}"><span class="r"></span><b>${t}</b><small>${s}</small></li>`).join('')}</ul>`;
+const siTop=r=>`<div class="si-top"><span class="t">Ship It · ${r}</span><button>How to play</button><button>Text view</button><button>Exit</button></div>`;
+const frame=(r,body,foot)=>`<div class="si" style="width:390px;min-height:820px">${siTop(r)}<div class="si-body">${body}</div><div class="si-foot">${foot}</div></div>`;
 const frames=[
- {cap:'1 · Intro',html:`<div class="si" style="width:390px;min-height:760px">${siTop('–')}<div class="si-body">
-   <span class="badge-ill">Illustrative simulation: fictional systems, invented numbers</span>
-   <h3>Ship It</h3><p>Keep a fictional course store healthy as things go wrong. Three rounds, about three minutes. Each round has more than one good answer, and the explanation is the point.</p>
-   <ol style="margin:0;padding-left:20px;display:grid;gap:4px;font-size:15px"><li>Traffic spike on the course catalogue</li><li>Duplicate payment webhooks</li><li>A slow editor</li></ol>
-   <p style="font-size:14px;color:var(--muted)">No timer, no score for speed. Progress is kept while the window is minimized and discarded when you close it.</p>
- </div><div class="si-foot"><a class="btn primary">Start round 1</a></div></div>`},
- {cap:'2 · Choose (round 2, variant B)',html:`<div class="si" style="width:390px;min-height:760px">${siTop(2)}<div class="si-body">
-   <h4>Duplicate payment webhooks</h4>
-   <p style="font-size:14.5px">The provider sends <code>payment.succeeded</code> <b>at least once</b>. During a long spike your handler times out, and the provider retries only 3 times within an hour.</p>
-   <div class="nums"><div>duplicate enrolments<b>14</b></div><div>events never processed<b>9</b></div></div>
-   ${pathSvg({})}
-   <ul class="opts" role="radiogroup" aria-label="Choose an intervention">${OPTS.map(([k,t])=>`<li class="opt ${k==='queue'?'sel':''}" role="radio" aria-checked="${k==='queue'}"><span class="r"></span>${t}</li>`).join('')}</ul>
- </div><div class="si-foot"><a class="btn primary">Confirm choice</a></div></div>`},
- {cap:'3 · Result: durable queue only → partial',html:`<div class="si" style="width:390px;min-height:760px">${siTop(2)}<div class="si-body">
-   <div class="outcome partial">◐ Partial: reliable, still duplicated</div>
-   ${pathSvg({queue:true})}
-   <dl class="props"><div><dt>Reliable processing</dt><dd class="y">yes: acknowledged events survive the spike</dd></div><div><dt>Duplicate effects</dt><dd class="no">still present</dd></div></dl>
-   <div class="nums"><div>duplicate enrolments<b>14 → 14</b></div><div>events never processed<b>9 → 0</b></div></div>
-   <p style="font-size:14.5px">A queue delivers <b>at least once</b>. A retried webhook becomes a second message, and the processor applies it again. Delivery is reliable, but nothing stops a repeat.</p>
- </div><div class="si-foot"><a class="btn">Back to options</a><a class="btn primary">Next round</a></div></div>`},
- {cap:'4 · Result: idempotent + reconciliation → viable',html:`<div class="si" style="width:390px;min-height:760px">${siTop(2)}<div class="si-body">
-   <div class="outcome viable">● Viable: no duplicates, nothing lost</div>
-   ${pathSvg({idem:true})}
-   <dl class="props"><div><dt>Duplicate effects</dt><dd class="y">eliminated at the processing boundary</dd></div><div><dt>Reliable processing</dt><dd class="y">yes, via reconciliation</dd></div><div><dt>Trade-off</dt><dd>missed events wait up to one reconciliation run</dd></div></dl>
-   <div class="nums"><div>duplicate enrolments<b>14 → 0</b></div><div>events never processed<b>9 → 0</b></div></div>
-   <p style="font-size:14.5px">The event ID is stored in the same transaction as the enrolment and ledger row, so a repeat is a no-op. A scheduled job fetches events the provider gave up on. Queue + idempotent consumer is the other viable answer here.</p>
-   <p class="related">Related real work: <a>payment integrations in Masteriyo and Everest Forms →</a></p>
- </div><div class="si-foot"><a class="btn primary">Next round</a></div></div>`},
- {cap:'5 · Debrief',html:`<div class="si" style="width:390px;min-height:760px">${siTop('✓')}<div class="si-body">
-   <h3>Debrief</h3><p style="font-size:14.5px">There's no single best architecture. Each answer depends on which assumption was true.</p>
-   <ul class="recap">
-     <li><b>Round 1 · catalogue spike</b>Query fix · viable, because the bottleneck was the database</li>
-     <li><b>Round 2 · duplicate webhooks</b>Durable queue only · partial, reliable but still duplicated</li>
-     <li><b>Round 3 · slow editor</b>Moved the state boundary · viable</li>
-   </ul>
-   <span class="badge-ill">All values illustrative</span>
- </div><div class="si-foot"><a class="btn">Exit</a><a class="btn primary">Replay (new variants)</a></div></div>`}
+ ['1 · Intro: what it is, in plain words',frame('start',`<span class="sim">Simulation · made-up shop, made-up numbers</span>
+   <h3>Ship It</h3><p>You look after the technology behind a small online course shop. Three things go wrong. For each one, pick a fix and see what happens.</p>
+   <ol class="steps"><li><span>1</span>Too many visitors at once</li><li><span>2</span>Customers charged twice</li><li><span>3</span>A slow editing screen</li></ol>
+   <p>Often more than one fix works. The explanation after each choice is the interesting part.</p>
+   <div class="facts-row"><span>About 3 minutes</span><span>No timer</span><span>Keyboard or touch</span></div>`,`<a class="btn primary">Start</a>`)],
+ ['2 · Choose: four plain options',frame('round 2 of 3',`<h4>Customers charged twice</h4>
+   <p>When someone pays, the payment company sends your shop a "payment received" message. If your shop is slow to reply, the company sends the same message again, just in case. Right now your shop treats every copy as a new payment.</p>
+   <div class="nums"><div>double enrolments<b>14</b></div><div>payments lost<b>0</b></div></div>
+   ${opts(BASE,1)}`,`<a class="btn primary">Confirm choice</a>`)],
+ ['3 · Result: half works, explained plainly',frame('round 2 of 3',`<div class="outcome partial"><small>Partly fixed</small>Nothing gets lost, but customers are still charged twice.</div>
+   <p>The waiting line keeps every message safe until your shop handles it, including the repeated copy. So the repeat is still processed as a new payment.</p>
+   <div class="nums"><div>double enrolments<b>14 → 14</b></div><div>payments lost<b>0 → 0</b></div></div>
+   <details class="eng" open><summary>In engineering terms</summary><dl><div><dt>Durable queue: reliable delivery</dt><dd class="y">yes</dd></div><div><dt>Duplicate effects removed</dt><dd class="no">no: at-least-once delivery</dd></div></dl></details>`,`<a class="btn">Try another fix</a><a class="btn primary">Next round</a>`)],
+ ['4 · Result: works, plus an optional twist',frame('round 2 of 3',`<div class="outcome viable"><small>Fixed</small>Each payment counts once, even when the message arrives twice.</div>
+   <p>Your shop writes down each payment's ID at the same moment it enrols the student. A repeated message finds the ID already there and changes nothing.</p>
+   <details class="eng"><summary>In engineering terms</summary></details>
+   <div class="twist"><b>Optional harder twist</b>What if the payment company stops resending after one hour? One of the fixes that worked stops being enough.</div>
+   <p class="related">Related real work: <a>payment integrations in Masteriyo and Everest Forms →</a></p>`,`<a class="btn">Try the twist</a><a class="btn primary">Next round</a>`)],
+ ['5 · Twist: a fifth option appears',frame('round 2 · twist',`<h4>The payment company gives up after an hour</h4>
+   <p>During a long slowdown, some "payment received" messages are never resent. Customers paid, but your shop never hears about it.</p>
+   <div class="nums"><div>double enrolments<b>14</b></div><div>payments lost<b>9</b></div></div>
+   ${opts([...BASE,['Remember handled payments and check for missed ones every hour','idempotency + scheduled reconciliation']],4)}`,`<a class="btn primary">Confirm choice</a>`)],
+ ['6 · Debrief',frame('done',`<h3>Debrief</h3><p>There's no single best design. Each answer depended on what was true in that round.</p>
+   <ul class="recap"><li><b>Round 1 · too many visitors</b>Fixed the slow database query: worked, because the database was the bottleneck</li><li><b>Round 2 · charged twice</b>Waiting line only: partly fixed. Reliable, but still charged twice.</li><li><b>Round 3 · slow editor</b>Kept the typing state local: worked</li></ul>
+   <span class="sim">All numbers are invented for the simulation</span>`,`<a class="btn">Exit</a><a class="btn primary">Play again</a>`)]
 ];
 const sb=document.getElementById('storyboard');
-frames.forEach(f=>{const fig=document.createElement('figure');fig.innerHTML=`<div class="vp"><div class="frame" data-w="390" inert>${f.html}</div></div><figcaption>${f.cap}</figcaption>`;sb.appendChild(fig)});
-document.getElementById('si-desktop').innerHTML=`<div class="si" style="width:1440px;min-height:640px">${siTop(2).replace('si-top','si-top" style="padding:18px 64px')}<div style="display:grid;grid-template-columns:1.1fr 1fr;gap:56px;padding:40px 64px">
- <div class="si-body" style="padding:0"><span class="badge-ill">Illustrative simulation</span><h3 style="font-size:52px">Duplicate payment webhooks</h3><p style="font-size:18px;max-width:52ch">The provider sends <code>payment.succeeded</code> at least once. During a long spike your handler times out, and the provider retries only 3 times within an hour.</p><div style="max-width:560px">${pathSvg({})}</div></div>
- <div class="si-body" style="padding:0"><div class="nums"><div>duplicate enrolments<b>14</b></div><div>events never processed<b>9</b></div></div><ul class="opts">${OPTS.map(([k,t])=>`<li class="opt ${k==='idem-recon'?'sel':''}"><span class="r"></span>${t}</li>`).join('')}</ul><div style="display:flex;gap:10px"><a class="btn primary">Confirm choice</a><a class="btn">Help</a></div></div>
-</div></div>`;
+frames.forEach(([cap,html])=>{const fig=document.createElement('figure');fig.innerHTML=`<div class="vp"><div class="frame" data-w="390" data-name="Ship It ${cap.slice(0,1)}" inert>${html}</div></div><figcaption>${cap}</figcaption>`;sb.appendChild(fig)});
 
-/* Contours: smooth closed rings around a few peaks (prototype only; the build ships a precomputed static SVG). */
-function rng(s){return()=>(s=(s*16807)%2147483647)/2147483647}
-function ring(cx,cy,r,rand,amp){const n=14,pts=[];const ph=[rand()*6.28,rand()*6.28];for(let i=0;i<n;i++){const a=i/n*Math.PI*2;const k=r*(1+amp*Math.sin(3*a+ph[0])+amp*.6*Math.sin(5*a+ph[1]));pts.push([cx+Math.cos(a)*k*1.25,cy+Math.sin(a)*k])}
- let d=`M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;for(let i=0;i<n;i++){const p0=pts[(i-1+n)%n],p1=pts[i],p2=pts[(i+1)%n],p3=pts[(i+2)%n];d+=`C${(p1[0]+(p2[0]-p0[0])/6).toFixed(1)} ${(p1[1]+(p2[1]-p0[1])/6).toFixed(1)} ${(p2[0]-(p3[0]-p1[0])/6).toFixed(1)} ${(p2[1]-(p3[1]-p1[1])/6).toFixed(1)} ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`}return d+'Z'}
-document.querySelectorAll('svg.contours').forEach(svg=>{const [,, w,h]=svg.getAttribute('viewBox').split(' ').map(Number);const rand=rng(+svg.dataset.seed*977+13);const ws=svg.classList.contains('ws-c');let out='';
- for(let p=0;p<3;p++){const cx=w*(.2+rand()*.7),cy=h*(.15+rand()*.7),max=Math.max(w,h)*(.35+rand()*.3);for(let r=max;r>12;r-=max/(ws?11:14)){out+=`<path d="${ring(cx,cy,r,rand,.07+rand()*.05)}"/>`}}
- svg.innerHTML=`<g fill="none" stroke="${ws?'var(--wall-line)':'var(--rule)'}" stroke-width="${ws?1:1.1}">${out}</g>`;});
+/* Contours: concentric rings around one or two fixed peaks, gently and coherently warped so lines never cross; every 4th is an index contour. */
+function ring(cx,cy,r,ph,amp){const n=48;let d='';for(let i=0;i<=n;i++){const a=i/n*Math.PI*2;const k=r*(1+amp*Math.sin(2*a+ph)+amp*.5*Math.sin(3*a+ph*1.7));const x=cx+Math.cos(a)*k*1.3,y=cy+Math.sin(a)*k;d+=(i?'L':'M')+x.toFixed(1)+' '+y.toFixed(1)}return d+'Z'}
+document.querySelectorAll('svg.contours').forEach(svg=>{const[,,w,h]=svg.getAttribute('viewBox').split(' ').map(Number);const ws=svg.hasAttribute('data-ws');
+ const peaks=svg.dataset.peaks.split(';').map(p=>p.split(',').map(Number));const step=Math.max(w,h)*(ws?.045:.06);const count=ws?9:10;let minor='',major='';
+ peaks.forEach(([px,py],pi)=>{for(let i=1;i<=count;i++){const d=`<path d="${ring(px*w,py*h,step*i,pi*2.1+.6,.05)}"/>`;if(i%4===0)major+=d;else minor+=d}});
+ svg.innerHTML=`<g fill="none" stroke="${ws?'var(--wall-line)':'var(--contour)'}" stroke-width="1">${minor}</g><g fill="none" stroke="${ws?'var(--wall-index)':'var(--contour-index)'}" stroke-width="1.4">${major}</g>`});
 
-/* Scale fixed-width frames to their container. */
 function fit(){document.querySelectorAll('.vp').forEach(vp=>{const f=vp.firstElementChild;const w=+f.dataset.w;f.style.width=w+'px';vp.style.maxWidth=w+'px';const s=Math.min(1,vp.clientWidth/w);f.style.transform=`scale(${s})`;vp.style.height=(f.offsetHeight*s)+'px'})}
-addEventListener('resize',fit);fit();document.fonts&&document.fonts.ready.then(fit);addEventListener('load',fit);
+addEventListener('resize',fit);fit();if(document.fonts)document.fonts.ready.then(()=>{fit();audit()});addEventListener('load',fit);
 
-/* Contrast, computed from the token values above. */
-function lum(h){const c=[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)/255).map(v=>v<=.03928?v/12.92:((v+.055)/1.055)**2.4);return .2126*c[0]+.7152*c[1]+.0722*c[2]}
-function ratio(a,b){const [x,y]=[lum(a),lum(b)].sort((m,n)=>n-m);return (x+.05)/(y+.05)}
-const pairs=[
- ['Atlas light · body','#16181C','#F6F3EC','body text',4.5],['Atlas light · muted','#55595F','#F6F3EC','secondary text',4.5],['Atlas light · cobalt link/button','#2343D6','#F6F3EC','links, focus ring',4.5],['Atlas light · white on cobalt','#FFFFFF','#2343D6','primary button',4.5],['Atlas light · orange annotation','#A9461A','#F6F3EC','chapter numbers, route dots',4.5],
- ['Atlas dark · body','#ECE8DF','#15171A','body text',4.5],['Atlas dark · muted','#A9A49A','#15171A','secondary text',4.5],['Atlas dark · cobalt','#8EA2FF','#15171A','links, focus ring',4.5],['Atlas dark · ink on cobalt','#0E1330','#8EA2FF','primary button',4.5],['Atlas dark · orange','#F08A5D','#15171A','annotations',4.5],
- ['Workspace · wallpaper text','#E6E9F0','#1B2230','icon labels, top bar',4.5],['Workspace · sheet text','#16181C','#F3EFE6','window content',4.5],['Workspace · sheet muted','#55595F','#F3EFE6','window meta',4.5],['Workspace · active title bar','#FFFFFF','#2343D6','focused window title',4.5],['Workspace · inactive title bar','#16181C','#E6E0D3','background window title',4.5]
-];
-document.querySelector('#contrast tbody').innerHTML=pairs.map(([n,f,b,u,min])=>{const r=ratio(f,b);return `<tr><td>${n}</td><td><span class="sw" style="background:${f}"></span>${f}</td><td><span class="sw" style="background:${b}"></span>${b}</td><td>${r.toFixed(2)}:1</td><td>${u}</td><td class="${r>=min?'pass':'fail'}">${r>=min?'AA pass':'AA fail'} (needs ${min}:1)</td></tr>`}).join('');
+/* Rendered-text contrast audit. */
+function rgba(s){const c=document.createElement('canvas').getContext('2d');c.fillStyle='#000';c.fillStyle=s;const v=c.fillStyle;if(v.startsWith('#'))return[parseInt(v.slice(1,3),16),parseInt(v.slice(3,5),16),parseInt(v.slice(5,7),16),1];const m=v.match(/[\d.]+/g).map(Number);return[m[0],m[1],m[2],m[3]??1]}
+function blend(top,bot){const a=top[3];return[top[0]*a+bot[0]*(1-a),top[1]*a+bot[1]*(1-a),top[2]*a+bot[2]*(1-a),1]}
+function bgOf(el){const layers=[];for(let e=el;e;e=e.parentElement){const cs=getComputedStyle(e);if(cs.backgroundImage!=='none'&&!e.classList.contains('vp'))return null;const c=rgba(cs.backgroundColor);if(c[3]>0)layers.push(c);if(c[3]>=1)break;if(e.classList.contains('frame'))break}let col=[255,255,255,1];for(let i=layers.length-1;i>=0;i--)col=blend(layers[i],col);return col}
+function L(c){const v=c.slice(0,3).map(x=>x/255).map(x=>x<=.03928?x/12.92:((x+.055)/1.055)**2.4);return .2126*v[0]+.7152*v[1]+.0722*v[2]}
+function audit(){const rows=[];let checked=0,skipped=0,fails=0;
+ document.querySelectorAll('.frame').forEach(fr=>{const name=fr.dataset.name;fr.querySelectorAll('*').forEach(el=>{if(el.closest('svg'))return;const own=[...el.childNodes].some(n=>n.nodeType===3&&n.textContent.trim());if(!own)return;const cs=getComputedStyle(el);if(cs.visibility==='hidden'||cs.display==='none')return;
+  const bg=bgOf(el);if(!bg){skipped++;return}let fg=rgba(cs.color);fg=fg[3]<1?blend(fg,bg):fg;const [a,b]=[L(fg),L(bg)].sort((x,y)=>y-x);const r=(a+.05)/(b+.05);const px=parseFloat(cs.fontSize),bold=+cs.fontWeight>=700;const need=(px>=24||(px>=18.66&&bold))?3:4.5;checked++;
+  if(r<need){fails++;rows.push([name,el.textContent.trim().slice(0,48),px+'px',r.toFixed(2),need,'fail'])}})});
+ document.getElementById('audit-summary').innerHTML=`<p class="${fails?'fail':'pass'}" style="margin:0;font:600 15px var(--mono)">${checked} text elements checked · ${fails} below threshold · ${skipped} over images or gradients (not checked)</p>`;
+ document.querySelector('#audit tbody').innerHTML=rows.length?rows.map(r=>`<tr>${r.slice(0,5).map(c=>`<td>${String(c).replace(/</g,'&lt;')}</td>`).join('')}<td class="fail">AA fail</td></tr>`).join(''):'<tr><td colspan="6" class="pass">No failures</td></tr>';
+ window.__audit={checked,fails,skipped,rows};}
 </script>

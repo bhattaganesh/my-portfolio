@@ -86,7 +86,7 @@ Sweep: 8 routes × widths 360/390/768/1024/1440, `waitUntil: networkidle` + 800 
 ## Step B revision 2 (2026-10-07)
 - The rendered-text contrast audit is built into the prototype page and walks every text element in every frame. Result (O): 400 checked, 0 below threshold, 0 skipped.
 - Proof that the audit works (O): recreating the reported pale-on-cream tile title gave **1.16:1**, flagged as a fail. Restoring it gave 0 fails.
-- Published as v2 of https://claude.ai/artifact/34r6pViw5Y2jH13RAXYTBw.
+- Published as v2 of https://claude.ai/artifact/34r6pViw5Y2jH13RAXYTBw (previous signed-in account). Revision 3 (with slice screenshots) could not be published: the Artifact tool was unavailable after the account switch. Local copy: C:SERSBHATTDEVEVIEWENGINEERING-ATLAS-PROTOTYPE.HTML (OUTSIDE THE REPO).
 
 ## Workspace slice (commit 5a1dbc2)
 Commands run in `C:\Users\bhatt\dev\my-portfolio`:
