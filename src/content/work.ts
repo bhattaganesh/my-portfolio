@@ -45,15 +45,16 @@ export const work: readonly WorkItem[] = [
     slug: 'spectra',
     title: 'Spectra',
     summary:
-      'Rewriting a Gutenberg page builder used on 1M+ sites without breaking the sites already on it.',
+      'A Gutenberg block library for WordPress, now two plugins: Spectra Legacy (1,000,000+ active installs on wordpress.org) and the newer Spectra Blocks (50,000+).',
     role: 'Software Developer',
     organization: 'Brainstorm Force',
     year: '2025',
     stack: ['PHP', 'React', 'Gutenberg', 'REST API'],
     owned:
-      'Designed key architectural components and built many of the major features for the ground-up rewrite, released as a beta in 2025.',
+      'On Spectra Legacy: maintenance, performance and security fixes, and enhancements. On Spectra Blocks: responsive controls, dynamic content such as the Countdown block, and extensions and add-ons.',
     links: [
-      { label: 'Spectra on wordpress.org', href: 'https://wordpress.org/plugins/ultimate-addons-for-gutenberg/' },
+      { label: 'Spectra Legacy on wordpress.org', href: 'https://wordpress.org/plugins/ultimate-addons-for-gutenberg/' },
+      { label: 'Spectra Blocks on wordpress.org', href: 'https://wordpress.org/plugins/spectra-blocks/' },
     ],
     flagship: true,
   },

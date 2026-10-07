@@ -1,7 +1,6 @@
 import Link from 'next/link';
-import { education, profile, roleDates, roles } from '@/content/profile';
+import { education, profile, resumeRequestHref, roleDates, roles } from '@/content/profile';
 import { work } from '@/content/work';
-import { resumeRequestHref } from '@/lib/resume';
 
 const CELL = 'grid content-start gap-3 border-t-[1.5px] border-ink pt-4';
 const LINK = 'font-semibold text-cobalt underline-offset-4 hover:underline';
@@ -75,7 +74,7 @@ export function Overview({ resumeHref }: { resumeHref: string | null }) {
                     Résumé (PDF)
                   </a>
                 ) : (
-                  <a href={resumeRequestHref(profile.email)} className={`${LINK} inline-flex min-h-11 items-center`}>
+                  <a href={resumeRequestHref()} className={`${LINK} inline-flex min-h-11 items-center`}>
                     Résumé on request by email
                   </a>
                 )}

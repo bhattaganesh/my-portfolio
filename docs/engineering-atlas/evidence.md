@@ -173,3 +173,13 @@ Checks: lint and type-check clean; 32 unit pass. New E2E: 4 decisions, an `<ol>`
 - Block titles include **Countdown** (with Days/Hours/Minutes/Seconds children), Popup Builder, Slider, Tabs, Modal, Counter, Spectra AI.
 - Responsive system: `ResponsiveControls` / `ResponsiveConditions` / `ResponsiveAttributeCSS` (hundreds of references).
 - Nothing named "load builder". There is a **Loop Builder** (`spectra-pro/loop-builder`, a Spectra Pro block listed in onboarding) plus a Post Query Builder. Waiting for Ganesh to confirm this is the block he meant.
+
+## Spectra copy correction (2026-10-07, after the independent review of 7dd3729)
+The review found that the Spectra copy went beyond the evidence. Both lines below came from the pre-Atlas site.
+- The summary said "Rewriting a Gutenberg page builder used on 1M+ sites without breaking the sites already on it". It credited Spectra Legacy's 1M+ installs to the rewrite (Spectra Blocks has 50,000+), and nothing supported "without breaking".
+  - Replaced with both public install figures, attributed to their own plugins (row 70).
+- The `owned` field said "Designed key architectural components … ground-up rewrite … beta in 2025". No source supports it.
+  - Replaced with Ganesh's self-reported scope (row 71). The Countdown block is confirmed in the Spectra Blocks package.
+  - "Load builder" stays out until Ganesh confirms it is the Loop Builder.
+- **For Ganesh:** if he confirms an architecture or design role on the rewrite, it can return with that confirmation recorded here.
+- Link check: `https://wordpress.org/plugins/spectra-blocks/` returned HTTP 200 (curl, 2026-10-07).

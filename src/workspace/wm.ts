@@ -3,7 +3,9 @@
  * every action returns either a new state or the identical state object when it does not apply.
  */
 
-export type AppId = 'projects' | 'journey' | 'arcade' | 'terminal' | 'notes' | 'resume' | 'contact';
+/** Every app the workspace knows; one window per app. */
+export const APP_IDS = ['projects', 'terminal', 'about', 'settings', 'arcade', 'browser', 'lab'] as const;
+export type AppId = (typeof APP_IDS)[number];
 export type Mode = 'normal' | 'maximized' | 'minimized';
 export type Layout = 'desktop' | 'panels';
 
@@ -53,7 +55,15 @@ export type WmAction =
   | { type: 'moveTo'; app: AppId; x: number; y: number }
   | { type: 'resizeTo'; app: AppId; w: number; h: number }
   | { type: 'area'; w: number; h: number }
-  | { type: 'cycle'; dir: 1 | -1 };
+  | { type: 'cycle'; dir: 1 | -1 }
+  | { type: 'load'; windows: readonly SavedWindow[]; specs: Partial<Record<AppId, WindowSpec>> };
+
+/** A window as remembered between visits; `load` validates and clamps it against the current area. */
+export interface SavedWindow {
+  app: AppId;
+  mode: Mode;
+  rect: Rect;
+}
 
 /** Height of a window title bar; it must always stay inside the work area. */
 export const TITLE_BAR_HEIGHT = 44;
@@ -148,6 +158,21 @@ export function reduce(state: WmState, action: WmAction): WmState {
       windows[id] = win.mode === 'minimized' ? win : { ...win, mode: 'minimized', restoreTo: win.mode };
     }
     return { ...state, windows, focused: null };
+  }
+
+  if (action.type === 'load') {
+    if (state.order.length > 0) return state;
+    const windows: WmState['windows'] = {};
+    const order: AppId[] = [];
+    for (const saved of action.windows) {
+      const spec = action.specs[saved.app];
+      if (!spec || windows[saved.app]) continue;
+      const restoreTo = saved.mode === 'maximized' ? 'maximized' : 'normal';
+      windows[saved.app] = { app: saved.app, mode: saved.mode, rect: clampRect(saved.rect, spec.min, state.area), restoreTo, min: spec.min };
+      order.push(saved.app);
+    }
+    if (order.length === 0) return state;
+    return { ...state, windows, order, focused: topVisible(order, windows) };
   }
 
   if (action.type === 'cycle') {

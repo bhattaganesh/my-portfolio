@@ -12,22 +12,26 @@ interface Entry {
 interface TerminalAppProps {
   ctx: Context;
   onEffect: (effect: Effect) => void;
+  /** A command handed over from elsewhere (Spotlight); it runs once per distinct id. */
+  queued?: { id: number; command: string } | null;
 }
 
-const SUGGESTED = ['help', 'about', 'projects', 'journey', 'resume', 'contact'];
+const SUGGESTED = ['help', 'about', 'projects', 'journey', 'resume', 'contact', 'open settings'];
 const WELCOME: Entry = { id: 0, lines: [{ kind: 'text', text: 'Welcome to Ganesh Workspace. Type help, or pick a command below.', tone: 'muted' }] };
 
 /**
  * Simulated portfolio terminal with history, Tab completion that never traps focus,
  * and clickable command chips as an alternative to typing.
  */
-export function TerminalApp({ ctx, onEffect }: TerminalAppProps) {
+export function TerminalApp({ ctx, onEffect, queued }: TerminalAppProps) {
   const [entries, setEntries] = useState<Entry[]>([WELCOME]);
   const [value, setValue] = useState('');
   const [history, setHistory] = useState<string[]>([]);
   const [cursor, setCursor] = useState<number | null>(null);
   const nextId = useRef(1);
   const logRef = useRef<HTMLDivElement>(null);
+
+  const ranQueued = useRef<number | null>(null);
 
   useEffect(() => {
     logRef.current?.scrollTo({ top: logRef.current.scrollHeight });
@@ -46,9 +50,17 @@ export function TerminalApp({ ctx, onEffect }: TerminalAppProps) {
     if (result.effect) onEffect(result.effect);
   };
 
+  useEffect(() => {
+    if (!queued || ranQueued.current === queued.id) return;
+    ranQueued.current = queued.id;
+    submit(queued.command);
+    // submit is recreated each render; the queued id alone decides when to run.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [queued]);
+
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Tab' && !e.shiftKey) {
-      const completion = complete(value);
+      const completion = complete(value, ctx.apps);
       if (completion.changed) {
         e.preventDefault();
         setValue(completion.value);
@@ -65,7 +77,7 @@ export function TerminalApp({ ctx, onEffect }: TerminalAppProps) {
     }
   };
 
-  const matches = value.trim() ? candidates(value) : [];
+  const matches = value.trim() ? candidates(value, ctx.apps) : [];
   const hint = matches.length > 1 ? `Matches: ${matches.join(', ')}` : '';
 
   return (

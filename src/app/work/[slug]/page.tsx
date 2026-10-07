@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { FlowDiagram } from '@/components/atlas/flow-diagram';
 import { findWork, work, type WorkLink } from '@/content/work';
 import { SITE_CONFIG } from '@/lib/constants';
 
@@ -99,6 +100,7 @@ export default async function WorkPage(props: PageProps<'/work/[slug]'>) {
                   How a request flows
                 </h2>
                 <p className="mt-0 mb-4 text-muted">Traced from the source code; each step links to the file that does it.</p>
+                <FlowDiagram stages={item.caseStudy.flow} label={`How a request flows through ${item.title}`} className="mb-6 text-ink" />
                 <ol className="m-0 grid list-none gap-4 p-0">
                   {item.caseStudy.flow.map((stage, i) => (
                     <li key={stage.title} className="grid grid-cols-[2.5rem_1fr] gap-x-3">

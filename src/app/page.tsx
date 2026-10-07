@@ -70,7 +70,7 @@ export default function HomePage() {
           <h2 id="selected-work" className="m-0 text-3xl font-bold md:text-[34px]">
             Selected work
           </h2>
-          <Link href="/work/" className="eyebrow hover:text-cobalt">
+          <Link href="/work/" className="eyebrow inline-flex min-h-11 items-center hover:text-cobalt">
             All {work.length} projects
           </Link>
         </div>

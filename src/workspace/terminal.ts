@@ -5,6 +5,7 @@
 import { education, profile, roleDates, roles } from '@/content/profile';
 import { findWork, work } from '@/content/work';
 import { skillCategories } from '@/data/skills';
+import type { AppId } from './wm';
 
 export type Line =
   | { kind: 'text'; text: string; tone?: 'muted' | 'error' }
@@ -12,7 +13,7 @@ export type Line =
   | { kind: 'command'; label: string; command: string }
   | { kind: 'commands'; commands: readonly string[] };
 
-export type Effect = { type: 'clear' } | { type: 'exit' } | { type: 'openProject'; slug?: string };
+export type Effect = { type: 'clear' } | { type: 'exit' } | { type: 'openProject'; slug?: string } | { type: 'openApp'; app: AppId };
 
 export interface Result {
   lines: Line[];
@@ -21,6 +22,8 @@ export interface Result {
 
 export interface Context {
   resumeHref: string | null;
+  /** Apps that `open` may launch. */
+  apps: readonly AppId[];
 }
 
 /** Longest input accepted; anything longer is rejected before parsing. */
@@ -30,9 +33,9 @@ export const HISTORY_LIMIT = 50;
 /** Largest edit distance still offered as a "did you mean" suggestion. */
 const SUGGESTION_DISTANCE = 2;
 
-const COMMANDS = ['help', 'about', 'projects', 'journey', 'skills', 'notes', 'resume', 'contact', 'clear', 'exit'] as const;
+export const COMMANDS = ['help', 'about', 'projects', 'open', 'journey', 'skills', 'notes', 'resume', 'contact', 'clear', 'exit'] as const;
 type Command = (typeof COMMANDS)[number];
-const TAKES_ARGUMENT: ReadonlySet<Command> = new Set(['projects']);
+const TAKES_ARGUMENT: ReadonlySet<Command> = new Set(['projects', 'open']);
 
 const text = (value: string, tone?: 'muted' | 'error'): Line => ({ kind: 'text', text: value, tone });
 
@@ -59,6 +62,13 @@ const HANDLERS: Record<Command, (args: string[], ctx: Context) => Result> = {
       return { lines: [text(`No project called "${args.join(' ')}". Try: projects`, 'error')] };
     }
     return { lines: [text(`Opening ${item.title} in Projects…`, 'muted')], effect: { type: 'openProject', slug: item.slug } };
+  },
+  open: (args, ctx) => {
+    const app = ctx.apps.find((id) => id === args[0]?.toLowerCase());
+    if (args.length !== 1 || !app) {
+      return { lines: [text(args.length ? `No app called "${args.join(' ')}".` : 'Open which app?', 'error'), text(`Usage: open <${ctx.apps.join(' | ')}>`, 'muted')] };
+    }
+    return { lines: [text(`Opening ${app}…`, 'muted')], effect: { type: 'openApp', app } };
   },
   journey: () => ({
     lines: [
@@ -143,13 +153,15 @@ const commonPrefix = (values: string[]) =>
  * Lists what the token under the cursor could become.
  *
  * @param input Current input value.
- * @returns Matching commands, or project names after "projects ".
+ * @param apps App names `open` accepts.
+ * @returns Matching commands, project names after "projects ", or app names after "open ".
  */
-export function candidates(input: string): string[] {
+export function candidates(input: string, apps: readonly string[] = []): string[] {
   const lower = input.toLowerCase().trimStart();
   const parts = lower.split(/\s+/);
   if (parts.length === 1) return parts[0] ? COMMANDS.filter((c) => c.startsWith(parts[0])) : [];
   if (parts.length === 2 && parts[0] === 'projects') return work.map((w) => w.slug).filter((s) => s.startsWith(parts[1]));
+  if (parts.length === 2 && parts[0] === 'open') return apps.filter((a) => a.startsWith(parts[1]));
   return [];
 }
 
@@ -157,10 +169,11 @@ export function candidates(input: string): string[] {
  * Completes the input on Tab. Callers must let Tab move focus whenever `changed` is false.
  *
  * @param input Current input value.
+ * @param apps App names `open` accepts.
  * @returns The completed value, whether it changed, and the candidates considered.
  */
-export function complete(input: string): Completion {
-  const options = candidates(input);
+export function complete(input: string, apps: readonly string[] = []): Completion {
+  const options = candidates(input, apps);
   const unchanged = { value: input, changed: false, candidates: options };
   if (options.length === 0) return unchanged;
   const lower = input.toLowerCase().trimStart();

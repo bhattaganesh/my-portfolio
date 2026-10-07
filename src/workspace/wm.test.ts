@@ -13,7 +13,7 @@ import {
 
 const SPEC: WindowSpec = { size: { w: 760, h: 560 }, min: { w: 360, h: 280 } };
 const DESKTOP = { w: 1440, h: 800 };
-const APPS: AppId[] = ['projects', 'terminal', 'journey', 'contact'];
+const APPS: AppId[] = ['projects', 'terminal', 'about', 'settings'];
 
 const open = (s: WmState, app: AppId) => reduce(s, { type: 'open', app, spec: SPEC });
 
@@ -44,7 +44,7 @@ function lcg(seed: number) {
 function randomAction(r: () => number): WmAction {
   const app = APPS[Math.floor(r() * APPS.length)];
   const big = () => Math.round((r() - 0.5) * 4000);
-  const pick = Math.floor(r() * 11);
+  const pick = Math.floor(r() * 12);
   switch (pick) {
     case 0: return { type: 'open', app, spec: SPEC };
     case 1: return { type: 'focus', app };
@@ -56,6 +56,12 @@ function randomAction(r: () => number): WmAction {
     case 7: return { type: 'resizeTo', app, w: Math.abs(big()), h: Math.abs(big()) };
     case 8: return { type: 'area', w: 200 + Math.floor(r() * 1800), h: 200 + Math.floor(r() * 1000) };
     case 9: return { type: 'cycle', dir: r() < 0.5 ? 1 : -1 };
+    case 10:
+      return {
+        type: 'load',
+        specs: { [app]: SPEC },
+        windows: [{ app, mode: (['normal', 'maximized', 'minimized'] as const)[Math.floor(r() * 3)], rect: { x: big(), y: big(), w: big(), h: big() } }],
+      };
     default: return { type: 'minimizeAll' };
   }
 }
@@ -170,5 +176,27 @@ describe('window manager', () => {
     s = reduce(s, { type: 'minimizeAll' });
     expect(s.focused).toBeNull();
     expect(s.windows.terminal!.restoreTo).toBe('maximized');
+  });
+
+  it('load restores saved windows clamped to the current area, skipping unknown and duplicate apps', () => {
+    const s = reduce(initialState(DESKTOP), {
+      type: 'load',
+      specs: { projects: SPEC, terminal: SPEC },
+      windows: [
+        { app: 'projects', mode: 'normal', rect: { x: 5000, y: -50, w: 100, h: 9999 } },
+        { app: 'about', mode: 'normal', rect: { x: 0, y: 0, w: 400, h: 400 } },
+        { app: 'terminal', mode: 'minimized', rect: { x: 10, y: 10, w: 500, h: 400 } },
+        { app: 'projects', mode: 'maximized', rect: { x: 0, y: 0, w: 500, h: 400 } },
+      ],
+    });
+    assertInvariants(s);
+    expect(s.order).toEqual(['projects', 'terminal']);
+    expect(s.windows.projects!.rect).toEqual({ x: DESKTOP.w - MIN_VISIBLE_WIDTH, y: 0, w: SPEC.min.w, h: DESKTOP.h });
+    expect(s.focused).toBe('projects');
+  });
+
+  it('load never replaces windows the visitor already opened', () => {
+    const s = open(initialState(DESKTOP), 'terminal');
+    expect(reduce(s, { type: 'load', specs: { projects: SPEC }, windows: [{ app: 'projects', mode: 'normal', rect: { x: 0, y: 0, w: 500, h: 400 } }] })).toBe(s);
   });
 });

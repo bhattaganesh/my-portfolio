@@ -1,7 +1,8 @@
 'use client';
 
-import { Component, useEffect, useRef, useState } from 'react';
+import { Component, useRef, useState } from 'react';
 import type { Layout, Win, WmAction } from '@/workspace/wm';
+import { PopupMenu } from './popup-menu';
 
 /** Arrow-key step for keyboard move/resize, and the larger step while Shift is held. */
 const KEY_STEP = 16;
@@ -46,22 +47,11 @@ export function WindowFrame({
   const [menuOpen, setMenuOpen] = useState(false);
   const [mode, setMode] = useState<KeyboardMode>(null);
   const drag = useRef<{ kind: 'move' | 'size'; px: number; py: number; x: number; y: number; w: number; h: number } | null>(null);
-  const menuRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const minimized = win.mode === 'minimized';
   const panel = layout === 'panels';
   const movable = !panel && win.mode === 'normal';
-
-  useEffect(() => {
-    if (!menuOpen) return;
-    menuRef.current?.querySelector('button')?.focus();
-    const onPointer = (e: PointerEvent) => {
-      if (!menuRef.current?.contains(e.target as Node) && e.target !== menuButtonRef.current) setMenuOpen(false);
-    };
-    document.addEventListener('pointerdown', onPointer);
-    return () => document.removeEventListener('pointerdown', onPointer);
-  }, [menuOpen]);
 
   const closeMenu = (returnFocus: boolean) => {
     setMenuOpen(false);
@@ -69,7 +59,6 @@ export function WindowFrame({
   };
 
   const startKeyboardMode = (next: Exclude<KeyboardMode, null>) => {
-    setMenuOpen(false);
     setMode(next);
     headingRef.current?.focus();
     onAnnounce(
@@ -212,29 +201,22 @@ export function WindowFrame({
               <span aria-hidden="true">•••</span>
             </button>
             {menuOpen && (
-              <div
+              <PopupMenu
                 id={`gw-menu-${app}`}
-                ref={menuRef}
-                className="gw-menu"
-                onKeyDown={(e) => {
-                  if (e.key === 'Escape') {
-                    e.stopPropagation();
-                    closeMenu(true);
-                  }
-                }}
-              >
-                {movable && (
-                  <>
-                    <button type="button" onClick={() => startKeyboardMode('move')}>Move with keyboard</button>
-                    <button type="button" onClick={() => startKeyboardMode('size')}>Resize with keyboard</button>
-                  </>
-                )}
-                <button type="button" onClick={() => { closeMenu(false); toggleMaximize(); }}>
-                  {win.mode === 'maximized' ? 'Restore size' : 'Maximize'}
-                </button>
-                <button type="button" onClick={() => { closeMenu(false); minimize(); }}>Minimize</button>
-                <button type="button" onClick={() => { closeMenu(false); close(); }}>Close</button>
-              </div>
+                label={`${title} window`}
+                items={[
+                  ...(movable
+                    ? [
+                        { label: 'Move with keyboard', onSelect: () => startKeyboardMode('move') },
+                        { label: 'Resize with keyboard', onSelect: () => startKeyboardMode('size') },
+                      ]
+                    : []),
+                  { label: win.mode === 'maximized' ? 'Restore size' : 'Maximize', onSelect: toggleMaximize },
+                  { label: 'Minimize', onSelect: minimize },
+                  { label: 'Close', onSelect: close, separatorBefore: true },
+                ]}
+                onClose={closeMenu}
+              />
             )}
           </div>
         </header>

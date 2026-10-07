@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
+import { FlowDiagram } from '@/components/atlas/flow-diagram';
 import { findWork, work } from '@/content/work';
 
 interface ProjectsAppProps {
@@ -71,7 +73,41 @@ export function ProjectsApp({ slug, compact, onSelect }: ProjectsAppProps) {
             <h4 id="gw-owned-title">What I owned</h4>
             <p>{item.owned}</p>
           </section>
+          {item.caseStudy && (
+            <>
+              <section className="gw-finder-section" aria-labelledby="gw-decisions-title">
+                <h4 id="gw-decisions-title">Key decisions</h4>
+                <ul className="gw-finder-points">
+                  {item.caseStudy.decisions.map((d) => (
+                    <li key={d.title}>
+                      <strong>{d.title}</strong>
+                      <p>{d.detail}</p>
+                      <SourceLink href={d.source.href} label={d.source.label} />
+                    </li>
+                  ))}
+                </ul>
+              </section>
+              <section className="gw-finder-section" aria-labelledby="gw-flow-title">
+                <h4 id="gw-flow-title">Architecture: how a request flows</h4>
+                <FlowDiagram stages={item.caseStudy.flow} label={`How a request flows through ${item.title}`} className="gw-finder-diagram" />
+                <ol className="gw-finder-points">
+                  {item.caseStudy.flow.map((stage) => (
+                    <li key={stage.title}>
+                      <strong>{stage.title}</strong>
+                      <p>{stage.detail}</p>
+                      <SourceLink href={stage.source.href} label={stage.source.label} />
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            </>
+          )}
           <ul className="gw-finder-links">
+            <li>
+              <Link href={`/work/${item.slug}/`} prefetch={false}>
+                Open the full case study on the portfolio
+              </Link>
+            </li>
             {item.links.map((l) => (
               <li key={l.href}>
                 <a href={l.href} target="_blank" rel="noopener noreferrer">
@@ -83,5 +119,20 @@ export function ProjectsApp({ slug, compact, onSelect }: ProjectsAppProps) {
         </article>
       )}
     </div>
+  );
+}
+
+/**
+ * A link to the public source file that backs a case-study point.
+ *
+ * @param props.href The pinned source URL.
+ * @param props.label The file name shown to the visitor.
+ */
+function SourceLink({ href, label }: { href: string; label: string }) {
+  return (
+    <a className="gw-finder-source" href={href} target="_blank" rel="noopener noreferrer">
+      Source: {label}
+      <span className="sr-only"> (opens in a new tab)</span> <span aria-hidden="true">↗</span>
+    </a>
   );
 }

@@ -17,13 +17,3 @@ export function findResume(): string | null {
     throw error;
   }
 }
-
-/**
- * Builds the fallback "ask for my résumé" email link used while no PDF is published.
- *
- * @param email The address to write to.
- * @returns A mailto: URL with a prefilled subject.
- */
-export function resumeRequestHref(email: string): string {
-  return `mailto:${email}?subject=${encodeURIComponent('Résumé request')}`;
-}

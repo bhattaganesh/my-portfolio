@@ -92,3 +92,25 @@ test('touch targets in the launcher and panels are at least 44px', async ({ page
   await measure('.gw-term-chips button');
   expect(small).toEqual([]);
 });
+
+test('the browser Back button closes a panel back to the apps, and a link can open an app directly', async ({ page }) => {
+  await page.goto('/workspace/');
+  const launcher = page.getByRole('navigation', { name: 'Apps' });
+  await launcher.getByRole('button', { name: /About Ganesh/ }).tap();
+  await expect(page).toHaveURL(/#about$/);
+  await expect(windowRegion(page, 'About Ganesh')).toBeVisible();
+
+  await page.goBack();
+  await expect(windowRegion(page, 'About Ganesh')).toBeHidden();
+  await expect(page).toHaveURL(/\/workspace\/$/);
+  await expect(launcher.getByRole('button', { name: /About Ganesh/ })).toBeFocused();
+
+  await launcher.getByRole('button', { name: /Settings/ }).tap();
+  await windowRegion(page, 'Settings').getByRole('button', { name: 'Apps', exact: true }).tap();
+  await expect(page).toHaveURL(/\/workspace\/$/);
+  await expect(launcher.getByRole('button', { name: /Settings/ })).toBeFocused();
+
+  await page.goto('/workspace/#projects');
+  await expect(windowRegion(page, 'Projects')).toHaveAttribute('data-mode', 'panel');
+  await expect(page.locator('#gw-title-projects')).toBeFocused();
+});

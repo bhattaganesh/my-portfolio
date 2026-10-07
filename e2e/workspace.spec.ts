@@ -75,7 +75,7 @@ test('keyboard only: open, move, resize, use the terminal and close', async ({ p
   await page.keyboard.press('Tab');
   await expect(page.getByRole('button', { name: 'Window options for Projects' })).toBeFocused();
   await page.keyboard.press('Enter');
-  await expect(page.getByRole('button', { name: 'Move with keyboard' })).toBeFocused();
+  await expect(page.getByRole('menuitem', { name: 'Move with keyboard' })).toBeFocused();
   await page.keyboard.press('Enter');
   for (let i = 0; i < 3; i++) await page.keyboard.press('ArrowRight');
   await page.keyboard.press('Enter');
@@ -84,8 +84,8 @@ test('keyboard only: open, move, resize, use the terminal and close', async ({ p
 
   await page.keyboard.press('Tab');
   await page.keyboard.press('Enter');
-  await page.keyboard.press('Tab');
-  await expect(page.getByRole('button', { name: 'Resize with keyboard' })).toBeFocused();
+  await page.keyboard.press('ArrowDown');
+  await expect(page.getByRole('menuitem', { name: 'Resize with keyboard' })).toBeFocused();
   await page.keyboard.press('Enter');
   await page.keyboard.press('Shift+ArrowDown');
   await page.keyboard.press('Escape');
@@ -95,7 +95,7 @@ test('keyboard only: open, move, resize, use the terminal and close', async ({ p
   await page.keyboard.press('Enter');
   await page.keyboard.press('Escape');
   await expect(page.getByRole('button', { name: 'Window options for Projects' })).toBeFocused();
-  await expect(page.getByRole('button', { name: 'Move with keyboard' })).toHaveCount(0);
+  await expect(page.getByRole('menuitem', { name: 'Move with keyboard' })).toHaveCount(0);
 
   for (let i = 0; i < 40; i++) {
     await page.keyboard.press('Tab');
@@ -122,7 +122,8 @@ test('keyboard only: open, move, resize, use the terminal and close', async ({ p
   await page.keyboard.press('Shift+Tab');
   await expect(page.getByRole('button', { name: 'Window options for Terminal' })).toBeFocused();
   await page.keyboard.press('Enter');
-  await page.getByRole('button', { name: 'Close', exact: true }).focus();
+  await page.keyboard.press('End');
+  await expect(page.getByRole('menuitem', { name: 'Close', exact: true })).toBeFocused();
   await page.keyboard.press('Enter');
   await expect(windowRegion(page, 'Terminal')).toHaveCount(0);
   const focusInProjects = await page.evaluate(() => !!document.activeElement?.closest('[aria-labelledby="gw-title-projects"]'));

@@ -37,3 +37,12 @@ export function roleDates(role: Role): string {
   if (role.end) return `${role.start} – ${role.end}`;
   return role.current ? `${role.start} – present` : `joined ${role.start}`;
 }
+
+/**
+ * Builds the "ask for my résumé" email link used while no PDF is published.
+ *
+ * @returns A mailto: URL to the profile address with a prefilled subject.
+ */
+export function resumeRequestHref(): string {
+  return `mailto:${profile.email}?subject=${encodeURIComponent('Résumé request')}`;
+}

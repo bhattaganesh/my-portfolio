@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { HISTORY_LIMIT, MAX_INPUT_LENGTH, complete, editDistance, pushHistory, run } from './terminal';
 
-const ctx = { resumeHref: null };
+const ctx = { resumeHref: null, apps: ['projects', 'terminal', 'about', 'settings'] as const };
 const allText = (input: string) =>
   run(input, ctx)
     .lines.map((l) => (l.kind === 'text' ? l.text : l.kind === 'commands' ? l.commands.join(' ') : l.label))
@@ -26,6 +26,14 @@ describe('terminal commands', () => {
     expect(run('projects Spectra', ctx).effect).toEqual({ type: 'openProject', slug: 'spectra' });
   });
 
+  it('opens only registered apps, and explains its usage otherwise', () => {
+    expect(run('open Settings', ctx).effect).toEqual({ type: 'openApp', app: 'settings' });
+    for (const bad of ['open', 'open shell', 'open about settings', 'open ../about']) {
+      expect(run(bad, ctx).effect, bad).toBeUndefined();
+      expect(allText(bad), bad).toMatch(/Usage: open <projects \| terminal \| about \| settings>/);
+    }
+  });
+
   it('rejects unknown projects and extra arguments', () => {
     expect(run('projects nope', ctx).effect).toBeUndefined();
     expect(allText('projects nope')).toMatch(/No project called/);
@@ -42,7 +50,7 @@ describe('terminal commands', () => {
       const result = run(input, ctx);
       expect(result.effect, input).toBeUndefined();
       expect(result.lines.every((l) => l.kind === 'text' || l.kind === 'command'), input).toBe(true);
-      expect(result.lines.some((l) => l.kind === 'command' && !['help', 'clear', 'exit', 'about', 'notes', 'skills', 'resume', 'contact', 'journey', 'projects'].includes(l.command)), input).toBe(false);
+      expect(result.lines.some((l) => l.kind === 'command' && !['help', 'clear', 'exit', 'about', 'notes', 'skills', 'resume', 'contact', 'journey', 'projects', 'open'].includes(l.command)), input).toBe(false);
     }
   });
 
@@ -52,7 +60,7 @@ describe('terminal commands', () => {
 
   it('reports a missing résumé honestly and links one when it exists', () => {
     expect(allText('resume')).toMatch(/isn't published yet/);
-    const withPdf = run('resume', { resumeHref: '/resume/cv.pdf' }).lines;
+    const withPdf = run('resume', { ...ctx, resumeHref: '/resume/cv.pdf' }).lines;
     expect(withPdf).toContainEqual({ kind: 'link', label: 'Download my résumé (PDF)', href: '/resume/cv.pdf' });
   });
 
@@ -67,6 +75,9 @@ describe('completion', () => {
     expect(complete('jou')).toMatchObject({ value: 'journey', changed: true });
     expect(complete('proj')).toMatchObject({ value: 'projects ', changed: true });
     expect(complete('projects sp')).toMatchObject({ value: 'projects spectra', changed: true });
+    expect(complete('o')).toMatchObject({ value: 'open ', changed: true });
+    expect(complete('open se', ctx.apps)).toMatchObject({ value: 'open settings', changed: true });
+    expect(complete('open se', ['settings', 'search'])).toMatchObject({ changed: false });
   });
 
   it('reports no change when nothing can be extended, so Tab can move focus', () => {
