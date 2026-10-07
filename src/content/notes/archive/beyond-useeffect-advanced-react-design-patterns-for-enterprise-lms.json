@@ -1,0 +1,371 @@
+{
+  "slug": "beyond-useeffect-advanced-react-design-patterns-for-enterprise-lms",
+  "title": "Beyond useEffect: Advanced React Design Patterns for Enterprise LMS",
+  "publishedAt": "2026-01-18T09:11:47",
+  "published": false,
+  "provenance": {
+    "sourceUrl": "https://www.ganeshbhatt.com.np/blog/beyond-useeffect-advanced-react-design-patterns-for-enterprise-lms/",
+    "capturedFrom": "docs/engineering-atlas/baseline/live-posts/beyond-useeffect-advanced-react-design-patterns-for-enterprise-lms.html",
+    "capturedAt": "2026-10-07"
+  },
+  "blocks": [
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Every React developer learns "
+        },
+        {
+          "t": "code",
+          "value": "useEffect"
+        },
+        {
+          "t": "text",
+          "value": " early on. It’s the escape hatch for syncing with the outside world — fetching data, subscribing to events, manipulating the DOM. But as your React applications grow in complexity, you start to notice that "
+        },
+        {
+          "t": "code",
+          "value": "useEffect"
+        },
+        {
+          "t": "text",
+          "value": " is doing too much work."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "At Brainstorm Force, building complex dashboard UIs with real-time data, multi-step forms, and deeply nested state, we found that over-relying on "
+        },
+        {
+          "t": "code",
+          "value": "useEffect"
+        },
+        {
+          "t": "text",
+          "value": " leads to subtle bugs, performance issues, and components that are nearly impossible to test."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "This is a deep dive into the advanced React patterns that helped us build more maintainable and predictable UIs."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Why useEffect Gets Overused"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "The classic anti-pattern is using "
+        },
+        {
+          "t": "code",
+          "value": "useEffect"
+        },
+        {
+          "t": "text",
+          "value": " to derive state:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "jsx",
+      "text": "// ❌ Anti-pattern: Using useEffect for derived state\nfunction OrderSummary({ items, coupon }) {\n  const [total, setTotal] = useState(0);\n  const [discount, setDiscount] = useState(0);\n  const [finalTotal, setFinalTotal] = useState(0);\n\n  useEffect(() => {\n    const subtotal = items.reduce((sum, item) => sum + item.price * item.qty, 0);\n    setTotal(subtotal);\n  }, [items]);\n\n  useEffect(() => {\n    if (coupon?.type === 'percent') {\n      setDiscount(total * coupon.value / 100);\n    } else {\n      setDiscount(coupon?.value ?? 0);\n    }\n  }, [total, coupon]);\n\n  useEffect(() => {\n    setFinalTotal(total - discount);\n  }, [total, discount]);\n\n  // This has race conditions, stale closure bugs, and unnecessary re-renders\n}"
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "The correct approach is to derive state during render, not in effects:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "jsx",
+      "text": "// ✅ Derive state during render\nfunction OrderSummary({ items, coupon }) {\n  const total = useMemo(\n    () => items.reduce((sum, item) => sum + item.price * item.qty, 0),\n    [items]\n  );\n\n  const discount = useMemo(() => {\n    if (!coupon) return 0;\n    return coupon.type === 'percent' ? total * coupon.value / 100 : coupon.value;\n  }, [total, coupon]);\n\n  const finalTotal = total - discount;\n  \n  // Zero effects, zero bugs, renders are pure functions of props/state\n}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Pattern 1: useReducer for Complex State Machines"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "When component state has multiple sub-values that change together with complex transition rules, "
+        },
+        {
+          "t": "code",
+          "value": "useReducer"
+        },
+        {
+          "t": "text",
+          "value": " is far superior to multiple "
+        },
+        {
+          "t": "code",
+          "value": "useState"
+        },
+        {
+          "t": "text",
+          "value": " calls. It makes state transitions explicit and testable:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "typescript",
+      "text": "type FormState =\n  | { status: 'idle' }\n  | { status: 'validating' }\n  | { status: 'submitting'; data: FormData }\n  | { status: 'success'; submittedAt: Date }\n  | { status: 'error'; message: string; retries: number };\n\ntype FormAction =\n  | { type: 'START_VALIDATE' }\n  | { type: 'SUBMIT'; data: FormData }\n  | { type: 'SUCCESS' }\n  | { type: 'ERROR'; message: string }\n  | { type: 'RETRY' };\n\nfunction formReducer(state: FormState, action: FormAction): FormState {\n  switch (action.type) {\n    case 'START_VALIDATE':\n      if (state.status !== 'idle' && state.status !== 'error') return state;\n      return { status: 'validating' };\n\n    case 'SUBMIT':\n      if (state.status !== 'validating') return state;\n      return { status: 'submitting', data: action.data };\n\n    case 'SUCCESS':\n      if (state.status !== 'submitting') return state;\n      return { status: 'success', submittedAt: new Date() };\n\n    case 'ERROR':\n      if (state.status !== 'submitting') return state;\n      return {\n        status: 'error',\n        message: action.message,\n        retries: state.status === 'error' ? state.retries + 1 : 0,\n      };\n\n    case 'RETRY':\n      if (state.status !== 'error') return state;\n      return { status: 'idle' };\n\n    default:\n      return state;\n  }\n}\n\nfunction ContactForm() {\n  const [state, dispatch] = useReducer(formReducer, { status: 'idle' });\n\n  async function handleSubmit(e: React.FormEvent) {\n    e.preventDefault();\n    dispatch({ type: 'START_VALIDATE' });\n    \n    const formData = new FormData(e.currentTarget);\n    // Validate...\n    dispatch({ type: 'SUBMIT', data: formData });\n    \n    try {\n      await submitContact(formData);\n      dispatch({ type: 'SUCCESS' });\n    } catch (err) {\n      dispatch({ type: 'ERROR', message: err.message });\n    }\n  }\n\n  return (\n    <form onSubmit={handleSubmit}>\n      {state.status === 'error' && (\n        <ErrorAlert message={state.message} onRetry={() => dispatch({ type: 'RETRY' })} />\n      )}\n      {state.status === 'success' && <SuccessBanner submittedAt={state.submittedAt} />}\n      <button disabled={state.status === 'submitting'}>\n        {state.status === 'submitting' ? 'Sending...' : 'Send Message'}\n      </button>\n    </form>\n  );\n}"
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "The reducer is a pure function — easily unit tested without rendering anything:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "typescript",
+      "text": "test('ERROR action increments retries on second failure', () => {\n  const state1 = formReducer({ status: 'submitting', data: fd }, { type: 'ERROR', message: 'Network error' });\n  expect(state1).toEqual({ status: 'error', message: 'Network error', retries: 0 });\n\n  const state2 = formReducer({ status: 'submitting', data: fd }, { type: 'ERROR', message: 'Timeout' });\n  expect(state2.retries).toBe(0); // retries are per-submission\n});"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Pattern 2: The Custom Hook Extraction Pattern"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Complex components often mix UI rendering with business logic. Extract logic into custom hooks to achieve separation of concerns:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "typescript",
+      "text": "// ❌ Logic mixed into component — hard to test, hard to reuse\nfunction CourseEnrollmentButton({ courseId }: { courseId: number }) {\n  const [enrolled, setEnrolled] = useState(false);\n  const [loading, setLoading] = useState(true);\n  const [enrolling, setEnrolling] = useState(false);\n  const { user } = useAuth();\n\n  useEffect(() => {\n    if (!user) return;\n    checkEnrollmentStatus(courseId, user.id).then(status => {\n      setEnrolled(status.enrolled);\n      setLoading(false);\n    });\n  }, [courseId, user]);\n\n  async function handleEnroll() {\n    setEnrolling(true);\n    try {\n      await enrollInCourse(courseId);\n      setEnrolled(true);\n    } finally {\n      setEnrolling(false);\n    }\n  }\n  // ... render\n}\n\n// ✅ Extract into a custom hook\nfunction useCourseEnrollment(courseId: number) {\n  const { user } = useAuth();\n  const queryClient = useQueryClient();\n\n  const { data: enrolled, isLoading } = useQuery({\n    queryKey: ['enrollment', courseId, user?.id],\n    queryFn: () => checkEnrollmentStatus(courseId, user!.id),\n    enabled: !!user,\n    select: (data) => data.enrolled,\n  });\n\n  const { mutate: enroll, isPending: isEnrolling } = useMutation({\n    mutationFn: () => enrollInCourse(courseId),\n    onSuccess: () => {\n      queryClient.setQueryData(['enrollment', courseId, user?.id], { enrolled: true });\n    },\n  });\n\n  return { enrolled, isLoading, isEnrolling, enroll };\n}\n\n// Component is now purely presentational\nfunction CourseEnrollmentButton({ courseId }: { courseId: number }) {\n  const { enrolled, isLoading, isEnrolling, enroll } = useCourseEnrollment(courseId);\n\n  if (isLoading) return <Skeleton className=\"h-10 w-32\" />;\n  if (enrolled) return <EnrolledBadge />;\n\n  return (\n    <Button onClick={() => enroll()} disabled={isEnrolling}>\n      {isEnrolling ? 'Enrolling...' : 'Enroll Now'}\n    </Button>\n  );\n}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Pattern 3: Compound Components for Flexible UI"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Compound components use React Context to share state between a parent and its children, creating flexible, composable component APIs:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "typescript",
+      "text": "// Tabs compound component\ninterface TabsContextValue {\n  activeTab: string;\n  setActiveTab: (id: string) => void;\n}\n\nconst TabsContext = createContext<TabsContextValue | null>(null);\n\nfunction useTabs() {\n  const ctx = useContext(TabsContext);\n  if (!ctx) throw new Error('Tabs.* must be used inside <Tabs>');\n  return ctx;\n}\n\nfunction Tabs({ defaultTab, children }: { defaultTab: string; children: ReactNode }) {\n  const [activeTab, setActiveTab] = useState(defaultTab);\n  return (\n    <TabsContext value={{ activeTab, setActiveTab }}>\n      <div className=\"tabs\">{children}</div>\n    </TabsContext>\n  );\n}\n\nfunction TabList({ children }: { children: ReactNode }) {\n  return <div role=\"tablist\" className=\"flex gap-2 border-b\">{children}</div>;\n}\n\nfunction Tab({ id, children }: { id: string; children: ReactNode }) {\n  const { activeTab, setActiveTab } = useTabs();\n  return (\n    <button\n      role=\"tab\"\n      aria-selected={activeTab === id}\n      onClick={() => setActiveTab(id)}\n      className={cn('tab', activeTab === id && 'tab-active')}\n    >\n      {children}\n    </button>\n  );\n}\n\nfunction TabPanel({ id, children }: { id: string; children: ReactNode }) {\n  const { activeTab } = useTabs();\n  if (activeTab !== id) return null;\n  return <div role=\"tabpanel\">{children}</div>;\n}\n\n// Attach sub-components\nTabs.List = TabList;\nTabs.Tab = Tab;\nTabs.Panel = TabPanel;\n\n// Usage — clean, readable, no prop drilling\n<Tabs defaultTab=\"overview\">\n  <Tabs.List>\n    <Tabs.Tab id=\"overview\">Overview</Tabs.Tab>\n    <Tabs.Tab id=\"curriculum\">Curriculum</Tabs.Tab>\n    <Tabs.Tab id=\"reviews\">Reviews</Tabs.Tab>\n  </Tabs.List>\n  <Tabs.Panel id=\"overview\"><CourseOverview /></Tabs.Panel>\n  <Tabs.Panel id=\"curriculum\"><CourseCurriculum /></Tabs.Panel>\n  <Tabs.Panel id=\"reviews\"><CourseReviews /></Tabs.Panel>\n</Tabs>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Pattern 4: Render Props and Headless Components"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "When you want to share complex behavior but give consumers full control over rendering, use the render props pattern (or headless component pattern):"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "typescript",
+      "text": "// Headless combobox — handles keyboard navigation, ARIA, filtering\n// Consumer controls all rendering\nfunction Combobox<T>({\n  items,\n  itemToString,\n  onSelect,\n  render,\n}: {\n  items: T[];\n  itemToString: (item: T) => string;\n  onSelect: (item: T) => void;\n  render: (props: ComboboxRenderProps<T>) => ReactNode;\n}) {\n  const [query, setQuery] = useState('');\n  const [open, setOpen] = useState(false);\n  const [cursor, setCursor] = useState(0);\n\n  const filtered = useMemo(\n    () => items.filter(item =>\n      itemToString(item).toLowerCase().includes(query.toLowerCase())\n    ),\n    [items, query, itemToString]\n  );\n\n  function handleKeyDown(e: KeyboardEvent) {\n    switch (e.key) {\n      case 'ArrowDown': setCursor(c => Math.min(c + 1, filtered.length - 1)); break;\n      case 'ArrowUp':   setCursor(c => Math.max(c - 1, 0)); break;\n      case 'Enter':     onSelect(filtered[cursor]); setOpen(false); break;\n      case 'Escape':    setOpen(false); break;\n    }\n  }\n\n  return render({\n    query, setQuery, open, setOpen,\n    filtered, cursor, handleKeyDown,\n    getItemProps: (item: T, index: number) => ({\n      role: 'option',\n      'aria-selected': index === cursor,\n      onClick: () => { onSelect(item); setOpen(false); },\n    }),\n  });\n}\n\n// Consumer can style it however they want\n<Combobox\n  items={users}\n  itemToString={u => u.name}\n  onSelect={setSelectedUser}\n  render={({ query, setQuery, open, filtered, getItemProps }) => (\n    <div className=\"relative\">\n      <input\n        value={query}\n        onChange={e => setQuery(e.target.value)}\n        className=\"input\"\n        placeholder=\"Search users...\"\n      />\n      {open && (\n        <ul className=\"absolute top-full w-full bg-white shadow-lg rounded-xl z-10\">\n          {filtered.map((user, i) => (\n            <li key={user.id} {...getItemProps(user, i)} className=\"px-4 py-2 hover:bg-blue-50 cursor-pointer\">\n              {user.name}\n            </li>\n          ))}\n        </ul>\n      )}\n    </div>\n  )}\n/>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Pattern 5: Suspense + Error Boundaries for Async UI"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "React’s concurrent features (Suspense + Error Boundaries + "
+        },
+        {
+          "t": "code",
+          "value": "use()"
+        },
+        {
+          "t": "text",
+          "value": ") transform async UI from imperative to declarative:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "typescript",
+      "text": "// Wrap async data in a Resource\nfunction CourseListPage() {\n  return (\n    <ErrorBoundary fallback={<CourseListError />}>\n      <Suspense fallback={<CourseListSkeleton />}>\n        <CourseList />\n      </Suspense>\n    </ErrorBoundary>\n  );\n}\n\n// Inside — no loading state, no error state, just data\nasync function CourseList() {\n  const courses = await getCourses(); // React 19 async component\n  \n  return (\n    <div className=\"grid grid-cols-3 gap-6\">\n      {courses.map(course => <CourseCard key={course.id} course={course} />)}\n    </div>\n  );\n}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Memoization: When to Use and When to Skip"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "The most common mistake with React performance is either memoizing everything (premature optimization) or nothing (performance regressions). The rule:"
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "useMemo:"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " Use for expensive computations (>1ms) with stable dependencies, or to preserve referential identity for context values and dependency arrays"
+          }
+        ],
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "useCallback:"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " Use when a function is passed to a memoized child component or used as a useEffect dependency"
+          }
+        ],
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "React.memo:"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " Use on components that receive stable props and re-render frequently from parent state changes"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "typescript",
+      "text": "// When NOT to memoize\nconst double = useMemo(() => value * 2, [value]); // Simple math — don't bother\nconst handleClick = useCallback(() => setCount(c => c + 1), []); // No children, no effect dep\n\n// When TO memoize\nconst sortedFilteredItems = useMemo(\n  () => items\n    .filter(item => item.status === filter)\n    .sort((a, b) => b.createdAt - a.createdAt),\n  [items, filter]\n); // Potentially O(n log n) — worth memoizing\n\nconst contextValue = useMemo(\n  () => ({ user, logout, updateProfile }),\n  [user]\n); // Prevents all context consumers from re-rendering on every parent render"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Conclusion"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "The patterns in this article — reducers for state machines, custom hooks for logic extraction, compound components for API design, render props for headless behavior, and Suspense for async UI — aren’t academic concepts. They’re the day-to-day toolkit of teams building serious React applications."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "The common thread: React components work best when they’re pure functions of state. The more you move side effects, derivations, and business logic out of the render phase and into the right abstractions, the more predictable, testable, and maintainable your UI becomes."
+        }
+      ]
+    }
+  ]
+}

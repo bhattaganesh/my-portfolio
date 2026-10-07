@@ -1,0 +1,575 @@
+{
+  "slug": "building-scalable-wordpress-plugins-lessons-from-masteriyo-lms",
+  "title": "Building Scalable WordPress Plugins: Lessons from Masteriyo LMS",
+  "publishedAt": "2026-01-18T15:40:55",
+  "published": false,
+  "provenance": {
+    "sourceUrl": "https://www.ganeshbhatt.com.np/blog/building-scalable-wordpress-plugins-lessons-from-masteriyo-lms/",
+    "capturedFrom": "docs/engineering-atlas/baseline/live-posts/building-scalable-wordpress-plugins-lessons-from-masteriyo-lms.html",
+    "capturedAt": "2026-10-07"
+  },
+  "blocks": [
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "When we set out to build "
+        },
+        {
+          "t": "strong",
+          "children": [
+            {
+              "t": "text",
+              "value": "Masteriyo LMS"
+            }
+          ]
+        },
+        {
+          "t": "text",
+          "value": " — a learning management system plugin for WordPress — we faced a challenge familiar to any serious WordPress plugin developer: how do you architect a complex, feature-rich plugin that stays maintainable as it grows from 10,000 lines of code to 100,000+?"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "This post documents the architectural decisions, patterns, and lessons we learned building a plugin that handles courses, lessons, quizzes, enrollments, payments, and certificates — all within the WordPress ecosystem."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "The Problem with Simple WordPress Plugins"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Most WordPress plugin tutorials start with a "
+        },
+        {
+          "t": "code",
+          "value": "functions.php"
+        },
+        {
+          "t": "text",
+          "value": "-style approach: hook into WordPress actions, add some global functions, maybe a few classes. This works fine for simple plugins but breaks down fast when you’re building complex software:"
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "Global function soup:"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " "
+          },
+          {
+            "t": "code",
+            "value": "my_plugin_do_thing()"
+          },
+          {
+            "t": "text",
+            "value": " everywhere, impossible to test"
+          }
+        ],
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "God classes:"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " A single "
+          },
+          {
+            "t": "code",
+            "value": "My_Plugin"
+          },
+          {
+            "t": "text",
+            "value": " class with 50 methods and 3000 lines"
+          }
+        ],
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "Hook spaghetti:"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " Actions and filters registered everywhere, execution order unclear"
+          }
+        ],
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "No dependency management:"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " Classes instantiating their own dependencies, impossible to mock"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Masteriyo needed to be different. We wanted a codebase that a new developer could understand in a day, extend safely, and test confidently."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Architecture: The Plugin Kernel Pattern"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "The foundation of Masteriyo’s architecture is a "
+        },
+        {
+          "t": "strong",
+          "children": [
+            {
+              "t": "text",
+              "value": "plugin kernel"
+            }
+          ]
+        },
+        {
+          "t": "text",
+          "value": " — a central service container that bootstraps the plugin and manages all dependencies. This pattern is heavily inspired by Laravel’s IoC container."
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "// Main plugin file: masteriyo.php\nfinal class Masteriyo {\n    private static ?self $instance = null;\n    private Container $container;\n\n    private function __construct() {\n        $this->container = new Container();\n        $this->register_providers();\n    }\n\n    public static function instance(): static {\n        return static::$instance ??= new static();\n    }\n\n    private function register_providers(): void {\n        $providers = [\n            DatabaseServiceProvider::class,\n            PostTypeServiceProvider::class,\n            TaxonomyServiceProvider::class,\n            RestApiServiceProvider::class,\n            OrderServiceProvider::class,\n            EnrollmentServiceProvider::class,\n            CourseServiceProvider::class,\n            QuizServiceProvider::class,\n        ];\n\n        foreach ($providers as $provider) {\n            (new $provider($this->container))->register();\n        }\n\n        add_action('init', function() use ($providers) {\n            foreach ($providers as $provider) {\n                (new $provider($this->container))->boot();\n            }\n        });\n    }\n\n    public function get(string $abstract): mixed {\n        return $this->container->get($abstract);\n    }\n}\n\nfunction masteriyo(): Masteriyo {\n    return Masteriyo::instance();\n}"
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "This gives us a clean entry point — "
+        },
+        {
+          "t": "code",
+          "value": "masteriyo()->get(CourseRepository::class)"
+        },
+        {
+          "t": "text",
+          "value": " — and lets every service declare its dependencies explicitly."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Service Providers: Organized Registration"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Each major feature area gets its own service provider. This is where we bind interfaces to implementations, register hooks, and declare dependencies:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "class CourseServiceProvider extends AbstractServiceProvider {\n    public function register(): void {\n        $this->container->bind(\n            CourseRepositoryInterface::class,\n            CourseRepository::class\n        );\n\n        $this->container->singleton(\n            CourseService::class,\n            fn(Container $c) => new CourseService(\n                $c->get(CourseRepositoryInterface::class),\n                $c->get(MediaService::class),\n                $c->get(EventDispatcher::class),\n            )\n        );\n    }\n\n    public function boot(): void {\n        // Register hooks AFTER all providers are bound\n        add_action('save_post_' . PostType::COURSE, [\n            $this->container->get(CourseService::class),\n            'on_save_course'\n        ], 10, 2);\n\n        add_filter('the_content', [\n            $this->container->get(CourseRenderer::class),\n            'maybe_render_course_content'\n        ]);\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "The Repository Pattern: Database Abstraction"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "WordPress developers often write SQL directly or scatter "
+        },
+        {
+          "t": "code",
+          "value": "get_post()"
+        },
+        {
+          "t": "text",
+          "value": " / "
+        },
+        {
+          "t": "code",
+          "value": "get_post_meta()"
+        },
+        {
+          "t": "text",
+          "value": " calls throughout their codebase. Repositories centralize all data access behind a clean interface:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "interface CourseRepositoryInterface {\n    public function find(int $id): ?Course;\n    public function find_by_slug(string $slug): ?Course;\n    public function find_many(CourseQueryArgs $args): CourseCollection;\n    public function save(Course $course): Course;\n    public function delete(int $id, bool $force = false): bool;\n    public function count(CourseQueryArgs $args): int;\n}\n\nclass CourseRepository implements CourseRepositoryInterface {\n    public function find(int $id): ?Course {\n        $post = get_post($id);\n        if (!$post || PostType::COURSE !== $post->post_type) {\n            return null;\n        }\n        return $this->hydrate($post);\n    }\n\n    public function find_many(CourseQueryArgs $args): CourseCollection {\n        $query = new WP_Query([\n            'post_type'      => PostType::COURSE,\n            'post_status'    => $args->status ?? 'publish',\n            'posts_per_page' => $args->per_page ?? 10,\n            'paged'          => $args->page ?? 1,\n            'orderby'        => $args->orderby ?? 'date',\n            'order'          => $args->order ?? 'DESC',\n            'tax_query'      => $this->build_tax_query($args),\n            'meta_query'     => $this->build_meta_query($args),\n        ]);\n\n        return new CourseCollection(\n            array_map([$this, 'hydrate'], $query->posts),\n            $query->found_posts,\n            $args->per_page ?? 10\n        );\n    }\n\n    private function hydrate(WP_Post $post): Course {\n        $meta = get_post_meta($post->ID);\n        return new Course(\n            id:          $post->ID,\n            title:       $post->post_title,\n            slug:        $post->post_name,\n            description: $post->post_content,\n            price:       new Money((int)($meta['_price'][0] ?? 0), 'USD'),\n            duration:    (int)($meta['_duration'][0] ?? 0),\n            difficulty:  Difficulty::from($meta['_difficulty'][0] ?? 'beginner'),\n            authorId:    (int)$post->post_author,\n            status:      CourseStatus::from($post->post_status),\n        );\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Domain Models: Separating Data from WordPress"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Instead of passing "
+        },
+        {
+          "t": "code",
+          "value": "WP_Post"
+        },
+        {
+          "t": "text",
+          "value": " objects everywhere, Masteriyo uses domain models — PHP classes that represent business concepts, not database rows. This keeps business logic clean and testable:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "final readonly class Course {\n    public function __construct(\n        public int           $id,\n        public string        $title,\n        public string        $slug,\n        public string        $description,\n        public Money         $price,\n        public int           $duration,\n        public Difficulty    $difficulty,\n        public int           $authorId,\n        public CourseStatus  $status,\n        public ?DateTimeImmutable $publishedAt = null,\n        public array         $lessonIds = [],\n        public array         $categoryIds = [],\n    ) {}\n\n    public function isFree(): bool {\n        return $this->price->amount === 0;\n    }\n\n    public function isPublished(): bool {\n        return $this->status === CourseStatus::Published;\n    }\n\n    public function estimatedHours(): float {\n        return round($this->duration / 60, 1);\n    }\n\n    public function canBeEnrolledBy(User $user): bool {\n        if (!$this->isPublished()) return false;\n        if ($this->isFree()) return true;\n        return $user->hasActiveSubscription() || $user->hasPurchased($this->id);\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Event System: Decoupled Communication"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "WordPress actions work fine for simple cases, but when multiple subsystems need to react to the same event (e.g., “course enrolled”), you get tight coupling. Masteriyo uses a lightweight event dispatcher:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "// Events are value objects — serializable, testable\nfinal readonly class CourseEnrolledEvent {\n    public function __construct(\n        public int       $enrollmentId,\n        public int       $courseId,\n        public int       $studentId,\n        public DateTimeImmutable $enrolledAt,\n    ) {}\n}\n\n// Listeners are independent, focused classes\nclass SendEnrollmentEmailListener {\n    public function __construct(\n        private readonly EmailService $emailService,\n        private readonly UserRepository $userRepository,\n    ) {}\n\n    public function handle(CourseEnrolledEvent $event): void {\n        $student = $this->userRepository->find($event->studentId);\n        if (!$student) return;\n\n        $this->emailService->send(\n            to: $student->email,\n            template: 'enrollment-confirmation',\n            data: ['course_id' => $event->courseId]\n        );\n    }\n}\n\n// Registration in provider\nclass EnrollmentServiceProvider extends AbstractServiceProvider {\n    public function boot(): void {\n        $dispatcher = $this->container->get(EventDispatcher::class);\n        $dispatcher->listen(\n            CourseEnrolledEvent::class,\n            SendEnrollmentEmailListener::class,\n            UpdateEnrollmentStatsListener::class,\n            GenerateCertificateListener::class,\n        );\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "REST API: Building on WP_REST_Controller"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Masteriyo exposes a comprehensive REST API using proper WP_REST_Controller subclasses. The key is schema-first development — define your schema first, then implement endpoints:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "class CoursesController extends WP_REST_Controller {\n    protected string $namespace = 'masteriyo/v1';\n    protected string $rest_base = 'courses';\n\n    public function register_routes(): void {\n        register_rest_route($this->namespace, '/' . $this->rest_base, [\n            [\n                'methods'             => WP_REST_Server::READABLE,\n                'callback'            => [$this, 'get_items'],\n                'permission_callback' => [$this, 'get_items_permissions_check'],\n                'args'                => $this->get_collection_params(),\n            ],\n            [\n                'methods'             => WP_REST_Server::CREATABLE,\n                'callback'            => [$this, 'create_item'],\n                'permission_callback' => [$this, 'create_item_permissions_check'],\n                'args'                => $this->get_endpoint_args_for_item_schema(WP_REST_Server::CREATABLE),\n            ],\n            'schema' => [$this, 'get_public_item_schema'],\n        ]);\n\n        register_rest_route($this->namespace, '/' . $this->rest_base . '/(?P<id>[d]+)', [\n            [\n                'methods'             => WP_REST_Server::READABLE,\n                'callback'            => [$this, 'get_item'],\n                'permission_callback' => [$this, 'get_item_permissions_check'],\n                'args'                => ['context' => $this->get_context_param(['default' => 'view'])],\n            ],\n            'schema' => [$this, 'get_public_item_schema'],\n        ]);\n    }\n\n    public function get_items(WP_REST_Request $request): WP_REST_Response|WP_Error {\n        $args = new CourseQueryArgs(\n            per_page: (int) $request['per_page'],\n            page:     (int) $request['page'],\n            status:   sanitize_key($request['status'] ?? 'publish'),\n            search:   sanitize_text_field($request['search'] ?? ''),\n        );\n\n        $collection = $this->courseService->find_many($args);\n\n        $response = rest_ensure_response(array_map(\n            fn(Course $c) => $this->prepare_item_for_response($c, $request)->get_data(),\n            $collection->items()\n        ));\n\n        $response->header('X-WP-Total', $collection->total());\n        $response->header('X-WP-TotalPages', $collection->total_pages());\n\n        return $response;\n    }\n\n    public function get_item_schema(): array {\n        return [\n            '$schema'    => 'http://json-schema.org/draft-04/schema#',\n            'title'      => 'course',\n            'type'       => 'object',\n            'properties' => [\n                'id'         => ['type' => 'integer', 'readonly' => true],\n                'title'      => ['type' => 'string'],\n                'slug'       => ['type' => 'string'],\n                'price'      => ['type' => 'integer', 'description' => 'Price in cents'],\n                'difficulty' => ['type' => 'string', 'enum' => ['beginner', 'intermediate', 'advanced']],\n                'duration'   => ['type' => 'integer', 'description' => 'Duration in minutes'],\n            ],\n        ];\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Database Optimization: The N+1 Problem"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "The most common performance killer in WordPress plugins is the N+1 query problem. If you load 20 courses and then call "
+        },
+        {
+          "t": "code",
+          "value": "get_post_meta($course_id)"
+        },
+        {
+          "t": "text",
+          "value": " inside the loop, you’re making 21 database queries. Masteriyo solves this with eager loading:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "class CourseRepository {\n    public function find_many_with_meta(CourseQueryArgs $args): CourseCollection {\n        $query = new WP_Query([/* ... */]);\n        $posts = $query->posts;\n\n        if (empty($posts)) {\n            return new CourseCollection([], 0, $args->per_page);\n        }\n\n        // Prime the meta cache for ALL posts at once — 1 query instead of N\n        $post_ids = array_column($posts, 'ID');\n        update_meta_cache('post', $post_ids);\n\n        // Also prime taxonomy cache\n        update_object_term_cache($post_ids, PostType::COURSE);\n\n        // Now hydrate — all meta/term fetches hit the cache\n        return new CourseCollection(\n            array_map([$this, 'hydrate'], $posts),\n            $query->found_posts,\n            $args->per_page\n        );\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "code",
+          "value": "update_meta_cache()"
+        },
+        {
+          "t": "text",
+          "value": " is a WordPress core function that loads all post meta in a single "
+        },
+        {
+          "t": "code",
+          "value": "WHERE post_id IN (...)"
+        },
+        {
+          "t": "text",
+          "value": " query and populates the object cache. This turns 21 queries into 3 (posts query + meta query + term query)."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Testing: PHPUnit + Brain Monkey"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "WordPress plugins are notoriously hard to test because everything depends on WordPress functions. Brain Monkey lets you mock WordPress functions in PHPUnit tests without loading WordPress:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "class CourseRepositoryTest extends TestCase {\n    use BrainMonkeyTestTrait;\n\n    private CourseRepository $repository;\n\n    protected function setUp(): void {\n        parent::setUp();\n        BrainMonkeysetUp();\n        $this->repository = new CourseRepository();\n    }\n\n    protected function tearDown(): void {\n        BrainMonkey\tearDown();\n        parent::tearDown();\n    }\n\n    public function test_find_returns_null_for_nonexistent_post(): void {\n        Functionsexpect('get_post')\n            ->once()\n            ->with(999)\n            ->andReturn(null);\n\n        $result = $this->repository->find(999);\n\n        $this->assertNull($result);\n    }\n\n    public function test_find_returns_course_for_valid_post(): void {\n        $post = (object)[\n            'ID'          => 42,\n            'post_type'   => 'mto-course',\n            'post_title'  => 'Learn PHP 8',\n            'post_name'   => 'learn-php-8',\n            'post_content'=> 'Deep dive into PHP 8',\n            'post_status' => 'publish',\n            'post_author' => 1,\n        ];\n\n        Functionsexpect('get_post')->once()->with(42)->andReturn($post);\n        Functionsexpect('get_post_meta')->once()->with(42)->andReturn([\n            '_price'      => ['4999'],\n            '_difficulty' => ['beginner'],\n            '_duration'   => ['120'],\n        ]);\n\n        $course = $this->repository->find(42);\n\n        $this->assertInstanceOf(Course::class, $course);\n        $this->assertSame('Learn PHP 8', $course->title);\n        $this->assertSame(4999, $course->price->amount);\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Lessons Learned"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "1. Design for Extensibility from Day One"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Masteriyo’s "
+        },
+        {
+          "t": "code",
+          "value": "apply_filters('masteriyo_course_data', $data, $course_id)"
+        },
+        {
+          "t": "text",
+          "value": " pattern lets third-party plugins extend every piece of data without hacking core files. Add filter hooks to every significant data transform."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "2. Custom Tables for High-Volume Data"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "User activity, quiz attempts, and progress data accumulate fast. Post meta isn’t designed for this. We created dedicated "
+        },
+        {
+          "t": "code",
+          "value": "wp_masteriyo_user_activities"
+        },
+        {
+          "t": "text",
+          "value": " and "
+        },
+        {
+          "t": "code",
+          "value": "wp_masteriyo_quiz_attempts"
+        },
+        {
+          "t": "text",
+          "value": " tables with proper indexes from day one."
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "// Custom table schema\nglobal $wpdb;\n$charset_collate = $wpdb->get_charset_collate();\n\n$sql = \"CREATE TABLE {$wpdb->prefix}masteriyo_user_activities (\n    id bigint(20) NOT NULL AUTO_INCREMENT,\n    user_id bigint(20) NOT NULL,\n    item_id bigint(20) NOT NULL,\n    item_type varchar(50) NOT NULL,\n    activity_type varchar(50) NOT NULL,\n    progress float DEFAULT 0,\n    completed tinyint(1) DEFAULT 0,\n    started_at datetime NOT NULL,\n    modified_at datetime NOT NULL,\n    PRIMARY KEY (id),\n    KEY user_item (user_id, item_id),\n    KEY item_type (item_type, item_id)\n) $charset_collate;\";"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "3. Caching is Not Optional"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Course listings and enrollment checks happen on every page load. We built a caching layer around the repository that works with both object cache (Redis/Memcached) and transients:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "class CachedCourseRepository implements CourseRepositoryInterface {\n    public function __construct(\n        private readonly CourseRepository $inner,\n        private readonly CacheInterface   $cache,\n    ) {}\n\n    public function find(int $id): ?Course {\n        $key = \"course:$id\";\n        return $this->cache->remember($key, 3600, fn() => $this->inner->find($id));\n    }\n\n    public function save(Course $course): Course {\n        $saved = $this->inner->save($course);\n        $this->cache->delete(\"course:{$course->id}\");\n        $this->cache->delete(\"course_listing\"); // Bust listing cache too\n        return $saved;\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Conclusion"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Building Masteriyo taught us that complex WordPress plugins don’t have to be complex codebases. By applying proven software engineering patterns — service containers, repositories, domain models, event systems — you can build plugins that are a pleasure to work with as they scale."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "The up-front investment in architecture pays back immediately when you need to add features, debug issues, or onboard a new team member. The alternative — a tightly coupled, procedural plugin — becomes progressively harder to change with every new feature."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "WordPress is a platform, not a limitation. Treat it that way."
+        }
+      ]
+    }
+  ]
+}

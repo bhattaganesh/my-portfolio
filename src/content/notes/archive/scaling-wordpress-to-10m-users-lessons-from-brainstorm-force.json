@@ -1,0 +1,237 @@
+{
+  "slug": "scaling-wordpress-to-10m-users-lessons-from-brainstorm-force",
+  "title": "Scaling WordPress to 10M+ Users: Lessons from Brainstorm Force",
+  "publishedAt": "2026-01-18T09:06:32",
+  "published": false,
+  "provenance": {
+    "sourceUrl": "https://www.ganeshbhatt.com.np/blog/scaling-wordpress-to-10m-users-lessons-from-brainstorm-force/",
+    "capturedFrom": "docs/engineering-atlas/baseline/live-posts/scaling-wordpress-to-10m-users-lessons-from-brainstorm-force.html",
+    "capturedAt": "2026-10-07"
+  },
+  "blocks": [
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "In December 2024, Brainstorm Force served content to over 10 million WordPress-powered websites through its plugin portfolio — Spectra, Astra, WP Portfolio, Starter Templates, and more. That’s not a marketing number: it’s a daily operational reality that shapes every engineering decision."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "This post covers the real architectural lessons we learned building and maintaining software at this scale — the decisions that seem obvious in hindsight but weren’t obvious at all when we were making them."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "The Scale We’re Actually Talking About"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "When people talk about “scaling WordPress,” they usually mean handling more traffic. Our challenge was different: we’re scaling a "
+        },
+        {
+          "t": "em",
+          "children": [
+            {
+              "t": "text",
+              "value": "software product"
+            }
+          ]
+        },
+        {
+          "t": "text",
+          "value": " that runs inside millions of other people’s WordPress installations. We don’t control the hosting environment, the PHP version, the database configuration, or the server resources. Our code has to work correctly in an 8MB memory limit shared hosting environment AND in a high-performance VPS with Redis and 2GB of PHP memory."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "This constraint changes everything. It means:"
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        [
+          {
+            "t": "text",
+            "value": "We can’t assume Redis or any object cache is available"
+          }
+        ],
+        [
+          {
+            "t": "text",
+            "value": "We can’t rely on cron jobs running reliably"
+          }
+        ],
+        [
+          {
+            "t": "text",
+            "value": "We can’t use PHP extensions that aren’t universally available"
+          }
+        ],
+        [
+          {
+            "t": "text",
+            "value": "Our plugin must degrade gracefully on every possible hosting configuration"
+          }
+        ],
+        [
+          {
+            "t": "text",
+            "value": "Every byte of memory we use comes out of the host site’s allocation"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Lesson 1: Lazy Loading Is Not Optional — It’s Survival"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "The most impactful single change we made to Spectra’s architecture was moving from a monolithic bootstrap to a lazy-loading architecture. In Spectra v2, the main plugin file registered all hooks, loaded all classes, and initialized all modules on every page load. Even if only 2 of our 30 blocks were used on a page, all 30 were loaded."
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "// Spectra v2 — everything loads on every request\nclass UAGB_Init {\n    public function __construct() {\n        require_once 'classes/class-uagb-loader.php';\n        require_once 'classes/class-uagb-helper.php';\n        require_once 'classes/class-uagb-admin-helper.php';\n        require_once 'classes/class-uagb-config.php';\n        // ... 47 more require statements\n        \n        add_action('init', [$this, 'init_hooks']);\n        add_action('admin_init', [$this, 'init_admin']);\n        add_action('wp_enqueue_scripts', [$this, 'enqueue_frontend']);\n        add_action('block_categories_all', [$this, 'register_categories']);\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "In Spectra v3, we moved to a PSR-4 autoloader with context-aware lazy initialization:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "// Spectra v3 — only load what's needed\nclass Plugin {\n    private static array $registered_hooks = [];\n\n    public static function boot(): void {\n        // Always needed: post type registration, asset manifest\n        add_action('init', [BlockRegistry::class, 'register_block_types'], 5);\n        \n        // Admin only — don't load on frontend requests\n        if (is_admin()) {\n            add_action('admin_menu', [AdminMenu::class, 'register']);\n            add_action('rest_api_init', [SettingsController::class, 'register_routes']);\n        }\n\n        // Frontend only — skip the admin bloat\n        if (!is_admin()) {\n            add_action('wp_enqueue_scripts', [AssetLoader::class, 'enqueue_conditional'], 20);\n        }\n\n        // Editor-only assets — only in block editor context\n        add_action('enqueue_block_editor_assets', [EditorAssets::class, 'enqueue']);\n    }\n}\n\n// PSR-4 autoloader — classes load only when instantiated\nspl_autoload_register(function(string $class): void {\n    $prefix   = 'Brainstormforce\\Spectra\\';\n    $base_dir = __DIR__ . '/src/';\n\n    if (!str_starts_with($class, $prefix)) return;\n\n    $relative_class = str_replace('\\', '/', substr($class, strlen($prefix)));\n    $file = $base_dir . $relative_class . '.php';\n\n    if (file_exists($file)) {\n        require $file;\n    }\n});"
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "strong",
+          "children": [
+            {
+              "t": "text",
+              "value": "Impact:"
+            }
+          ]
+        },
+        {
+          "t": "text",
+          "value": " Memory usage per page request dropped 40% in benchmark testing. On shared hosting sites, this was the difference between working correctly and hitting the memory limit."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Lesson 2: Asset Loading Strategy Is Your #1 Performance Lever"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "WordPress plugins notoriously load CSS and JS on every page, regardless of whether the content requires them. At 1M+ installs, even a 10ms asset-loading overhead multiplies to massive real-world impact."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Spectra’s asset loading strategy evolved through three generations:"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Generation 1: Load Everything Globally (Wrong)"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "// Bad — loads all CSS/JS on every page\nfunction enqueue_spectra_assets() {\n    wp_enqueue_style('spectra-blocks', SPECTRA_URI . 'dist/blocks.css');\n    wp_enqueue_script('spectra-frontend', SPECTRA_URI . 'dist/frontend.js');\n}\nadd_action('wp_enqueue_scripts', 'enqueue_spectra_assets');"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Generation 2: Load Per Block (Better)"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "// Better — only load CSS for blocks that appear on this page\nregister_block_type('spectra/info-box', [\n    'style' => 'spectra-info-box', // Auto-enqueued when block renders\n    'editor_style' => 'spectra-info-box-editor',\n]);"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Generation 3: Combined Critical CSS + Deferred Rest (Best)"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "class AssetLoader {\n    private static ?array $blocks_on_page = null;\n\n    /**\n     * Scan the current page's post content for Spectra blocks.\n     * Uses regex rather than parsing to stay fast.\n     */\n    private static function detect_blocks_on_page(): array {\n        if (static::$blocks_on_page !== null) {\n            return static::$blocks_on_page;\n        }\n\n        static::$blocks_on_page = [];\n        $post = get_post();\n        if (!$post || empty($post->post_content)) {\n            return [];\n        }\n\n        preg_match_all(\n            '/"
+    }
+  ]
+}

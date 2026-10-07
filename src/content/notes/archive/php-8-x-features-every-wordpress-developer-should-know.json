@@ -1,0 +1,1133 @@
+{
+  "slug": "php-8-x-features-every-wordpress-developer-should-know",
+  "title": "PHP 8.x Features Every WordPress Developer Should Know",
+  "publishedAt": "2026-01-18T15:41:55",
+  "published": false,
+  "provenance": {
+    "sourceUrl": "https://www.ganeshbhatt.com.np/blog/php-8-x-features-every-wordpress-developer-should-know/",
+    "capturedFrom": "docs/engineering-atlas/baseline/live-posts/php-8-x-features-every-wordpress-developer-should-know.html",
+    "capturedAt": "2026-10-07"
+  },
+  "blocks": [
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "PHP 8.x has been a transformative series of releases for the entire PHP ecosystem — and for WordPress developers specifically, understanding these features isn’t optional anymore. With WordPress core now requiring PHP 7.4+ and many premium plugins pushing for 8.0+, writing modern PHP is both a professional requirement and a competitive advantage."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "In this deep dive, we’ll go through every major PHP 8.0, 8.1, 8.2, and 8.3 feature that matters for WordPress development, with real-world examples from plugin and theme development."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "PHP 8.0: The Foundation of Modern PHP"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Named Arguments"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Named arguments let you pass values to function parameters by name rather than position. In WordPress development, this shines when calling functions with many optional parameters:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "// Old way — you need to know parameter order and pass nulls\n$posts = get_posts(array(\n    'post_type'      => 'product',\n    'posts_per_page' => 10,\n    'orderby'        => 'date',\n    'order'          => 'DESC',\n));\n\n// PHP 8.0 named arguments\n$posts = get_posts(post_type: 'product', posts_per_page: 10, orderby: 'date', order: 'DESC');\n\n// Even better for core functions with many params\n$trimmed = array_slice(array: $items, offset: 0, length: 5, preserve_keys: true);"
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Named arguments are especially powerful when you need to skip optional parameters. Instead of passing "
+        },
+        {
+          "t": "code",
+          "value": "null"
+        },
+        {
+          "t": "text",
+          "value": " placeholders, you jump straight to the parameter you need."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Match Expressions"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "The "
+        },
+        {
+          "t": "code",
+          "value": "match"
+        },
+        {
+          "t": "text",
+          "value": " expression is a type-safe, expression-oriented replacement for "
+        },
+        {
+          "t": "code",
+          "value": "switch"
+        },
+        {
+          "t": "text",
+          "value": " statements. It’s strict by default (no type coercion), returns a value, and throws an "
+        },
+        {
+          "t": "code",
+          "value": "UnhandledMatchError"
+        },
+        {
+          "t": "text",
+          "value": " if no arm matches."
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "// Old switch — loose comparison, easy bugs\nfunction get_post_status_label($status) {\n    switch ($status) {\n        case 'publish':\n            return __('Published', 'my-plugin');\n        case 'draft':\n            return __('Draft', 'my-plugin');\n        case 'pending':\n            return __('Pending Review', 'my-plugin');\n        default:\n            return __('Unknown', 'my-plugin');\n    }\n}\n\n// PHP 8.0 match — clean, strict, returns value\nfunction get_post_status_label(string $status): string {\n    return match($status) {\n        'publish'  => __('Published', 'my-plugin'),\n        'draft'    => __('Draft', 'my-plugin'),\n        'pending'  => __('Pending Review', 'my-plugin'),\n        'private'  => __('Private', 'my-plugin'),\n        'future'   => __('Scheduled', 'my-plugin'),\n        default    => __('Unknown', 'my-plugin'),\n    };\n}"
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Match expressions also support multiple conditions per arm, which is perfect for grouping related values:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "$label_class = match(true) {\n    in_array($status, ['publish', 'future'])  => 'status-active',\n    in_array($status, ['draft', 'auto-draft']) => 'status-inactive',\n    $status === 'trash'                        => 'status-danger',\n    default                                    => 'status-unknown',\n};"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "The Nullsafe Operator"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "The nullsafe operator "
+        },
+        {
+          "t": "code",
+          "value": "?->"
+        },
+        {
+          "t": "text",
+          "value": " is arguably the most practical addition in PHP 8.0 for WordPress developers. WordPress APIs often return "
+        },
+        {
+          "t": "code",
+          "value": "null"
+        },
+        {
+          "t": "text",
+          "value": " or "
+        },
+        {
+          "t": "code",
+          "value": "false"
+        },
+        {
+          "t": "text",
+          "value": ", and you frequently need to chain method calls on potentially null objects."
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "// Before PHP 8.0 — deeply nested null checks\n$author_country = null;\n$post = get_post($post_id);\nif ($post !== null) {\n    $author = get_userdata($post->post_author);\n    if ($author !== null) {\n        $country = get_user_meta($author->ID, 'country', true);\n        if ($country) {\n            $author_country = strtoupper($country);\n        }\n    }\n}\n\n// PHP 8.0 nullsafe operator\n$post   = get_post($post_id);\n$author = $post ? get_userdata($post->post_author) : null;\n$author_country = $author\n    ? strtoupper(get_user_meta($author->ID, 'country', true) ?: 'US')\n    : null;\n\n// Even better in OOP plugins with method chains\n$price = $this->getCart()?->getItem($sku)?->getPrice()?->format();"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Union Types"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Union types let you declare that a parameter or return value can be one of several types — critical for WordPress functions that return different types based on context."
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "class PostRepository {\n    public function find(int|string $id): WP_Post|null {\n        if (is_string($id)) {\n            return get_page_by_path($id, OBJECT, 'post');\n        }\n        return get_post($id) ?: null;\n    }\n\n    public function save(array|WP_Post $post): int|WP_Error {\n        $data = $post instanceof WP_Post ? $post->to_array() : $post;\n        return wp_insert_post($data, true);\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Constructor Property Promotion"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "This feature reduces the boilerplate of declaring properties and assigning them in "
+        },
+        {
+          "t": "code",
+          "value": "__construct"
+        },
+        {
+          "t": "text",
+          "value": ". For WordPress plugins with many service classes, this is a huge quality-of-life improvement:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "// Before — lots of repetition\nclass EmailService {\n    private MailerInterface $mailer;\n    private LoggerInterface $logger;\n    private string $fromEmail;\n    private string $fromName;\n\n    public function __construct(\n        MailerInterface $mailer,\n        LoggerInterface $logger,\n        string $fromEmail,\n        string $fromName\n    ) {\n        $this->mailer    = $mailer;\n        $this->logger    = $logger;\n        $this->fromEmail = $fromEmail;\n        $this->fromName  = $fromName;\n    }\n}\n\n// PHP 8.0 — clean and DRY\nclass EmailService {\n    public function __construct(\n        private readonly MailerInterface $mailer,\n        private readonly LoggerInterface $logger,\n        private readonly string $fromEmail,\n        private readonly string $fromName,\n    ) {}\n}"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Throw Expressions"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "You can now use "
+        },
+        {
+          "t": "code",
+          "value": "throw"
+        },
+        {
+          "t": "text",
+          "value": " as an expression, not just a statement. This enables throwing exceptions in arrow functions, ternaries, and the nullish coalescing operator:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "// Validate required settings concisely\n$api_key = get_option('my_plugin_api_key')\n    ?: throw new RuntimeException('API key not configured. Please check plugin settings.');\n\n// In arrow functions\n$processedItems = array_map(\n    fn($item) => $item['id'] ?? throw new InvalidArgumentException(\"Item missing ID\"),\n    $rawItems\n);"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "PHP 8.1: Enums, Fibers, and Readonly Properties"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Enums"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Enums are one of the most requested PHP features ever — and they’re perfect for WordPress plugin development where you have fixed sets of values like post statuses, user roles, or payment states."
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "// Basic enum for post types\nenum PostType: string {\n    case Post      = 'post';\n    case Page      = 'page';\n    case Product   = 'product';\n    case Portfolio = 'portfolio';\n\n    public function label(): string {\n        return match($this) {\n            PostType::Post      => 'Blog Post',\n            PostType::Page      => 'Page',\n            PostType::Product   => 'Product',\n            PostType::Portfolio => 'Portfolio Item',\n        };\n    }\n\n    public function supportsComments(): bool {\n        return match($this) {\n            PostType::Post, PostType::Product => true,\n            default => false,\n        };\n    }\n}\n\n// Usage\nfunction register_my_post_types(): void {\n    foreach (PostType::cases() as $type) {\n        register_post_type($type->value, [\n            'label'             => $type->label(),\n            'supports'          => $type->supportsComments() ? ['comments'] : [],\n            'public'            => true,\n            'show_in_rest'      => true,\n            'show_in_graphql'   => true,\n        ]);\n    }\n}\nadd_action('init', 'register_my_post_types');"
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Pure (non-backed) enums are great for internal state machines in complex plugins like LMS or e-commerce:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "enum EnrollmentStatus {\n    case Pending;\n    case Active;\n    case Completed;\n    case Cancelled;\n    case Expired;\n\n    public function canTransitionTo(self $new): bool {\n        return match($this) {\n            self::Pending   => in_array($new, [self::Active, self::Cancelled]),\n            self::Active    => in_array($new, [self::Completed, self::Cancelled, self::Expired]),\n            self::Completed => false,\n            self::Cancelled => false,\n            self::Expired   => in_array($new, [self::Active]),\n        };\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Readonly Properties"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Readonly properties can be set only once — perfect for value objects and domain models in WordPress plugins:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "class Money {\n    public function __construct(\n        public readonly int $amount,\n        public readonly string $currency,\n    ) {}\n\n    public function add(Money $other): static {\n        if ($this->currency !== $other->currency) {\n            throw new CurrencyMismatchException($this->currency, $other->currency);\n        }\n        return new static($this->amount + $other->amount, $this->currency);\n    }\n\n    public function format(): string {\n        return number_format($this->amount / 100, 2) . ' ' . $this->currency;\n    }\n}\n\n// Immutable — $price->amount = 9999 would throw Error\n$price = new Money(4999, 'USD');\necho $price->format(); // 49.99 USD"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Intersection Types"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "While union types say “this OR that”, intersection types say “this AND that” — the parameter must satisfy all types simultaneously. Perfect for repository patterns:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "interface Cacheable {\n    public function getCacheKey(): string;\n    public function getTtl(): int;\n}\n\ninterface Serializable {\n    public function serialize(): string;\n    public static function deserialize(string $data): static;\n}\n\n// Parameter must implement BOTH interfaces\nfunction store_in_cache(Cacheable&Serializable $item): void {\n    wp_cache_set(\n        $item->getCacheKey(),\n        $item->serialize(),\n        group: 'my_plugin',\n        expire: $item->getTtl()\n    );\n}"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Fibers (PHP 8.1)"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Fibers are low-level concurrency primitives — think coroutines. While not directly applicable to most WordPress plugins today, they’re the foundation for async PHP frameworks. For developers building CLI tools, background processors, or custom REST API aggregators, Fibers open new possibilities:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "// Process multiple API requests cooperatively\n$fiber = new Fiber(function(): void {\n    $value = Fiber::suspend('first suspension');\n    echo \"Got: \" . $value . PHP_EOL;\n});\n\n$result = $fiber->start();           // \"first suspension\"\n$fiber->resume('hello from caller'); // \"Got: hello from caller\""
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "PHP 8.2: Readonly Classes and Deprecations"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Readonly Classes"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "PHP 8.2 extends readonly to the class level — every promoted property becomes readonly automatically. This is ideal for DTOs (Data Transfer Objects) that pass data between WordPress hooks and services:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "readonly class CreatePostDTO {\n    public function __construct(\n        public string $title,\n        public string $content,\n        public string $postType,\n        public string $status = 'draft',\n        public ?int   $authorId = null,\n        public array  $meta = [],\n    ) {}\n\n    public static function fromRequest(WP_REST_Request $request): static {\n        return new static(\n            title:    sanitize_text_field($request->get_param('title')),\n            content:  wp_kses_post($request->get_param('content')),\n            postType: sanitize_key($request->get_param('post_type') ?? 'post'),\n            status:   sanitize_key($request->get_param('status') ?? 'draft'),\n            authorId: (int) $request->get_param('author_id') ?: null,\n        );\n    }\n}\n\n// Usage in a REST controller\nclass PostController {\n    public function create(WP_REST_Request $request): WP_REST_Response|WP_Error {\n        $dto    = CreatePostDTO::fromRequest($request);\n        $postId = $this->postService->create($dto);\n        return rest_ensure_response(['id' => $postId]);\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Disjunctive Normal Form (DNF) Types"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "DNF types combine union and intersection types: "
+        },
+        {
+          "t": "code",
+          "value": "(A&B)|null"
+        },
+        {
+          "t": "text",
+          "value": ". This is the most expressive type system PHP has ever had:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "function process(\n    (Countable&Stringable)|null $data\n): (Iterator&Countable)|array {\n    if ($data === null) return [];\n    // ...\n}"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Dynamic Class Constants and Enum Members"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "class Config {\n    const VERSION = '2.0.0';\n}\n\n$key = 'VERSION';\necho Config::{$key}; // \"2.0.0\" — dynamic constant access"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "PHP 8.3: The Latest and Greatest"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Typed Class Constants"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "A long-overdue feature — class constants can now have type declarations:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "class PluginConfig {\n    const string  VERSION     = '3.0.0';\n    const int     MAX_RETRIES = 3;\n    const float   CACHE_TTL   = 3600.0;\n    const bool    DEBUG_MODE  = false;\n    const array   SUPPORTED_POST_TYPES = ['post', 'page', 'product'];\n}\n\ninterface HasVersion {\n    const string VERSION; // Typed interface constant\n}"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "json_validate()"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "A new built-in function to validate JSON without needing to decode it first — great for webhook validation:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "// WordPress webhook handler\nfunction handle_stripe_webhook(WP_REST_Request $request): WP_REST_Response {\n    $body = $request->get_body();\n\n    if (!json_validate($body)) {\n        return new WP_REST_Response(['error' => 'Invalid JSON'], 400);\n    }\n\n    $event = json_decode($body, true);\n    // Process...\n    return new WP_REST_Response(['received' => true]);\n}"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "array_find() and Related Functions (PHP 8.4 Preview)"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "While technically landing in 8.4, many developers preview these functions via polyfills. "
+        },
+        {
+          "t": "code",
+          "value": "array_find()"
+        },
+        {
+          "t": "text",
+          "value": " returns the first element matching a predicate — far cleaner than "
+        },
+        {
+          "t": "code",
+          "value": "array_filter()"
+        },
+        {
+          "t": "text",
+          "value": " + "
+        },
+        {
+          "t": "code",
+          "value": "reset()"
+        },
+        {
+          "t": "text",
+          "value": ":"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "// Old way\n$first_active = reset(array_filter($items, fn($i) => $i->isActive())) ?: null;\n\n// PHP 8.4 array_find()\n$first_active = array_find($items, fn($i) => $i->isActive());"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "WordPress Compatibility: What You Need to Know"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Minimum PHP Version Strategy"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "WordPress.org strongly recommends PHP 8.0+ as of 2024. Here’s a realistic compatibility matrix for plugins:"
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "Public plugins"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " targeting all users: PHP 7.4+ minimum, test on 8.0–8.3"
+          }
+        ],
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "Premium plugins"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " with a support window: PHP 8.0+ is safe for new features"
+          }
+        ],
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "Internal/agency projects"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": ": PHP 8.2+ minimum, you control the server"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "PHP 8.x Breaking Changes That Bite WordPress Developers"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "strong",
+          "children": [
+            {
+              "t": "text",
+              "value": "Stricter type coercion:"
+            }
+          ]
+        },
+        {
+          "t": "text",
+          "value": " PHP 8.0 changed "
+        },
+        {
+          "t": "code",
+          "value": "strpos()"
+        },
+        {
+          "t": "text",
+          "value": " and similar functions to throw "
+        },
+        {
+          "t": "code",
+          "value": "TypeError"
+        },
+        {
+          "t": "text",
+          "value": " instead of deprecation warnings when passed wrong types. Audit your code for:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "// This throws TypeError in PHP 8.0\nstrpos(null, 'search');\n\n// Fix: always pass strings\nstrpos((string) $value, 'search');"
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "strong",
+          "children": [
+            {
+              "t": "text",
+              "value": "match vs switch:"
+            }
+          ]
+        },
+        {
+          "t": "text",
+          "value": " Match throws "
+        },
+        {
+          "t": "code",
+          "value": "UnhandledMatchError"
+        },
+        {
+          "t": "text",
+          "value": " on no match — add a "
+        },
+        {
+          "t": "code",
+          "value": "default"
+        },
+        {
+          "t": "text",
+          "value": " arm or handle the error."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "strong",
+          "children": [
+            {
+              "t": "text",
+              "value": "Dynamic properties deprecated (8.2):"
+            }
+          ]
+        },
+        {
+          "t": "text",
+          "value": " Creating properties on objects that don’t declare them triggers deprecation warnings. Add "
+        },
+        {
+          "t": "code",
+          "value": "#[AllowDynamicProperties]"
+        },
+        {
+          "t": "text",
+          "value": " to legacy code or declare all properties explicitly."
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "// Deprecated in PHP 8.2\nclass MyPlugin {\n    public function init() {\n        $this->my_prop = 'value'; // Deprecation warning if not declared\n    }\n}\n\n// Fix: declare the property\nclass MyPlugin {\n    private string $my_prop = '';\n\n    public function init() {\n        $this->my_prop = 'value'; // Fine\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Performance Improvements Worth Knowing"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "PHP 8.0’s JIT (Just-In-Time) compiler gets a lot of marketing attention, but for typical WordPress workloads (I/O-bound, lots of string processing), the JIT doesn’t help much. The real PHP 8.x performance wins come from:"
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "Improved opcache:"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " Persistent JIT compilation across requests"
+          }
+        ],
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "Faster string functions:"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " Internal improvements to "
+          },
+          {
+            "t": "code",
+            "value": "str_contains()"
+          },
+          {
+            "t": "text",
+            "value": ", "
+          },
+          {
+            "t": "code",
+            "value": "str_starts_with()"
+          },
+          {
+            "t": "text",
+            "value": ", "
+          },
+          {
+            "t": "code",
+            "value": "str_ends_with()"
+          }
+        ],
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "Fibers for async patterns:"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " Non-blocking I/O in CLI tools"
+          }
+        ],
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "Readonly properties:"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " Slightly faster access due to immutability guarantees"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Benchmarks from real WordPress hosting show PHP 8.2 is approximately 15–20% faster than PHP 7.4 for WordPress-style workloads — primarily from internal engine improvements, not JIT."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Practical Migration Checklist"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Ready to modernize your WordPress plugin? Here’s a systematic approach:"
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "Static analysis first:"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " Run PHPStan at level 5+ on your codebase. Fix all errors."
+          }
+        ],
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "PHP 8.0 compatibility:"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " Run "
+          },
+          {
+            "t": "code",
+            "value": "composer require --dev szepeviktor/phpstan-wordpress"
+          },
+          {
+            "t": "text",
+            "value": " for WordPress-aware rules."
+          }
+        ],
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "Replace string functions:"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " Use "
+          },
+          {
+            "t": "code",
+            "value": "str_contains()"
+          },
+          {
+            "t": "text",
+            "value": ", "
+          },
+          {
+            "t": "code",
+            "value": "str_starts_with()"
+          },
+          {
+            "t": "text",
+            "value": ", "
+          },
+          {
+            "t": "code",
+            "value": "str_ends_with()"
+          },
+          {
+            "t": "text",
+            "value": " instead of "
+          },
+          {
+            "t": "code",
+            "value": "strpos()"
+          },
+          {
+            "t": "text",
+            "value": " for readability."
+          }
+        ],
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "Add type declarations:"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " Start with return types on all public methods, then add parameter types."
+          }
+        ],
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "Introduce constructor promotion:"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " Refactor service classes one by one."
+          }
+        ],
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "Replace switch with match:"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " Focus on value-returning switches first."
+          }
+        ],
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "Extract enums:"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " Look for string/int constants that represent fixed sets."
+          }
+        ],
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "Test on all PHP versions:"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " Use GitHub Actions matrix testing with PHP 7.4, 8.0, 8.1, 8.2, 8.3."
+          }
+        ]
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Conclusion"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "PHP 8.x is not just incremental improvements — it’s a fundamentally better language with a modern type system, cleaner syntax, and meaningful performance gains. For WordPress developers, adopting these features means more maintainable plugins, better IDE support, fewer runtime bugs, and code that’s genuinely enjoyable to write."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "The investment in learning PHP 8.x pays back immediately: fewer null reference errors with the nullsafe operator, self-documenting code with enums, and type-safe APIs with readonly classes. Start with the features that require zero migration cost — "
+        },
+        {
+          "t": "code",
+          "value": "match"
+        },
+        {
+          "t": "text",
+          "value": ", named arguments, and "
+        },
+        {
+          "t": "code",
+          "value": "str_contains()"
+        },
+        {
+          "t": "text",
+          "value": " — and work your way up to enums and readonly classes as you refactor."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "The WordPress ecosystem is moving forward. Your code should too."
+        }
+      ]
+    }
+  ]
+}

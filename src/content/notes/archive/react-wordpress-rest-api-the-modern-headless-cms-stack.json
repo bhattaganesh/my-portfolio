@@ -1,0 +1,554 @@
+{
+  "slug": "react-wordpress-rest-api-the-modern-headless-cms-stack",
+  "title": "React + WordPress REST API: The Modern Headless CMS Stack",
+  "publishedAt": "2026-01-18T15:41:30",
+  "published": false,
+  "provenance": {
+    "sourceUrl": "https://www.ganeshbhatt.com.np/blog/react-wordpress-rest-api-the-modern-headless-cms-stack/",
+    "capturedFrom": "docs/engineering-atlas/baseline/live-posts/react-wordpress-rest-api-the-modern-headless-cms-stack.html",
+    "capturedAt": "2026-10-07"
+  },
+  "blocks": [
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "The traditional WordPress theme architecture — PHP templates rendering HTML on the server, jQuery animations in the front-end — served the web well for two decades. But in 2025, the expectations for web experiences have fundamentally changed. Users expect app-like interactivity, instant page transitions, and real-time updates. This is where the headless WordPress + React stack shines."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "In this guide, we’ll build a production-grade headless WordPress application using Next.js 15, the WordPress REST API, and React 19. You’ll learn authentication, data fetching patterns, ISR caching, and the trade-offs you need to understand before choosing headless."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "What Is Headless WordPress?"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "In a headless setup, WordPress serves exclusively as a content management system (CMS) and API backend. The frontend is a completely separate application — typically built with React, Next.js, Nuxt, Astro, or any other framework. WordPress exposes its data through:"
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "REST API"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " — Built into WordPress core since 4.7. Available at "
+          },
+          {
+            "t": "code",
+            "value": "/wp-json/wp/v2/"
+          }
+        ],
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "WPGraphQL"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " — A popular plugin that exposes a GraphQL endpoint at "
+          },
+          {
+            "t": "code",
+            "value": "/graphql"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "The benefits of going headless are significant:"
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        [
+          {
+            "t": "text",
+            "value": "Full control over the frontend tech stack and performance"
+          }
+        ],
+        [
+          {
+            "t": "text",
+            "value": "Better SEO through Next.js SSG/ISR"
+          }
+        ],
+        [
+          {
+            "t": "text",
+            "value": "Superior developer experience (TypeScript, hot reload, modern tooling)"
+          }
+        ],
+        [
+          {
+            "t": "text",
+            "value": "Multi-channel publishing (web, mobile, smart TV) from a single CMS"
+          }
+        ],
+        [
+          {
+            "t": "text",
+            "value": "Separation of concerns — content editors stay in the familiar WP admin"
+          }
+        ]
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Setting Up WordPress as a Headless CMS"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Configure CORS"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Your Next.js frontend will make requests from a different domain (e.g., "
+        },
+        {
+          "t": "code",
+          "value": "mysite.com"
+        },
+        {
+          "t": "text",
+          "value": ") to your WordPress API (e.g., "
+        },
+        {
+          "t": "code",
+          "value": "api.mysite.com"
+        },
+        {
+          "t": "text",
+          "value": "). You need to configure CORS in WordPress to allow this:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "// In your theme's functions.php or a mu-plugin\nadd_action('rest_api_init', function() {\n    remove_filter('rest_pre_serve_request', 'rest_send_cors_headers');\n\n    add_filter('rest_pre_serve_request', function($served) {\n        $allowed_origins = [\n            'https://mysite.com',\n            'https://www.mysite.com',\n            'http://localhost:3000', // Development\n        ];\n\n        $origin = $_SERVER['HTTP_ORIGIN'] ?? '';\n\n        if (in_array($origin, $allowed_origins, true)) {\n            header('Access-Control-Allow-Origin: ' . $origin);\n            header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');\n            header('Access-Control-Allow-Credentials: true');\n            header('Access-Control-Allow-Headers: Content-Type, X-WP-Nonce, Authorization');\n        }\n\n        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {\n            status_header(200);\n            exit();\n        }\n\n        return $served;\n    });\n}, 15);"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Custom REST Endpoints"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "The built-in REST API is powerful but sometimes you need custom endpoints for specific use cases — like returning aggregated data, triggering custom logic, or exposing data from custom tables:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "add_action('rest_api_init', function() {\n    register_rest_route('myapp/v1', '/featured-content', [\n        'methods'             => WP_REST_Server::READABLE,\n        'callback'            => 'get_featured_content',\n        'permission_callback' => '__return_true',\n        'schema'              => [\n            '$schema'    => 'http://json-schema.org/draft-04/schema#',\n            'title'      => 'featured-content',\n            'type'       => 'object',\n            'properties' => [\n                'posts'    => ['type' => 'array'],\n                'projects' => ['type' => 'array'],\n            ],\n        ],\n    ]);\n});\n\nfunction get_featured_content(WP_REST_Request $request): WP_REST_Response {\n    $posts = get_posts([\n        'post_type'      => 'post',\n        'posts_per_page' => 3,\n        'orderby'        => 'date',\n        'order'          => 'DESC',\n    ]);\n\n    $response = [\n        'posts'    => array_map('format_post_for_api', $posts),\n        'projects' => get_featured_projects(),\n    ];\n\n    return new WP_REST_Response($response, 200, [\n        'Cache-Control' => 'public, max-age=3600',\n    ]);\n}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Building the Next.js Frontend"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Project Setup"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "bash",
+      "text": "npx create-next-app@latest my-portfolio \\\n  --typescript \\\n  --tailwind \\\n  --app \\\n  --src-dir\n\ncd my-portfolio\nnpm install graphql-request graphql"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "WordPress API Client"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Create a typed API client that wraps all WordPress REST API calls. This centralizes your data fetching logic and makes it easy to swap from REST to GraphQL later:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "typescript",
+      "text": "// src/lib/wordpress.ts\nconst WP_API_BASE = process.env.WORDPRESS_API_URL || 'https://api.mysite.com/wp-json/wp/v2';\n\ninterface WPPost {\n  id: number;\n  slug: string;\n  title: { rendered: string };\n  content: { rendered: string };\n  excerpt: { rendered: string };\n  date: string;\n  modified: string;\n  featured_media: number;\n  _embedded?: {\n    'wp:featuredmedia'?: Array<{\n      source_url: string;\n      alt_text: string;\n      media_details: { width: number; height: number };\n    }>;\n  };\n  categories: number[];\n  tags: number[];\n}\n\nasync function wpFetch(path: string, options?: RequestInit): Promise {\n  const url = `${WP_API_BASE}${path}`;\n  const res = await fetch(url, {\n    ...options,\n    headers: {\n      'Content-Type': 'application/json',\n      ...options?.headers,\n    },\n    next: { revalidate: 3600 },\n  });\n\n  if (!res.ok) {\n    throw new Error(`WordPress API error: ${res.status} ${res.statusText} for ${url}`);\n  }\n\n  return res.json();\n}\n\nexport async function getPosts(params?: {\n  perPage?: number;\n  page?: number;\n  category?: number;\n  search?: string;\n}) {\n  const searchParams = new URLSearchParams({\n    per_page: String(params?.perPage ?? 10),\n    page: String(params?.page ?? 1),\n    _embed: 'wp:featuredmedia,author',\n    ...(params?.category && { categories: String(params.category) }),\n    ...(params?.search && { search: params.search }),\n  });\n\n  const posts = await wpFetch(`/posts?${searchParams}`);\n  return posts.map(transformPost);\n}\n\nexport async function getPostBySlug(slug: string) {\n  const posts = await wpFetch(\n    `/posts?slug=${slug}&_embed=wp:featuredmedia,author`\n  );\n  return posts[0] ? transformPost(posts[0]) : null;\n}\n\nfunction transformPost(post: WPPost) {\n  return {\n    id: post.id,\n    slug: post.slug,\n    title: post.title.rendered,\n    content: post.content.rendered,\n    excerpt: post.excerpt.rendered.replace(/<[^>]+>/g, ''),\n    date: post.date,\n    modified: post.modified,\n    featuredImage: post._embedded?.['wp:featuredmedia']?.[0] ?? null,\n  };\n}"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Blog Listing Page with ISR"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "typescript",
+      "text": "// src/app/blog/page.tsx\nimport { getPosts } from '@/lib/wordpress';\nimport { PostCard } from '@/components/blog/post-card';\nimport type { Metadata } from 'next';\n\nexport const revalidate = 3600; // Revalidate every hour\n\nexport const metadata: Metadata = {\n  title: 'Blog – My Portfolio',\n  description: 'Articles on WordPress development, React, and modern web engineering.',\n};\n\ninterface BlogPageProps {\n  searchParams: Promise<{ page?: string }>;\n}\n\nexport default async function BlogPage({ searchParams }: BlogPageProps) {\n  const { page: pageParam } = await searchParams;\n  const page = parseInt(pageParam ?? '1', 10);\n\n  const posts = await getPosts({ perPage: 9, page });\n\n  return (\n    <main className=\"container mx-auto px-4 py-16\">\n      <h1 className=\"text-4xl font-bold mb-12\">Blog</h1>\n      <div className=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8\">\n        {posts.map((post) => (\n          <PostCard key={post.id} post={post} />\n        ))}\n      </div>\n    </main>\n  );\n}"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Dynamic Blog Post Page"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "typescript",
+      "text": "// src/app/blog/[slug]/page.tsx\nimport { getPostBySlug, getAllPostSlugs } from '@/lib/wordpress';\nimport { notFound } from 'next/navigation';\nimport type { Metadata } from 'next';\n\nexport const revalidate = 86400; // Revalidate every 24 hours\n\ninterface PostPageProps {\n  params: Promise<{ slug: string }>;\n}\n\nexport async function generateStaticParams() {\n  const slugs = await getAllPostSlugs();\n  return slugs.map((slug) => ({ slug }));\n}\n\nexport async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {\n  const { slug } = await params;\n  const post = await getPostBySlug(slug);\n  if (!post) return {};\n\n  return {\n    title: post.title,\n    description: post.excerpt,\n    openGraph: {\n      title: post.title,\n      description: post.excerpt,\n      images: post.featuredImage ? [post.featuredImage.source_url] : [],\n    },\n  };\n}\n\nexport default async function PostPage({ params }: PostPageProps) {\n  const { slug } = await params;\n  const post = await getPostBySlug(slug);\n  if (!post) notFound();\n\n  return (\n    <article className=\"container mx-auto px-4 py-16 max-w-3xl\">\n      <h1 className=\"text-4xl font-bold mb-6\">{post.title}</h1>\n      <div\n        className=\"prose prose-lg max-w-none\"\n        dangerouslySetInnerHTML={{ __html: post.content }}\n      />\n    </article>\n  );\n}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Authentication for Private Content"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "If your WordPress site has membership content, user profiles, or private posts, you need authentication. WordPress supports two main approaches for headless setups:"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Application Passwords (WordPress 5.6+)"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Application passwords are 24-character tokens generated per user in the WordPress admin. They’re ideal for server-to-server API calls (e.g., your Next.js server fetching private data):"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "typescript",
+      "text": "// Server-side only — never expose in client code\nconst WP_AUTH = Buffer.from(\n  `${process.env.WP_USERNAME}:${process.env.WP_APP_PASSWORD}`\n).toString('base64');\n\nconst privatePost = await fetch(`${WP_API_BASE}/posts/123?status=private`, {\n  headers: {\n    Authorization: `Basic ${WP_AUTH}`,\n  },\n  cache: 'no-store', // Private content should never be cached\n});"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "JWT Authentication"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "For user-facing authentication (e.g., members logging into your site), use the JWT Authentication for WP REST API plugin. This gives you a proper stateless auth flow:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "typescript",
+      "text": "// Login and get JWT token\nasync function loginUser(username: string, password: string) {\n  const res = await fetch(`${WP_API_BASE.replace('/wp/v2', '')}/jwt-auth/v1/token`, {\n    method: 'POST',\n    headers: { 'Content-Type': 'application/json' },\n    body: JSON.stringify({ username, password }),\n  });\n\n  if (!res.ok) throw new Error('Login failed');\n  const { token } = await res.json();\n\n  // Store securely — httpOnly cookie via Next.js Server Action\n  return token;\n}\n\n// Authenticated request\nasync function getPrivateContent(token: string) {\n  return wpFetch('/posts?status=private', {\n    headers: { Authorization: `Bearer ${token}` },\n  });\n}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "On-Demand Revalidation Webhook"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "ISR with a fixed revalidation interval means new content appears within an hour. For a better editorial experience, implement on-demand revalidation: when a post is published in WordPress, it immediately triggers a cache purge on your Next.js frontend."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "WordPress Side — The Webhook"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "text": "// In functions.php or a mu-plugin\nadd_action('save_post', function(int $post_id, WP_Post $post) {\n    if ($post->post_status !== 'publish') return;\n    if (wp_is_post_revision($post_id)) return;\n\n    $frontend_url  = get_option('headless_frontend_url', 'https://mysite.com');\n    $secret        = get_option('revalidation_secret');\n    $post_type_map = [\n        'post'      => '/blog',\n        'portfolio' => '/projects',\n    ];\n\n    $base_path = $post_type_map[$post->post_type] ?? null;\n    if (!$base_path) return;\n\n    $paths = [$base_path, \"$base_path/{$post->post_name}\"];\n\n    wp_remote_post(\"$frontend_url/api/revalidate\", [\n        'headers' => [\n            'Content-Type'   => 'application/json',\n            'x-revalidate-secret' => $secret,\n        ],\n        'body'    => wp_json_encode(['paths' => $paths]),\n        'timeout' => 10,\n    ]);\n}, 10, 2);"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Next.js Side — The Revalidation Endpoint"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "typescript",
+      "text": "// src/app/api/revalidate/route.ts\nimport { revalidatePath } from 'next/cache';\nimport { NextRequest, NextResponse } from 'next/server';\n\nexport async function POST(request: NextRequest) {\n  const secret = request.headers.get('x-revalidate-secret');\n\n  if (secret !== process.env.REVALIDATION_SECRET) {\n    return NextResponse.json({ error: 'Invalid secret' }, { status: 401 });\n  }\n\n  const body = await request.json();\n  const paths: string[] = body.paths ?? [];\n\n  for (const path of paths) {\n    revalidatePath(path);\n  }\n\n  return NextResponse.json({ revalidated: true, paths });\n}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Advanced: React Query for Client-Side Data"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "For interactive features — search, filters, infinite scroll — you need client-side data fetching. React Query (TanStack Query) is the best solution for this:"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "typescript",
+      "text": "'use client';\n\nimport { useInfiniteQuery } from '@tanstack/react-query';\n\ninterface Post {\n  id: number;\n  slug: string;\n  title: string;\n  excerpt: string;\n}\n\nasync function fetchPosts({ pageParam = 1 }: { pageParam: number }) {\n  const res = await fetch(`/api/posts?page=${pageParam}&per_page=9`);\n  if (!res.ok) throw new Error('Failed to fetch posts');\n  const posts: Post[] = await res.json();\n  const totalPages = parseInt(res.headers.get('X-WP-TotalPages') ?? '1', 10);\n  return { posts, nextPage: pageParam < totalPages ? pageParam + 1 : undefined };\n}\n\nexport function InfinitePostList() {\n  const {\n    data,\n    fetchNextPage,\n    hasNextPage,\n    isFetchingNextPage,\n    status,\n  } = useInfiniteQuery({\n    queryKey: ['posts'],\n    queryFn: fetchPosts,\n    initialPageParam: 1,\n    getNextPageParam: (lastPage) => lastPage.nextPage,\n  });\n\n  if (status === 'pending') return <PostsSkeleton />;\n  if (status === 'error') return <ErrorState />;\n\n  const allPosts = data.pages.flatMap((page) => page.posts);\n\n  return (\n    <div>\n      <div className=\"grid grid-cols-1 md:grid-cols-3 gap-6\">\n        {allPosts.map((post) => (\n          <PostCard key={post.id} post={post} />\n        ))}\n      </div>\n      {hasNextPage && (\n        <button\n          onClick={() => fetchNextPage()}\n          disabled={isFetchingNextPage}\n          className=\"mt-8 px-6 py-3 bg-primary-600 text-white rounded-lg\"\n        >\n          {isFetchingNextPage ? 'Loading...' : 'Load More Posts'}\n        </button>\n      )}\n    </div>\n  );\n}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "When NOT to Go Headless"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Headless WordPress is powerful but it’s not always the right choice. Consider carefully:"
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "Page Builder sites:"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " Elementor, Divi, Beaver Builder — these are deeply coupled to WordPress rendering. Going headless loses all of that."
+          }
+        ],
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "WooCommerce:"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " Headless WooCommerce is possible but complex. Most e-commerce sites are better served by a traditional or block-theme approach."
+          }
+        ],
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "Small content sites:"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " If you have 5 pages and rarely update content, headless adds unnecessary complexity."
+          }
+        ],
+        [
+          {
+            "t": "strong",
+            "children": [
+              {
+                "t": "text",
+                "value": "Team without React experience:"
+              }
+            ]
+          },
+          {
+            "t": "text",
+            "value": " Headless requires frontend expertise that your team may not have."
+          }
+        ]
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "The sweet spot for headless WordPress is: content-heavy sites, portfolios, blogs, marketing sites, and apps where performance and developer experience are top priorities."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "inlines": [
+        {
+          "t": "text",
+          "value": "Conclusion"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "The WordPress REST API + React/Next.js stack gives you the best of both worlds: WordPress’s unmatched content management experience for editors, and a modern, performant frontend for users. With ISR, on-demand revalidation, and React Query for interactive features, you can build sites that score 100/100 on Lighthouse while still giving content teams the WordPress experience they love."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "inlines": [
+        {
+          "t": "text",
+          "value": "The architectural patterns in this guide — typed API clients, transform functions, on-demand revalidation, JWT auth — are production-tested across dozens of projects. Start with a simple blog setup, get comfortable with the data flow, then layer in complexity as your requirements grow."
+        }
+      ]
+    }
+  ]
+}
