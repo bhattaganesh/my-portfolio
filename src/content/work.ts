@@ -99,3 +99,13 @@ export const work: readonly WorkItem[] = [
 export function findWork(slug: string): WorkItem | undefined {
   return work.find((item) => item.slug === slug);
 }
+
+/** Old /projects/<slug>/ URLs from the previous site and the work item that replaces each one. */
+export const LEGACY_PROJECT_SLUGS: Readonly<Record<string, string>> = {
+  'spectra-v3': 'spectra',
+  spectra: 'spectra',
+  'masteriyo-lms': 'masteriyo',
+  'wp-agent-ai': 'wp-agent-ai',
+  'everest-forms': 'everest-forms',
+  'user-registration': 'user-registration',
+};

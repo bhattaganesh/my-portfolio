@@ -10,7 +10,7 @@ export interface Role {
 }
 
 export const profile = {
-  name: 'Ganesh Bhatt',
+  name: SITE_CONFIG.name,
   summary: 'Senior full-stack engineer working across WordPress, Gutenberg, React and PHP, based in Kathmandu, Nepal.',
   email: SITE_CONFIG.email,
   links: [

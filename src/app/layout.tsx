@@ -1,8 +1,9 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import { ThemeProvider } from 'next-themes';
 import { inter, jetbrainsMono, cabinetGrotesk } from '@/lib/fonts';
 import { SITE_CONFIG } from '@/lib/constants';
+import { SiteChrome } from '@/components/layout/site-chrome';
 import './globals.css';
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
@@ -10,51 +11,10 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_CONFIG.url),
   title: {
-    default: `${SITE_CONFIG.name} \u2013 ${SITE_CONFIG.title}`,
+    default: `${SITE_CONFIG.name} – ${SITE_CONFIG.title}`,
     template: `%s | ${SITE_CONFIG.name}`,
   },
   description: SITE_CONFIG.description,
-  keywords: [
-    'Full Stack Developer',
-    'PHP Developer',
-    'WordPress Developer',
-    'React Developer',
-    'Gutenberg Developer',
-    'Software Engineer',
-    'Nepal',
-    'Kathmandu',
-    'Brainstorm Force',
-    'WordPress Developer Nepal',
-    'Gutenberg Block Developer',
-    'Headless WordPress Developer',
-    'React Developer Kathmandu',
-    'PHP Developer Nepal',
-    'Spectra Developer',
-    'Full Stack Developer Nepal',
-    'Nepali Developer',
-    'Gutenberg Expert',
-    'WordPress Expert',
-    'React JS Expert',
-    'LMS Expert',
-    'LMS Developer',
-    'Page Builder Expert',
-    'Gutenberg Page Builder Expert',
-    'AI Developer',
-    'WordPress AI Expert',
-    'Contact Form Expert',
-    'ThemeGrill Developer',
-    'Kathmandu Developer',
-    'Hire Nepali Developer',
-    'Software Engineer Nepal',
-    'WordPress Plugin Developer',
-    'Ganesh Bhatt',
-    'Ganesh Prasad Bhatt',
-    'Masteriyo Developer',
-    'Everest Forms Developer',
-    'WordPress Forms Developer',
-    'Page Builder Developer',
-    'WordPress Consultant Nepal',
-  ],
   authors: [{ name: SITE_CONFIG.name, url: SITE_CONFIG.url }],
   creator: SITE_CONFIG.name,
   openGraph: {
@@ -62,215 +22,67 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: SITE_CONFIG.url,
     siteName: SITE_CONFIG.name,
-    title: `${SITE_CONFIG.name} \u2013 ${SITE_CONFIG.title}`,
+    title: `${SITE_CONFIG.name} – ${SITE_CONFIG.title}`,
     description: SITE_CONFIG.description,
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${SITE_CONFIG.name} \u2013 ${SITE_CONFIG.title}`,
+    title: `${SITE_CONFIG.name} – ${SITE_CONFIG.title}`,
     description: SITE_CONFIG.description,
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-image-preview': 'large',
-      'max-video-preview': -1,
-      'max-snippet': -1,
-    },
-  },
+  robots: { index: true, follow: true },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || 'cja3_7GdgWI9jy5C_mFgSHlmvK9BqlIQgPUXCo-ftGE',
   },
   alternates: {
-    canonical: SITE_CONFIG.url,
-    types: {
-      'application/rss+xml': `${SITE_CONFIG.url}/feed.xml`,
-    },
+    types: { 'application/rss+xml': `${SITE_CONFIG.url}/feed.xml` },
   },
+  manifest: '/manifest.json',
 };
 
-const websiteSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: SITE_CONFIG.name,
-  url: SITE_CONFIG.url,
-  description: SITE_CONFIG.description,
-  author: {
-    '@type': 'Person',
-    name: SITE_CONFIG.name,
-  },
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: `${SITE_CONFIG.url}/blog?q={search_term_string}`,
-    'query-input': 'required name=search_term_string',
-  },
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#f6f3ec' },
+    { media: '(prefers-color-scheme: dark)', color: '#15171a' },
+  ],
 };
 
+/** Structured data limited to facts the site itself states; no current employer until it is confirmed. */
 const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: SITE_CONFIG.name,
   url: SITE_CONFIG.url,
-  email: SITE_CONFIG.email,
-  telephone: SITE_CONFIG.phone,
-  jobTitle: 'Senior Full-Stack Software Developer',
-  description:
-    'Senior Full-Stack Developer from Nepal specializing in WordPress, Gutenberg, React, PHP, and LMS development. Core engineer on Spectra Blocks at Brainstorm Force.',
-  image: `${SITE_CONFIG.url}/images/ganesh.webp`,
-  worksFor: {
-    '@type': 'Organization',
-    name: 'Brainstorm Force',
-    url: 'https://developer.brainstormforce.com',
-  },
-  alumniOf: {
-    '@type': 'CollegeOrUniversity',
-    name: 'Tribhuvan University',
-    address: { '@type': 'PostalAddress', addressCountry: 'NP' },
-  },
-  nationality: { '@type': 'Country', name: 'Nepal' },
-  knowsAbout: [
-    'WordPress',
-    'Gutenberg',
-    'Gutenberg Blocks',
-    'Page Builder Development',
-    'React',
-    'PHP',
-    'TypeScript',
-    'JavaScript',
-    'MySQL',
-    'REST API',
-    'GraphQL',
-    'Next.js',
-    'Laravel',
-    'LMS Development',
-    'AI Agents',
-    'WordPress Plugin Development',
-    'Contact Form Development',
-    'Full-Stack Development',
-    'Software Engineering',
-  ],
-  hasOccupation: {
-    '@type': 'Occupation',
-    name: 'Full-Stack Software Developer',
-    occupationalCategory: '15-1252.00',
-    skills:
-      'WordPress, Gutenberg, React, PHP, TypeScript, MySQL, REST API, Next.js, Laravel, LMS, AI',
-  },
-  sameAs: [
-    SITE_CONFIG.socials.linkedin,
-    SITE_CONFIG.socials.github,
-    SITE_CONFIG.socials.facebook,
-  ],
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Kathmandu',
-    addressRegion: 'Bagmati',
-    addressCountry: 'NP',
-  },
-};
-
-const professionalServiceSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
-  name: `${SITE_CONFIG.name} — Full-Stack Developer`,
-  url: SITE_CONFIG.url,
-  description:
-    'Senior full-stack software developer specializing in WordPress, Gutenberg blocks, React, PHP, LMS development, AI integration, and contact form solutions.',
-  telephone: SITE_CONFIG.phone,
-  email: SITE_CONFIG.email,
-  priceRange: '$$',
-  areaServed: [
-    { '@type': 'Country', name: 'Nepal' },
-    { '@type': 'Place', name: 'Worldwide' },
-  ],
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Kathmandu',
-    addressRegion: 'Bagmati',
-    addressCountry: 'NP',
-  },
-  founder: {
-    '@type': 'Person',
-    name: SITE_CONFIG.name,
-    url: SITE_CONFIG.url,
-  },
-  serviceType: [
-    'WordPress Development',
-    'Gutenberg Block Development',
-    'React Development',
-    'PHP Development',
-    'LMS Development',
-    'AI Integration',
-    'Contact Form Development',
-    'Full-Stack Web Development',
-    'Page Builder Development',
-  ],
-  knowsAbout: [
-    'WordPress Expert',
-    'Gutenberg Expert',
-    'React JS Expert',
-    'PHP Expert',
-    'LMS Expert',
-    'Page Builder Expert',
-    'AI Developer',
-    'Contact Form Expert',
-    'Nepali Developer',
-    'Full Stack Developer',
-  ],
+  jobTitle: 'Senior Full-Stack Engineer',
+  address: { '@type': 'PostalAddress', addressLocality: 'Kathmandu', addressCountry: 'NP' },
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'Tribhuvan University' },
+  knowsAbout: ['WordPress', 'Gutenberg', 'React', 'PHP', 'TypeScript', 'REST APIs'],
+  sameAs: [SITE_CONFIG.socials.linkedin, SITE_CONFIG.socials.github],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={`${inter.variable} ${jetbrainsMono.variable} ${cabinetGrotesk.variable}`}
-    >
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${jetbrainsMono.variable} ${cabinetGrotesk.variable}`}>
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceSchema) }}
-        />
-        <link rel="manifest" href="/manifest.json" />
-        <link rel="alternate" type="application/rss+xml" title={`${SITE_CONFIG.name} Blog`} href="/feed.xml" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
       </head>
       {GA_ID && (
         <>
-          <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-            strategy="afterInteractive"
-          />
+          <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
           <Script id="google-analytics" strategy="afterInteractive">
             {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`}
           </Script>
         </>
       )}
       <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem={false}
-          disableTransitionOnChange={false}
-        >
-          {/* [UX-FIX] Skip link for keyboard/screen reader users — only visible on focus */}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <a
             href="#main-content"
-            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-primary-600 focus:text-white focus:font-semibold focus:shadow-lg"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-full focus:bg-cobalt focus:px-4 focus:py-2 focus:font-semibold focus:text-on-cobalt"
           >
             Skip to main content
           </a>
-          {children}
+          <SiteChrome>{children}</SiteChrome>
         </ThemeProvider>
       </body>
     </html>

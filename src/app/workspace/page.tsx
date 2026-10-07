@@ -35,8 +35,8 @@ export default function WorkspacePage() {
         <div className="gw-noscript">
           <p>The interactive workspace needs JavaScript. Everything in it is also on the main portfolio:</p>
           <ul>
-            <li><Link href="/projects/">Projects</Link></li>
-            <li><Link href="/experience/">Career journey</Link></li>
+            <li><Link href="/work/">Work</Link></li>
+            <li><Link href="/journey/">Career journey</Link></li>
             <li><Link href="/contact/">Contact</Link></li>
             <li><Link href="/">Back to the portfolio</Link></li>
           </ul>

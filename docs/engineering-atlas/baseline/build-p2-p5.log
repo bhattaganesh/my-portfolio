@@ -1,0 +1,67 @@
+
+> ganesh-portfolio@1.0.0 build
+> next build
+
+▲ Next.js 16.2.0 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 3.5s
+  Running TypeScript ...
+  Finished TypeScript in 6.5s ...
+  Collecting page data using 11 workers ...
+  Generating static pages using 11 workers (0/48) ...
+  Generating static pages using 11 workers (12/48) 
+  Generating static pages using 11 workers (24/48) 
+  Generating static pages using 11 workers (36/48) 
+✓ Generating static pages using 11 workers (48/48) in 889ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /about
+├ ○ /apple-icon
+├ ○ /blog
+├ ● /blog/[slug]
+│ ├ /blog/php-8-x-features-every-wordpress-developer-should-know
+│ ├ /blog/react-wordpress-rest-api-the-modern-headless-cms-stack
+│ ├ /blog/building-scalable-wordpress-plugins-lessons-from-masteriyo-lms
+│ └ [+3 more paths]
+├ ● /blog/-/opengraph-image
+│ ├ /blog/php-8-x-features-every-wordpress-developer-should-know/opengraph-image
+│ ├ /blog/react-wordpress-rest-api-the-modern-headless-cms-stack/opengraph-image
+│ ├ /blog/building-scalable-wordpress-plugins-lessons-from-masteriyo-lms/opengraph-image
+│ └ [+3 more paths]
+├ ○ /contact
+├ ○ /experience
+├ ○ /feed.xml
+├ ○ /icon.svg
+├ ○ /journey
+├ ○ /opengraph-image
+├ ○ /projects
+├ ● /projects/[slug]
+│ ├ /projects/spectra-v3
+│ ├ /projects/spectra
+│ ├ /projects/masteriyo-lms
+│ └ [+3 more paths]
+├ ● /projects/-/opengraph-image
+│ ├ /projects/spectra-v3/opengraph-image
+│ ├ /projects/spectra/opengraph-image
+│ ├ /projects/masteriyo-lms/opengraph-image
+│ └ [+3 more paths]
+├ ○ /pwa-icon-192
+├ ○ /pwa-icon-512
+├ ○ /robots.txt
+├ ○ /sitemap.xml
+├ ○ /work
+├ ● /work/[slug]
+│ ├ /work/spectra
+│ ├ /work/masteriyo
+│ ├ /work/wp-agent-ai
+│ └ [+2 more paths]
+└ ○ /workspace
+
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+

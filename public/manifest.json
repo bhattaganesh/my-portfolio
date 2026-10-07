@@ -1,11 +1,11 @@
 {
-  "name": "Ganesh Prasad Bhatt – Senior Full-Stack Developer",
+  "name": "Ganesh Prasad Bhatt – Senior Full-Stack Engineer",
   "short_name": "Ganesh Bhatt",
-  "description": "Ganesh Prasad Bhatt — WordPress developer, Gutenberg expert, React JS expert, PHP developer, LMS expert, and full-stack software engineer from Nepal. Core engineer on Spectra Blocks at Brainstorm Force.",
+  "description": "Portfolio of Ganesh Prasad Bhatt, a senior full-stack engineer in Kathmandu, Nepal, working across WordPress, Gutenberg, React and PHP.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#020617",
-  "theme_color": "#020617",
+  "background_color": "#f6f3ec",
+  "theme_color": "#16181c",
   "icons": [
     {
       "src": "/icon",
