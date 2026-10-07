@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "postbuild": "node scripts/fix-segment-names.mjs out",
     "start": "next start",
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
