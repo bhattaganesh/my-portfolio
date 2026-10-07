@@ -22,8 +22,8 @@ export type SearchResult =
   | { kind: 'project'; slug: string; title: string; subtitle: string }
   | { kind: 'command'; command: string; title: string; subtitle: string };
 
-/** Commands that only make sense inside an open terminal are not offered from Spotlight. */
-const TERMINAL_ONLY = new Set(['clear', 'exit']);
+/** Commands that only make sense inside an open terminal, or need an argument, are not offered from Spotlight. */
+const TERMINAL_ONLY = new Set(['clear', 'exit', 'open']);
 
 /** Match quality, best first; anything that does not match at all is left out. */
 const RANK = { exact: 0, prefix: 1, wordPrefix: 2, contains: 3, detail: 4 } as const;

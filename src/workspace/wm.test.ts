@@ -195,6 +195,15 @@ describe('window manager', () => {
     expect(s.focused).toBe('projects');
   });
 
+  it('load restores a minimized window to the mode it was minimized from', () => {
+    const s = reduce(initialState(DESKTOP), {
+      type: 'load',
+      specs: { projects: SPEC },
+      windows: [{ app: 'projects', mode: 'minimized', restoreTo: 'maximized', rect: { x: 0, y: 0, w: 500, h: 400 } }],
+    });
+    expect(reduce(s, { type: 'restore', app: 'projects' }).windows.projects!.mode).toBe('maximized');
+  });
+
   it('load never replaces windows the visitor already opened', () => {
     const s = open(initialState(DESKTOP), 'terminal');
     expect(reduce(s, { type: 'load', specs: { projects: SPEC }, windows: [{ app: 'projects', mode: 'normal', rect: { x: 0, y: 0, w: 500, h: 400 } }] })).toBe(s);

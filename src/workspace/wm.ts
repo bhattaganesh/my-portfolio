@@ -63,6 +63,8 @@ export interface SavedWindow {
   app: AppId;
   mode: Mode;
   rect: Rect;
+  /** What a minimized window restores to; older saves without it restore to normal. */
+  restoreTo?: Win['restoreTo'];
 }
 
 /** Height of a window title bar; it must always stay inside the work area. */
@@ -167,7 +169,7 @@ export function reduce(state: WmState, action: WmAction): WmState {
     for (const saved of action.windows) {
       const spec = action.specs[saved.app];
       if (!spec || windows[saved.app]) continue;
-      const restoreTo = saved.mode === 'maximized' ? 'maximized' : 'normal';
+      const restoreTo = saved.mode === 'maximized' ? 'maximized' : saved.mode === 'minimized' ? (saved.restoreTo ?? 'normal') : 'normal';
       windows[saved.app] = { app: saved.app, mode: saved.mode, rect: clampRect(saved.rect, spec.min, state.area), restoreTo, min: spec.min };
       order.push(saved.app);
     }

@@ -195,7 +195,7 @@ export function WindowFrame({
               className="gw-menu-btn"
               aria-label={`Window options for ${title}`}
               aria-expanded={menuOpen}
-              aria-controls={`gw-menu-${app}`}
+              aria-controls={menuOpen ? `gw-menu-${app}` : undefined}
               onClick={() => setMenuOpen((open) => !open)}
             >
               <span aria-hidden="true">•••</span>

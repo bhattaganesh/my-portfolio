@@ -25,6 +25,7 @@ const savedWindowSchema = z
     app: z.enum(APP_IDS),
     mode: z.enum(['normal', 'maximized', 'minimized']),
     rect: z.object({ x: coord, y: coord, w: coord.min(0), h: coord.min(0) }).strict(),
+    restoreTo: z.enum(['normal', 'maximized']).optional(),
   })
   .strict();
 

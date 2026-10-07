@@ -77,6 +77,7 @@ export function Workspace({ resumeHref, wallpaper }: WorkspaceProps) {
   const menuOpener = useRef<HTMLElement | null>(null);
   const prefsRef = useRef(prefs);
   const layoutLoaded = useRef(false);
+  const deepLinkHandled = useRef(false);
   const pushedPanel = useRef(false);
   const prevFocused = useRef<AppId | null>(null);
   const sounds = useRef<ReturnType<typeof createSounds> | null>(null);
@@ -99,11 +100,13 @@ export function Workspace({ resumeHref, wallpaper }: WorkspaceProps) {
     const observer = new ResizeObserver(([entry]) => {
       const w = Math.round(entry.contentRect.width);
       dispatch({ type: 'area', w, h: Math.round(entry.contentRect.height) });
-      if (layoutLoaded.current) return;
-      layoutLoaded.current = true;
-      if (w >= PANEL_BREAKPOINT) {
+      // The saved desktop layout loads on the first desktop-width measurement, so starting narrow never overwrites it.
+      if (!layoutLoaded.current && w >= PANEL_BREAKPOINT) {
+        layoutLoaded.current = true;
         dispatch({ type: 'load', windows: prefsRef.current.windows, specs: Object.fromEntries(APPS.map((a) => [a.id, a.spec])) });
       }
+      if (deepLinkHandled.current) return;
+      deepLinkHandled.current = true;
       const linked = window.location.hash.slice(1);
       if (isOpenable(linked)) {
         pendingFocus.current = linked;
@@ -134,7 +137,7 @@ export function Workspace({ resumeHref, wallpaper }: WorkspaceProps) {
     const timer = window.setTimeout(() => {
       const windows = state.order.map((app) => {
         const win = state.windows[app]!;
-        return { app, mode: win.mode, rect: win.rect };
+        return { app, mode: win.mode, rect: win.rect, restoreTo: win.restoreTo };
       });
       persist({ ...prefsRef.current, windows });
     }, LAYOUT_SAVE_DELAY);
@@ -147,7 +150,12 @@ export function Workspace({ resumeHref, wallpaper }: WorkspaceProps) {
   useEffect(() => {
     const prev = prevFocused.current;
     prevFocused.current = state.focused;
-    if (state.layout !== 'panels' || prev === state.focused) return;
+    if (state.layout !== 'panels') {
+      // A panel entry pushed before switching to the desktop is left as a harmless no-op entry.
+      pushedPanel.current = false;
+      return;
+    }
+    if (prev === state.focused) return;
     const url = `${window.location.pathname}${window.location.search}`;
     if (state.focused && !prev) {
       if (window.location.hash !== `#${state.focused}`) {
@@ -369,7 +377,7 @@ export function Workspace({ resumeHref, wallpaper }: WorkspaceProps) {
       case 'projects':
         return <ProjectsApp slug={projectSlug} compact={state.layout === 'panels'} onSelect={setProjectSlug} />;
       case 'terminal':
-        return <TerminalApp ctx={{ resumeHref, apps: APP_IDS_OPEN }} onEffect={onTerminalEffect} queued={terminalQueue} />;
+        return <TerminalApp ctx={{ resumeHref, apps: APP_IDS_OPEN }} onEffect={onTerminalEffect} queued={terminalQueue} onQueuedRun={() => setTerminalQueue(null)} />;
       case 'about':
         return <AboutApp resumeHref={resumeHref} />;
       case 'settings':
@@ -392,7 +400,7 @@ export function Workspace({ resumeHref, wallpaper }: WorkspaceProps) {
           className="gw-brand"
           aria-haspopup="menu"
           aria-expanded={menu?.kind === 'workspace'}
-          aria-controls="gw-menu-workspace"
+          aria-controls={menu?.kind === 'workspace' ? 'gw-menu-workspace' : undefined}
           onClick={(e) => (menu?.kind === 'workspace' ? closeMenu(false) : openMenu({ kind: 'workspace', at: pointAt(e.currentTarget) }, e.currentTarget))}
         >
           <span className="gw-brand-mark" aria-hidden="true">G</span>

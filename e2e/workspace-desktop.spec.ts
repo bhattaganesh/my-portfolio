@@ -228,3 +228,27 @@ test('has no axe violations with every app open in both themes, in Mission Contr
   await page.getByRole('button', { name: 'Ganesh Workspace' }).click();
   await scan('workspace menu');
 });
+
+test('a saved layout survives a visit that starts narrow and is then widened', async ({ page }) => {
+  await dock(page).getByRole('button', { name: 'Projects' }).click();
+  await dock(page).getByRole('button', { name: 'About Ganesh' }).click();
+  await page.waitForTimeout(600);
+  await page.setViewportSize({ width: 600, height: 800 });
+  await page.reload();
+  await expect(page.getByRole('navigation', { name: 'Apps' })).toBeVisible();
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await expect(windowRegion(page, 'Projects')).toBeVisible();
+  await expect(windowRegion(page, 'About Ganesh')).toBeVisible();
+});
+
+test('a command sent from Spotlight runs once, not again when Terminal reopens', async ({ page }) => {
+  await page.keyboard.press('Control+k');
+  await page.getByRole('combobox').fill('skills');
+  await page.keyboard.press('Enter');
+  const log = page.getByRole('log', { name: 'Terminal output' });
+  await expect(log.locator('.gw-term-echo')).toHaveCount(1);
+  await page.getByRole('button', { name: 'Close Terminal' }).click();
+  await dock(page).getByRole('button', { name: 'Terminal' }).click();
+  await expect(log).toContainText('Welcome to Ganesh Workspace');
+  await expect(log.locator('.gw-term-echo')).toHaveCount(0);
+});

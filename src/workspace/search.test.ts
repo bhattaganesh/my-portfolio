@@ -34,6 +34,7 @@ describe('spotlight search', () => {
     expect(titles('resume')).toEqual(['command:resume']);
     expect(titles('exit')).toEqual([]);
     expect(titles('clear')).toEqual([]);
+    expect(titles('open').filter((t) => t.startsWith('command:'))).toEqual([]);
   });
 
   it('treats hostile input as plain text with no results', () => {

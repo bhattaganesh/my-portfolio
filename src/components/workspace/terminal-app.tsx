@@ -14,6 +14,8 @@ interface TerminalAppProps {
   onEffect: (effect: Effect) => void;
   /** A command handed over from elsewhere (Spotlight); it runs once per distinct id. */
   queued?: { id: number; command: string } | null;
+  /** Called once a queued command has run, so the owner can drop it and a later remount does not repeat it. */
+  onQueuedRun?: () => void;
 }
 
 const SUGGESTED = ['help', 'about', 'projects', 'journey', 'resume', 'contact', 'open settings'];
@@ -23,7 +25,7 @@ const WELCOME: Entry = { id: 0, lines: [{ kind: 'text', text: 'Welcome to Ganesh
  * Simulated portfolio terminal with history, Tab completion that never traps focus,
  * and clickable command chips as an alternative to typing.
  */
-export function TerminalApp({ ctx, onEffect, queued }: TerminalAppProps) {
+export function TerminalApp({ ctx, onEffect, queued, onQueuedRun }: TerminalAppProps) {
   const [entries, setEntries] = useState<Entry[]>([WELCOME]);
   const [value, setValue] = useState('');
   const [history, setHistory] = useState<string[]>([]);
@@ -54,6 +56,7 @@ export function TerminalApp({ ctx, onEffect, queued }: TerminalAppProps) {
     if (!queued || ranQueued.current === queued.id) return;
     ranQueued.current = queued.id;
     submit(queued.command);
+    onQueuedRun?.();
     // submit is recreated each render; the queued id alone decides when to run.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queued]);
