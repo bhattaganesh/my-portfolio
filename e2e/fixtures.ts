@@ -1,7 +1,10 @@
 import { test as base, expect, type Page } from '@playwright/test';
 
-/** WebKit's message for a same-origin router prefetch (`__next.*` file) cancelled by a navigation. */
-const CANCELLED_PREFETCH = /^(Fetch API cannot load )?(https?:)?\/\/?localhost:\d+\/(?:[^ ]*\/)?__next\.[^ ]* due to access control checks\.$/;
+/**
+ * WebKit's message for a same-origin router fetch (a `__next.*` segment or a route payload) cancelled by a navigation.
+ * Same-origin requests cannot fail a real access-control check, so only localhost URLs are matched.
+ */
+const CANCELLED_PREFETCH = /^(Fetch API cannot load )?(https?:)?\/\/?localhost:\d+\/[^ ]* due to access control checks\.$/;
 
 /** Fails any test whose page logged an uncaught error or console error (hydration errors included). */
 export const test = base.extend<{ errors: string[] }>({

@@ -67,6 +67,11 @@ Sweep: 8 routes × widths 360/390/768/1024/1440, `waitUntil: networkidle` + 800 
 | GitHub stats (130+, 279+, 64% …) | live DOM, `use-github-stats` | mixed live/hardcoded | **remove widgets** |
 | 6 blog posts as Ganesh's writing | live site | authorship unconfirmed | publish only per-post after confirmation |
 | Résumé | `SITE_CONFIG.resumeUrl` | O: 404 | need the PDF |
+| Spectra split into "Spectra Legacy" (`ultimate-addons-for-gutenberg`, 1,000,000+ installs, v2.20.4, maintenance only) and "Spectra Blocks" (`spectra-blocks`, added 2026-07-08, 50,000+ installs) | wordpress.org plugins API, 2026-10-07 | O | Spectra copy must reflect the split; "1M+" belongs to Legacy |
+| Ganesh's Spectra scope: Legacy maintenance, performance and security fixes and enhancements; Spectra Blocks: responsive controls, dynamic content (e.g. a countdown block), a "load builder content" block, extensions and add-ons | Ganesh, in session, 2026-10-07 | self-reported | usable as Ganesh's own account; exact block names to be checked against the public `spectra-blocks` package |
+| Masteriyo contributors now `masteriyo, themeisle`; 6,000+ installs, v3.4.3 | wordpress.org plugins API, 2026-10-07 | O | Masteriyo source repos are private, so ownership stays self-reported |
+| WP Agent AI: all 31 commits by Ganesh Bhatta; HEAD `dff0e3c` (2026-03-03) | `gh api repos/bhattaganesh/wp-agent-ai/commits` | O | authorship verified |
+| WP Agent AI stack says "OpenAI API" | `src/content/work.ts` | O: wrong. The code calls OpenRouter (`includes/Services/OpenRouterClient.php`) | correct to OpenRouter |
 
 ## Step B: design prototype (2026-10-07)
 
@@ -129,3 +134,24 @@ Not verified yet:
   - the sitemap lists only canonical trailing-slash URLs; the feed is valid with 0 items.
 - Windows-only prefetch 404s: root cause in Next 16.2.0 `export/index.js` (see status.md). The Linux export serves `/work/__next.work.__PAGE__.txt` with 200.
 - E2E on the Linux export: 83 passed, 8 failed (breakdown in status.md). The no-JS failure is a real `loading.tsx` defect that predates this work.
+
+## Windows segment fix, deletions and E2E (2026-10-07, home laptop `E:\dev-env\my-portfolio`)
+Toolchain: Windows 11, Node 23.6.0, npm 11.4.2 (office laptop used Node 24.18.0; CI uses 22). Playwright browsers installed fresh (`npx playwright install chromium firefox webkit`).
+
+| Check | Result |
+|---|---|
+| Root cause re-read in installed Next 16.2.0 | O: `convertSegmentPathToStaticExportFilename` is `` `__next${segmentPath.replace(/\//g, '.')}.txt` ``; the client (`segment-cache/cache.js`) requests the same dotted name |
+| Windows build before the fix | O: 26 nested `__next.*` folders holding 43 files (e.g. `work/spectra/__next.work/$d$slug/__PAGE__.txt`) |
+| `scripts/fix-segment-names.test.ts` | O: 3 pass (Windows layout flattened, Linux layout untouched, refuses to overwrite). Mutation: joining with `-` instead of `.` fails 2 of 3; restored → 3/3 |
+| `npm run build` with the CMS host dead (`127.0.0.1:9`) | O: exit 0; `postbuild` logged "moved 43 file(s)"; 0 nested folders left; 296 files before and after; rerun moves 0 |
+| Served navigation (`scratchpad nav-check`, Chromium) | O: client nav `/work/ → /work/spectra/ → /journey/ → /contact/ → /` all ok; 147 segment requests all 200; 0 responses ≥ 400; 0 console errors |
+| Deletion safety | O: grep of every kept `src`, `e2e`, `scripts` file for imports of the 52 deleted files and 14 removed packages: 0 hits |
+| Lint / type-check / unit | O: 0 errors 0 warnings / clean / 32 pass |
+| E2E run 1 (pre-deletion export) | O: 86 passed, 5 failed (3 no-JS, Firefox link-crawl 30 s timeout, WebKit cancelled fetch of `/work/spectra/`) |
+| E2E run 2 (post-deletion export) | O: 85 passed, 6 failed (3 no-JS on a "Work"/"Workspace" selector clash, 2 WebKit cancelled fetches of `/`, 1 mobile-WebKit menu) |
+| `<noscript>` on `/workspace/`, JS off, all 3 engines | O: parsed as elements, `.gw-noscript` visible, screenshot shows the notice; `getByText` finds 0 (Playwright skips `<noscript>`), so the test now targets `.gw-noscript` |
+| Fixture filter widened to any same-origin localhost URL | O: matches `/localhost:4310/ …` and a `__next.*` URL; does not match `api.github.com`, `evil.com/localhost:4310/`, or a TypeError |
+| Mobile-WebKit menu test alone, `--repeat-each=5` | O: 5/5 pass, so the run-2 failure is a load-related flake (I) |
+| E2E run 3 (post-deletion export, test fixes) | O: **91 passed, 0 failed** (1.7 min). Mobile projects are emulated |
+
+Not verified: Linux `out/` diff (no WSL or Docker on this laptop).

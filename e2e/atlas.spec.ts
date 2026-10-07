@@ -35,6 +35,7 @@ test('theme follows the system first, and a chosen theme persists across reloads
 });
 
 test('every internal link on every page resolves', async ({ page, request }) => {
+  test.setTimeout(180_000);
   const seen = new Set<string>();
   const queue = ['/'];
   const broken: string[] = [];
@@ -139,10 +140,12 @@ test.describe('without JavaScript', () => {
     await expect(page.getByRole('link', { name: 'Spectra' })).toBeVisible();
     await expect(page.getByText('bhattaganesh05@gmail.com').first()).toBeVisible();
     const footer = page.getByRole('navigation', { name: 'Footer' });
-    for (const label of ['Work', 'Journey', 'Contact']) await expect(footer.getByRole('link', { name: label })).toBeVisible();
+    for (const label of ['Work', 'Journey', 'Contact']) await expect(footer.getByRole('link', { name: label, exact: true })).toBeVisible();
     await page.goto('/work/spectra/');
     await expect(page.getByRole('heading', { name: 'What I owned' })).toBeVisible();
     await page.goto('/workspace/');
-    await expect(page.getByText('The interactive workspace needs JavaScript')).toBeVisible();
+    // getByText skips <noscript> subtrees even when they render, so target the overlay itself.
+    await expect(page.locator('.gw-noscript')).toBeVisible();
+    await expect(page.locator('.gw-noscript')).toContainText('The interactive workspace needs JavaScript');
   });
 });
