@@ -1,0 +1,15 @@
+
+> ganesh-portfolio@1.0.0 build
+> next build
+
+▲ Next.js 16.2.0 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 9.8s
+  Running TypeScript ...
+  Finished TypeScript in 6.2s ...
+  Collecting page data using 11 workers ...
+
+> Build error occurred
+Error: Page "/blog/[slug]/opengraph-image" is missing "generateStaticParams()" so it cannot be used with "output: export" config.
+    at ignore-listed frames

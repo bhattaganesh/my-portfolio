@@ -1,0 +1,180 @@
+Generating route types...
+✓ Types generated successfully
+
+> ganesh-portfolio@1.0.0 lint
+> eslint .
+
+
+C:\Users\bhatt\dev\my-portfolio\src\app\about\page.tsx
+  3:8  warning  'Link' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\bhatt\dev\my-portfolio\src\components\blog\post-card.tsx
+  7:10  warning  'Badge' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\bhatt\dev\my-portfolio\src\components\experience\timeline.tsx
+  2:44  warning  'ExternalLink' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\bhatt\dev\my-portfolio\src\components\hero\greeting-clock.tsx
+  131:5  warning  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\bhatt\dev\my-portfolio\src\components\hero\greeting-clock.tsx:131:5
+  129 |
+  130 |   useEffect(() => {
+> 131 |     setMounted(true);
+      |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  132 |   }, []);
+  133 |
+  134 |   // Use a stable placeholder until mounted to avoid hydration mismatch  react-hooks/set-state-in-effect
+
+C:\Users\bhatt\dev\my-portfolio\src\components\hero\hero-section.tsx
+  24:5  warning  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\bhatt\dev\my-portfolio\src\components\hero\hero-section.tsx:24:5
+  22 |
+  23 |   useEffect(() => {
+> 24 |     setMounted(true);
+     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  25 |   }, []);
+  26 |
+  27 |   useEffect(() => {                                                                                                                                        react-hooks/set-state-in-effect
+  29:5  warning  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\bhatt\dev\my-portfolio\src\components\hero\hero-section.tsx:29:5
+  27 |   useEffect(() => {
+  28 |     if (!isFirstVisit) return;
+> 29 |     setShowWelcome(true);
+     |     ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  30 |     const timer = setTimeout(() => setShowWelcome(false), 5000);
+  31 |     return () => clearTimeout(timer);
+  32 |   }, [isFirstVisit]);  react-hooks/set-state-in-effect
+
+C:\Users\bhatt\dev\my-portfolio\src\components\layout\header.tsx
+  32:5  warning  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\bhatt\dev\my-portfolio\src\components\layout\header.tsx:32:5
+  30 |   /* Close mobile menu on route change */
+  31 |   useEffect(() => {
+> 32 |     setMobileOpen(false);
+     |     ^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  33 |   }, [pathname]);
+  34 |
+  35 |   /* Lock body scroll when mobile menu is open */  react-hooks/set-state-in-effect
+
+C:\Users\bhatt\dev\my-portfolio\src\components\layout\theme-toggle.tsx
+  13:11  warning  'theme' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+  17:5   warning  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\bhatt\dev\my-portfolio\src\components\layout\theme-toggle.tsx:17:5
+  15 |
+  16 |   useEffect(() => {
+> 17 |     setMounted(true);
+     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  18 |   }, []);
+  19 |
+  20 |   /* Prevent layout shift during hydration — render a same-sized placeholder */  react-hooks/set-state-in-effect
+
+C:\Users\bhatt\dev\my-portfolio\src\components\shared\custom-cursor.tsx
+  22:5  warning  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\bhatt\dev\my-portfolio\src\components\shared\custom-cursor.tsx:22:5
+  20 |     // Only enable on fine-pointer (mouse) devices
+  21 |     const mql = window.matchMedia('(pointer: fine)');
+> 22 |     setIsPointerFine(mql.matches);
+     |     ^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  23 |     if (!mql.matches) return;
+  24 |
+  25 |     function onMove(e: MouseEvent) {  react-hooks/set-state-in-effect
+
+C:\Users\bhatt\dev\my-portfolio\src\components\shared\social-links.tsx
+  2:38  warning  'ExternalLink' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\bhatt\dev\my-portfolio\src\components\ui\button.tsx
+  111:38  warning  '_v' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  111:48  warning  '_s' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  111:61  warning  '_l' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  111:75  warning  '_c' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  111:90  warning  '_cl' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  134:20  warning  '_v' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  134:30  warning  '_s' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  134:43  warning  '_l' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  134:57  warning  '_c' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  134:72  warning  '_cl' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\bhatt\dev\my-portfolio\src\hooks\use-first-visit.ts
+  20:9  warning  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\bhatt\dev\my-portfolio\src\hooks\use-first-visit.ts:20:9
+  18 |       if (!localStorage.getItem(STORAGE_KEY)) {
+  19 |         localStorage.setItem(STORAGE_KEY, '1');
+> 20 |         setIsFirstVisit(true);
+     |         ^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  21 |       }
+  22 |     } catch {
+  23 |       // localStorage unavailable — default to not first visit  react-hooks/set-state-in-effect
+
+C:\Users\bhatt\dev\my-portfolio\src\hooks\use-greeting.ts
+  21:5  warning  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\bhatt\dev\my-portfolio\src\hooks\use-greeting.ts:21:5
+  19 |
+  20 |   useEffect(() => {
+> 21 |     setGreeting(getGreeting(new Date().getHours()));
+     |     ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  22 |   }, []);
+  23 |
+  24 |   return greeting;  react-hooks/set-state-in-effect
+
+✖ 23 problems (0 errors, 23 warnings)
+
+
+> ganesh-portfolio@1.0.0 type-check
+> tsc --noEmit
+
