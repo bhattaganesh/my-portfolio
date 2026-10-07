@@ -114,3 +114,20 @@ test('the browser Back button closes a panel back to the apps, and a link can op
   await expect(windowRegion(page, 'Projects')).toHaveAttribute('data-mode', 'panel');
   await expect(page.locator('#gw-title-projects')).toBeFocused();
 });
+
+test('the Browser works as a full-screen panel by touch, without overflow or small targets', async ({ page }) => {
+  await page.goto('/workspace/');
+  await page.getByRole('navigation', { name: 'Apps' }).getByRole('button', { name: /Browser/ }).tap();
+  const br = windowRegion(page, 'Browser');
+  await expect(br).toHaveAttribute('data-mode', 'panel');
+  await br.getByRole('navigation', { name: 'Bookmarks' }).getByRole('button', { name: 'Work' }).tap();
+  await br.getByRole('tabpanel').getByRole('link', { name: 'Spectra' }).tap();
+  await expect(br.getByRole('heading', { name: 'Spectra', level: 3 })).toBeVisible();
+  await br.getByRole('button', { name: 'Back' }).tap();
+  await expect(br.getByRole('textbox', { name: 'Address' })).toHaveValue('ganesh://work');
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(0);
+  for (const control of await br.locator('.gw-br-toolbar button, .gw-br-bookmarks button, .gw-br-new').all()) {
+    expect((await control.boundingBox())!.height).toBeGreaterThanOrEqual(44);
+  }
+});

@@ -62,6 +62,16 @@ const ArcadeIcon = (
   </svg>
 );
 
+const BrowserIcon = (
+  <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+    <rect width="48" height="48" rx="11" fill="#F4F4F6" />
+    <rect x="1" y="1" width="46" height="46" rx="10" fill="none" stroke="#D5D5DB" strokeWidth="1.5" />
+    <circle cx="24" cy="24" r="14" fill="#2343D6" />
+    <path d="M10 24h28M24 10c-5 4-7 9-7 14s2 10 7 14M24 10c5 4 7 9 7 14s-2 10-7 14" fill="none" stroke="#DDE3FF" strokeWidth="1.8" />
+    <circle cx="24" cy="24" r="14" fill="none" stroke="#DDE3FF" strokeWidth="1.8" />
+  </svg>
+);
+
 export const APPS: readonly AppDef[] = [
   {
     id: 'projects',
@@ -76,6 +86,13 @@ export const APPS: readonly AppDef[] = [
     description: 'Explore by typing portfolio commands',
     spec: { size: { w: 680, h: 420 }, min: { w: 380, h: 260 } },
     icon: TerminalIcon,
+  },
+  {
+    id: 'browser',
+    title: 'Browser',
+    description: 'Portfolio pages in tabs, with bookmarks',
+    spec: { size: { w: 900, h: 620 }, min: { w: 420, h: 360 } },
+    icon: BrowserIcon,
   },
   {
     id: 'arcade',

@@ -1,5 +1,5 @@
 import AxeBuilder from '@axe-core/playwright';
-import { box, dock, expect, test, windowRegion } from './fixtures';
+import { box, dock, expect, test, windowRegion, settle } from './fixtures';
 
 const PREFS_KEY = 'gw.prefs.v2';
 
@@ -211,6 +211,7 @@ test('the terminal opens apps by name and Projects shows the traced architecture
 
 test('has no axe violations with every app open in both themes, in Mission Control, Spotlight and a menu', async ({ page }) => {
   const scan = async (label: string) => {
+    await settle(page);
     const { violations } = await new AxeBuilder({ page }).include('.gw').analyze();
     expect(violations.map((v) => `${label}: ${v.id} (${v.nodes.length}) ${v.nodes[0]?.target}`)).toEqual([]);
   };

@@ -17,6 +17,7 @@ import { ProjectsApp } from './projects-app';
 import { TerminalApp } from './terminal-app';
 import { AboutApp } from './about-app';
 import { SettingsApp } from './settings-app';
+import type { NoteLink } from './browser-app';
 import './workspace.css';
 
 /** Windows render in a stable DOM order (moving a focused node would blur it); stacking comes from z-index. */
@@ -29,6 +30,9 @@ const WALLPAPER_NAMES: Record<Prefs['wallpaper'], string> = { dawn: 'Himalayan d
 const APP_IDS_OPEN = APPS.map((a) => a.id);
 
 /** Optional apps are fetched only when opened, so the desktop itself stays light. */
+const BrowserApp = dynamic(() => import('./browser-app').then((m) => m.BrowserApp), {
+  loading: () => <p className="gw-loading" role="status">Loading Browser…</p>,
+});
 const ShipIt = dynamic(() => import('@/components/ship-it/ship-it').then((m) => m.ShipIt), {
   loading: () => <p className="gw-loading" role="status">Loading Ship It…</p>,
 });
@@ -38,6 +42,8 @@ type OpenMenu = { kind: 'workspace' | 'desktop'; at: { x: number; y: number } } 
 
 interface WorkspaceProps {
   resumeHref: string | null;
+  /** Published notes, read at build time, for the Browser's Notes page. */
+  notes: readonly NoteLink[];
   wallpaper: React.ReactNode;
 }
 
@@ -63,7 +69,7 @@ const soundFor = (action: WmAction, state: WmState): SoundKind | null => {
  * Ganesh Workspace: a desktop-style shell with a menu bar, dock, movable windows, Mission Control,
  * Spotlight search and remembered preferences. Focus moves only in response to explicit actions.
  */
-export function Workspace({ resumeHref, wallpaper }: WorkspaceProps) {
+export function Workspace({ resumeHref, notes, wallpaper }: WorkspaceProps) {
   const [state, dispatch] = useReducer(reduce, SERVER_AREA, initialState);
   const [prefs, setPrefs] = useState<Prefs>(DEFAULT_PREFS);
   const [storageAvailable, setStorageAvailable] = useState(true);
@@ -386,6 +392,8 @@ export function Workspace({ resumeHref, wallpaper }: WorkspaceProps) {
         return <TerminalApp ctx={{ resumeHref, apps: APP_IDS_OPEN }} onEffect={onTerminalEffect} queued={terminalQueue} onQueuedRun={() => setTerminalQueue(null)} />;
       case 'about':
         return <AboutApp resumeHref={resumeHref} />;
+      case 'browser':
+        return <BrowserApp notes={notes} onOpenApp={openApp} />;
       case 'arcade':
         return <ShipIt headingLevel={3} note="Minimizing this window keeps your progress; closing it ends the run." />;
       case 'settings':

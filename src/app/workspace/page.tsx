@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Wallpaper } from '@/components/workspace/wallpaper';
 import { Workspace } from '@/components/workspace/workspace';
 import { findResume } from '@/lib/resume';
+import { publishedNotes } from '@/content/notes';
 
 export const metadata: Metadata = {
   title: 'Workspace',
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 export default function WorkspacePage() {
   return (
     <>
-      <Workspace resumeHref={findResume()} wallpaper={<Wallpaper />} />
+      <Workspace resumeHref={findResume()} notes={publishedNotes().map((n) => ({ slug: n.slug, title: n.title }))} wallpaper={<Wallpaper />} />
       <noscript>
         <div className="gw-noscript">
           <p>The interactive workspace needs JavaScript. Everything in it is also on the main portfolio:</p>

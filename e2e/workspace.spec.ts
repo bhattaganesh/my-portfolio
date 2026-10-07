@@ -1,5 +1,5 @@
 import AxeBuilder from '@axe-core/playwright';
-import { box, dock, expect, test, windowRegion } from './fixtures';
+import { box, dock, expect, test, windowRegion, settle } from './fixtures';
 
 const TITLE_BAR = 44;
 const MIN_VISIBLE = 96;
@@ -236,6 +236,7 @@ test('200% zoom (640×450 CSS px) uses panels without horizontal overflow', asyn
 
 test('has no axe violations empty, with two windows, and in panel mode', async ({ page }) => {
   const scan = async (label: string) => {
+    await settle(page);
     const { violations } = await new AxeBuilder({ page }).include('.gw').analyze();
     expect(violations.map((v) => `${label}: ${v.id} (${v.nodes.length})`)).toEqual([]);
   };
