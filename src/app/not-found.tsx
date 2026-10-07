@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { SiteChrome } from '@/components/layout/site-chrome';
 
 export const metadata: Metadata = {
   title: '404 \u2013 Page Not Found',
@@ -8,6 +9,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
+    <SiteChrome>
     <div className="min-h-screen flex flex-col items-center justify-center px-6 bg-white dark:bg-surface-950">
       {/* Decorative background blobs */}
       <div
@@ -43,5 +45,6 @@ export default function NotFound() {
         </Link>
       </div>
     </div>
+    </SiteChrome>
   );
 }

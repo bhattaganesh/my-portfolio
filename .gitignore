@@ -55,3 +55,7 @@ Thumbs.db
 
 # Claude Code (local settings are machine-specific, not shared)
 .claude/settings.local.json
+
+# test output
+/test-results/
+/playwright-report/

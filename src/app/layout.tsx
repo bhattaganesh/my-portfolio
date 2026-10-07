@@ -1,15 +1,8 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import { ThemeProvider } from 'next-themes';
-import { Toaster } from 'sonner';
 import { inter, jetbrainsMono, cabinetGrotesk } from '@/lib/fonts';
 import { SITE_CONFIG } from '@/lib/constants';
-import { Header } from '@/components/layout/header';
-import { Footer } from '@/components/layout/footer';
-import { ScrollProgress } from '@/components/shared/scroll-progress';
-import { BackToTop } from '@/components/shared/back-to-top';
-import { PageBackground } from '@/components/shared/page-background';
-import { CustomCursor } from '@/components/shared/custom-cursor';
 import './globals.css';
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
@@ -277,14 +270,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           >
             Skip to main content
           </a>
-          <PageBackground />
-          <ScrollProgress />
-          <CustomCursor />
-          <Header />
-          <main id="main-content" className="relative z-[1]">{children}</main>
-          <Footer />
-          <BackToTop />
-          <Toaster richColors position="bottom-right" />
+          {children}
         </ThemeProvider>
       </body>
     </html>
