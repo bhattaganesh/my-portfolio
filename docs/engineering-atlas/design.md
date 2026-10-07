@@ -131,7 +131,12 @@ Cleanup: views own their listeners and effects, and closing unmounts them. Audio
 - Output is **structured data** (`{kind:'text'|'list'|'link'|'action', …}`) rendered as React text and buttons. There's no `eval`, `Function`, `innerHTML`, shell, network, or filesystem access. `projects spectra` returns an `action` that opens Projects at that slug.
 - Unknown input: "`foo` isn't a command. Try `help`." plus a "Did you mean `notes`?" hint when Levenshtein distance ≤ 2.
 - History: ↑/↓ through up to 50 entries, kept in memory only.
-- Autocomplete: Tab completes a unique prefix of a command, or a slug after `projects`/`notes`. Several matches are listed. No match does nothing (no focus trap: with an empty input, Tab moves focus on normally).
+- Autocomplete, which **never traps focus**:
+  - Tab calls `preventDefault()` **only when the completion actually changes the input value** (a unique match, or a longer shared prefix of several matches). In every other case (empty input, no match, ambiguous with nothing to extend, already complete) Tab is not intercepted and moves focus on normally. Shift+Tab is never intercepted.
+  - Candidate suggestions show as you type, in a visible hint line (`aria-live="polite"`), not as a Tab-only reaction. A second Tab is therefore never needed, and you can always leave with one Tab.
+  - Esc clears the hint, not the focus.
+  - Completion applies to commands, and to slugs after `projects`/`notes`.
+  - Tests: unit tests for `complete()` return `{ changed: false }` for every non-extending case. A Playwright test types `zzz`, `c` (ambiguous: `contact`/`clear`, nothing to extend), and empty input, presses Tab once each, and asserts focus has left the input. It also types `jou`, presses Tab, and asserts the value is `journey` with focus still in the input.
 - Clickable alternatives: a row of command chips (help, projects, journey, resume, contact) under the prompt.
 - a11y: the transcript is `role="log"` with `aria-live="polite"`, and the input has a visible label "Command".
 - Tests (vitest) cover:

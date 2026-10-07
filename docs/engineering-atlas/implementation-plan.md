@@ -67,12 +67,16 @@ Fictional setup: the provider delivers `payment.succeeded` at least once. During
 | Durable queue only | **yes** | **still duplicated** | partial | partial |
 | Idempotent processing boundary | relies on provider retries | **eliminated** | **viable** | partial (events can expire unprocessed) |
 | Queue + idempotent consumer | yes | eliminated | **viable** (more moving parts) | **viable** |
+| Idempotent boundary + scheduled reconciliation (re-fetch missed events from the provider's events API, keyed by the same event ID) | yes, via reconciliation | eliminated | **viable** | **viable** (reconciliation recovers expired retries; delay = reconciliation interval) |
+
+Viable count (rev 3 correction): variant A has 3 (idempotent boundary, queue + idempotent consumer, idempotent + reconciliation). Variant B has 2 (queue + idempotent consumer, idempotent + reconciliation). So "≥ 2 viable per variant" holds as an outcome of the table, not by exemption. Both B-viable options share the idempotent boundary. They differ in *how* reliability is achieved (push queue vs pull reconciliation), which is the second lesson of the round.
 
 Engine tests (`src/lab/ship-it/engine.test.ts`, vitest):
 - In every payment variant, any option without `idempotentBoundary` has `duplicateEffects > 0` and is never `viable`.
 - "Durable queue only" has `reliableProcessing === true` **and** `duplicateEffects > 0`, which pins the distinction.
-- Idempotent boundary: viable in A, partial in B.
-- Each variant has at least 2 viable options in every round.
+- Every `viable` payment outcome has `idempotentBoundary === true` **and** `reliableProcessing === true` in that variant (idempotency alone counts as reliable only in A, where provider retries outlast the spike).
+- Exact outcome table asserted per variant: A = {idempotent: viable, queue+idem: viable, idem+recon: viable, queue-only: partial, retries: worsened, client: none}, B = {idempotent: partial, queue+idem: viable, idem+recon: viable, queue-only: partial, retries: worsened, client: none}.
+- Each variant has at least 2 viable options in every round (checked for all 3 rounds × 2 variants).
 - The debrief text for each option mentions only properties the table marks true. This is checked by asserting on structured `claims` fields rather than prose.
 
 Rounds 1 (catalogue: query / cache / workers, with the bottleneck deciding the winner) and 3 (editor: reduce render work / move state boundary are viable, debounce is partial) work as in rev 1, with 2 variants each. The engine is a pure `reduce(state, action)`. Invalid or repeated actions return the identical state object, and `confirm` without a selection is a no-op. There are no timers and nothing is persisted. The UI is loaded via `next/dynamic` only on `/lab/ship-it/`.
@@ -122,14 +126,30 @@ Rounds 1 (catalogue: query / cache / workers, with the bottleneck deciding the w
 - The workflow is currently disabled.
 - Every build pulls the CMS at build time on the old tree.
 
+**Observed merge facts** (rev 3): the repo allows merge commits, squash, and rebase (`gh api repos/bhattaganesh/my-portfolio` → all `true`). The only precedent, `e835485 release: merge feature/portfolio-rebuild into main`, is a 2-parent merge commit made without a PR. The strategy for this work is not decided yet, so the procedure branches on it, and the merge itself needs separate authorization.
+
+Before merging, tag the exact pre-Atlas state: `git tag pre-atlas e0faf79`. The tag push is part of the authorized merge step.
+
 **Procedure** (written to `docs/engineering-atlas/deploy-rollback.md`):
 1. `gh workflow enable deploy.yml -R bhattaganesh/my-portfolio` (needed first, it is disabled now).
-2. Roll back: `git switch main && git pull && git revert -m 1 <merge-sha> && git push origin main`. The push trigger builds the reverted tree and deploys it.
+2. Roll back, by how the Atlas work landed on `main`:
+   - Merge commit (recommended, matches precedent): `git revert -m 1 <merge-sha>`
+   - Squash: `git revert <squash-sha>`
+   - Rebase (N commits): `git revert --no-edit pre-atlas..<last-atlas-sha>` (reverts each, newest first)
+   - Then `git push origin main`. The push trigger builds and deploys the reverted tree.
 3. Confirm: `gh run watch`, then `curl -s -o /dev/null -w '%{http_code}' https://www.ganeshbhatt.com.np/`, then a Playwright smoke test of the old routes.
 
-**Known caveat**: rolling back to `e0faf79e` rebuilds against the frozen CMS. Step A's local build of `e0faf79e` shows exactly what that rollback would publish (A18).
+**Frozen-CMS build failure, addressed:**
+- The **Atlas tree never calls the CMS at build** (notes come from archived JSON, §3). Rolling *forward or back between Atlas commits* therefore builds independently of Pantheon. This is verified by building with the network to the CMS host blocked (`WORDPRESS_GRAPHQL_ENDPOINT=https://127.0.0.1:9/graphql npm run build` must succeed).
+- Rolling back to the **pre-Atlas tree** fails at build while Pantheon is frozen (observed: exit 1, `evidence.md`). It fails **safely**: `deploy.yml` runs deploy steps only after `npm run build` succeeds, so Pages keeps serving Atlas and there is no outage, just no rollback.
+- The runbook therefore has a mandatory precheck for that path: `curl -s -o /dev/null -w '%{http_code}' -X POST -H 'Content-Type: application/json' -d '{"query":"{posts(first:1){nodes{slug}}}"}' $WORDPRESS_GRAPHQL_ENDPOINT` must be `200`. If it isn't, unfreeze the Pantheon site first (owner action in the Pantheon dashboard) or roll back only to an earlier Atlas commit.
+- The pre-Atlas tree is not patched (the old code is left as it was).
 
-**Rehearsal (local, no remote writes)**: in the clone, create a throwaway local merge of the feature branch into a local `main` copy, run `git revert -m 1`, `npm ci && npm run build`, and diff the route list against the Step A baseline.
+**Rehearsal (local, no remote writes)**, done in P7 for the merge-commit and squash variants:
+1. In the clone: `git switch -c rehearsal/main main`, then `git merge --no-ff feature/engineering-atlas`, `npm ci && npm run build`. This must pass, including with the CMS host blocked.
+2. `git revert -m 1 HEAD`, then `npm ci && npm run build`. This is expected to fail exactly like the baseline while the CMS is frozen.
+3. Repeat with `git merge --squash` + `git revert`.
+4. Record the outputs, then delete the `rehearsal/*` branches.
 
 **Not verifiable without authorization**: the actual Pages deploy step. Listed explicitly under Not verified.
 
@@ -205,3 +225,12 @@ Plus the rev 2 checks for Atlas, Lighthouse mobile on `/` and `/workspace/`, and
 - `Alt+Shift+W` may collide with a browser or OS shortcut on some platforms. The tests check that it isn't swallowed in Chromium, Firefox, and WebKit. The visible Switch button is always the guaranteed path.
 - iOS Safari does not render inline PDF `<object>` reliably. The links are the primary path there.
 - One window per app (a single instance) is deliberate and keeps state and focus rules simple.
+
+## Rev 3.1 corrections (2026-10-07)
+- **Payment variant B** now has 2 viable options (queue + idempotent consumer; idempotent boundary + scheduled reconciliation), matching the "≥ 2 viable" test. The exact per-variant outcome table is asserted (§1).
+- **Terminal Tab** only intercepts when completion changes the input. Otherwise focus moves on (`design.md` §6, with unit and Playwright tests).
+- **Rollback** branches on the actual merge strategy (merge commit / squash / rebase), adds a `pre-atlas` tag, and handles the frozen-CMS failure: Atlas builds never touch the CMS (verified with the CMS host blocked), the pre-Atlas rollback has a CMS precheck, and a failed build leaves Pages unchanged (§5).
+- **CI Node parity** (P6 final gate): CI uses `actions/setup-node` with `node-version: '22'`, which resolves to the newest 22.x at run time. Locally, nvm-windows already has 22.13.0, used by calling its binary directly so the global Node isn't switched:
+  `NODE22=/c/Users/bhatt/AppData/Local/nvm/v22.13.0/node.exe; PATH="$(dirname $NODE22):$PATH" npm ci && npm run lint && npm run type-check && npx vitest run && npm run build && npx playwright test`.
+  This is recorded alongside the Node 24 run. Limit: 22.13.0 ≠ CI's exact 22.x patch. Exact CI parity is only shown by a CI run on a pushed branch, which needs push authorization and stays under Not verified until then.
+- **Prototype tooling**: the `artifact-design` skill loaded successfully in this session (Skill tool returned its content), and the Artifact tool is available. If publishing is unavailable, the fallback is the local HTML file screenshotted with Playwright. No new capability is installed either way.
