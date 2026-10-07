@@ -234,3 +234,15 @@ Plus the rev 2 checks for Atlas, Lighthouse mobile on `/` and `/workspace/`, and
   `NODE22=/c/Users/bhatt/AppData/Local/nvm/v22.13.0/node.exe; PATH="$(dirname $NODE22):$PATH" npm ci && npm run lint && npm run type-check && npx vitest run && npm run build && npx playwright test`.
   This is recorded alongside the Node 24 run. Limit: 22.13.0 ≠ CI's exact 22.x patch. Exact CI parity is only shown by a CI run on a pushed branch, which needs push authorization and stays under Not verified until then.
 - **Prototype tooling**: the `artifact-design` skill loaded successfully in this session (Skill tool returned its content), and the Artifact tool is available. If publishing is unavailable, the fallback is the local HTML file screenshotted with Playwright. No new capability is installed either way.
+
+## Rev 3.2: design-review refinements (2026-10-07)
+- **Ship It is progressive** (supersedes the option list in §1, keeping its accuracy rules):
+  - Each round has a **base pass** with 4 plain-language options, engineering terms behind an "In engineering terms" disclosure, and an **optional twist** that changes one assumption and adds one option.
+  - Round 2 base (= variant A, provider retries for days): more servers/blind retries **worsened** · waiting line (durable queue) **partial** · remember handled payments (idempotent boundary) **viable** · both **viable**.
+  - Round 2 twist (= variant B, provider gives up after 1 h): same four plus "remember + hourly check for missed ones" (reconciliation). Outcomes: retries worsened · queue partial · idempotent-only **partial** · both **viable** · idempotent + reconciliation **viable**.
+  - "Block double clicks" is no longer an option. Why client-side checks don't stop server redelivery is explained in the round's "Why not just…?" note.
+  - Tests: an exact outcome table per pass. Base and twist each have ≥ 2 viable options. Every viable payment outcome has `idempotentBoundary && reliableProcessing`. Durable queue only gives `reliableProcessing && duplicateEffects > 0` in both passes.
+- **Employment wording**: until Ganesh confirms, no view says "now", "Present", "currently" or "2025 –" for any employer. Brainstorm Force is "joined in 2025". `src/content` holds `current: false` until confirmed. `e2e/content.spec.ts` scans the rendered text of every route and workspace app for `/\b(now|present|currently)\b/i` next to an employer name and must find none.
+- **No review metadata in public UI**: evidence status, pending-input markers and rejected claims live only in `docs/engineering-atlas/evidence.md`. Public UI keeps only required honesty labels ("Illustrative diagram", "Simulation · made-up numbers").
+- **Contrast is verified on rendered components**, not just tokens. P6 runs axe on every route and workspace state, plus the rendered-text audit used in the prototype.
+- **Workspace slice first** (before the other apps): `/workspace/` with the window manager, Projects (shared data) and Terminal. Verified for keyboard, touch, focus recovery, viewport resizing and reduced motion before expanding.
