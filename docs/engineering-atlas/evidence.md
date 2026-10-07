@@ -118,3 +118,14 @@ Not verified yet:
 - The home-page budget check ran against dev chunks, not hashed production chunks.
 - Firefox and WebKit, and real iOS/Android devices.
 - The independent `/code-review` pass (planned for P6).
+
+## P2/P5 production verification (2026-10-07, commits 46aaa0a → 7519af1)
+- Phone-panel focus defect (reported by Ganesh): reproduced first by a new test (8 Tab stops reached the covered launcher). Fixed with `inert` on the launcher and covered panels. A mutation check (inert removed from the panels only) made the test fail again on "covered Terminal". Restored, all pass.
+- Notes archive: the converter runs in Chromium's parser. 5 security tests cover scripts/frames, event handlers (no dialog fired), unsafe URL schemes, malformed markup and entities. Writing the tests caught two real converter bugs: lowercase `svg` tag names slipped through, and nested lists inside formatting tags were dropped. Both fixed. All 6 archived dates match each post's JSON-LD `datePublished`.
+- Build with the CMS host blocked: exit 0 on Windows and on Linux (WSL, Node 22.23.3).
+- Served output (`scripts/serve-out.mjs`, GitHub Pages semantics):
+  - all new and legacy routes return 200; unknown paths 404; `/work` gets a 301 to `/work/`;
+  - legacy pages carry a meta refresh in `<head>`, noindex and a canonical link to the new URL;
+  - the sitemap lists only canonical trailing-slash URLs; the feed is valid with 0 items.
+- Windows-only prefetch 404s: root cause in Next 16.2.0 `export/index.js` (see status.md). The Linux export serves `/work/__next.work.__PAGE__.txt` with 200.
+- E2E on the Linux export: 83 passed, 8 failed (breakdown in status.md). The no-JS failure is a real `loading.tsx` defect that predates this work.

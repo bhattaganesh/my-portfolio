@@ -248,16 +248,32 @@ test('has no axe violations empty, with two windows, and in panel mode', async (
   await scan('panels');
 });
 
-test('the portfolio home page does not load workspace code', async ({ page }) => {
-  // The current home page waits on the frozen CMS during server rendering (~30 s in dev; see evidence.md).
-  test.setTimeout(120_000);
-  const scripts: string[] = [];
-  page.on('request', (r) => {
-    if (r.resourceType() === 'script' || r.url().endsWith('.css')) scripts.push(r.url());
+test('the portfolio home page does not load workspace code', async ({ browser }) => {
+  /** Script and stylesheet URLs a fresh visit to `path` downloads, optionally after interacting with the page. */
+  const assetsFor = async (path: string, interact?: (p: import('@playwright/test').Page) => Promise<void>) => {
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    const urls = new Set<string>();
+    page.on('request', (r) => {
+      if (['script', 'stylesheet'].includes(r.resourceType())) urls.add(new URL(r.url()).pathname);
+    });
+    await page.goto(path, { waitUntil: 'networkidle' });
+    if (interact) await interact(page);
+    await page.waitForLoadState('networkidle');
+    await context.close();
+    return urls;
+  };
+
+  const plain = await assetsFor('/contact/');
+  const workspaceOnly = [...(await assetsFor('/workspace/'))].filter((u) => !plain.has(u));
+  expect(workspaceOnly.length, 'the workspace route has its own code').toBeGreaterThan(0);
+
+  const home = await assetsFor('/', async (page) => {
+    await page.mouse.wheel(0, 20000);
+    for (const link of await page.getByRole('link', { name: /workspace/i }).all()) {
+      if (await link.isVisible()) await link.hover();
+    }
+    await page.waitForTimeout(1500);
   });
-  await page.goto('/', { waitUntil: 'load', timeout: 90_000 });
-  await page.mouse.wheel(0, 20000);
-  await page.waitForTimeout(3000);
-  expect(scripts.length).toBeGreaterThan(0);
-  expect(scripts.filter((u) => /workspace|window-frame|terminal-app|projects-app/i.test(u))).toEqual([]);
+  expect(workspaceOnly.filter((u) => home.has(u))).toEqual([]);
 });

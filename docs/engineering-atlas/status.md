@@ -1,38 +1,50 @@
 # Engineering Atlas — status
 
-Branch `feature/engineering-atlas` (local only, not pushed), from `main` @ `e0faf79`.
-Approved plan: `implementation-plan.md` (rev 2). Evidence: `evidence.md`.
+Branch `feature/engineering-atlas`, pushed to `origin` (push authorized by Ganesh), from `main` @ `e0faf79`. Nothing is merged or deployed.
+Plan: `implementation-plan.md` (rev 3.2). Design: `design.md`. Evidence: `evidence.md`.
 
 | Phase | Status | Notes |
 |---|---|---|
-| 0 Baseline | **verified** | Local checks + live 5-width sweep recorded in `evidence.md` |
-| 1 Design compositions (Step B) | **verified, awaiting final design review** | Prototype v2 published; macOS-inspired Workspace direction applied to the functional slice |
-| 2 Foundation | pending | Blocked on design review |
-| W-slice Workspace (Projects + Terminal) | **active, awaiting review** | Commit 5a1dbc2; 26 unit + 14 E2E passing in dev; production export blocked by the CMS (P5) |
-| 3 Case studies | pending | |
+| 0 Baseline | **verified** | `evidence.md` Phase 0 |
+| 1 Design compositions | **verified** | Visual direction approved, including the macOS-inspired Workspace |
+| W-slice Workspace (Projects + Terminal) | **verified** | Phone-panel focus leak fixed with a regression test (46aaa0a) |
+| 2 Foundation | **active** | Atlas shell, home, /work/, /work/[slug]/, /journey/, /contact/, 404 (7519af1). No-JS reading **fails**: see blockers |
+| 5 Notes archive / CMS removal / migration | **active** | 6 posts archived as validated blocks (340dcda), unpublished. Build no longer contacts WordPress. Legacy URLs → noindex meta-refresh pages |
+| 3 Case studies | pending | Next: enrich flagship stories from verifiable sources |
 | 4 Ship It | pending | |
-| 5 Content/contact/migration | pending | |
-| 6 Integration/review | pending | |
+| 6 Integration/review | pending | Independent `/code-review` not yet run |
 | 7 Handoff | pending | |
 
-## Phase 0 results
-- `npm ci` OK. `next typegen && lint && type-check` exit 0 (23 lint warnings, 0 errors).
-- `npm run build` **fails** (exit 1) because the frozen CMS returns 0 blog slugs. Rebuilding `main` today cannot deploy.
-- Live: #418 present, overflow on `/` (+9 px at 360) and blog post (+503 px at 360), `/blog/` CMS fetch fails, résumé 404.
+## Latest results (2026-10-07)
+- Windows (Node 24.18.0): lint 0 errors, 22 warnings (all in old files awaiting deletion). Type-check clean. 29 unit tests pass. `npm run build` exit 0 with `WORDPRESS_GRAPHQL_ENDPOINT` pointed at a dead host.
+- Linux, CI-equivalent (WSL Ubuntu 24.04, portable Node 22.23.3, sha256-verified, fresh clone of 7519af1): `npm ci`, lint, type-check and 29 unit tests pass, and the build reports BUILD OK.
+- E2E against the **Linux production export** (served from WSL on :4320 by `scripts/serve-out.mjs`): Chromium, Firefox, WebKit desktop, plus emulated Pixel 7 (Chromium) and iPhone 14 (WebKit). **83 passed, 8 failed.**
+  - 3 × no-JS test (all engines): real defect. `src/app/loading.tsx` wraps every page in Suspense, so without JS the content stays hidden behind "Loading…". The fix is to delete that file (blocked, see below).
+  - 2 × axe sweep and 1 × Firefox overflow sweep: timed out at 30 s (20+ page scans in one test). Timeouts raised to 180 s; **not re-run yet**.
+  - 2 × WebKit: cancelled same-origin `__next.*` prefetches reported as "access control checks". The fixture now ignores only that exact pattern (regex checked against real and non-matching samples). **Not re-run yet.**
+- No real phones were tested. "Mobile" means emulated viewports in Chromium and WebKit.
 
-## Decisions
-- Repo convention over personal default: base `main` (no `develop` exists), branch prefix `feature/`.
-- Removed nothing yet. The dependency removal list is in plan §2.
-- No AGENTS.md created (plan §6).
+## Preview 404s on :4310 (Windows build), root cause confirmed
+Next 16.2.0 `export/index.js` collects segment files with `path.relative()` (uses `\` on Windows), then `convertSegmentPathToStaticExportFilename` replaces only `/` with `.`. A Windows build therefore writes `work/__next.work/__PAGE__.txt` (folders) where the client requests `work/__next.work.__PAGE__.txt`. Navigation still works via the full-payload fallback, but every prefetch logs a 404.
 
-## Open items for Ganesh
-1. Résumé PDF.
-2. Confirm Brainstorm Force is current employment.
-3. Authorship and publish decision per archived post (6).
-4. Permitted Spectra / Masteriyo screenshots.
-5. Contact response-time statement (optional).
-6. Repo `CLAUDE.md` line 1 imports `@AGENTS.md`, which does not exist. Drop the line or author a shared AGENTS.md?
-7. Rollback reality: the old site cannot be rebuilt while the CMS is frozen (see `evidence.md`).
+The Linux build writes the correct dotted names: `/work/__next.work.__PAGE__.txt` returned 200 on :4320. The live site (CI on Ubuntu) also returned 200 for these files. Deployment is unaffected. Planned fix: a `postbuild` script that renames the nested segment files to the dotted names, a no-op on Linux. Verify by diffing the Windows and Linux `out/` file lists.
 
-## Next action
-Ganesh reviews the slice screenshots and prototype v2. Then P2 foundation, P5 CMS removal (unblocks the production export), and the remaining apps. No push/merge/deploy.
+Correction: the earlier removal of the `(site)` route group was based on a misdiagnosis of this same bug. The replacement `ChromeGate` works and is kept.
+
+## Blockers needing Ganesh
+1. **Deletion permission**: the safety classifier blocked deleting old files. Needed to finish P2:
+   - delete `src/app/loading.tsx` (fixes no-JS) and `src/app/template.tsx`;
+   - delete old unused components, data and hooks: `src/components/{blog,contact,experience,hero,projects,sections,shared,ui}`, `src/components/layout/{footer,header,logo,theme-toggle}.tsx`, `src/data/{projects,experience,currently,services}.ts`, `src/hooks/`, `src/lib/{types,utils,wordpress}.ts`, `src/app/experience/client.tsx`;
+   - then remove the unused deps: three, @react-three/*, @types/three, gsap, @emailjs/browser, sonner, graphql, graphql-request, clsx, tailwind-merge, @tailwindcss/typography, and motion if unused.
+2. Résumé PDF, portrait approval, product screenshots.
+3. Confirm current employment; name form (Bhatt / Bhatta); headline approval.
+4. Authorship and publish decision for each of the 6 archived posts.
+5. The `@AGENTS.md` line in the repo `CLAUDE.md`.
+
+## Next actions (in order)
+1. Add the postbuild segment-name fix, rebuild on Windows, serve on :4310, confirm zero console errors while navigating, and diff against the Linux `out/`.
+2. Re-run the full E2E matrix on the production export and record the results.
+3. Get deletion approval, then remove `loading.tsx` and the old files and deps, and re-verify no-JS.
+4. P3: flagship case studies from verifiable sources (public repos and commit history, wordpress.org, product docs). No invented decisions or metrics.
+5. Workspace staged apps: Journey, Notes, Résumé, Contact, then Arcade with Ship It (P4).
+6. Independent `/code-review`, then fix and re-run.

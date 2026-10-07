@@ -1,11 +1,18 @@
 import { test as base, expect, type Page } from '@playwright/test';
 
+/** WebKit's message for a same-origin router prefetch (`__next.*` file) cancelled by a navigation. */
+const CANCELLED_PREFETCH = /^(Fetch API cannot load )?(https?:)?\/\/?localhost:\d+\/(?:[^ ]*\/)?__next\.[^ ]* due to access control checks\.$/;
+
 /** Fails any test whose page logged an uncaught error or console error (hydration errors included). */
 export const test = base.extend<{ errors: string[] }>({
   errors: [
     async ({ page }, use) => {
       const errors: string[] = [];
-      page.on('pageerror', (e) => errors.push(`pageerror: ${e.message}`));
+      page.on('pageerror', (e) => {
+        // WebKit reports router prefetches cancelled by a navigation as access-control failures; only those are ignored.
+        if (CANCELLED_PREFETCH.test(e.message)) return;
+        errors.push(`pageerror: ${e.message}`);
+      });
       page.on('console', (m) => {
         if (m.type() === 'error') errors.push(`console: ${m.text()}`);
       });
