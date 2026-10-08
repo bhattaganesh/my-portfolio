@@ -282,3 +282,10 @@ What already exists stays as is: Atlas routes, shared `src/content`, the CMS-fre
 
 ### Verification per stage
 Lint, type-check, vitest, build, then Playwright on the served `out/` (Chromium, Firefox and WebKit on desktop; emulated Pixel 7 and iPhone 14), axe, console errors, overflow, 200% zoom and reduced motion. An independent review runs before each push. The home bundle check asserts that `/` requests no workspace chunk.
+
+### Rev 4 outcome (2026-10-08)
+F, D, A, B and C are done as planned, with these decisions:
+- **Journey:** consolidated into About Ganesh.
+- **Notes:** no app while no post is approved.
+- **Lab:** shipped as a Workspace app only. It is optional and not essential portfolio content.
+- **Window switcher:** its role is taken by Mission Control.

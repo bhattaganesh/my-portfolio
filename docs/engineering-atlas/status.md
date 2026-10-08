@@ -13,11 +13,33 @@
 | F4 Portability | done | README covers setup, commands and env names; `.nvmrc` = 22 |
 | D Desktop | verified | Mission Control, Spotlight, context menus, preferences and layout memory with reset, opt-in sound, motion setting, phone Back |
 | A Apps | verified | Projects (case study and architecture diagram), Terminal (`open`), About Ganesh, Settings |
-| B Ship It, Browser | in progress | Ship It engine and UI written and unit-tested; not committed yet |
-| C Journey, Notes, Lab | pending | Journey is likely folded into About. Notes is blocked: no post is approved |
+| B Ship It, Browser | verified | Ship It (Arcade app and `/lab/ship-it/`); Browser with tabs, history, bookmarks, safe addresses and labelled GitHub/LinkedIn previews |
+| C Lab | verified | Architecture Lab: deterministic cache/queue/failure simulation, tested over all 64 setting combinations |
+| C Journey | consolidated | Folded into About Ganesh, which already lists the verified milestones. Atlas `/journey/` and the terminal `journey` command remain |
+| C Notes | blocked on Ganesh | No archived post is approved, so no Notes app ships. The Browser's `ganesh://notes` says so honestly and is not bookmarked |
 | 6 Integration/review | per stage | An independent review runs at each stage, and its valid findings are fixed |
 
-## Latest verification (2026-10-07, home laptop, Windows 11, Node 23.6.0, Playwright 1.63)
+## Latest verification: Stages B and C (2026-10-08, home laptop)
+Lint 0 problems; type-check clean.
+- **Vitest:** 152/152. This includes:
+  - the Ship It exact outcome tables;
+  - Browser address resolution with hostile inputs;
+  - Lab invariants over all 64 setting combinations.
+- **Build** passes.
+- **Full E2E matrix** against the served export, before the last two review fixes: **174 passed, 1 failed**.
+  - The failure was WebKit "Browser pages have no axe violations". It passed 6/6 in a repeat run under 6 workers, and was not reproduced.
+  - A rerun of the whole WebKit project was cancelled at Ganesh's request.
+- **Since that run:** the Lab table's focusable scroll region and caption, and the Browser "Close this tab" button. Both were checked by their own specs: `workspace-lab.spec.ts` 6/6 on all desktop engines. The full matrix was not rerun after them.
+- **Independent review of Stage B** found no security issue in address handling. Fixed:
+  - 3 content-accuracy issues in Ship It (rAF batching alone, the unique constraint, the cause of queue duplicates);
+  - an employment-implying phrase;
+  - 4 Browser edge cases.
+- **Flaky (one occurrence each, not reproduced):**
+  - Firefox Ship It workspace test; afterwards the Firefox project passed 51/51;
+  - Firefox Atlas navigation test; passed 5/5 on repeat;
+  - axe colour contrast measured mid-animation. Reproduced, then fixed by waiting for animations before scanning.
+
+## Earlier verification: Stages F, D and A (2026-10-07, home laptop, Windows 11, Node 23.6.0, Playwright 1.63)
 - Lint 0 problems; type-check clean.
 - Vitest 71/71.
 - `npm run build` passes, then `postbuild` moved 43 files.
@@ -64,4 +86,9 @@ npm run lint && npm run type-check && npm test && npm run build
 node scripts/serve-out.mjs 4310 &   # then, in another shell:
 E2E_BASE_URL=http://localhost:4310 npx playwright test
 ```
-**Next:** Stage B (commit Ship It with its Arcade app and the `/lab/ship-it/` page; then the Browser app), then Stage C.
+**Next:**
+1. Rerun the full E2E matrix once (WebKit included), and record the result.
+2. Ganesh's content decisions (blockers above).
+3. Linux `out/` diff on the office laptop.
+4. Lighthouse.
+5. Manual screen-reader and real-device passes.
