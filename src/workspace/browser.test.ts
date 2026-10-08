@@ -26,6 +26,9 @@ describe('address resolution', () => {
     expect(resolve('http://example.com').route).toEqual({ kind: 'external', href: 'https://example.com/' });
     expect(resolve('github.com/bhattaganesh').route).toEqual({ kind: 'external', href: 'https://github.com/bhattaganesh' });
     expect(kind('https://www.ganeshbhatt.com.np/unknown/')).toBe('external');
+    expect(resolve('http://www.ganeshbhatt.com.np/unknown/').route).toEqual({ kind: 'external', href: 'https://www.ganeshbhatt.com.np/unknown/' });
+    expect(resolve('example.com:8080/x').route).toEqual({ kind: 'external', href: 'https://example.com:8080/x' });
+    expect(resolve('localhost:3000').route).toEqual({ kind: 'external', href: 'https://localhost:3000/' });
   });
 
   it('blocks every non-web scheme and credentials in URLs, whatever their spelling', () => {
@@ -40,8 +43,10 @@ describe('address resolution', () => {
     expect(kind('<img src=x onerror=alert(1)>')).toBe('notFound');
   });
 
-  it('rejects overlong input before parsing', () => {
-    expect(kind(`https://example.com/${'a'.repeat(3000)}`)).toBe('notFound');
+  it('rejects overlong input before parsing, and its stored address stays not found', () => {
+    const long = resolve(`https://example.com/${'a'.repeat(3000)}`);
+    expect(long.route.kind).toBe('notFound');
+    expect(resolve(long.address).route.kind).toBe('notFound');
   });
 });
 

@@ -16,7 +16,7 @@ export default function ShipItPage() {
         <p className="eyebrow">Lab · optional</p>
         <h1 className="m-0 text-5xl font-extrabold tracking-[-0.02em] md:text-6xl">Ship It</h1>
         <p className="m-0 max-w-[60ch] text-lg text-muted">
-          A short game about the trade-offs I deal with at work. It is entirely optional: everything about my work is on the rest of the site.
+          A short game about the kind of trade-offs I have dealt with at work. It is entirely optional: everything about my work is on the rest of the site.
         </p>
       </div>
       <ShipIt />

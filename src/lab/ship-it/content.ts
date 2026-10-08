@@ -90,20 +90,20 @@ const paymentOptions = {
   queue: {
     id: 'queue',
     label: 'Put payments in a waiting line and work through them',
-    detail: 'Accept each confirmation instantly, store it, and process the line at a steady pace.',
+    detail: 'Accept and acknowledge each confirmation instantly, store it, and process the line at a steady pace.',
     technical: 'Durable message queue (at-least-once delivery)',
   },
   remember: {
     id: 'remember',
     label: 'Remember every payment already handled, and ignore repeats',
-    detail: 'Write down each payment’s unique number at the same moment as the enrolment, and skip any number already written down.',
-    technical: 'Idempotent processing keyed on the provider event ID, recorded in the same transaction as the side effects',
+    detail: 'Record each payment’s unique number in the same step as the enrolment, with a rule that the same number can never be recorded twice.',
+    technical: 'Idempotent processing: a unique constraint on the provider event ID, inserted in the same transaction as the enrolment and ledger rows',
   },
   both: {
     id: 'both',
     label: 'Do both: a waiting line, and remember handled payments',
-    detail: 'Store every confirmation in a line, and have the worker skip numbers it has already handled.',
-    technical: 'Durable queue with an idempotent consumer',
+    detail: 'Store every confirmation in a line, and have the worker record each payment number under the same never-twice rule.',
+    technical: 'Durable queue with an idempotent consumer (unique constraint on the event ID)',
   },
 } as const;
 
@@ -187,8 +187,8 @@ export const ROUNDS: readonly Round[] = [
         {
           id: 'split',
           label: 'Keep a copy of the shared part, and load each student’s progress separately',
-          detail: 'Cache the course list everyone sees, then fill in the personal progress for the student who is looking.',
-          technical: 'Fragment caching with a per-user request for personalised data',
+          detail: 'Cache the course list everyone sees, then fill in the student’s own progress with one indexed lookup.',
+          technical: 'Fragment caching plus a per-user request served by an indexed query',
         },
       ],
       results: {
@@ -223,7 +223,7 @@ export const ROUNDS: readonly Round[] = [
         split: {
           outcome: 'viable',
           headline: 'Shared parts cached, personal parts fresh',
-          explanation: 'Everyone shares the expensive course list; each student’s small progress request is quick and never shown to anyone else.',
+          explanation: 'Everyone shares the expensive course list; each student’s progress is one indexed lookup, so it is quick and never shown to anyone else.',
           after: '0.5 s',
           claims: { fixesCause: false, leaksData: false },
         },
@@ -252,15 +252,15 @@ export const ROUNDS: readonly Round[] = [
           outcome: 'partial',
           headline: 'Nothing lost, but still doubled',
           explanation:
-            'The line means no confirmation is dropped and slow ones are retried. But a line delivers each item at least once, and the provider still resends, so the same payment can still be processed twice.',
-          after: '198',
-          claims: { fixesCause: false, reliableProcessing: true, duplicateEffects: 198, idempotentBoundary: false },
+            'Acknowledging at once stops most resends, and nothing is lost. But a line delivers each item at least once: when a worker times out or crashes part-way through a payment, the item goes back in the line and is processed again.',
+          after: '31',
+          claims: { fixesCause: false, reliableProcessing: true, duplicateEffects: 31, idempotentBoundary: false },
         },
         remember: {
           outcome: 'viable',
           headline: 'Every repeat becomes harmless',
           explanation:
-            'The payment’s unique number is written in the same step as the enrolment, so a repeat finds it already there and does nothing. Payments that time out are simply resent by the provider later, and it keeps trying for days.',
+            'The payment’s unique number is recorded in the same step as the enrolment, and the database refuses to record it twice, so even two copies arriving at the same moment produce one enrolment. Payments that time out are simply resent by the provider later, and it keeps trying for days.',
           after: '0',
           claims: { fixesCause: true, reliableProcessing: true, duplicateEffects: 0, idempotentBoundary: true },
         },
@@ -300,9 +300,9 @@ export const ROUNDS: readonly Round[] = [
         queue: {
           outcome: 'partial',
           headline: 'Nothing lost, still doubled',
-          explanation: 'The line keeps every confirmation it accepted, but repeats are still processed twice.',
-          after: '198',
-          claims: { fixesCause: false, reliableProcessing: true, duplicateEffects: 198, idempotentBoundary: false },
+          explanation: 'The line keeps every confirmation it accepted, but an item retried after a worker timeout or crash is still processed twice.',
+          after: '31',
+          claims: { fixesCause: false, reliableProcessing: true, duplicateEffects: 31, idempotentBoundary: false },
         },
         remember: {
           outcome: 'partial',
@@ -384,9 +384,9 @@ export const ROUNDS: readonly Round[] = [
         editorOptions.server,
         {
           id: 'batch',
-          label: 'Gather incoming changes and apply them together, once per screen refresh',
-          detail: 'Instead of redrawing for every change from every writer, collect them and update the page in one go.',
-          technical: 'Batch remote updates per animation frame (requestAnimationFrame)',
+          label: 'Only redraw changed blocks, and apply incoming changes together once per screen refresh',
+          detail: 'Skip unchanged blocks, and collect changes from other writers so the page updates at most once per refresh.',
+          technical: 'Memoised blocks plus remote updates batched per animation frame (requestAnimationFrame)',
         },
       ],
       results: {
@@ -420,9 +420,9 @@ export const ROUNDS: readonly Round[] = [
         },
         batch: {
           outcome: 'viable',
-          headline: 'One redraw per frame, however busy the page',
-          explanation: 'Dozens of incoming changes become a single update per screen refresh, so the editor stays responsive.',
-          after: '16 ms',
+          headline: 'Small redraws, at most one per refresh',
+          explanation: 'Each update only touches the blocks that changed, and a burst of incoming changes becomes one update per screen refresh, so typing stays responsive however busy the page is.',
+          after: '11 ms',
           claims: { fixesCause: true },
         },
       },

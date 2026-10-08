@@ -257,6 +257,7 @@ export function BrowserApp({ notes, onOpenApp }: BrowserAppProps) {
   const onTabKey = (e: React.KeyboardEvent, i: number) => {
     if (e.key === 'Delete') {
       e.preventDefault();
+      moved.current = false;
       const remaining = state.tabs.filter((t) => t.id !== state.tabs[i].id);
       const neighbour = remaining[Math.min(i, remaining.length - 1)];
       dispatch({ type: 'closeTab', id: state.tabs[i].id });
@@ -320,6 +321,16 @@ export function BrowserApp({ notes, onOpenApp }: BrowserAppProps) {
         </button>
         <button type="button" aria-label="Forward" disabled={tab.index >= tab.entries.length - 1} onClick={() => { moved.current = true; dispatch({ type: 'forward' }); }}>
           <span aria-hidden="true">→</span>
+        </button>
+        <button
+          type="button"
+          aria-label="Close this tab"
+          onClick={() => {
+            moved.current = false;
+            dispatch({ type: 'closeTab', id: state.active });
+          }}
+        >
+          <span aria-hidden="true">×</span>
         </button>
         <form
           className="gw-br-address"

@@ -12,6 +12,8 @@ export const HOME = `${SCHEME}home`;
 export const MAX_ADDRESS_LENGTH = 2048;
 /** Most tabs open at once. */
 export const MAX_TABS = 6;
+/** Shown instead of input that was too long to keep; it resolves to "not found" again on Back. */
+const TOO_LONG = `${SCHEME}address-too-long`;
 
 export type Route =
   | { kind: 'home' }
@@ -57,14 +59,15 @@ function internal(path: string): Resolved | null {
 export function resolve(input: string): Resolved {
   const raw = input.trim();
   if (!raw) return { address: HOME, route: { kind: 'home' } };
-  if (raw.length > MAX_ADDRESS_LENGTH) return { address: raw.slice(0, 80), route: { kind: 'notFound', input: raw.slice(0, 80) } };
+  if (raw.length > MAX_ADDRESS_LENGTH) return { address: TOO_LONG, route: { kind: 'notFound', input: `${raw.slice(0, 80)}…` } };
   if (raw.toLowerCase().startsWith(SCHEME)) {
     return internal(raw.slice(SCHEME.length)) ?? { address: raw, route: { kind: 'notFound', input: raw } };
   }
   if (raw.startsWith('/') && !raw.startsWith('//')) return internal(raw.split(/[?#]/)[0]) ?? { address: raw, route: { kind: 'notFound', input: raw } };
 
-  const hasScheme = /^[a-z][a-z0-9+.-]*:/i.test(raw);
-  const looksLikeHost = !hasScheme && !/\s/.test(raw) && /^[^/]+\.[a-z]{2,}(?:[/:?#]|$)/i.test(raw);
+  // "host:8080/x" is a host and port, not a scheme called "host".
+  const hasScheme = /^[a-z][a-z0-9+.-]*:(?!\d+(?:[/?#]|$))/i.test(raw);
+  const looksLikeHost = !hasScheme && !/\s/.test(raw) && /^(?:localhost|[^/:]+\.[a-z]{2,})(?::\d+)?(?:[/?#]|$)/i.test(raw);
   if (!hasScheme && !looksLikeHost) return { address: raw, route: { kind: 'notFound', input: raw } };
 
   let url: URL;
@@ -75,10 +78,10 @@ export function resolve(input: string): Resolved {
   }
   if (url.protocol !== 'https:' && url.protocol !== 'http:') return { address: raw, route: { kind: 'blocked', input: raw } };
   if (url.username || url.password) return { address: raw, route: { kind: 'blocked', input: raw } };
+  url.protocol = 'https:';
   if (SITE_HOSTS.has(url.host)) {
     return internal(url.pathname) ?? { address: url.href, route: { kind: 'external', href: url.href } };
   }
-  url.protocol = 'https:';
   return { address: url.href, route: { kind: 'external', href: url.href } };
 }
 
