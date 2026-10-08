@@ -33,6 +33,9 @@ const APP_IDS_OPEN = APPS.map((a) => a.id);
 const BrowserApp = dynamic(() => import('./browser-app').then((m) => m.BrowserApp), {
   loading: () => <p className="gw-loading" role="status">Loading Browser…</p>,
 });
+const ArchLab = dynamic(() => import('@/components/arch-lab/arch-lab').then((m) => m.ArchLab), {
+  loading: () => <p className="gw-loading" role="status">Loading Architecture Lab…</p>,
+});
 const ShipIt = dynamic(() => import('@/components/ship-it/ship-it').then((m) => m.ShipIt), {
   loading: () => <p className="gw-loading" role="status">Loading Ship It…</p>,
 });
@@ -394,6 +397,8 @@ export function Workspace({ resumeHref, notes, wallpaper }: WorkspaceProps) {
         return <AboutApp resumeHref={resumeHref} />;
       case 'browser':
         return <BrowserApp notes={notes} onOpenApp={openApp} />;
+      case 'lab':
+        return <ArchLab />;
       case 'arcade':
         return <ShipIt headingLevel={3} note="Minimizing this window keeps your progress; closing it ends the run." />;
       case 'settings':

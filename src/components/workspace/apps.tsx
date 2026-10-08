@@ -72,6 +72,17 @@ const BrowserIcon = (
   </svg>
 );
 
+const LabIcon = (
+  <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+    <rect width="48" height="48" rx="11" fill="#1B2230" />
+    <rect x="1" y="1" width="46" height="46" rx="10" fill="none" stroke="#3A4560" strokeWidth="1.5" />
+    <rect x="9" y="12" width="12" height="9" rx="2.5" fill="#8EA2FF" />
+    <rect x="27" y="12" width="12" height="9" rx="2.5" fill="#F08A5D" />
+    <rect x="18" y="29" width="12" height="9" rx="2.5" fill="#E9DDF2" />
+    <path d="M15 21v4h18v-4M24 25v4" fill="none" stroke="#C9D2EA" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
 export const APPS: readonly AppDef[] = [
   {
     id: 'projects',
@@ -100,6 +111,13 @@ export const APPS: readonly AppDef[] = [
     description: 'A three-round engineering game',
     spec: { size: { w: 760, h: 620 }, min: { w: 400, h: 360 } },
     icon: ArcadeIcon,
+  },
+  {
+    id: 'lab',
+    title: 'Architecture Lab',
+    description: 'Watch caching, queues and failures play out',
+    spec: { size: { w: 820, h: 640 }, min: { w: 420, h: 380 } },
+    icon: LabIcon,
   },
   {
     id: 'about',
