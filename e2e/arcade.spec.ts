@@ -15,8 +15,10 @@ test('Summit Run starts with Space, ends on a rock, saves the best score and rep
   await expect(arcade.getByRole('status').filter({ hasText: /Game over/ })).toHaveText(/Game over\. Score \d+/, { timeout: 20_000 });
   const best = await page.evaluate(() => JSON.parse(localStorage.getItem('gw.arcade.best.v1') ?? '{}').runner);
   expect(best).toBeGreaterThan(0);
-  await arcade.getByRole('button', { name: 'Play again' }).click();
+  await arcade.getByRole('button', { name: 'Play again' }).focus();
+  await page.keyboard.press('Enter');
   await expect(arcade.getByRole('button', { name: 'Play again' })).toHaveCount(0);
+  await expect(game).toBeFocused();
 
   await arcade.getByRole('button', { name: 'Games' }).click();
   await expect(arcade.getByRole('button', { name: /Summit Run/ })).toBeFocused();

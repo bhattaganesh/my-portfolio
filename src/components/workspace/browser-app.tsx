@@ -128,7 +128,7 @@ function Favicon({ route }: { route: Route }) {
       </svg>
     ) : (
       <svg className="br-fav" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-        <rect width="16" height="16" rx="3" fill="#0a66c2" />
+        <rect width="16" height="16" rx="3" fill="#4b5563" />
         <circle cx="8" cy="6" r="2.4" fill="#fff" />
         <path d="M3.8 13c.6-2.4 2.2-3.6 4.2-3.6s3.6 1.2 4.2 3.6z" fill="#fff" />
       </svg>
@@ -199,6 +199,11 @@ export function BrowserApp({ notes, onOpenApp }: BrowserAppProps) {
     // Route kind is derived from address; the address and the active tab decide when this runs.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, state.active, reloads]);
+
+  /** Moves keyboard focus into the page's game, so Space starts it. */
+  const focusGame = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.currentTarget.closest('.br-page')?.querySelector<HTMLElement>('.arc-stage')?.focus();
+  };
 
   const go = (input: string) => {
     moved.current = true;
@@ -300,7 +305,12 @@ export function BrowserApp({ notes, onOpenApp }: BrowserAppProps) {
         <p className="br-error-code">{code}</p>
         {extra}
         <section className="br-error-game" aria-label="While you are here">
-          <p>Stuck? Play Summit Run: press <kbd>Space</kbd> or tap the trail.</p>
+          <p>
+            Stuck? Play Summit Run.{' '}
+            <button type="button" className="br-btn" onClick={focusGame}>
+              Play now
+            </button>
+          </p>
           <RunnerGame compact />
         </section>
       </div>
@@ -378,7 +388,7 @@ export function BrowserApp({ notes, onOpenApp }: BrowserAppProps) {
             {siteHeader('work')}
             <section className="br-hero">
               <p className="br-kicker">Selected work</p>
-              {heading('Plugins and products used on real sites')}
+              {heading('Plugins and products I have built')}
               <p>WordPress, Gutenberg, React and PHP: what each project is, and what I owned.</p>
             </section>
             <ul className="br-cards">{work.map(projectCard)}</ul>
@@ -422,7 +432,12 @@ export function BrowserApp({ notes, onOpenApp }: BrowserAppProps) {
             <section className="br-hero">
               <p className="br-kicker">Arcade</p>
               {heading('Summit Run')}
-              <p>An endless trail run in the Himalayas. Press <kbd>Space</kbd> or tap to start.</p>
+              <p>An endless trail run in the Himalayas. Tap the trail, or choose Play now and press <kbd>Space</kbd>.</p>
+              <p>
+                <button type="button" className="br-btn" onClick={focusGame}>
+                  Play now
+                </button>
+              </p>
             </section>
             <div className="br-arcade">
               <RunnerGame />

@@ -114,7 +114,7 @@ export function SnakeGame({ autoFocus = false }: { autoFocus?: boolean }) {
     let carry = 0;
     const frame = (now: number) => {
       raf = requestAnimationFrame(frame);
-      if (document.hidden || canvas.offsetParent === null) {
+      if (document.hidden || canvas.offsetParent === null || canvas.closest('[inert]')) {
         last = null;
         return;
       }
@@ -151,6 +151,7 @@ export function SnakeGame({ autoFocus = false }: { autoFocus?: boolean }) {
         aria-roledescription="game"
         aria-label={`Snake. Arrow keys or W A S D steer. Score ${score}.`}
         onKeyDown={(e) => {
+          if (e.target !== e.currentTarget) return;
           const dir = keyDirection(e.key);
           if (dir) {
             e.preventDefault();

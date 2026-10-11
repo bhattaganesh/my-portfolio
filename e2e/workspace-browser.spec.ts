@@ -27,7 +27,7 @@ test('bookmarks, shortcuts and back/forward/reload/home move through pages with 
   await br.getByRole('list', { name: 'Shortcuts' }).getByRole('link', { name: 'Spectra' }).click();
   await expect(br.getByRole('heading', { name: 'Spectra', level: 3 })).toBeFocused();
   await br.getByRole('navigation', { name: 'Bookmarks' }).getByRole('button', { name: 'Work' }).click();
-  await expect(br.getByRole('heading', { name: 'Plugins and products used on real sites' })).toBeFocused();
+  await expect(br.getByRole('heading', { name: 'Plugins and products I have built' })).toBeFocused();
   await expect(omnibox(page)).toHaveValue('ganesh://work');
 
   await br.getByRole('button', { name: 'Back' }).click();
@@ -38,7 +38,7 @@ test('bookmarks, shortcuts and back/forward/reload/home move through pages with 
   await br.getByRole('button', { name: 'Forward' }).click();
   await expect(br.getByRole('button', { name: 'Forward' })).toBeDisabled();
   await br.getByRole('button', { name: 'Reload' }).click();
-  await expect(br.getByRole('heading', { name: 'Plugins and products used on real sites' })).toBeFocused();
+  await expect(br.getByRole('heading', { name: 'Plugins and products I have built' })).toBeFocused();
   await br.getByRole('button', { name: 'Home' }).click();
   await expect(br.getByRole('textbox', { name: "Search Ganesh's work or type an address" })).toBeFocused();
 });
@@ -77,7 +77,8 @@ test('the runner on an error page is playable with the keyboard', async ({ page 
   await omnibox(page).fill('ganesh://nowhere');
   await omnibox(page).press('Enter');
   const game = br.getByRole('application', { name: /Summit Run/ });
-  await game.focus();
+  await br.getByRole('button', { name: 'Play now' }).click();
+  await expect(game).toBeFocused();
   await page.keyboard.press('Space');
   await expect(game.getByText(/tap to start/)).toHaveCount(0);
 });

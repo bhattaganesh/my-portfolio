@@ -212,7 +212,8 @@ export function RunnerGame({ autoFocus = false, compact = false }: RunnerGamePro
     resize();
     const frame = (now: number) => {
       raf = requestAnimationFrame(frame);
-      const visible = !document.hidden && canvas.offsetParent !== null;
+      // A game under another full-screen panel stays laid out but inert; it must not keep running there.
+      const visible = !document.hidden && canvas.offsetParent !== null && !canvas.closest('[inert]');
       if (!visible) {
         last = null;
         return;
@@ -230,6 +231,8 @@ export function RunnerGame({ autoFocus = false, compact = false }: RunnerGamePro
   }, [act]);
 
   const onKeyDown = (e: React.KeyboardEvent) => {
+    // Keys pressed on a button inside the stage (Play again) belong to that button.
+    if (e.target !== e.currentTarget) return;
     if (e.key === ' ' || e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') {
       e.preventDefault();
       if (!e.repeat) jumpOrRestart();
@@ -279,7 +282,14 @@ export function RunnerGame({ autoFocus = false, compact = false }: RunnerGamePro
         {phase === 'over' && (
           <div className="arc-overlay arc-over">
             <p className="arc-over-title">{record ? 'New best!' : 'Game over'}</p>
-            <button type="button" className="arc-btn" onClick={jumpOrRestart}>
+            <button
+              type="button"
+              className="arc-btn"
+              onClick={() => {
+                jumpOrRestart();
+                stageRef.current?.focus({ preventScroll: true });
+              }}
+            >
               <span aria-hidden="true">↻</span> Play again
             </button>
           </div>

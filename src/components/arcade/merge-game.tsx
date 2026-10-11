@@ -84,6 +84,7 @@ export function MergeGame({ autoFocus = false }: { autoFocus?: boolean }) {
         aria-label="2048 board. Arrow keys or W A S D slide the tiles."
         aria-describedby="arc-merge-table"
         onKeyDown={(e) => {
+          if (e.target !== e.currentTarget) return;
           const dir = keyDirection(e.key);
           if (dir) {
             e.preventDefault();
@@ -119,7 +120,10 @@ export function MergeGame({ autoFocus = false }: { autoFocus?: boolean }) {
             <p className="arc-over-title">{state?.over ? 'No moves left' : `You made ${GOAL}!`}</p>
             <div className="arc-row">
               {showWin && (
-                <button type="button" className="arc-btn" onClick={() => setKeepGoing(true)}>
+                <button type="button" className="arc-btn" onClick={() => {
+                    setKeepGoing(true);
+                    boardRef.current?.focus({ preventScroll: true });
+                  }}>
                   Keep going
                 </button>
               )}
