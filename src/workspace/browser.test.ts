@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { HOME, INITIAL_BROWSER, MAX_TABS, activeTab, browse, currentAddress, resolve, type BrowserAction, type BrowserState } from './browser';
+import { HOME, INITIAL_BROWSER, MAX_TABS, activeTab, browse, currentAddress, resolve, searchPortfolio, type BrowserAction, type BrowserState } from './browser';
 
 const kind = (input: string) => resolve(input).route.kind;
 
@@ -10,14 +10,13 @@ describe('address resolution', () => {
     }
     expect(resolve('')).toEqual({ address: HOME, route: { kind: 'home' } });
     expect(kind('ganesh://github')).toBe('profile');
-    expect(kind('ganesh://lab/ship-it')).toBe('shipit');
+    expect(kind('ganesh://arcade')).toBe('arcade');
     expect(kind('ganesh://notes')).toBe('notes');
   });
 
-  it('treats unknown internal pages and plain words as not found', () => {
+  it('treats unknown internal pages as not found', () => {
     expect(kind('ganesh://work/not-a-project')).toBe('notFound');
     expect(kind('ganesh://settings')).toBe('notFound');
-    expect(kind('spectra architecture')).toBe('notFound');
     expect(kind('/admin')).toBe('notFound');
   });
 
@@ -37,10 +36,20 @@ describe('address resolution', () => {
     }
   });
 
-  it('never resolves protocol-relative or whitespace-split schemes into links', () => {
-    expect(kind('//evil.example/x')).toBe('notFound');
-    expect(kind('java\tscript:alert(1)')).toBe('notFound');
-    expect(kind('<img src=x onerror=alert(1)>')).toBe('notFound');
+  it('never turns protocol-relative input or whitespace-split schemes into links', () => {
+    expect(kind('//evil.example/x')).toBe('search');
+    expect(kind('java\tscript:alert(1)')).toBe('search');
+    expect(kind('<img src=x onerror=alert(1)>')).toBe('search');
+  });
+
+  it('searches the portfolio for plain words, and round-trips the search address safely', () => {
+    const r = resolve('  spectra   architecture ');
+    expect(r).toEqual({ address: 'ganesh://search?q=spectra%20%20%20architecture', route: { kind: 'search', query: 'spectra   architecture' } });
+    expect(resolve(r.address).route).toEqual(r.route);
+    expect(resolve('ganesh://search?q=a+b').route).toEqual({ kind: 'search', query: 'a b' });
+    expect(resolve('ganesh://search?q=%E0%A4%A').route.kind).toBe('notFound');
+    expect(resolve('x'.repeat(200)).route).toEqual({ kind: 'search', query: 'x'.repeat(80) });
+    expect(resolve('ganesh://search?q=').route.kind).toBe('home');
   });
 
   it('rejects overlong input before parsing, and its stored address stays not found', () => {
@@ -86,5 +95,20 @@ describe('tabs and history', () => {
     expect(s.tabs).toHaveLength(1);
     expect(currentAddress(s)).toBe(HOME);
     expect(browse(s, { type: 'closeTab', id: 99 })).toBe(s);
+  });
+});
+
+describe('portfolio search', () => {
+  const projects = [
+    { slug: 'wp-agent-ai', title: 'WP Agent AI', summary: 'Gutenberg AI plugin', text: 'PHP React Server-Sent Events' },
+    { slug: 'spectra', title: 'Spectra', summary: 'Block library', text: 'PHP React Gutenberg' },
+  ];
+
+  it('needs every word, ignores case, and lists projects before pages', () => {
+    expect(searchPortfolio('GUTENBERG react', projects).map((h) => h.title)).toEqual(['WP Agent AI', 'Spectra']);
+    expect(searchPortfolio('server-sent', projects).map((h) => h.address)).toEqual(['ganesh://work/wp-agent-ai']);
+    expect(searchPortfolio('snake', projects).map((h) => h.address)).toEqual(['ganesh://arcade']);
+    expect(searchPortfolio('   ', projects)).toEqual([]);
+    expect(searchPortfolio('<script>', projects)).toEqual([]);
   });
 });

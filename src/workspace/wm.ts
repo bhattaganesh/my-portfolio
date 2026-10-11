@@ -191,8 +191,14 @@ export function reduce(state: WmState, action: WmAction): WmState {
   if (action.type === 'open') {
     if (win) return win.mode === 'minimized' ? reduce(state, { type: 'restore', app: action.app }) : reduce(state, { type: 'focus', app: action.app });
     const step = state.order.length * CASCADE_STEP;
+    const sized = clampRect({ x: 0, y: 0, ...action.spec.size }, action.spec.min, state.area);
+    // A new window opens fully on screen: the cascade shifts back when the window would spill over an edge.
     const rect = clampRect(
-      { x: CASCADE_ORIGIN.x + step, y: CASCADE_ORIGIN.y + step, ...action.spec.size },
+      {
+        ...sized,
+        x: Math.max(0, Math.min(CASCADE_ORIGIN.x + step, state.area.w - sized.w)),
+        y: Math.max(0, Math.min(CASCADE_ORIGIN.y + step, state.area.h - sized.h)),
+      },
       action.spec.min,
       state.area,
     );

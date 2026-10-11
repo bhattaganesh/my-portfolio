@@ -8,6 +8,8 @@ const desktop = { viewport: { width: 1440, height: 900 } };
 export default defineConfig({
   testDir: 'e2e',
   fullyParallel: true,
+  // Canvas games and axe scans are CPU-heavy; more parallel browsers than this made timing-based checks flaky on a laptop.
+  workers: 4,
   reporter: [['list']],
   use: { baseURL, trace: 'retain-on-failure' },
   projects: [

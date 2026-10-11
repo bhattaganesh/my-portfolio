@@ -53,12 +53,12 @@ const SettingsIcon = (
 
 const ArcadeIcon = (
   <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-    <rect width="48" height="48" rx="11" fill="#C2531F" />
-    <path d="M11 0h26a11 11 0 0 1 11 11v9H0v-9A11 11 0 0 1 11 0z" fill="#F08A5D" opacity="0.5" />
-    <path d="M24 9c5 4 7 9 7 15l-3 6h-8l-3-6c0-6 2-11 7-15z" fill="#FFF4EA" />
-    <circle cx="24" cy="20" r="3" fill="#C2531F" />
-    <path d="M17 26l-4 6h5zM31 26l4 6h-5z" fill="#FFD3A1" />
-    <path d="M21 32h6l-3 7z" fill="#FFD3A1" />
+    <rect width="48" height="48" rx="11" fill="#E0662F" />
+    <path d="M11 0h26a11 11 0 0 1 11 11v9H0v-9A11 11 0 0 1 11 0z" fill="#F7A06D" opacity="0.55" />
+    <path d="M14 17h20a8 8 0 0 1 8 8v2a7 7 0 0 1-12.5 4.3L28 29.5h-8l-1.5 1.8A7 7 0 0 1 6 27v-2a8 8 0 0 1 8-8z" fill="#FFF4EA" />
+    <path d="M14 21v8M10 25h8" stroke="#E0662F" strokeWidth="3" strokeLinecap="round" />
+    <circle cx="32" cy="23.5" r="2.2" fill="#2343D6" />
+    <circle cx="36.5" cy="28" r="2.2" fill="#2343D6" />
   </svg>
 );
 
@@ -107,9 +107,9 @@ export const APPS: readonly AppDef[] = [
   },
   {
     id: 'arcade',
-    title: 'Ship It',
-    description: 'A three-round engineering game',
-    spec: { size: { w: 760, h: 620 }, min: { w: 400, h: 360 } },
+    title: 'Arcade',
+    description: 'Summit Run, Snake and 2048',
+    spec: { size: { w: 800, h: 700 }, min: { w: 380, h: 420 } },
     icon: ArcadeIcon,
   },
   {

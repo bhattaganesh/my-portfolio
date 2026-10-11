@@ -121,13 +121,13 @@ test('the Browser works as a full-screen panel by touch, without overflow or sma
   const br = windowRegion(page, 'Browser');
   await expect(br).toHaveAttribute('data-mode', 'panel');
   await br.getByRole('navigation', { name: 'Bookmarks' }).getByRole('button', { name: 'Work' }).tap();
-  await br.getByRole('tabpanel').getByRole('link', { name: 'Spectra' }).tap();
+  await br.getByRole('tabpanel').getByRole('link', { name: /Spectra/ }).first().tap();
   await expect(br.getByRole('heading', { name: 'Spectra', level: 3 })).toBeVisible();
   await br.getByRole('button', { name: 'Back' }).tap();
-  await expect(br.getByRole('textbox', { name: 'Address' })).toHaveValue('ganesh://work');
+  await expect(br.getByRole('textbox', { name: 'Address and search bar' })).toHaveValue('ganesh://work');
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(0);
-  for (const control of await br.locator('.gw-br-toolbar button, .gw-br-bookmarks button, .gw-br-new').all()) {
+  for (const control of await br.locator('.br-toolbar button:visible, .br-bookmarks button, .br-new').all()) {
     expect((await control.boundingBox())!.height).toBeGreaterThanOrEqual(44);
   }
 });

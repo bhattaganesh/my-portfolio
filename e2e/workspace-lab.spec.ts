@@ -26,13 +26,3 @@ test('the Architecture Lab responds to each setting with consistent numbers and 
   const { violations } = await new AxeBuilder({ page }).include('.gw').analyze();
   expect(violations.map((v) => `${v.id} ${v.nodes[0]?.target}`)).toEqual([]);
 });
-
-test('the Browser can close the current tab from its toolbar', async ({ page }) => {
-  await page.goto('/workspace/');
-  await dock(page).getByRole('button', { name: 'Browser' }).click();
-  const br = windowRegion(page, 'Browser');
-  await br.getByRole('button', { name: 'New tab' }).click();
-  await expect(br.getByRole('tab')).toHaveCount(2);
-  await br.getByRole('button', { name: 'Close this tab' }).click();
-  await expect(br.getByRole('tab')).toHaveCount(1);
-});

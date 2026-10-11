@@ -1,5 +1,5 @@
 import AxeBuilder from '@axe-core/playwright';
-import { dock, expect, test, windowRegion } from './fixtures';
+import { expect, test } from './fixtures';
 
 test('a keyboard-only run plays three rounds with a twist, shows the debrief and replays', async ({ page }) => {
   await page.goto('/lab/ship-it/');
@@ -51,27 +51,4 @@ test('the game page has no axe violations on each screen', async ({ page }) => {
   await page.getByRole('radio', { name: /Add more web servers/ }).check();
   await page.getByRole('button', { name: 'Ship it', exact: true }).click();
   await scan('result');
-});
-
-test('in the Workspace, minimizing keeps the run and closing ends it; the game loads only when opened', async ({ page }) => {
-  const scripts: string[] = [];
-  page.on('request', (r) => {
-    if (r.resourceType() === 'script') scripts.push(new URL(r.url()).pathname);
-  });
-  await page.goto('/workspace/', { waitUntil: 'networkidle' });
-  const before = scripts.length;
-  await dock(page).getByRole('button', { name: 'Ship It' }).click();
-  const game = windowRegion(page, 'Ship It');
-  await game.getByRole('button', { name: 'Start round 1' }).click();
-  expect(scripts.length, 'opening the game fetched its own code').toBeGreaterThan(before);
-
-  await game.getByRole('radio', { name: /Fix the slow database lookup/ }).check();
-  await game.getByRole('button', { name: 'Ship it', exact: true }).click();
-  await page.getByRole('button', { name: 'Minimize Ship It' }).click();
-  await dock(page).getByRole('button', { name: 'Ship It, minimized' }).click();
-  await expect(game.getByRole('heading', { name: /Fast, and fixed at the source/ })).toBeVisible();
-
-  await page.getByRole('button', { name: 'Close Ship It' }).click();
-  await dock(page).getByRole('button', { name: 'Ship It' }).click();
-  await expect(game.getByRole('button', { name: 'Start round 1' })).toBeVisible();
 });

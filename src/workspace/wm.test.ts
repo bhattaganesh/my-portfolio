@@ -208,4 +208,16 @@ describe('window manager', () => {
     const s = open(initialState(DESKTOP), 'terminal');
     expect(reduce(s, { type: 'load', specs: { projects: SPEC }, windows: [{ app: 'projects', mode: 'normal', rect: { x: 0, y: 0, w: 500, h: 400 } }] })).toBe(s);
   });
+
+  it('opens new windows fully inside the work area, even when the cascade would push them over an edge', () => {
+    const area = { w: 810, h: 900 };
+    let s = initialState(area);
+    for (const app of APPS) {
+      s = reduce(s, { type: 'open', app, spec: { size: { w: 800, h: 700 }, min: { w: 380, h: 300 } } });
+      const r = s.windows[app]!.rect;
+      expect(r.x).toBeGreaterThanOrEqual(0);
+      expect(r.x + r.w).toBeLessThanOrEqual(area.w);
+      expect(r.y + r.h).toBeLessThanOrEqual(area.h);
+    }
+  });
 });

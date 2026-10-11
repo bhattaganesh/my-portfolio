@@ -12,6 +12,8 @@ export const HOME = `${SCHEME}home`;
 export const MAX_ADDRESS_LENGTH = 2048;
 /** Most tabs open at once. */
 export const MAX_TABS = 6;
+/** Longest search kept; longer text is cut before it is shown or encoded. */
+export const MAX_QUERY = 80;
 /** Shown instead of input that was too long to keep; it resolves to "not found" again on Back. */
 const TOO_LONG = `${SCHEME}address-too-long`;
 
@@ -20,7 +22,8 @@ export type Route =
   | { kind: 'work' }
   | { kind: 'case'; slug: string }
   | { kind: 'notes' }
-  | { kind: 'shipit' }
+  | { kind: 'arcade' }
+  | { kind: 'search'; query: string }
   | { kind: 'profile'; site: 'github' | 'linkedin' }
   | { kind: 'external'; href: string }
   | { kind: 'blocked'; input: string }
@@ -42,12 +45,32 @@ function internal(path: string): Resolved | null {
   if (clean === '' || clean === 'home') return at('home', { kind: 'home' });
   if (clean === 'work') return at('work', { kind: 'work' });
   if (clean === 'notes') return at('notes', { kind: 'notes' });
-  if (clean === 'lab/ship-it' || clean === 'ship-it') return at('lab/ship-it', { kind: 'shipit' });
+  if (clean === 'arcade' || clean === 'games') return at('arcade', { kind: 'arcade' });
   if (clean === 'github') return at('github', { kind: 'profile', site: 'github' });
   if (clean === 'linkedin') return at('linkedin', { kind: 'profile', site: 'linkedin' });
   const match = /^work\/([a-z0-9-]+)$/.exec(clean);
   if (match && findWork(match[1])) return at(`work/${match[1]}`, { kind: 'case', slug: match[1] });
   return null;
+}
+
+/**
+ * A portfolio search for free text, the way a browser's address bar searches anything that is not an address.
+ *
+ * @param text What was typed.
+ * @returns The search page for the (trimmed, length-capped) text, or the start page when it is empty.
+ */
+export function searchFor(text: string): Resolved {
+  const query = text.trim().slice(0, MAX_QUERY);
+  if (!query) return { address: HOME, route: { kind: 'home' } };
+  return { address: `${SCHEME}search?q=${encodeURIComponent(query)}`, route: { kind: 'search', query } };
+}
+
+function decodeQuery(encoded: string): string | null {
+  try {
+    return decodeURIComponent(encoded.replace(/\+/g, ' '));
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -61,6 +84,11 @@ export function resolve(input: string): Resolved {
   if (!raw) return { address: HOME, route: { kind: 'home' } };
   if (raw.length > MAX_ADDRESS_LENGTH) return { address: TOO_LONG, route: { kind: 'notFound', input: `${raw.slice(0, 80)}…` } };
   if (raw.toLowerCase().startsWith(SCHEME)) {
+    const search = /^search\?q=(.*)$/i.exec(raw.slice(SCHEME.length));
+    if (search) {
+      const query = decodeQuery(search[1]);
+      return query === null ? { address: raw, route: { kind: 'notFound', input: raw } } : searchFor(query);
+    }
     return internal(raw.slice(SCHEME.length)) ?? { address: raw, route: { kind: 'notFound', input: raw } };
   }
   if (raw.startsWith('/') && !raw.startsWith('//')) return internal(raw.split(/[?#]/)[0]) ?? { address: raw, route: { kind: 'notFound', input: raw } };
@@ -68,7 +96,7 @@ export function resolve(input: string): Resolved {
   // "host:8080/x" is a host and port, not a scheme called "host".
   const hasScheme = /^[a-z][a-z0-9+.-]*:(?!\d+(?:[/?#]|$))/i.test(raw);
   const looksLikeHost = !hasScheme && !/\s/.test(raw) && /^(?:localhost|[^/:]+\.[a-z]{2,})(?::\d+)?(?:[/?#]|$)/i.test(raw);
-  if (!hasScheme && !looksLikeHost) return { address: raw, route: { kind: 'notFound', input: raw } };
+  if (!hasScheme && !looksLikeHost) return searchFor(raw);
 
   let url: URL;
   try {
@@ -164,4 +192,35 @@ export function browse(state: BrowserState, action: BrowserAction): BrowserState
       return { ...state, tabs, active };
     }
   }
+}
+
+export interface SearchHit {
+  address: string;
+  title: string;
+  snippet: string;
+}
+
+/** Pages a search can find besides the projects themselves. */
+const SEARCH_PAGES: readonly SearchHit[] = [
+  { address: `${SCHEME}work`, title: 'Work — all projects', snippet: 'Spectra, Masteriyo LMS, WP Agent AI, Everest Forms and User Registration.' },
+  { address: `${SCHEME}arcade`, title: 'Arcade — Summit Run, Snake and 2048', snippet: 'Games built from scratch for this site, playable with a keyboard, mouse or touch.' },
+  { address: `${SCHEME}github`, title: 'GitHub profile (portfolio preview)', snippet: 'bhattaganesh on GitHub, with the open-source WP Agent AI plugin.' },
+  { address: `${SCHEME}linkedin`, title: 'LinkedIn profile (portfolio preview)', snippet: 'Experience at Brainstorm Force, ThemeGrill and Zenlab.' },
+];
+
+/**
+ * Searches the portfolio's projects and pages for every word of a query.
+ *
+ * @param query Free text; matching is case-insensitive and every word must appear.
+ * @param projects Searchable project text, in display order.
+ * @returns Matching pages, projects first.
+ */
+export function searchPortfolio(query: string, projects: readonly { slug: string; title: string; summary: string; text: string }[]): SearchHit[] {
+  const words = query.toLowerCase().split(/\s+/).filter(Boolean).slice(0, 8);
+  if (words.length === 0) return [];
+  const matches = (text: string) => words.every((w) => text.toLowerCase().includes(w));
+  return [
+    ...projects.filter((p) => matches(`${p.title} ${p.summary} ${p.text}`)).map((p) => ({ address: `${SCHEME}work/${p.slug}`, title: p.title, snippet: p.summary })),
+    ...SEARCH_PAGES.filter((p) => matches(`${p.title} ${p.snippet}`)),
+  ];
 }

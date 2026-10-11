@@ -36,8 +36,8 @@ const BrowserApp = dynamic(() => import('./browser-app').then((m) => m.BrowserAp
 const ArchLab = dynamic(() => import('@/components/arch-lab/arch-lab').then((m) => m.ArchLab), {
   loading: () => <p className="gw-loading" role="status">Loading Architecture Lab…</p>,
 });
-const ShipIt = dynamic(() => import('@/components/ship-it/ship-it').then((m) => m.ShipIt), {
-  loading: () => <p className="gw-loading" role="status">Loading Ship It…</p>,
+const Arcade = dynamic(() => import('@/components/arcade/arcade').then((m) => m.Arcade), {
+  loading: () => <p className="gw-loading" role="status">Loading the Arcade…</p>,
 });
 
 type Overlay = 'mission' | 'spotlight' | null;
@@ -400,7 +400,7 @@ export function Workspace({ resumeHref, notes, wallpaper }: WorkspaceProps) {
       case 'lab':
         return <ArchLab />;
       case 'arcade':
-        return <ShipIt headingLevel={3} note="Minimizing this window keeps your progress; closing it ends the run." />;
+        return <Arcade />;
       case 'settings':
         return <SettingsApp prefs={prefs} storageAvailable={storageAvailable} onChange={changePrefs} onReset={resetEverything} />;
       default:
