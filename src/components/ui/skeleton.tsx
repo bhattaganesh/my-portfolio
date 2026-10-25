@@ -104,22 +104,4 @@ export function SkeletonProfile({ className }: { className?: string }) {
   );
 }
 
-export function SkeletonBlogPost({ className }: { className?: string }) {
-  return (
-    <div className={cn('flex flex-col gap-4', className)}>
-      <Skeleton variant="card" />
-      <div className="flex items-center gap-3">
-        <Skeleton variant="badge" />
-        <Skeleton variant="text" width="5rem" />
-      </div>
-      <Skeleton variant="heading" />
-      <Skeleton variant="text" lines={3} />
-      <div className="flex justify-between items-center pt-4 border-t border-surface-100 dark:border-surface-800">
-        <Skeleton variant="text" width="4rem" />
-        <Skeleton variant="button" width="5rem" />
-      </div>
-    </div>
-  );
-}
-
 export default Skeleton;

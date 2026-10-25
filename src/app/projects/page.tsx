@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title:
     'Projects by Ganesh Prasad Bhatt — WordPress Plugins, Gutenberg Page Builders, React Apps & LMS',
   description:
-    'Explore projects by Ganesh Prasad Bhatt — Spectra Blocks (Gutenberg page builder, 1M+ sites), Masteriyo LMS, WP Agent AI, Everest Forms, and more. WordPress development, React apps, and open source contributions.',
+    'WordPress plugins built and maintained by Ganesh Prasad Bhatt — User Registration & Membership, Masteriyo LMS, Magazine Blocks, BlockArt, Spectra v3 and Everest Forms — with links to each plugin page and its documentation.',
   alternates: {
     canonical: `${SITE_CONFIG.url}/projects`,
   },
@@ -28,7 +28,7 @@ export default function ProjectsPage() {
           <SectionHeading
             as="h1"
             title="Projects"
-            subtitle="A selection of work I'm proud of — from 1M+ user plugins to open source contributions"
+            subtitle="WordPress plugins I've built and maintained, with links to each plugin page and its documentation"
             className="mb-12"
           />
         </ScrollReveal>

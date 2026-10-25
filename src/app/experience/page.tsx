@@ -9,9 +9,9 @@ import { SITE_CONFIG } from '@/lib/constants';
 
 export const metadata: Metadata = {
   title:
-    'Experience — Brainstorm Force Developer, ThemeGrill Developer | Ganesh Prasad Bhatt',
+    'Experience — ThemeGrill Senior Developer, Brainstorm Force Software Engineer | Ganesh Prasad Bhatt',
   description:
-    'Professional experience of Ganesh Prasad Bhatt — Software Developer at Brainstorm Force (Spectra, Gutenberg page builder), PHP Developer at ThemeGrill (Masteriyo LMS, Everest Forms). Nepali full-stack developer and software engineer.',
+    'Professional experience of Ganesh Prasad Bhatt — Senior Developer at ThemeGrill (User Registration & Membership, Masteriyo LMS, Magazine Blocks, BlockArt), Software Engineer at Brainstorm Force (Spectra v3), and PHP Developer at ThemeGrill (Masteriyo LMS, Everest Forms). Nepali full-stack developer and software engineer.',
   alternates: {
     canonical: `${SITE_CONFIG.url}/experience`,
   },

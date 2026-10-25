@@ -9,19 +9,19 @@ export const currentlyItems: CurrentItem[] = [
   {
     icon: 'Hammer',
     category: 'Building',
-    label: 'Spectra Page Builder',
-    detail: 'Working on the page builder experience inside Spectra Blocks at Brainstorm Force',
-  },
-  {
-    icon: 'Sparkles',
-    category: 'Exploring',
-    label: 'AI-Powered Development',
-    detail: 'Using AI tools heavily day-to-day to move faster, write better code, and reduce grunt work',
+    label: 'WordPress products at ThemeGrill',
+    detail: 'New features, stability and releases across memberships, online courses and block-editor plugins',
   },
   {
     icon: 'Target',
-    category: 'Learning',
-    label: 'What Makes WordPress Products Great',
-    detail: 'Studying product quality, UX decisions, and what separates good plugins from great ones',
+    category: 'Improving',
+    label: 'Subscription reliability',
+    detail: 'Making subscription billing dependable and modernising the legacy code behind it',
+  },
+  {
+    icon: 'Sparkles',
+    category: 'In practice',
+    label: 'AI-assisted development',
+    detail: 'AI coding agents in my daily workflow, with every change still going through code review and automated tests',
   },
 ];

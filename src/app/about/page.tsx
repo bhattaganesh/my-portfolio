@@ -25,9 +25,9 @@ export const metadata: Metadata = {
 
 const stats = [
   { value: '4+', label: 'Years Experience' },
-  { value: '1M+', label: 'Sites Using My Work' },
-  { value: '2', label: 'Great Companies' },
-  { value: '20+', label: 'Projects Shipped' },
+  { value: '6+', label: 'WordPress Plugins' },
+  { value: '2', label: 'Product Companies' },
+  { value: '380+', label: 'Merged PRs at ThemeGrill' },
 ] as const;
 
 export default function AboutPage() {
@@ -53,9 +53,9 @@ export default function AboutPage() {
                   the WordPress ecosystem and beyond.
                 </p>
                 <p className="text-surface-600 dark:text-surface-400 leading-relaxed">
-                  I work at Brainstorm Force on Spectra — a Gutenberg blocks plugin
-                  used by over one million WordPress sites. My craft spans PHP, React,
-                  TypeScript, REST APIs, and MySQL.
+                  I&apos;m a Senior Developer at ThemeGrill, where I work across the
+                  company&apos;s WordPress plugins. I work across PHP, React, TypeScript,
+                  REST APIs and MySQL.
                 </p>
                 <div className="flex flex-wrap gap-3 pt-2">
                   <a
@@ -120,37 +120,34 @@ export default function AboutPage() {
             />
             <div className="space-y-5 text-surface-700 dark:text-surface-300 leading-relaxed text-[1.0625rem] max-w-prose"> {/* [UX-FIX] surface-600 on surface-50 = borderline contrast; 700 = 8:1. max-w-prose caps line length at ~65ch */}
               <p>
-                {`I'm Ganesh Prasad Bhatt, a Senior Full-Stack Software Developer based in
-                Kathmandu, Nepal, with over 4 years of hands-on experience building
-                production-grade web applications. I currently work at Brainstorm Force,
-                where I contribute to Spectra — a WordPress Gutenberg blocks plugin
-                powering over one million active websites. My work there involves
-                full-stack feature development across PHP, React, and REST APIs, with a
-                strong focus on system performance, architecture quality, and security
-                practices.`}
+                {`I'm Ganesh Prasad Bhatt, a senior full-stack developer in Kathmandu,
+                Nepal, with nearly five years of building WordPress plugins that real
+                businesses depend on. Today I'm a Senior Developer at ThemeGrill, working
+                across its product line on new features, stability, performance and
+                security, from paid memberships and online courses to block-editor plugins.`}
               </p>
               <p>
-                {`Before Brainstorm Force, I spent three years at ThemeGrill, where I grew
-                significantly as an engineer. I built features for multiple WordPress
-                products covering forms, learning management systems, authentication,
-                analytics, and payment processing. I refactored large legacy codebases,
-                optimized MySQL queries, and mentored junior developers — experiences
-                that shaped me into someone who thinks about code not just as a solution
-                to today's problem but as something that has to be maintained, scaled,
-                and understood by others.`}
+                {`I started at ThemeGrill in December 2021 as an intern with no WordPress
+                background and grew into a Senior PHP Developer, building forms,
+                memberships, analytics and learning-management features, and eventually
+                leading backend development on Masteriyo LMS. In 2025 I joined Brainstorm
+                Force as a core developer on the ground-up rebuild of Spectra, where I worked
+                on its core architecture and built many of its major blocks and extensions.
+                Along the way I learned to treat code as something other people will
+                maintain, scale and build on long after it ships.`}
               </p>
               <p>
-                {`My core belief is that great software is built at the intersection of
-                technical excellence and product thinking. I care deeply about writing
-                clean, well-structured code, but equally about understanding why a
-                feature exists and what user problem it solves. I'm drawn to projects
-                that challenge me architecturally and to teams that take craftsmanship
-                seriously.`}
+                {`I care about what happens after a feature ships: whether it solves the
+                problem it was built for, whether the next developer can maintain it, and
+                whether it keeps working as the product grows. That is why I put as much
+                weight on code review, tests and clear pull requests as on the feature itself.`}
               </p>
               <p>
-                {`When I'm not coding, I'm exploring the WordPress and React ecosystems,
-                contributing to open source where I can, or learning about system design
-                and engineering leadership.`}
+                {`I learn by building, and I go deep rather than wide. I work with AI coding
+                agents such as Claude Code, Codex, Cursor and Google Antigravity every day
+                to move faster, while every change still goes through review and tests. My
+                motto is that knowledge integration is the best way to grow: each thing I
+                learn makes the rest of my stack more useful.`}
               </p>
             </div>
           </ScrollReveal>

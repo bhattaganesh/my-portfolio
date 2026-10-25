@@ -3,7 +3,7 @@ export const SITE_CONFIG = {
   shortName: 'Ganesh',
   title: 'Senior Full-Stack Software Developer | WordPress, Gutenberg & React Expert',
   description:
-    'Ganesh Prasad Bhatt — Senior Full-Stack Developer from Kathmandu, Nepal. Expert in WordPress, Gutenberg blocks, React, PHP, and LMS development. Core engineer on Spectra Blocks at Brainstorm Force, powering 1M+ WordPress sites.',
+    'Ganesh Prasad Bhatt — Senior Developer at ThemeGrill in Kathmandu, Nepal. Works across ThemeGrill’s WordPress plugins, including User Registration & Membership, Masteriyo LMS, Magazine Blocks and BlockArt; previously a core developer on Spectra Blocks, the ground-up rebuild of Spectra, at Brainstorm Force. PHP, React, Gutenberg, REST APIs.',
   url: 'https://www.ganeshbhatt.com.np',
   email: 'bhattaganesh05@gmail.com',
   phone: '+977-9848979669',
@@ -21,6 +21,5 @@ export const NAV_ITEMS = [
   { label: 'About', href: '/about' },
   { label: 'Projects', href: '/projects' },
   { label: 'Experience', href: '/experience' },
-  { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' },
 ] as const;

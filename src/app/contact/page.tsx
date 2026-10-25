@@ -49,11 +49,11 @@ export default function ContactPage() {
         <Container className="max-w-2xl text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-50 dark:bg-primary-500/10 border border-primary-200 dark:border-primary-500/20 text-primary-600 dark:text-primary-400 text-sm font-medium mb-6">
             <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
-            Available for work
+            Open to opportunities
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-display text-surface-900 dark:text-surface-50 leading-tight mb-4">
-            Let&apos;s Build{' '}
-            <span className="text-gradient">Something Great</span>
+            Let&apos;s Work{' '}
+            <span className="text-gradient">Together</span>
           </h1>
           <p className="text-lg text-surface-600 dark:text-surface-400 max-w-xl mx-auto"> {/* [UX-FIX] surface-500 on white = 4.48:1, borderline fail for normal text */}
             Whether you have a project in mind, a role to discuss, or just want to say hello —
@@ -115,7 +115,7 @@ export default function ContactPage() {
               <div className="p-5 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 border border-green-200 dark:border-green-800/50">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse shrink-0" />
-                  <p className="text-sm font-bold text-green-800 dark:text-green-300">Available for work</p>
+                  <p className="text-sm font-bold text-green-800 dark:text-green-300">Open to opportunities</p>
                 </div>
                 <p className="text-xs text-green-700 dark:text-green-400 leading-relaxed">
                   Open to senior full-stack roles, WordPress architecture consulting, and interesting freelance projects.
@@ -130,7 +130,7 @@ export default function ContactPage() {
                   Send a message
                 </h2>
                 <p className="text-sm text-surface-500 dark:text-surface-400 mb-6">
-                  Tell me about your project, timeline, and how I can help.
+                  Tell me about the role or project, your timeline, and how I can help.
                 </p>
                 <ContactForm />
               </div>

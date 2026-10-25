@@ -17,10 +17,10 @@ const STATS = [
     bg: 'bg-primary-500/10',
   },
   {
-    numericValue: 1,
-    suffix: 'M+',
-    label: 'Sites Impacted',
-    sublabel: 'via WordPress plugins',
+    numericValue: 6,
+    suffix: '+',
+    label: 'WordPress Plugins',
+    sublabel: 'built and maintained',
     icon: Globe,
     color: 'text-primary-400',
     bg: 'bg-primary-500/10',
@@ -28,7 +28,7 @@ const STATS = [
   {
     numericValue: 2,
     suffix: '',
-    label: 'Great Companies',
+    label: 'Product Companies',
     sublabel: 'Brainstorm Force & ThemeGrill',
     icon: Users,
     color: 'text-indigo-400',
@@ -90,7 +90,7 @@ export function AboutPreview() {
               >
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse shrink-0" />
                 <span className="text-xs font-semibold text-surface-800 dark:text-surface-100 whitespace-nowrap">
-                  Available for work
+                  Open to opportunities
                 </span>
               </div>
             </div>
@@ -101,7 +101,7 @@ export function AboutPreview() {
             <ScrollReveal direction="right" delay={0.1}>
               <SectionHeading
                 eyebrow="About Me"
-                title="I ship software that scales to millions"
+                title="I build WordPress plugins people rely on"
                 subtitle="Senior WordPress & React engineer with 4+ years building production-grade plugins and web applications at product companies."
                 as="h2"
               />
@@ -110,13 +110,11 @@ export function AboutPreview() {
             <ScrollReveal direction="up" delay={0.2}>
               <p className="text-base leading-relaxed text-surface-600 dark:text-surface-400"> {/* [UX-FIX] surface-500 barely fails WCAG AA on white; surface-600 = 6.5:1 */}
                 At{' '}
-                <strong className="text-surface-700 dark:text-surface-300 font-semibold">Brainstorm Force</strong>
-                {' '}I was a core engineer on{' '}
-                <strong className="text-surface-700 dark:text-surface-300 font-semibold">Spectra Blocks</strong>
-                {' '}— architected key systems and built major features for this ground-up rewrite of the most-used Gutenberg blocks plugin, now in beta and rolling out to 1M+ sites.
-                Before that, three years at{' '}
                 <strong className="text-surface-700 dark:text-surface-300 font-semibold">ThemeGrill</strong>
-                {' '}shipping features across LMS, forms, payments, and authentication — the kind of varied, high-stakes work that makes engineers grow fast.
+                {' '}I&apos;m a Senior Developer working across the company&apos;s WordPress plugins, from paid memberships and online courses to block-editor plugins.
+                Before that, I spent fifteen months at{' '}
+                <strong className="text-surface-700 dark:text-surface-300 font-semibold">Brainstorm Force</strong>
+                {' '}as a core developer on Spectra Blocks, the ground-up rebuild of Spectra, where I helped lay its architecture and built many of its major blocks and extensions.
               </p>
             </ScrollReveal>
 

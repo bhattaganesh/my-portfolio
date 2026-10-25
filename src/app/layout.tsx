@@ -93,9 +93,6 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: SITE_CONFIG.url,
-    types: {
-      'application/rss+xml': `${SITE_CONFIG.url}/feed.xml`,
-    },
   },
 };
 
@@ -109,11 +106,6 @@ const websiteSchema = {
     '@type': 'Person',
     name: SITE_CONFIG.name,
   },
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: `${SITE_CONFIG.url}/blog?q={search_term_string}`,
-    'query-input': 'required name=search_term_string',
-  },
 };
 
 const personSchema = {
@@ -123,14 +115,14 @@ const personSchema = {
   url: SITE_CONFIG.url,
   email: SITE_CONFIG.email,
   telephone: SITE_CONFIG.phone,
-  jobTitle: 'Senior Full-Stack Software Developer',
+  jobTitle: 'Senior Developer',
   description:
-    'Senior Full-Stack Developer from Nepal specializing in WordPress, Gutenberg, React, PHP, and LMS development. Core engineer on Spectra Blocks at Brainstorm Force.',
+    'Senior Developer at ThemeGrill, Nepal, working across its WordPress plugins. Previously a core developer on Spectra Blocks (Spectra v3) at Brainstorm Force.',
   image: `${SITE_CONFIG.url}/images/ganesh.webp`,
   worksFor: {
     '@type': 'Organization',
-    name: 'Brainstorm Force',
-    url: 'https://developer.brainstormforce.com',
+    name: 'ThemeGrill',
+    url: 'https://themegrill.com',
   },
   alumniOf: {
     '@type': 'CollegeOrUniversity',
@@ -149,9 +141,6 @@ const personSchema = {
     'JavaScript',
     'MySQL',
     'REST API',
-    'GraphQL',
-    'Next.js',
-    'Laravel',
     'LMS Development',
     'AI Agents',
     'WordPress Plugin Development',
@@ -164,7 +153,7 @@ const personSchema = {
     name: 'Full-Stack Software Developer',
     occupationalCategory: '15-1252.00',
     skills:
-      'WordPress, Gutenberg, React, PHP, TypeScript, MySQL, REST API, Next.js, Laravel, LMS, AI',
+      'WordPress, Gutenberg, React, PHP, TypeScript, MySQL, REST API, LMS, AI',
   },
   sameAs: [
     SITE_CONFIG.socials.linkedin,
@@ -250,7 +239,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceSchema) }}
         />
         <link rel="manifest" href="/manifest.json" />
-        <link rel="alternate" type="application/rss+xml" title={`${SITE_CONFIG.name} Blog`} href="/feed.xml" />
       </head>
       {GA_ID && (
         <>
@@ -281,7 +269,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ScrollProgress />
           <CustomCursor />
           <Header />
-          <main id="main-content" className="relative z-[1]">{children}</main>
+          <main id="main-content" className="relative z-[1] overflow-x-clip">{children}</main>
           <Footer />
           <BackToTop />
           <Toaster richColors position="bottom-right" />
