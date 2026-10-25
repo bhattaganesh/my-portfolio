@@ -182,7 +182,7 @@ export function ContactForm() {
             autoComplete="name"
             value={form.name}
             onChange={handleChange}
-            placeholder="Ganesh Bhatt"
+            placeholder="Your full name"
             required
             aria-required="true"
             aria-describedby={errors.name ? `${nameId}-error` : undefined}
@@ -220,7 +220,7 @@ export function ContactForm() {
           autoComplete="off"
           value={form.subject}
           onChange={handleChange}
-          placeholder="e.g. Freelance project, Full-time role, Collaboration…"
+          placeholder="e.g. Developer role, freelance project, collaboration…"
           aria-describedby={errors.subject ? `${subjectId}-error` : undefined}
           aria-invalid={!!errors.subject}
           className={cn(inputBase, errors.subject && inputError)}
@@ -236,7 +236,7 @@ export function ContactForm() {
           rows={6}
           value={form.message}
           onChange={handleChange}
-          placeholder="Tell me about your project, timeline, and budget. The more context, the better!"
+          placeholder="Tell me about the role or project, any relevant links, and your timeline."
           required
           aria-required="true"
           aria-describedby={errors.message ? `${messageId}-error` : undefined}
@@ -247,12 +247,12 @@ export function ContactForm() {
       </Field>
 
       {/* Privacy note */}
-      <p className="text-xs text-surface-400 dark:text-surface-500 leading-relaxed">
-        Your information is only used to respond to your message and will never be shared with third
+      <p className="text-xs text-surface-600 dark:text-surface-400 leading-relaxed">
+        Your message is delivered to my inbox through EmailJS and is used only to reply to you. It is never shared with other third
         parties. You can also reach me directly at{' '}
         <a
           href={`mailto:${SITE_CONFIG.email}`}
-          className="text-primary-500 hover:text-primary-400 transition-colors"
+          className="text-primary-700 dark:text-primary-300 underline underline-offset-2 hover:text-primary-600 transition-colors"
         >
           {SITE_CONFIG.email}
         </a>

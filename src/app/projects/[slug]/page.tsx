@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, ExternalLink, Github, Star, Calendar, TrendingUp, Lightbulb, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Github, Calendar, TrendingUp, Lightbulb, CheckCircle2, BookOpen, Globe, GitCommitHorizontal } from 'lucide-react';
 import { Container } from '@/components/ui/container';
 import { Badge } from '@/components/ui/badge';
-import { projects } from '@/data/projects';
+import { projects, projectGradient } from '@/data/projects';
 import { SITE_CONFIG } from '@/lib/constants';
 import { Breadcrumbs } from '@/components/shared/breadcrumbs';
 import { ShareButtons } from '@/components/shared/share-buttons';
@@ -28,17 +28,6 @@ export async function generateMetadata(
   };
 }
 
-/** Deterministic gradient per project slug */
-const PROJECT_GRADIENTS: Record<string, { from: string; to: string }> = {
-  spectra: { from: '#1e2f7a', to: '#748ffc' },
-  'ultimate-addons-gutenberg': { from: '#1a1f4e', to: '#4c6ef5' },
-  'zip-ai': { from: '#0f2027', to: '#4c6ef5' },
-};
-
-function getGradient(slug: string): string {
-  const g = PROJECT_GRADIENTS[slug] ?? { from: '#2b3f9e', to: '#4c6ef5' };
-  return `linear-gradient(135deg, ${g.from}, ${g.to})`;
-}
 
 export default async function ProjectDetailPage(
   props: PageProps<'/projects/[slug]'>,
@@ -48,7 +37,7 @@ export default async function ProjectDetailPage(
 
   if (!project) notFound();
 
-  const gradient = getGradient(project.slug);
+  const gradient = projectGradient(project);
   const projectUrl = `${SITE_CONFIG.url}/projects/${slug}`;
 
   const breadcrumbSchema = {
@@ -92,7 +81,7 @@ export default async function ProjectDetailPage(
   };
 
   return (
-    <main className="pt-24 pb-16">
+    <div className="pt-24 pb-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
@@ -132,12 +121,12 @@ export default async function ProjectDetailPage(
               <h1 className="text-3xl sm:text-4xl font-bold font-display mb-3 leading-tight">
                 {project.title}
               </h1>
-              <p className="text-white/80 text-lg max-w-2xl">{project.excerpt}</p>
+              <p className="text-white/90 text-lg max-w-2xl">{project.excerpt}</p>
             </div>
             <ShareButtons
               url={projectUrl}
               title={project.title}
-              className="text-white/70 [&_a]:hover:bg-white/20 [&_button]:hover:bg-white/20"
+              className="text-white/90 [&_a]:hover:bg-white/20 [&_button]:hover:bg-white/20"
             />
           </div>
         </div>
@@ -150,27 +139,13 @@ export default async function ProjectDetailPage(
               <h2 className="text-xl font-bold mb-3 text-surface-900 dark:text-surface-100 font-display">
                 About this project
               </h2>
-              <p className="text-surface-600 dark:text-surface-400 leading-relaxed">
-                {project.description}
-              </p>
+              <div className="space-y-4 text-surface-600 dark:text-surface-400 leading-relaxed">
+                {project.description.split('\n\n').map((paragraph) => (
+                  <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+                ))}
+              </div>
             </div>
 
-            <div>
-              <h2 className="text-xl font-bold mb-4 text-surface-900 dark:text-surface-100 font-display">
-                Key Highlights
-              </h2>
-              <ul className="space-y-3">
-                {project.highlights.map((highlight, i) => (
-                  <li
-                    key={i}
-                    className="flex items-start gap-3 text-surface-600 dark:text-surface-400"
-                  >
-                    <Star className="w-4 h-4 text-primary-500 mt-0.5 shrink-0 fill-primary-500/20" />
-                    <span>{highlight}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
 
             {/* Case Study */}
             {project.caseStudy && (
@@ -189,7 +164,7 @@ export default async function ProjectDetailPage(
                       <p className="text-xl font-bold font-display text-primary-700 dark:text-primary-300">
                         {m.value}
                       </p>
-                      <p className="text-xs text-surface-500 dark:text-surface-400 mt-0.5">
+                      <p className="text-xs text-surface-600 dark:text-surface-400 mt-0.5">
                         {m.label}
                       </p>
                     </div>
@@ -253,28 +228,26 @@ export default async function ProjectDetailPage(
 
             {/* Links & meta */}
             <div className="rounded-xl border border-surface-200 dark:border-surface-800 p-5 bg-surface-50 dark:bg-surface-900 space-y-4">
-              {project.projectUrl && (
-                <a
-                  href={project.projectUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:underline text-sm font-medium"
-                >
-                  <ExternalLink className="w-4 h-4 shrink-0" />
-                  View Live
-                </a>
-              )}
-              {project.githubUrl && (
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline text-sm font-medium transition-colors"
-                >
-                  <Github className="w-4 h-4 shrink-0" />
-                  View on GitHub
-                </a>
-              )}
+              {[
+                { href: project.projectUrl, label: 'Plugin on WordPress.org', Icon: ExternalLink },
+                { href: project.docsUrl, label: 'Documentation', Icon: BookOpen },
+                { href: project.websiteUrl, label: 'Product website', Icon: Globe },
+                { href: project.githubUrl, label: 'Source on GitHub', Icon: Github },
+                { href: project.commitsUrl, label: 'My commits', Icon: GitCommitHorizontal },
+              ]
+                .filter((l) => l.href)
+                .map(({ href, label, Icon }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:underline text-sm font-medium"
+                  >
+                    <Icon className="w-4 h-4 shrink-0" aria-hidden="true" />
+                    {label}
+                  </a>
+                ))}
               <div className="flex items-center gap-2 text-surface-500 dark:text-surface-500 text-sm">
                 <Calendar className="w-4 h-4 shrink-0" />
                 {project.projectYear}
@@ -292,6 +265,6 @@ export default async function ProjectDetailPage(
           </div>
         </div>
       </Container>
-    </main>
+    </div>
   );
 }

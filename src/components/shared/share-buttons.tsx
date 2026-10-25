@@ -41,7 +41,7 @@ export function ShareButtons({ url, title, className }: ShareButtonsProps) {
 
   return (
     <div className={cn('flex items-center gap-1.5', className)}>
-      <span className="text-xs font-medium text-surface-500 dark:text-surface-400 uppercase tracking-widest mr-1">
+      <span className="text-xs font-medium uppercase tracking-widest mr-1">
         Share
       </span>
       {shareLinks.map(({ label, href, icon: Icon }) => (
@@ -51,7 +51,7 @@ export function ShareButtons({ url, title, className }: ShareButtonsProps) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={label}
-          className="w-8 h-8 rounded-lg flex items-center justify-center text-surface-500 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors"
+          className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors"
         >
           <Icon className="w-4 h-4" aria-hidden="true" />
         </a>
@@ -60,7 +60,7 @@ export function ShareButtons({ url, title, className }: ShareButtonsProps) {
         type="button"
         aria-label={copied ? 'Link copied!' : 'Copy link'}
         onClick={handleCopyLink}
-        className="w-8 h-8 rounded-lg flex items-center justify-center text-surface-500 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors"
+        className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors"
       >
         {copied ? (
           <Check className="w-4 h-4 text-green-500" aria-hidden="true" />

@@ -34,7 +34,7 @@ export function CtaSection() {
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary-400/20 bg-primary-500/10">
               <Briefcase className="w-3.5 h-3.5 text-primary-300" aria-hidden="true" />
               <span className="text-xs font-semibold uppercase tracking-widest text-primary-300">
-                Available for work
+                Open to opportunities
               </span>
             </div>
           </ScrollReveal>
@@ -45,7 +45,7 @@ export function CtaSection() {
               id="cta-heading"
               className="text-4xl sm:text-5xl lg:text-6xl font-bold font-display text-white leading-[1.1] tracking-tight"
             >
-              Ready to build{' '}
+              Have a role or{' '}
               <span
                 style={{
                   background: 'linear-gradient(90deg, #748ffc, #91a7ff)',
@@ -54,7 +54,7 @@ export function CtaSection() {
                   backgroundClip: 'text',
                 }}
               >
-                something great?
+                project in mind?
               </span>
             </h2>
           </ScrollReveal>
@@ -62,8 +62,8 @@ export function CtaSection() {
           {/* Body */}
           <ScrollReveal direction="up" delay={0.2}>
             <p className="text-lg sm:text-xl text-primary-200 leading-relaxed max-w-xl">
-              I&apos;m open to full-time roles, freelance projects, and open&nbsp;source collaboration.
-              Let&apos;s turn your ideas into polished, production-ready software.
+              I&apos;m open to full-stack roles, WordPress product work, freelance projects
+              and open&nbsp;source collaboration.
             </p>
           </ScrollReveal>
 
@@ -92,11 +92,11 @@ export function CtaSection() {
           {/* Trust line */}
           <ScrollReveal direction="up" delay={0.4}>
             <p className="text-sm text-primary-300"> {/* [UX-FIX] /70 opacity dropped contrast below AA on dark navy */}
-              Currently working at{' '}
-              <span className="text-primary-200 font-medium">Brainstorm Force</span>
+              Senior Developer at{' '}
+              <span className="text-primary-200 font-medium">ThemeGrill</span>
               {' '}—{' '}
-              building tools used by{' '}
-              <span className="text-primary-200 font-medium">1M+ WordPress sites</span>.
+              working across its{' '}
+              <span className="text-primary-200 font-medium">WordPress plugins</span>.
             </p>
           </ScrollReveal>
 

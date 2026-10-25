@@ -1,13 +1,12 @@
 'use client';
 
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import Link from 'next/link';
 import { ArrowRight, MapPin } from 'lucide-react';
 import { SITE_CONFIG } from '@/lib/constants';
 import { SocialLinks } from '@/components/shared/social-links';
 import { Container } from '@/components/ui/container';
-import { useFirstVisit } from '@/hooks/use-first-visit';
 import { GreetingClock } from './greeting-clock';
 
 const Hero3dScene = lazy(() =>
@@ -16,20 +15,11 @@ const Hero3dScene = lazy(() =>
 
 export function HeroSection() {
   const prefersReducedMotion = useReducedMotion();
-  const isFirstVisit = useFirstVisit();
-  const [showWelcome, setShowWelcome] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  useEffect(() => {
-    if (!isFirstVisit) return;
-    setShowWelcome(true);
-    const timer = setTimeout(() => setShowWelcome(false), 5000);
-    return () => clearTimeout(timer);
-  }, [isFirstVisit]);
 
   // Animate-driven entrance: hidden state on server + first client render,
   // visible state after mount. `initial={false}` ensures Motion renders at
@@ -58,22 +48,6 @@ export function HeroSection() {
           {/* ── LEFT: Text content ── */}
           <div className="space-y-6">
 
-            {/* First-visit welcome pill */}
-            <AnimatePresence>
-              {showWelcome && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-500/10 border border-primary-500/20 text-primary-700 dark:text-primary-300 text-sm font-medium">
-                    Welcome! Thanks for visiting.
-                  </span>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
             {/* Availability badge */}
             <motion.div
               initial={false}
@@ -82,7 +56,7 @@ export function HeroSection() {
             >
               <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/10 border border-green-500/20 text-green-700 dark:text-green-400 text-sm font-mono font-medium">
                 <span className="w-2 h-2 rounded-full bg-green-500 dark:bg-green-400 animate-pulse" aria-hidden="true" />
-                Available for work
+                Open to opportunities
               </span>
             </motion.div>
 
@@ -115,11 +89,10 @@ export function HeroSection() {
               animate={mounted ? visible : hidden}
               transition={entrance(0.5)}
             >
-              Core engineer on{' '}
-              <span className="text-surface-800 dark:text-surface-200 font-medium">Spectra Blocks</span> — built the architecture and key features
-              for the Gutenberg blocks plugin powering{' '}
-              <span className="text-surface-800 dark:text-surface-200 font-medium">1M+ WordPress sites</span>.
-              Building at{' '}
+              Senior Developer at{' '}
+              <span className="text-surface-800 dark:text-surface-200 font-medium">ThemeGrill</span>, building and improving its WordPress plugins.
+              Previously a core developer on{' '}
+              <span className="text-surface-800 dark:text-surface-200 font-medium">Spectra Blocks</span>, the ground-up rebuild of Spectra at{' '}
               <span className="text-surface-700 dark:text-surface-300 font-medium">Brainstorm Force</span>.
             </motion.p>
 
@@ -183,7 +156,7 @@ export function HeroSection() {
             {/* 3D scene — floats behind the clock card */}
             {!prefersReducedMotion && mounted && (
               <div
-                className="absolute -inset-8 pointer-events-none opacity-60 dark:opacity-40"
+                className="absolute -inset-8 pointer-events-none opacity-10 dark:opacity-25"
                 aria-hidden="true"
               >
                 <Suspense fallback={null}>

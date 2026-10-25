@@ -1,13 +1,14 @@
 import { Container } from '@/components/ui/container';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { ScrollReveal } from '@/components/shared/scroll-reveal';
+import { getGithubStats } from '@/lib/github';
 import { GithubLanguages } from './github-languages';
 
 const metrics = [
   {
-    value: '1M+',
-    label: 'Sites running my code',
-    detail: 'Spectra Blocks active installs',
+    value: '6+',
+    label: 'WordPress plugins',
+    detail: 'User Registration, Masteriyo, Magazine Blocks, BlockArt, Everest Forms, Spectra',
   },
   {
     value: '4+',
@@ -20,13 +21,18 @@ const metrics = [
     detail: 'Brainstorm Force & ThemeGrill',
   },
   {
-    value: '20+',
-    label: 'Features shipped',
-    detail: 'Plugins, blocks, LMS, forms, APIs',
+    value: '238',
+    label: 'Masteriyo pull requests',
+    detail: 'Merged across 2023–2026',
   },
 ] as const;
 
-export function GithubStats() {
+/**
+ * "By the numbers" section: product metrics plus the build-time GitHub activity card.
+ */
+export async function GithubStats() {
+  const github = await getGithubStats();
+
   return (
     <section
       className="py-20 lg:py-28 bg-surface-50 dark:bg-surface-950"
@@ -39,7 +45,7 @@ export function GithubStats() {
             <SectionHeading
               eyebrow="Impact & Activity"
               title="By the numbers"
-              subtitle="Professional impact at scale, backed by real GitHub activity."
+              subtitle="Product work at scale, plus my public GitHub activity."
               as="h2"
             />
           </ScrollReveal>
@@ -67,7 +73,7 @@ export function GithubStats() {
 
             {/* Right: GitHub activity card */}
             <ScrollReveal direction="up" delay={0.15}>
-              <GithubLanguages />
+              <GithubLanguages stats={github} />
             </ScrollReveal>
 
           </div>

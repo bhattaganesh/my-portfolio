@@ -2,32 +2,18 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ExternalLink, Github, Star, ArrowRight, Zap } from 'lucide-react';
+import { ExternalLink, Github, ArrowRight, Zap, BookOpen } from 'lucide-react';
 import { Container } from '@/components/ui/container';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { Badge } from '@/components/ui/badge';
 import { ScrollReveal } from '@/components/shared/scroll-reveal';
-import { projects as defaultProjects, type Project } from '@/data/projects';
+import { projects as defaultProjects, projectGradient, type Project } from '@/data/projects';
 import { cn } from '@/lib/utils';
 
 interface Props {
   projects?: Project[];
 }
 
-/** Deterministic gradient for each project based on slug */
-const PROJECT_GRADIENTS: Record<string, { from: string; to: string; via?: string }> = {
-  spectra: { from: '#1e2f7a', via: '#4c6ef5', to: '#748ffc' },
-  'ultimate-addons-gutenberg': { from: '#1a1f4e', via: '#3b5bdb', to: '#4c6ef5' },
-  'zip-ai': { from: '#0f2027', via: '#2b3f9e', to: '#4c6ef5' },
-};
-
-function getGradient(slug: string): string {
-  const g = PROJECT_GRADIENTS[slug] ?? { from: '#1e2f7a', via: '#3b5bdb', to: '#748ffc' };
-  if (g.via) {
-    return `linear-gradient(135deg, ${g.from} 0%, ${g.via} 55%, ${g.to} 100%)`;
-  }
-  return `linear-gradient(135deg, ${g.from} 0%, ${g.to} 100%)`;
-}
 
 const TYPE_VARIANT: Record<Project['projectType'], 'default' | 'success' | 'secondary'> = {
   Work: 'default',
@@ -41,10 +27,9 @@ interface ProjectCardProps {
 }
 
 function ProjectCard({ project, index }: ProjectCardProps) {
-  const gradient = getGradient(project.slug);
+  const gradient = projectGradient(project);
   const visibleTech = project.techStack.slice(0, 4);
   const extraTech = project.techStack.length - 4;
-  const visibleHighlights = project.highlights.slice(0, 2);
 
   return (
     <ScrollReveal direction="up" delay={index * 0.1} className="h-full">
@@ -116,20 +101,6 @@ function ProjectCard({ project, index }: ProjectCardProps) {
             )}
           </div>
 
-          {/* Highlights */}
-          {visibleHighlights.length > 0 && (
-            <ul className="flex flex-col gap-1.5 mt-auto" role="list" aria-label="Key highlights">
-              {visibleHighlights.map((highlight) => (
-                <li key={highlight} className="flex items-start gap-2 text-xs text-surface-600 dark:text-surface-400">
-                  <Star
-                    className="w-3.5 h-3.5 text-yellow-500 shrink-0 mt-0.5 fill-yellow-500/30"
-                    aria-hidden="true"
-                  />
-                  <span>{highlight}</span>
-                </li>
-              ))}
-            </ul>
-          )}
         </div>
 
         {/* ── Card Footer ── */}
@@ -152,11 +123,23 @@ function ProjectCard({ project, index }: ProjectCardProps) {
                 href={project.projectUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`Visit ${project.title} live site`}
+                aria-label={`${project.title} plugin page`}
                 className="inline-flex items-center gap-1.5 text-xs text-primary-600 dark:text-primary-400 hover:text-primary-500 transition-colors duration-150 ml-3"
               >
                 <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
-                <span className="font-medium">Live</span>
+                <span className="font-medium">Plugin</span>
+              </a>
+            )}
+            {project.docsUrl && (
+              <a
+                href={project.docsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${project.title} documentation`}
+                className="inline-flex items-center gap-1.5 text-xs text-primary-600 dark:text-primary-400 hover:text-primary-500 transition-colors duration-150 ml-3"
+              >
+                <BookOpen className="w-3.5 h-3.5" aria-hidden="true" />
+                <span className="font-medium">Docs</span>
               </a>
             )}
           </div>
@@ -180,7 +163,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
 export function FeaturedProjects({ projects }: Props) {
   const items = (projects && projects.length > 0 ? projects : defaultProjects)
     .filter((p) => p.isFeatured)
-    .slice(0, 3);
+    .slice(0, 6);
 
   return (
     <section
@@ -196,7 +179,7 @@ export function FeaturedProjects({ projects }: Props) {
               <SectionHeading
                 eyebrow="Featured Work"
                 title="Projects I'm proud of"
-                subtitle="Production software used by millions of WordPress users around the world."
+                subtitle="WordPress plugins I have built and maintained, each linked to its plugin page and documentation."
                 as="h2"
               />
             </ScrollReveal>

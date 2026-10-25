@@ -82,7 +82,7 @@ function SkillCard({ category, accentIndex }: SkillCardProps) {
               )}
             >
               {skill.name}
-              <span className="flex items-center gap-0.5" aria-label={dots.label}>
+              <span className="flex items-center gap-0.5" role="img" aria-label={dots.label}>
                 {Array.from({ length: 3 }).map((_, i) => (
                   <span
                     key={i}
@@ -115,7 +115,7 @@ export function SkillsGrid() {
             <SectionHeading
               eyebrow="Tech Stack"
               title="What I build with"
-              subtitle="Languages, frameworks, and tools I use daily in production."
+              subtitle="My core stack, the integrations I build, and the tools I work with."
               as="h2"
             />
           </ScrollReveal>

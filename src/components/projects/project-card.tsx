@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { ExternalLink, Github, Star, ArrowRight } from 'lucide-react';
-import type { Project } from '@/data/projects';
+import { ExternalLink, Github, ArrowRight, BookOpen } from 'lucide-react';
+import { projectGradient, type Project } from '@/data/projects';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 
@@ -15,34 +15,10 @@ interface Props {
   compact?: boolean;
 }
 
-/** Deterministic per-project header gradients */
-const PROJECT_GRADIENTS: Record<string, string> = {
-  spectra:
-    'linear-gradient(135deg, #1e2f7a 0%, #4c6ef5 55%, #748ffc 100%)',
-  'ultimate-addons-gutenberg':
-    'linear-gradient(135deg, #1a1f4e 0%, #3b5bdb 55%, #4c6ef5 100%)',
-  'zip-ai':
-    'linear-gradient(135deg, #0f2027 0%, #2b3f9e 55%, #4c6ef5 100%)',
-};
-
-function getGradient(slug: string): string {
-  return (
-    PROJECT_GRADIENTS[slug] ??
-    'linear-gradient(135deg, #1e2f7a 0%, #3b5bdb 55%, #748ffc 100%)'
-  );
-}
-
-const TYPE_VARIANT: Record<Project['projectType'], 'default' | 'success' | 'secondary'> = {
-  Work: 'default',
-  'Open Source': 'success',
-  Personal: 'secondary',
-};
-
 export function ProjectCard({ project, className, compact = false }: Props) {
-  const gradient = getGradient(project.slug);
+  const gradient = projectGradient(project);
   const visibleTech = project.techStack.slice(0, 4);
   const extraTech = project.techStack.length - 4;
-  const visibleHighlights = project.highlights.slice(0, 2);
 
   return (
     <article
@@ -84,13 +60,6 @@ export function ProjectCard({ project, className, compact = false }: Props) {
           </span>
         </div>
 
-        {/* Type badge — top right */}
-        <div className="absolute top-4 right-4">
-          <Badge variant={TYPE_VARIANT[project.projectType]} className="text-[11px]">
-            {project.projectType}
-          </Badge>
-        </div>
-
         {/* Title */}
         <h3
           className={cn(
@@ -128,23 +97,6 @@ export function ProjectCard({ project, className, compact = false }: Props) {
           )}
         </div>
 
-        {/* Highlights */}
-        {visibleHighlights.length > 0 && (
-          <ul className="flex flex-col gap-1.5 mt-auto" role="list" aria-label="Project highlights">
-            {visibleHighlights.map((highlight) => (
-              <li
-                key={highlight}
-                className="flex items-start gap-2 text-xs text-surface-600 dark:text-surface-400"
-              >
-                <Star
-                  className="w-3.5 h-3.5 text-yellow-500 shrink-0 mt-0.5 fill-yellow-500/30"
-                  aria-hidden="true"
-                />
-                <span>{highlight}</span>
-              </li>
-            ))}
-          </ul>
-        )}
       </div>
 
       {/* ── Card footer ── */}
@@ -173,11 +125,23 @@ export function ProjectCard({ project, className, compact = false }: Props) {
               href={project.projectUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Visit ${project.title} live`}
+              aria-label={`${project.title} plugin page`}
               className="inline-flex items-center gap-1.5 text-xs text-primary-600 dark:text-primary-400 hover:text-primary-500 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 rounded-sm"
             >
               <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
-              <span className="font-medium">Live</span>
+              <span className="font-medium">Plugin</span>
+            </a>
+          )}
+          {project.docsUrl && (
+            <a
+              href={project.docsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${project.title} documentation`}
+              className="inline-flex items-center gap-1.5 text-xs text-primary-600 dark:text-primary-400 hover:text-primary-500 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 rounded-sm"
+            >
+              <BookOpen className="w-3.5 h-3.5" aria-hidden="true" />
+              <span className="font-medium">Docs</span>
             </a>
           )}
         </div>

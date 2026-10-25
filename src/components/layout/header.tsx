@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { NAV_ITEMS, SITE_CONFIG } from '@/lib/constants';
+import { NAV_ITEMS } from '@/lib/constants';
 import { ThemeToggle } from './theme-toggle';
 import { LogoMark } from './logo';
 import { cn } from '@/lib/utils';
@@ -88,7 +88,7 @@ export function Header() {
               'focus-visible:ring-offset-white dark:focus-visible:ring-offset-surface-950',
               'transition-opacity duration-200 hover:opacity-80',
             )}
-            aria-label={`${SITE_CONFIG.name} — home`}
+            aria-label="Ganesh Full-Stack Developer — home"
           >
             {/* Logo mark */}
             <LogoMark size={32} className="shrink-0" />

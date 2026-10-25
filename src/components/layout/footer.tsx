@@ -33,9 +33,7 @@ export function Footer() {
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2',
                 'focus-visible:ring-offset-surface-50 dark:focus-visible:ring-offset-surface-950',
                 'transition-opacity duration-200 hover:opacity-80',
-              )}
-              aria-label="Ganesh Bhatt — home"
-            >
+              )}            >
               <LogoMark size={36} className="shrink-0" />
               <span className="font-display font-bold text-surface-900 dark:text-surface-50 leading-tight">
                 Ganesh Bhatt
@@ -47,8 +45,8 @@ export function Footer() {
 
             {/* Tagline */}
             <p className="text-sm leading-relaxed text-surface-600 dark:text-surface-400 max-w-xs"> {/* [UX-FIX] surface-500 on surface-50 = borderline WCAG AA */}
-              Full-stack developer building software that reaches millions.
-              Currently at Brainstorm Force, core engineer on Spectra Blocks.
+              Full-stack developer building WordPress plugins used on tens of thousands of sites.
+              Senior Developer at ThemeGrill.
             </p>
 
             {/* Social links */}
@@ -186,7 +184,7 @@ export function Footer() {
               . All rights reserved.
             </p>
 
-            {/* Available for work badge */}
+            {/* Open to opportunities badge */}
             <div
               className={cn(
                 'inline-flex items-center gap-2',
@@ -195,14 +193,14 @@ export function Footer() {
                 'border border-green-200 dark:border-green-800/60',
               )}
               role="status"
-              aria-label="Employment status: available for work"
+              aria-label="Employment status: open to opportunities"
             >
               <span
                 className="w-2 h-2 rounded-full bg-green-500 animate-pulse shrink-0"
                 aria-hidden="true"
               />
               <span className="text-xs font-medium text-green-700 dark:text-green-400">
-                Available for work
+                Open to opportunities
               </span>
             </div>
           </div>

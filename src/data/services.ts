@@ -10,11 +10,11 @@ export const services: Service[] = [
     icon: 'Blocks',
     title: 'WordPress & Gutenberg Development',
     description:
-      'Custom WordPress plugins, Gutenberg blocks, and theme development with modern architecture and best practices.',
+      'WordPress plugins and Gutenberg blocks, from REST APIs and payment integrations to the editor experience.',
     features: [
       'Custom Gutenberg block development',
       'WordPress plugin architecture',
-      'REST API & WPGraphQL integration',
+      'REST API development & integration',
       'Performance optimization',
     ],
   },
@@ -26,7 +26,7 @@ export const services: Service[] = [
     features: [
       'React + TypeScript frontend',
       'PHP backend development',
-      'MySQL / PostgreSQL database design',
+      'MySQL database design and indexing',
       'API design & integration',
     ],
   },

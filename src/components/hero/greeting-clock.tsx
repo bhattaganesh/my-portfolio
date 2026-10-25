@@ -88,17 +88,16 @@ function ClockDisplay({ hours, minutes, seconds }: { hours: string; minutes: str
 
 const STATS = [
   { value: '4+', label: 'Yrs Exp' },
-  { value: '1M+', label: 'Sites' },
-  { value: '2+', label: 'Companies' },
+  { value: '6+', label: 'Plugins' },
+  { value: '2', label: 'Companies' },
 ] as const;
 
 // Subscribe to a 1-second clock tick without synchronous setState in effects
 let clockListeners: Array<() => void> = [];
 let clockSnapshot = new Date();
 
-// Fixed epoch used for both server and client initial render to avoid hydration mismatch.
-// Content is hidden (opacity 0) until mounted, so the placeholder value is never visible.
-const HYDRATION_DATE = new Date(0);
+// Placeholder shown before the visitor's clock is known; any formatted Date here would depend on the build server's timezone.
+const NO_TIME = '--';
 
 if (typeof window !== 'undefined') {
   setInterval(() => {
@@ -114,12 +113,12 @@ function subscribeClock(listener: () => void) {
   };
 }
 
-function getClockSnapshot() {
+function getClockSnapshot(): Date | null {
   return clockSnapshot;
 }
 
-function getServerSnapshot() {
-  return HYDRATION_DATE;
+function getServerSnapshot(): Date | null {
+  return null;
 }
 
 export function GreetingClock() {
@@ -131,27 +130,23 @@ export function GreetingClock() {
     setMounted(true);
   }, []);
 
-  // Use a stable placeholder until mounted to avoid hydration mismatch.
-  // Content is hidden (opacity 0) until mounted anyway, so the placeholder is never visible.
-  const displayTime = mounted ? now : HYDRATION_DATE;
+  // Server render and hydration get null, so no timezone-dependent text reaches the HTML.
+  const displayTime = mounted ? now : null;
 
-  const hour = displayTime.getHours();
+  const hour = displayTime?.getHours() ?? 0;
   const timeOfDay = getTimeOfDay(hour);
-  const greetingText = getGreetingText(timeOfDay);
+  const greetingText = displayTime ? getGreetingText(timeOfDay) : 'Hello';
 
   const pad = (n: number) => n.toString().padStart(2, '0');
-  const hours = pad(hour);
-  const minutes = pad(displayTime.getMinutes());
-  const seconds = pad(displayTime.getSeconds());
+  const hours = displayTime ? pad(hour) : NO_TIME;
+  const minutes = displayTime ? pad(displayTime.getMinutes()) : NO_TIME;
+  const seconds = displayTime ? pad(displayTime.getSeconds()) : NO_TIME;
 
-  const dateStr = displayTime.toLocaleDateString('en-US', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+  const dateStr = displayTime
+    ? displayTime.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+    : '';
 
-  const ampm = hour >= 12 ? 'PM' : 'AM';
+  const ampm = displayTime ? (hour >= 12 ? 'PM' : 'AM') : '';
 
   const shouldAnimate = mounted && !prefersReducedMotion;
   const contentOpacity = mounted ? 1 : 0;
